@@ -37,68 +37,86 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(length: 3, 
+    return DefaultTabController(
+        length: 3,
         child: Scaffold(
           appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(89.0),
-          child: AppBar(
-              title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              Icon(
-                Icons.favorite, // TODO: SHOULD BE IMAGE
-                color: Colors.white,
-              ),
-              Text(
-                ' SER ',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w100,
+              preferredSize: const Size.fromHeight(89.0),
+              child: AppBar(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    Icon(
+                      Icons.favorite, // TODO: SHOULD BE IMAGE
+                      color: Colors.white,
+                    ),
+                    Text(
+                      ' SER ',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w100,
+                      ),
+                    ),
+                    Text(
+                      'MANOS',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Text(
-                'MANOS',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(50.0),
+                  child: ColoredBox(
+                    color: Colors.blue[300]!,
+                    child: TabBar(
+                      unselectedLabelColor: Color.fromARGB(255, 216, 244, 54),
+                      indicator: BoxDecoration(
+                        color: Colors.blue[500]!,
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Colors.white, // Color for the indicator line
+                            width: 2.0, // Thickness of the indicator line
+                          ),
+                        ),
+                      ),
+                      tabs: [
+                        Tab(
+                          text: 'POSTULARSE',
+                        ),
+                        Tab(
+                          text: 'MI PERFIL',
+                        ),
+                        Tab(
+                          text: 'NOVEDADES',
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          bottom: const TabBar(
-            indicatorColor: Colors.red,
-            tabs: [
-              Tab(icon: Icon(Icons.directions_car)),
-              Tab(icon: Icon(Icons.directions_transit)),
-              Tab(icon: Icon(Icons.directions_bike)),
-            ],
-          ),
-        )
-        ),
+              )),
           body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'You have pushed the button this many times:',
-              ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-            ],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text(
+                  'You have pushed the button this many times:',
+                ),
+                Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+              ],
+            ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ),
-        
-        )
-      );
+          floatingActionButton: FloatingActionButton(
+            onPressed: _incrementCounter,
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          ),
+        ));
   }
-
 }
