@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/tokens/colors.dart';
 import 'package:mobile_charity_app/tokens/typography.dart';
 
-final ligthThemeSerManos =  ThemeData(
+final lightThemeSerManos =  ThemeData(
   primaryColor: SerManosColors.primary100,
   fontFamily: SerManosTypography.family,
 
