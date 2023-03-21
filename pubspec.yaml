@@ -26,8 +26,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/logos/Logo rectangular.png
-    - assets/logos/SER MANOS LOGO_Mesa de trabajo 1 1.png
+    - assets/logos/rectangular.png
+    - assets/logos/full.png
 
   fonts:
     - family: Roboto
