@@ -1,8 +1,13 @@
-class Group7Typography {
-  Group7Typography._();
+import 'package:flutter/material.dart';
+
+class SerManosTypography {
+  SerManosTypography._();
 
   //fonts
   static const String family = 'Roboto';
+  static const FontWeight regularFontWeight = FontWeight.w400;
+  static const FontWeight mediumFontWeight = FontWeight.w500;
+  static const FontWeight boldFontWeight = FontWeight.w700;
 
   static const double fontSizeHeading1 = 24;
 
@@ -14,4 +19,3 @@ class Group7Typography {
   static const double fontSizeCaption = 12;
   static const double fontSizeOverline = 10;
 }
-

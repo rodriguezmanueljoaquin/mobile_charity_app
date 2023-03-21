@@ -5,9 +5,10 @@
 //  ███████║██║·····██║··██║╚██████╗██║██║·╚████║╚██████╔╝
 //  ╚══════╝╚═╝·····╚═╝··╚═╝·╚═════╝╚═╝╚═╝··╚═══╝·╚═════╝·
 
-class Group7Spacing {
-  Group7Spacing._();
+class SerManosSpacing {
+  SerManosSpacing._();
 
+  // TODO
   static const double spaceXXS = 3;
   static const double spaceXS = 5;
   static const double spaceSM = 8;

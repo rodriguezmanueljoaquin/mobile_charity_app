@@ -10,15 +10,15 @@
 
 import 'package:flutter/material.dart';
 
-class Group7Colors {
-  Group7Colors._();
+class SerManosColors {
+  SerManosColors._();
 
   static const Color neutral0 = Color(0xFFFFFFFF);
   static const Color neutral10 = Color(0xFFFAFAFA);
   static const Color neutral25 = Color(0xFFE0E0E0);
   static const Color neutral50 = Color(0xFF9E9E9E);
   static const Color neutral75 = Color(0xFF666666);
-  static const Color neutral100 = Color(0xFFFFFFFF);
+  static const Color neutral100 = Color(0xFF191919);
   
   static const Color primary100 = Color(0xFF14903F);
   
