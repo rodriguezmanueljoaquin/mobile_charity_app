@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_charity_app/atoms/logos.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,28 +46,7 @@ class _HomePageState extends State<HomePage> {
               child: AppBar(
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    Icon(
-                      Icons.favorite, // TODO: SHOULD BE IMAGE
-                      color: Colors.white,
-                    ),
-                    Text(
-                      ' SER ',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w100,
-                      ),
-                    ),
-                    Text(
-                      'MANOS',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+                  children: [SerManosLogos.appBar, const Spacer()],
                 ),
                 bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(50.0),
