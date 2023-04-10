@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_charity_app/atoms/logos.dart';
+import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 
 void main() {
   runApp(const MyApp());
