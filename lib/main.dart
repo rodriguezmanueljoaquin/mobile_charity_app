@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
+import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 
 void main() {
   runApp(const MyApp());
@@ -95,7 +96,7 @@ class _HomePageState extends State<HomePage> {
           floatingActionButton: FloatingActionButton(
             onPressed: _incrementCounter,
             tooltip: 'Increment',
-            child: const Icon(Icons.add),
+            child: const SerManosIcon.add(),
           ),
         ));
   }
