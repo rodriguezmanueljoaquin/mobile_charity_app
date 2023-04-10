@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class SerManosShadows {
@@ -11,7 +10,7 @@ class SerManosShadows {
       blurRadius: 3,
     ),
     BoxShadow(
-      color: Colors.black.withOpacity(0.3), 
+      color: Colors.black.withOpacity(0.3),
       offset: const Offset(0, 1),
       blurRadius: 2,
     )
@@ -24,7 +23,7 @@ class SerManosShadows {
       blurRadius: 6,
     ),
     BoxShadow(
-      color: Colors.black.withOpacity(0.3), 
+      color: Colors.black.withOpacity(0.3),
       offset: const Offset(0, 1),
       blurRadius: 2,
     )
@@ -37,7 +36,7 @@ class SerManosShadows {
       blurRadius: 12,
     ),
     BoxShadow(
-      color: Colors.black.withOpacity(0.3), 
+      color: Colors.black.withOpacity(0.3),
       offset: const Offset(0, 4),
       blurRadius: 4,
     )
