@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
+import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/status_bar.dart';
 
 void main() {
@@ -91,6 +92,10 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   '$_counter',
                   style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                SerManosButton.shortButton(
+                  text: 'test',
+                  onPressed: () {},
                 ),
               ],
             ),
