@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
+import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/molecules/status_bar.dart';
 
 void main() {
@@ -42,6 +43,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -97,6 +99,7 @@ class _HomePageState extends State<HomePage> {
                   text: 'test',
                   onPressed: () {},
                 ),
+                SerManosTextField(label: "Label", placeholder: "Placeholder", controller: TextEditingController())
               ],
             ),
           ),
