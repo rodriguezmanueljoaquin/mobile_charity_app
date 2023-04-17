@@ -9,6 +9,7 @@ class SerManosTextFormField extends StatefulWidget {
   final String? placeholder;
   final String? errorText;
   final bool disabled;
+  final bool required;
   final String? Function(String?)? validator;
   final bool isPassword;
 
@@ -19,6 +20,7 @@ class SerManosTextFormField extends StatefulWidget {
       this.placeholder,
       this.validator,
       this.errorText,
+      this.required = true,
       this.disabled = false,
       this.isPassword = false});
 
@@ -38,9 +40,17 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
 
   String? Function(String?)? _validator() {
     return (String? value) {
-      // TODO: Add required validator
+      if (widget.required && (value == null || value.isEmpty)) {
+        Future.delayed(Duration.zero, () {
+          setState(() {
+            _hasError = true;
+          });
+        });
+        return 'Este campo es requerido';
+      }
+
       final errorMsg = widget.validator?.call(value);
-      if(errorMsg!= null && !_hasError) {
+      if (errorMsg != null && !_hasError) {
         Future.delayed(Duration.zero, () {
           setState(() {
             _hasError = true;
@@ -71,22 +81,28 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
           labelText: widget.label,
           hintText: widget.placeholder,
           enabled: !widget.disabled,
-          suffixIcon: widget.isPassword? IconButton(
-              icon: SerManosIcon.visibility(state: _visible),
-              onPressed: () {
-                  setState(() {
+          suffixIcon: widget.isPassword
+              ? IconButton(
+                  icon: SerManosIcon.visibility(state: _visible),
+                  onPressed: () {
+                    setState(() {
                       _visible = !_visible;
-                  });
-                },
-              ): null,
+                    });
+                  },
+                )
+              : _hasError ? const SerManosIcon.error() : null,
           labelStyle: SerManosTextStyle.subtitle1(
-            color:
-                widget.disabled ? SerManosColors.neutral50 : 
-                  _hasError? SerManosColors.error100 : SerManosColors.neutral75,
+            color: widget.disabled
+                ? SerManosColors.neutral50
+                : _hasError
+                    ? SerManosColors.error100
+                    : SerManosColors.neutral75,
           ),
           hintStyle: SerManosTextStyle.subtitle1(
-            color:
-                widget.disabled ? SerManosColors.neutral50 : SerManosColors.neutral75, // TODO: should be secondary200 when focus
+            color: widget.disabled
+                ? SerManosColors.neutral50
+                : SerManosColors
+                    .neutral75, // TODO: should be secondary200 when focus
           ),
           errorStyle: const SerManosTextStyle.subtitle1(
             color: SerManosColors.error100,
