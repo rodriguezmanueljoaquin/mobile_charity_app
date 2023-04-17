@@ -66,6 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                   placeholder: 'Ingrese su contraseña',
                   validator: passwordValidator,
                   errorText: _passwordError,
+                  isPassword: true,
                 ),
                 const SizedBox(height: 16.0),
                 SerManosButton.longButton(
