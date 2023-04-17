@@ -3,7 +3,8 @@ import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
-import 'package:mobile_charity_app/design_system/molecules/status_bar.dart';
+import 'package:mobile_charity_app/pages/login.dart';
+import 'package:mobile_charity_app/utils/validators.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,13 +15,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'SER MANOS',
-      theme: ThemeData(
-        appBarTheme: const SerManosStatusBar(),
-        primarySwatch: Colors.lightBlue,
-      ),
-      home: const HomePage(),
+      home: LoginPage(),
+      // home: const HomePage(),
     );
   }
 }
@@ -43,7 +41,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -99,7 +96,11 @@ class _HomePageState extends State<HomePage> {
                   text: 'test',
                   onPressed: () {},
                 ),
-                SerManosTextField(label: "Label", placeholder: "Placeholder", controller: TextEditingController())
+                SerManosTextFormField(
+                    label: "Label",
+                    placeholder: "Placeholder",
+                    controller: TextEditingController(),
+                    validator: emailValidator)
               ],
             ),
           ),
