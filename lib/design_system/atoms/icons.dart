@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 
 class SerManosIcon extends Icon {
   const SerManosIcon.visibility({super.key, required bool state, super.color})
@@ -34,10 +35,13 @@ class SerManosIcon extends Icon {
 
   const SerManosIcon.close({super.key, super.color}) : super(Icons.close);
 
-  const SerManosIcon.error({super.key, required bool state, super.color})
-      : super(state ? Icons.error : Icons.error_outline);
+  const SerManosIcon.error({super.key})
+      : super(Icons.error, color: SerManosColors.error100);
 
-  const SerManosIcon.errorTwoTone({super.key, super.color})
+  const SerManosIcon.errorOutline({super.key})
+      : super(Icons.error_outline, color: SerManosColors.error100);
+
+  const SerManosIcon.errorTwoTone({super.key})
       : super(Icons
-            .error_outline_sharp); // FIXME: Should be two_tone not sharp, but two_tone is not available
+            .error_outline_sharp, color: SerManosColors.error100); // FIXME: Should be two_tone not sharp, but two_tone is not available
 }
