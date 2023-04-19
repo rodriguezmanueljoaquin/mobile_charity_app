@@ -11,13 +11,11 @@ import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 class VolunteeringCard extends StatefulWidget {
   final String category;
   final String title;
-  final Function(bool)? onFavorite;
 
   const VolunteeringCard({
     super.key,
     required this.category,
     required this.title,
-    this.onFavorite,
   });
 
   @override
@@ -47,7 +45,6 @@ class _VolunteeringCardState extends State<VolunteeringCard> {
                 setState(() {
                   _isFavorite = !_isFavorite;
                 });
-                widget.onFavorite?.call(_isFavorite);
               },
               icon: SerManosIcon.favorite(
                 state: _isFavorite,

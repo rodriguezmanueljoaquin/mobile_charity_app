@@ -63,9 +63,6 @@ class _HomePageState extends State<HomePage> {
               VolunteeringCard(
                 category: 'acción social',
                 title: 'Un Techo para mi País',
-                onFavorite: (bool isFavorite) {
-                  print(isFavorite);
-                },
               ),
             ],
           ),
