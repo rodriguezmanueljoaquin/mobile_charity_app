@@ -4,6 +4,7 @@ import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
+import 'package:mobile_charity_app/pages/register.dart';
 import 'package:mobile_charity_app/utils/validators.dart';
 
 class LoginPage extends StatefulWidget {
@@ -94,7 +95,16 @@ class _LoginPageState extends State<LoginPage> {
           SerManosButton.longButton(
             text: 'No tengo cuenta',
             filled: false,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const RegisterPage();
+                  },
+                ),
+              );
+            },
           ),
           const SerManosSizedBox.lg(),
         ],
