@@ -3,11 +3,10 @@ import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
-import 'package:mobile_charity_app/main.dart';
 import 'package:mobile_charity_app/pages/login.dart';
 
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key});
+class EntryPage extends StatelessWidget {
+  const EntryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +18,6 @@ class WelcomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SerManosLogos.full,
-                const SizedBox(height: 30),
-                SerManosText.headline1('¡Bienvenido!'),
-                const SizedBox(height: 48),
                 SerManosText.subtitle1(
                   '"El esfuerzo desinteresado para llevar alegría a los demás será el comienzo de una vida más feliz para nosotros"',
                   textAlign: TextAlign.center,
@@ -30,17 +26,23 @@ class WelcomePage extends StatelessWidget {
             ),
           ),
           SerManosButton.longButton(
-            text: 'Comenzar',
+            text: 'Iniciar Sesión',
             onPressed: () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const HomePage(),
+                  builder: (context) => const LoginPage(),
                 ),
               );
             },
           ),
-          const SizedBox(height: 92),
+          const SizedBox(height: 16),
+          SerManosButton.longButton(
+            text: 'Registrarse',
+            filled: false,
+            onPressed: () {},
+          ),
+          const SizedBox(height: 32),
         ],
       ),
     );
