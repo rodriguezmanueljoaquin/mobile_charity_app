@@ -60,22 +60,14 @@ class _LoginPageState extends State<LoginPage> {
                   onChanged: _inputListener,
                   child: Column(
                     children: [
-                      SerManosTextFormField(
+                      SerManosEmailFormField(
                         controller: _emailController,
-                        label: 'Email',
                         placeholder: 'Ingrese su email',
-                        validator: emailValidator,
-                        errorText: _emailError,
                       ),
                       const SerManosSizedBox.sm(),
-                      SerManosTextFormField(
-                        // TODO password text field
+                      SerManosPasswordFormField(
                         controller: _passwordController,
-                        label: 'Contraseña',
                         placeholder: 'Ingrese su contraseña',
-                        validator: passwordValidator,
-                        errorText: _passwordError,
-                        isPassword: true,
                       ),
                     ],
                   ),
