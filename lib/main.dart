@@ -3,6 +3,7 @@ import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
+import 'package:mobile_charity_app/pages/entry.dart';
 import 'package:mobile_charity_app/pages/login.dart';
 import 'package:mobile_charity_app/pages/register.dart';
 import 'package:mobile_charity_app/pages/welcome.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       // home: LoginPage(),
       // home: HomePage(),
       // home: RegisterPage(),
-      home: WelcomePage(),
+      home: EntryPage(),
     );
   }
 }
