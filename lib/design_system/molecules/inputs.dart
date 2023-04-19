@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
+import 'package:mobile_charity_app/utils/validators.dart';
 
 class SerManosTextFormField extends StatefulWidget {
   final TextEditingController controller;
@@ -81,16 +82,26 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
           labelText: widget.label,
           hintText: widget.placeholder,
           enabled: !widget.disabled,
+          contentPadding: const EdgeInsets.only(
+            left: 16,
+          ),
           suffixIcon: widget.isPassword
               ? IconButton(
-                  icon: SerManosIcon.visibility(state: _visible),
+                  icon: SerManosIcon.visibility(
+                    state: _visible,
+                    color: _hasError
+                        ? SerManosColors.error100
+                        : SerManosColors.neutral75,
+                  ),
                   onPressed: () {
                     setState(() {
                       _visible = !_visible;
                     });
                   },
                 )
-              : _hasError ? const SerManosIcon.error() : null,
+              : _hasError
+                  ? const SerManosIcon.error()
+                  : null,
           labelStyle: SerManosTextStyle.subtitle1(
             color: widget.disabled
                 ? SerManosColors.neutral50
@@ -104,7 +115,7 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
                 : SerManosColors
                     .neutral75, // TODO: should be secondary200 when focus
           ),
-          errorStyle: const SerManosTextStyle.subtitle1(
+          errorStyle: const SerManosTextStyle.body2(
             color: SerManosColors.error100,
           ),
           enabledBorder: const OutlineInputBorder(
@@ -134,6 +145,43 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class SerManosEmailFormField extends StatelessWidget {
+  final TextEditingController controller;
+  final String? placeholder;
+
+  const SerManosEmailFormField(
+      {super.key, required this.controller, this.placeholder});
+
+  @override
+  Widget build(BuildContext context) {
+    return SerManosTextFormField(
+      controller: controller,
+      label: 'Email',
+      placeholder: placeholder,
+      validator: emailValidator,
+    );
+  }
+}
+
+class SerManosPasswordFormField extends StatelessWidget {
+  final TextEditingController controller;
+  final String? placeholder;
+
+  const SerManosPasswordFormField(
+      {super.key, required this.controller, this.placeholder});
+
+  @override
+  Widget build(BuildContext context) {
+    return SerManosTextFormField(
+      controller: controller,
+      label: 'Contraseña',
+      placeholder: placeholder,
+      validator: passwordValidator,
+      isPassword: true,
     );
   }
 }
