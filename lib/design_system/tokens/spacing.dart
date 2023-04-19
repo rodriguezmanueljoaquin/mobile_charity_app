@@ -8,6 +8,6 @@ class SerManosSpacing {
   static const double spaceSL = 16;
   static const double spaceMD = 24;
   static const double spaceLG = 32;
-  static const double spaceXL = 55;
+  static const double spaceXL = 48;
   static const double spaceXXL = 89;
 }
