@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'SER MANOS',
-      // home: LoginPage(),
+      home: LoginPage(),
       // home: const HomePage(),
-      home: RegisterPage(),
+      // home: RegisterPage(),
     );
   }
 }

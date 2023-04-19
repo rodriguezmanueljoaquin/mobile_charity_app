@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
+import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
+import 'package:mobile_charity_app/pages/register.dart';
 import 'package:mobile_charity_app/utils/validators.dart';
 
 class LoginPage extends StatefulWidget {
@@ -30,12 +32,15 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _inputListener() {
-    if(_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+    if (_emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty) {
       setState(() {
         _allowSubmittion = _formKey.currentState!.validate();
-      });      
+      });
     } else if (_allowSubmittion) {
-      setState(() {_allowSubmittion = false;});
+      setState(() {
+        _allowSubmittion = false;
+      });
     }
   }
 
@@ -43,43 +48,57 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return SerManosScaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SerManosLogos.full,
-          const SizedBox(height: 32.0),
-          Form(
-            key: _formKey,
-            onChanged: _inputListener,
+          Expanded(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SerManosTextFormField(
-                  controller: _emailController,
-                  label: 'Email',
-                  placeholder: 'Ingrese su email',
-                  validator: emailValidator,
-                  errorText: _emailError,
-                ),
-                const SizedBox(height: 16.0),
-                SerManosTextFormField( // TODO password text field
-                  controller: _passwordController,
-                  label: 'Contraseña',
-                  placeholder: 'Ingrese su contraseña',
-                  validator: passwordValidator,
-                  errorText: _passwordError,
-                  isPassword: true,
-                ),
-                const SizedBox(height: 16.0),
-                SerManosButton.longButton(
-                  text: 'Iniciar Sesión',
-                  onPressed: () {
-                    // if (_formKey.currentState!.validate()) {
-                    //   Navigator.pushNamed(context, '/home');
-                    // }
-                  },
+                SerManosLogos.full,
+                const SerManosSizedBox.lg(),
+                Form(
+                  key: _formKey,
+                  onChanged: _inputListener,
+                  child: Column(
+                    children: [
+                      SerManosEmailFormField(
+                        controller: _emailController,
+                        placeholder: 'Ingrese su email',
+                      ),
+                      const SerManosSizedBox.sm(),
+                      SerManosPasswordFormField(
+                        controller: _passwordController,
+                        placeholder: 'Ingrese su contraseña',
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
+          SerManosButton.longButton(
+            text: 'Iniciar Sesión',
+            onPressed: () {
+              // if (_formKey.currentState!.validate()) {
+              //   Navigator.pushNamed(context, '/home');
+              // }
+            },
+          ),
+          const SerManosSizedBox.sl(),
+          SerManosButton.longButton(
+            text: 'No tengo cuenta',
+            filled: false,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const RegisterPage();
+                  },
+                ),
+              );
+            },
+          ),
+          const SerManosSizedBox.lg(),
         ],
       ),
     );
