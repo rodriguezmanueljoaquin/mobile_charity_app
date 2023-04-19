@@ -6,6 +6,7 @@ import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
 import 'package:mobile_charity_app/main.dart';
 import 'package:mobile_charity_app/pages/register.dart';
+import 'package:mobile_charity_app/pages/welcome.dart';
 import 'package:mobile_charity_app/utils/validators.dart';
 
 class LoginPage extends StatefulWidget {
@@ -84,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const HomePage();
+                    return const WelcomePage();
                   },
                 ),
               );

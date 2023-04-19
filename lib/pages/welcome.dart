@@ -19,7 +19,7 @@ class WelcomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SerManosLogos.full,
-                const SizedBox(height: 30),
+                const SerManosSizedBox.lg(),
                 SerManosText.headline1('¡Bienvenido!'),
                 const SerManosSizedBox.xl(),
                 SerManosText.subtitle1(
