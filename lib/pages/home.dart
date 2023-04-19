@@ -3,6 +3,7 @@ import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
+import 'package:mobile_charity_app/design_system/organisms/cards/news_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_card.dart';
 import 'package:mobile_charity_app/utils/validators.dart';
 
@@ -60,9 +61,15 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              VolunteeringCard(
-                category: 'acción social',
-                title: 'Un Techo para mi País',
+              // VolunteeringCard(
+              //   category: 'acción social',
+              //   title: 'Un Techo para mi País',
+              // ),
+              NewsCard(
+                overline: 'reporte 2820',
+                title: 'Ser donante voluntario',
+                body:
+                    'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
               ),
             ],
           ),
