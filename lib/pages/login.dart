@@ -4,6 +4,7 @@ import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
+import 'package:mobile_charity_app/main.dart';
 import 'package:mobile_charity_app/pages/register.dart';
 import 'package:mobile_charity_app/utils/validators.dart';
 
@@ -79,7 +80,14 @@ class _LoginPageState extends State<LoginPage> {
             text: 'Iniciar Sesión',
             onPressed: () {
               // if (_formKey.currentState!.validate()) {
-              //   Navigator.pushNamed(context, '/home');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const HomePage();
+                  },
+                ),
+              );
               // }
             },
           ),

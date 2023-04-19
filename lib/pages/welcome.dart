@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
+import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/main.dart';
-import 'package:mobile_charity_app/pages/login.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -21,7 +21,7 @@ class WelcomePage extends StatelessWidget {
                 SerManosLogos.full,
                 const SizedBox(height: 30),
                 SerManosText.headline1('¡Bienvenido!'),
-                const SizedBox(height: 48),
+                const SerManosSizedBox.xl(),
                 SerManosText.subtitle1(
                   'Nunca subestimes tu habilidad para mejorar la vida de alguien.',
                   textAlign: TextAlign.center,
