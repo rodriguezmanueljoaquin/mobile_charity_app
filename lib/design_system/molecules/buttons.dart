@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
+import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
+import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
 class SerManosButton extends TextButton {
@@ -76,5 +78,23 @@ class SerManosButton extends TextButton {
             disabledBackgroundColor: SerManosColors.neutral25,
             foregroundColor: SerManosColors.neutral10,
           ),
+        );
+}
+
+class SerManosIconButton extends IconButton {
+  const SerManosIconButton({
+    super.key,
+    onPressed,
+    required Icon icon,
+    bool disabled = false,
+  }) : super(
+          onPressed: disabled ? null : onPressed,
+          icon: icon,
+          iconSize: SerManosSpacing.spaceMD,
+          padding: const EdgeInsets.all(0),
+          constraints: const BoxConstraints(),
+          hoverColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
         );
 }
