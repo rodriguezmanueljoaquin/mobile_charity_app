@@ -8,19 +8,75 @@ class SerManosSizedBox extends SizedBox {
   const SerManosSizedBox.width({super.key, required double width})
       : super(width: width);
 
-  const SerManosSizedBox.xxs({super.key}) : super(height: SerManosSpacing.spaceXXS);
+  const SerManosSizedBox.xxs({
+    super.key,
+    bool useHeight = true,
+    bool useWidth = false,
+  }) : super(
+          height: useHeight ? SerManosSpacing.spaceXXS : null,
+          width: useWidth ? SerManosSpacing.spaceXXS : null,
+        );
 
-  const SerManosSizedBox.xs({super.key}) : super(height: SerManosSpacing.spaceXS);
+  const SerManosSizedBox.xs({
+    super.key,
+    bool useHeight = true,
+    bool useWidth = false,
+  }) : super(
+          height: useHeight ? SerManosSpacing.spaceXS : null,
+          width: useWidth ? SerManosSpacing.spaceXS : null,
+        );
 
-  const SerManosSizedBox.sm({super.key}) : super(height: SerManosSpacing.spaceSM);
+  const SerManosSizedBox.sm({
+    super.key,
+    bool useHeight = true,
+    bool useWidth = false,
+  }) : super(
+          height: useHeight ? SerManosSpacing.spaceSM : null,
+          width: useWidth ? SerManosSpacing.spaceSM : null,
+        );
 
-  const SerManosSizedBox.sl({super.key}) : super(height: SerManosSpacing.spaceSL);
+  const SerManosSizedBox.sl({
+    super.key,
+    bool useHeight = true,
+    bool useWidth = false,
+  }) : super(
+          height: useHeight ? SerManosSpacing.spaceSL : null,
+          width: useWidth ? SerManosSpacing.spaceSL : null,
+        );
 
-  const SerManosSizedBox.md({super.key}) : super(height: SerManosSpacing.spaceMD);
+  const SerManosSizedBox.md({
+    super.key,
+    bool useHeight = true,
+    bool useWidth = false,
+  }) : super(
+          height: useHeight ? SerManosSpacing.spaceMD : null,
+          width: useWidth ? SerManosSpacing.spaceMD : null,
+        );
 
-  const SerManosSizedBox.lg({super.key}) : super(height: SerManosSpacing.spaceLG);
+  const SerManosSizedBox.lg({
+    super.key,
+    bool useHeight = true,
+    bool useWidth = false,
+  }) : super(
+          height: useHeight ? SerManosSpacing.spaceLG : null,
+          width: useWidth ? SerManosSpacing.spaceLG : null,
+        );
 
-  const SerManosSizedBox.xl({super.key}) : super(height: SerManosSpacing.spaceXL);
+  const SerManosSizedBox.xl({
+    super.key,
+    bool useHeight = true,
+    bool useWidth = false,
+  }) : super(
+          height: useHeight ? SerManosSpacing.spaceXL : null,
+          width: useWidth ? SerManosSpacing.spaceXL : null,
+        );
 
-  const SerManosSizedBox.xxl({super.key}) : super(height: SerManosSpacing.spaceXXL);
+  const SerManosSizedBox.xxl({
+    super.key,
+    bool useHeight = true,
+    bool useWidth = false,
+  }) : super(
+          height: useHeight ? SerManosSpacing.spaceXXL : null,
+          width: useWidth ? SerManosSpacing.spaceXXL : null,
+        );
 }
