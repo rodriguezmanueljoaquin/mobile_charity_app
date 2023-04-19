@@ -5,6 +5,7 @@ import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/pages/login.dart';
 import 'package:mobile_charity_app/pages/register.dart';
+import 'package:mobile_charity_app/pages/welcome.dart';
 import 'package:mobile_charity_app/utils/validators.dart';
 
 void main() {
@@ -19,8 +20,9 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'SER MANOS',
       // home: LoginPage(),
-      // home: const HomePage(),
-      home: RegisterPage(),
+      // home: HomePage(),
+      // home: RegisterPage(),
+      home: WelcomePage(),
     );
   }
 }
