@@ -23,7 +23,7 @@ class WelcomePage extends StatelessWidget {
                 SerManosText.headline1('¡Bienvenido!'),
                 const SizedBox(height: 48),
                 SerManosText.subtitle1(
-                  '"El esfuerzo desinteresado para llevar alegría a los demás será el comienzo de una vida más feliz para nosotros"',
+                  'Nunca subestimes tu habilidad para mejorar la vida de alguien.',
                   textAlign: TextAlign.center,
                 ),
               ],
