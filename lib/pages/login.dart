@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
+import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
@@ -52,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SerManosLogos.full,
-                const SizedBox(height: 32.0),
+                const SerManosSizedBox.lg(),
                 Form(
                   key: _formKey,
                   onChanged: _inputListener,
@@ -65,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                         validator: emailValidator,
                         errorText: _emailError,
                       ),
-                      const SizedBox(height: 8.0),
+                      const SerManosSizedBox.sm(),
                       SerManosTextFormField(
                         // TODO password text field
                         controller: _passwordController,
@@ -89,11 +90,13 @@ class _LoginPageState extends State<LoginPage> {
               // }
             },
           ),
+          const SerManosSizedBox.sl(),
           SerManosButton.longButton(
             text: 'No tengo cuenta',
             filled: false,
             onPressed: () {},
           ),
+          const SerManosSizedBox.lg(),
         ],
       ),
     );
