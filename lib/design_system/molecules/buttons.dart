@@ -79,6 +79,43 @@ class SerManosButton extends TextButton {
             foregroundColor: SerManosColors.neutral10,
           ),
         );
+
+  SerManosButton.shortTextButton({
+    super.key,
+    onPressed,
+    onLongPress,
+    required String text,
+    bool disabled = false,
+    bool filled = true,
+  }) : super(
+          onPressed: disabled ? null : onPressed,
+          onLongPress: disabled ? null : onLongPress,
+          child: Container(
+            margin: const EdgeInsets.symmetric(
+              horizontal: SerManosSpacing.spaceSM,
+              vertical: 12.0,
+            ),
+            height: null,
+            width: null,
+            child: Text(
+              text,
+              style: SerManosTextStyle.button(
+                color: disabled
+                    ? SerManosColors.neutral50
+                    : filled
+                        ? SerManosColors.neutral0
+                        : SerManosColors.primary100,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          style: TextButton.styleFrom(
+            backgroundColor: filled ? SerManosColors.primary100 : SerManosColors.neutral0,
+            disabledBackgroundColor: SerManosColors.neutral25,
+            foregroundColor:
+                filled ? SerManosColors.neutral10 : SerManosColors.neutral25,
+          ),
+        );
 }
 
 class SerManosIconButton extends IconButton {
