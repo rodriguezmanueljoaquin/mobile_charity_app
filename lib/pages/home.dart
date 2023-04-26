@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
-import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
-import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
+import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/news_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_card.dart';
-import 'package:mobile_charity_app/utils/validators.dart';
+import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -57,19 +55,32 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             )),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              // VolunteeringCard(
-              //   category: 'acción social',
-              //   title: 'Un Techo para mi País',
-              // ),
-              NewsCard(
-                overline: 'reporte 2820',
-                title: 'Ser donante voluntario',
-                body:
-                    'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: SerManosSpacing.spaceSL),
+          child: TabBarView(
+            children: [
+              ListView.separated(
+                itemBuilder: (context, index) => VolunteeringCard(
+                  category: 'Acción Social',
+                  title: 'Un Techo para mi País',
+                ),
+                separatorBuilder: (context, index) => const SerManosSizedBox.md(),
+                itemCount: 5,
+              ),
+              Container(
+                color: Colors.amberAccent,
+                child: Center(
+                  child: Text('Mi Perfil'),
+                ),
+              ),
+              ListView.separated(
+                itemBuilder: (context, index) => NewsCard(
+                  overline: 'reporte 2820',
+                  title: 'Ser donante voluntario',
+                  body: 'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
+                ),
+                separatorBuilder: (context, index) => const SerManosSizedBox.md(),
+                itemCount: 5,
               ),
             ],
           ),
