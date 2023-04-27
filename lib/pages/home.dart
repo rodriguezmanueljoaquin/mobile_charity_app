@@ -63,6 +63,7 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) => VolunteeringCard(
                   category: 'Acción Social',
                   title: 'Un Techo para mi País',
+                  description: 'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
                 ),
                 separatorBuilder: (context, index) => const SerManosSizedBox.md(),
                 itemCount: 5,
