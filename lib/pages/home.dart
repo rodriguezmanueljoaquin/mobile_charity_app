@@ -55,36 +55,34 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             )),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: SerManosSpacing.spaceSL),
-          child: TabBarView(
-            children: [
-              ListView.separated(
-                itemBuilder: (context, index) => VolunteeringCard(
-                  category: 'Acción Social',
-                  title: 'Un Techo para mi País',
-                  description: 'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
-                ),
-                separatorBuilder: (context, index) => const SerManosSizedBox.md(),
-                itemCount: 5,
+        body: TabBarView(
+          children: [
+            ListView.separated(
+              padding: const EdgeInsets.fromLTRB(SerManosSpacing.spaceSL, 0, SerManosSpacing.spaceSL, SerManosSpacing.spaceSL),
+              itemBuilder: (context, index) => VolunteeringCard(
+                category: 'Acción Social',
+                title: 'Un Techo para mi País',
+                description: 'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
               ),
-              Container(
-                color: Colors.amberAccent,
-                child: Center(
-                  child: Text('Mi Perfil'),
-                ),
+              separatorBuilder: (context, index) => const SerManosSizedBox.md(),
+              itemCount: 5,
+            ),
+            Container(
+              color: Colors.amberAccent,
+              child: Center(
+                child: Text('Mi Perfil'),
               ),
-              ListView.separated(
-                itemBuilder: (context, index) => NewsCard(
-                  overline: 'reporte 2820',
-                  title: 'Ser donante voluntario',
-                  body: 'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
-                ),
-                separatorBuilder: (context, index) => const SerManosSizedBox.md(),
-                itemCount: 5,
+            ),
+            ListView.separated(
+              itemBuilder: (context, index) => NewsCard(
+                overline: 'reporte 2820',
+                title: 'Ser donante voluntario',
+                body: 'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
               ),
-            ],
-          ),
+              separatorBuilder: (context, index) => const SerManosSizedBox.md(),
+              itemCount: 5,
+            ),
+          ],
         ),
       ),
     );
