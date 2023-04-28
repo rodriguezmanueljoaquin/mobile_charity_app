@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
+import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/news_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_card.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
@@ -13,6 +14,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -58,14 +61,28 @@ class _HomePageState extends State<HomePage> {
         body: TabBarView(
           children: [
             ListView.separated(
-              padding: const EdgeInsets.fromLTRB(SerManosSpacing.spaceSL, 0, SerManosSpacing.spaceSL, SerManosSpacing.spaceSL),
-              itemBuilder: (context, index) => VolunteeringCard(
-                category: 'Acción Social',
-                title: 'Un Techo para mi País',
-                description: 'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
+              padding: const EdgeInsets.fromLTRB(
+                SerManosSpacing.spaceSL,
+                SerManosSpacing.spaceMD,
+                SerManosSpacing.spaceSL,
+                SerManosSpacing.spaceSL,
               ),
-              separatorBuilder: (context, index) => const SerManosSizedBox.md(),
-              itemCount: 5,
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return SerManosSearchField(controller: searchController);
+                }
+
+                return const VolunteeringCard(
+                  category: 'Acción Social',
+                  title: 'Un Techo para mi País',
+                  description:
+                      'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
+                );
+              },
+              separatorBuilder: (context, index) => index == 0
+                  ? const SerManosSizedBox.lg()
+                  : const SerManosSizedBox.md(),
+              itemCount: 5 + 1,
             ),
             Container(
               color: Colors.amberAccent,
@@ -77,7 +94,8 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) => NewsCard(
                 overline: 'reporte 2820',
                 title: 'Ser donante voluntario',
-                body: 'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
+                body:
+                    'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
               ),
               separatorBuilder: (context, index) => const SerManosSizedBox.md(),
               itemCount: 5,
