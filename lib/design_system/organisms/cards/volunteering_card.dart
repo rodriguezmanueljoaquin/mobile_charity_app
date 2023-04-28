@@ -7,15 +7,18 @@ import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
+import 'package:mobile_charity_app/pages/volunteering.dart';
 
 class VolunteeringCard extends StatefulWidget {
   final String category;
   final String title;
+  final String description;
 
   const VolunteeringCard({
     super.key,
     required this.category,
     required this.title,
+    required this.description,
   });
 
   @override
@@ -67,33 +70,44 @@ class _VolunteeringCardState extends State<VolunteeringCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 328,
-      decoration: BoxDecoration(
-        color: SerManosColors.neutral0,
-        boxShadow: SerManosShadows.shadow2,
+    return InkWell(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => VolunteeringPage(
+            description: widget.description,
+            title: widget.title,
+          ),
+        ),
       ),
-      child: Column(
-        children: [
-          Container(
-            height: 138,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: SerManosLogos.full.image,
-                fit: BoxFit.contain,
+      child: Container(
+        width: 328,
+        decoration: BoxDecoration(
+          color: SerManosColors.neutral0,
+          boxShadow: SerManosShadows.shadow2,
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: 138,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: SerManosLogos.full.image,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              SerManosSpacing.spaceSL,
-              SerManosSpacing.spaceSM,
-              SerManosSpacing.spaceSL,
-              SerManosSpacing.spaceSL,
-            ),
-            child: _buildInformation(),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                SerManosSpacing.spaceSL,
+                SerManosSpacing.spaceSM,
+                SerManosSpacing.spaceSL,
+                SerManosSpacing.spaceSL,
+              ),
+              child: _buildInformation(),
+            )
+          ],
+        ),
       ),
     );
   }
