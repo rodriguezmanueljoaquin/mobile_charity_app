@@ -4,11 +4,10 @@ import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 
 class RegisterForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
+  final Function changeDisabledStateTo;
 
-  const RegisterForm({
-    super.key,
-    required this.formKey,
-  });
+  const RegisterForm(
+      {super.key, required this.formKey, required this.changeDisabledStateTo});
 
   @override
   State<RegisterForm> createState() => _RegisterFormState();
@@ -36,10 +35,12 @@ class _RegisterFormState extends State<RegisterForm> {
         _passwordController.text.isNotEmpty &&
         _firstNameController.text.isNotEmpty &&
         _lastNameController.text.isNotEmpty) {
+      widget.changeDisabledStateTo(!widget.formKey.currentState!.validate());
       setState(() {
-        _allowSubmittion = widget.formKey.currentState!.validate();
+        _allowSubmittion = true;
       });
     } else if (_allowSubmittion) {
+      widget.changeDisabledStateTo(true);
       setState(() {
         _allowSubmittion = false;
       });

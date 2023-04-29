@@ -16,6 +16,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _disabled = true;
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +26,18 @@ class _RegisterPageState extends State<RegisterPage> {
           const SerManosSizedBox.lg(),
           SerManosLogos.full,
           const SerManosSizedBox.lg(),
-          RegisterForm(formKey: _formKey),
+          RegisterForm(
+            formKey: _formKey,
+            changeDisabledStateTo: (bool state) {
+              setState(() {
+                _disabled = state;
+              });
+            },
+          ),
           const SerManosSizedBox.height(height: 104),
           SerManosButton.longButton(
             text: 'Registrarse',
+            disabled: _disabled,
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 Navigator.push(

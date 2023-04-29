@@ -16,6 +16,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  bool _disabled = true;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +28,18 @@ class _LoginPageState extends State<LoginPage> {
             const SerManosSizedBox.lg(),
             SerManosLogos.full,
             const SerManosSizedBox.lg(),
-            LoginForm(formKey: _formKey),
+            LoginForm(
+              formKey: _formKey,
+              changeDisabledStateTo: (bool state) {
+                setState(() {
+                  _disabled = state;
+                });
+              },
+            ),
             const SerManosSizedBox.height(height: 104),
             SerManosButton.longButton(
               text: 'Iniciar Sesión',
+              disabled: _disabled,
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   Navigator.push(
