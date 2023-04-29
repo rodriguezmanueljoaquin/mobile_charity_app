@@ -20,6 +20,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _allowSubmittion = false;
 
   @override
   void dispose() {
@@ -30,30 +31,48 @@ class _RegisterFormState extends State<RegisterForm> {
     super.dispose();
   }
 
+  void _inputListener() {
+    if (_emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty &&
+        _firstNameController.text.isNotEmpty &&
+        _lastNameController.text.isNotEmpty) {
+      setState(() {
+        _allowSubmittion = widget.formKey.currentState!.validate();
+      });
+    } else if (_allowSubmittion) {
+      setState(() {
+        _allowSubmittion = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      SerManosTextFormField(
-        controller: _firstNameController,
-        label: 'Nombre',
-        placeholder: 'Ej: Juan',
-      ),
-      const SerManosSizedBox.sm(),
-      SerManosTextFormField(
-        controller: _lastNameController,
-        label: 'Apellido',
-        placeholder: 'Ej: Barcena',
-      ),
-      const SerManosSizedBox.sm(),
-      SerManosEmailFormField(
-        controller: _emailController,
-        placeholder: 'Ej: juanbarcena@mail.com',
-      ),
-      const SerManosSizedBox.sm(),
-      SerManosPasswordFormField(
-        controller: _passwordController,
-        placeholder: 'Ej: ABCD1234',
-      ),
-    ]);
+    return Form(
+        key: widget.formKey,
+        onChanged: _inputListener,
+        child: Column(children: [
+          SerManosTextFormField(
+            controller: _firstNameController,
+            label: 'Nombre',
+            placeholder: 'Ej: Juan',
+          ),
+          const SerManosSizedBox.sm(),
+          SerManosTextFormField(
+            controller: _lastNameController,
+            label: 'Apellido',
+            placeholder: 'Ej: Barcena',
+          ),
+          const SerManosSizedBox.sm(),
+          SerManosEmailFormField(
+            controller: _emailController,
+            placeholder: 'Ej: juanbarcena@mail.com',
+          ),
+          const SerManosSizedBox.sm(),
+          SerManosPasswordFormField(
+            controller: _passwordController,
+            placeholder: 'Ej: ABCD1234',
+          ),
+        ]));
   }
 }
