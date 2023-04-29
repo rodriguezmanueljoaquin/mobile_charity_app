@@ -61,11 +61,9 @@ class _HomePageState extends State<HomePage> {
         body: TabBarView(
           children: [
             ListView.separated(
-              padding: const EdgeInsets.fromLTRB(
-                SerManosSpacing.spaceSL,
-                SerManosSpacing.spaceMD,
-                SerManosSpacing.spaceSL,
-                SerManosSpacing.spaceSL,
+              padding: const EdgeInsets.symmetric(
+                horizontal: SerManosSpacing.spaceSL,
+                vertical: SerManosSpacing.spaceMD,
               ),
               itemBuilder: (context, index) {
                 if (index == 0) {
@@ -91,6 +89,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             ListView.separated(
+              padding: const EdgeInsets.symmetric(
+                horizontal: SerManosSpacing.spaceSL,
+                vertical: SerManosSpacing.spaceLG,
+              ),
               itemBuilder: (context, index) => NewsCard(
                 overline: 'reporte 2820',
                 title: 'Ser donante voluntario',
