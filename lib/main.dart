@@ -16,11 +16,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'SER MANOS',
-      // home: LoginPage(),
-      home: HomePage(),
+      home: LoginPage(),
+      // home: HomePage(),
       // home: RegisterPage(),
       // home: EntryPage(),
       // home: WelcomePage(),
+      // home: HomePage(),
     );
   }
 }
