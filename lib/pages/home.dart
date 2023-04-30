@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                   color: SerManosColors.secondary200,
                   border: Border(
                     bottom: BorderSide(
-                      color: Colors.white, // Color for the indicator line
+                      color: SerManosColors.neutral0, // Color for the indicator line
                       width: 3.0, // Thickness of the indicator line
                     ),
                   ),
