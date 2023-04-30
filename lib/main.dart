@@ -4,7 +4,6 @@ import 'package:mobile_charity_app/pages/home.dart';
 import 'package:mobile_charity_app/pages/login.dart';
 import 'package:mobile_charity_app/pages/register.dart';
 import 'package:mobile_charity_app/pages/welcome.dart';
-import 'package:mobile_charity_app/utils/validators.dart';
 
 void main() {
   runApp(const MyApp());
