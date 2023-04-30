@@ -4,13 +4,10 @@ import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 
 class LoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  final Function changeDisabledStateTo;
+  final Function(bool) changeDisabledStateTo;
 
-  const LoginForm({
-    super.key,
-    required this.formKey,
-    required this.changeDisabledStateTo
-  });
+  const LoginForm(
+      {super.key, required this.formKey, required this.changeDisabledStateTo});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -32,9 +29,10 @@ class _LoginFormState extends State<LoginForm> {
   void _inputListener() {
     if (_emailController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty) {
-      widget.changeDisabledStateTo(!widget.formKey.currentState!.validate());
+      bool isValid = widget.formKey.currentState!.validate();
+      widget.changeDisabledStateTo(!isValid);
       setState(() {
-        _allowSubmission = true;
+        _allowSubmission = isValid;
       });
     } else if (_allowSubmission) {
       widget.changeDisabledStateTo(true);
