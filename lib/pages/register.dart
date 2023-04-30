@@ -7,6 +7,9 @@ import 'package:mobile_charity_app/design_system/organisms/forms/register_form.d
 import 'package:mobile_charity_app/pages/login.dart';
 import 'package:mobile_charity_app/pages/welcome.dart';
 
+import '../design_system/tokens/colors.dart';
+import '../design_system/tokens/typography.dart';
+
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
@@ -17,6 +20,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _disabled = true;
+  String _registerError = '';
 
   @override
   Widget build(BuildContext context) {
@@ -40,23 +44,34 @@ class _RegisterPageState extends State<RegisterPage> {
             disabled: _disabled,
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const WelcomePage();
-                    },
-                  ),
-                );
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Error en el formulario'),
-                  ),
-                );
+                setState(() {
+                  _registerError =
+                      "Este email ya ha sido utilizado."; // TODO: Assign api response
+                });
+
+                if (_registerError.isEmpty) {
+                  //TODO: check credentials with backend
+                  _registerError = 'false';
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const WelcomePage();
+                      },
+                    ),
+                  );
+                }
               }
             },
           ),
+          if (_registerError.isNotEmpty)
+            Container(
+              margin: const EdgeInsets.only(top: 8),
+              child: SerManosText.caption(
+                _registerError,
+                color: SerManosColors.error100,
+              ),
+            ),
           SerManosButton.longButton(
             text: 'Ya tengo cuenta',
             filled: false,
