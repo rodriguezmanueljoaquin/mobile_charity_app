@@ -19,7 +19,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _allowSubmittion = false;
+  bool _allowSubmission = false;
 
   @override
   void dispose() {
@@ -37,12 +37,12 @@ class _RegisterFormState extends State<RegisterForm> {
         _lastNameController.text.isNotEmpty) {
       widget.changeDisabledStateTo(!widget.formKey.currentState!.validate());
       setState(() {
-        _allowSubmittion = true;
+        _allowSubmission = true;
       });
-    } else if (_allowSubmittion) {
+    } else if (_allowSubmission) {
       widget.changeDisabledStateTo(true);
       setState(() {
-        _allowSubmittion = false;
+        _allowSubmission = false;
       });
     }
   }

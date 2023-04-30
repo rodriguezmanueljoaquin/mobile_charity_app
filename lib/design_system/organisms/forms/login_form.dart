@@ -20,7 +20,7 @@ class _LoginFormState extends State<LoginForm> {
   // controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _allowSubmittion = false;
+  bool _allowSubmission = false;
 
   @override
   void dispose() {
@@ -34,12 +34,12 @@ class _LoginFormState extends State<LoginForm> {
         _passwordController.text.isNotEmpty) {
       widget.changeDisabledStateTo(!widget.formKey.currentState!.validate());
       setState(() {
-        _allowSubmittion = true;
+        _allowSubmission = true;
       });
-    } else if (_allowSubmittion) {
+    } else if (_allowSubmission) {
       widget.changeDisabledStateTo(true);
       setState(() {
-        _allowSubmittion = false;
+        _allowSubmission = false;
       });
     }
   }
