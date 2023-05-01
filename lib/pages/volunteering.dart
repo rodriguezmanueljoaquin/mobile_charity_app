@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
@@ -8,22 +9,23 @@ import 'package:mobile_charity_app/design_system/organisms/modals/volunteering_m
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
+import 'package:mobile_charity_app/models/volunteering.dart';
 
 class VolunteeringPage extends StatelessWidget {
-  final String description;
-  final String title;
+  final VolunteeringModel volunteering;
+  final String id;
 
   const VolunteeringPage({
     super.key,
-    required this.description,
-    required this.title,
+    required this.volunteering,
+    required this.id,
   });
 
   Function _showDialog({required BuildContext context}) {
     return () => showDialog(
           context: context,
           builder: (BuildContext context) => VolunteeringModal(
-            title: title,
+            title: volunteering.title,
             schedules: 'Sábados de 9.00 a 17.00 horas',
             location: 'Caballito',
           ),
@@ -59,7 +61,7 @@ class VolunteeringPage extends StatelessWidget {
                 left: SerManosSpacing.spaceMD,
                 child: SerManosIconButton(
                   icon: const SerManosIcon.back(color: SerManosColors.neutral0),
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () => GoRouter.of(context).pop(),
                 ),
               ),
             ],
@@ -71,9 +73,9 @@ class VolunteeringPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SerManosText.headline1(title),
+                  SerManosText.headline1(volunteering.title),
                   const SerManosSizedBox.md(),
-                  SerManosText.body1(description),
+                  SerManosText.body1(volunteering.description),
                 ],
               ),
             ),

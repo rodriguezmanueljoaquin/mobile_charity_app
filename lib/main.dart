@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_charity_app/pages/entry.dart';
-import 'package:mobile_charity_app/pages/home.dart';
-import 'package:mobile_charity_app/pages/login.dart';
-import 'package:mobile_charity_app/pages/register.dart';
-import 'package:mobile_charity_app/pages/welcome.dart';
+import 'package:mobile_charity_app/routes/router.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'SER MANOS',
-      home: LoginPage(),
-      // home: HomePage(),
-      // home: RegisterPage(),
-      // home: EntryPage(),
-      // home: WelcomePage(),
-      // home: HomePage(),
+    return MaterialApp.router(
+      routerDelegate: SerManosRouter().router.routerDelegate,
+      routeInformationParser: SerManosRouter().router.routeInformationParser,
     );
   }
 }

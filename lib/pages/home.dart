@@ -7,9 +7,11 @@ import 'package:mobile_charity_app/design_system/organisms/cards/news_card.dart'
 import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_card.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
+import 'package:mobile_charity_app/models/volunteering.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  int tab;
+  HomePage({super.key, this.tab = 0});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -22,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
+      initialIndex: widget.tab,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: SerManosColors.secondary90,
@@ -42,7 +45,8 @@ class _HomePageState extends State<HomePage> {
                   color: SerManosColors.secondary200,
                   border: Border(
                     bottom: BorderSide(
-                      color: SerManosColors.neutral0, // Color for the indicator line
+                      color: SerManosColors
+                          .neutral0, // Color for the indicator line
                       width: 3.0, // Thickness of the indicator line
                     ),
                   ),
@@ -75,11 +79,14 @@ class _HomePageState extends State<HomePage> {
                 }
 
                 return const VolunteeringCard(
-                  category: 'Acción Social',
-                  title: 'Un Techo para mi País',
-                  description:
-                      'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
-                );
+                    // TODO: Remove hardcoded data
+                    category: 'Acción Social',
+                    volunteering: VolunteeringModel(
+                      id: '1',
+                      title: 'Un Techo para mi País',
+                      description:
+                          'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
+                    ));
               },
               separatorBuilder: (context, index) => index == 0
                   ? const SerManosSizedBox.lg()
