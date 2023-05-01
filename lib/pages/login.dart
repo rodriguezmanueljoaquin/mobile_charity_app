@@ -48,6 +48,13 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                child: SerManosText.caption(
+                  _loginError,
+                  color: SerManosColors.error100,
+                ),
+              ),
               SerManosButton.longButton(
                 text: 'Iniciar Sesión',
                 disabled: _disabled,
@@ -72,15 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 },
               ),
-              if (_loginError.isNotEmpty)
-                Container(
-                  margin: const EdgeInsets.only(top: 8),
-                  child: SerManosText.caption(
-                    _loginError,
-                    color: SerManosColors.error100,
-                  ),
-                ),
-              const SerManosSizedBox.sl(),
+              const SerManosSizedBox.sm(),
               SerManosButton.longButton(
                 text: 'No tengo cuenta',
                 filled: false,

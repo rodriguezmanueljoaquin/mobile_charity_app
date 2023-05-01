@@ -49,6 +49,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   ],
                 ),
               ),
+              Container(
+                margin: const EdgeInsets.only(top: 8),
+                child: SerManosText.caption(
+                  _registerError,
+                  color: SerManosColors.error100,
+                ),
+              ),
               SerManosButton.longButton(
                 text: 'Registrarse',
                 disabled: _disabled,
@@ -74,14 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   }
                 },
               ),
-              if (_registerError.isNotEmpty)
-                Container(
-                  margin: const EdgeInsets.only(top: 8),
-                  child: SerManosText.caption(
-                    _registerError,
-                    color: SerManosColors.error100,
-                  ),
-                ),
+              const SerManosSizedBox.sl(),
               SerManosButton.longButton(
                 text: 'Ya tengo cuenta',
                 filled: false,
