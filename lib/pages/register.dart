@@ -26,66 +26,78 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return SerManosScaffold(
       body: SingleChildScrollView(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const SerManosSizedBox.lg(),
-          SerManosLogos.full,
-          const SerManosSizedBox.lg(),
-          RegisterForm(
-            formKey: _formKey,
-            changeDisabledStateTo: (bool state) {
-              setState(() {
-                _disabled = state;
-              });
-            },
-          ),
-          const SerManosSizedBox.height(height: 104),
-          SerManosButton.longButton(
-            text: 'Registrarse',
-            disabled: _disabled,
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                setState(() {
-                  _registerError =
-                      "Este email ya ha sido utilizado."; // TODO: Assign api response
-                });
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height -
+              AppBar(toolbarHeight: 0).preferredSize.height,
+          child: Column(
+            children: [
+              const SerManosSizedBox.lg(),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SerManosLogos.full,
+                    const SerManosSizedBox.lg(),
+                    RegisterForm(
+                      formKey: _formKey,
+                      changeDisabledStateTo: (bool state) {
+                        setState(() {
+                          _disabled = state;
+                        });
+                      },
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 8),
+                child: SerManosText.caption(
+                  _registerError,
+                  color: SerManosColors.error100,
+                ),
+              ),
+              SerManosButton.longButton(
+                text: 'Registrarse',
+                disabled: _disabled,
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    setState(() {
+                      _registerError =
+                          "Este email ya ha sido utilizado."; // TODO: Assign api response
+                    });
 
-                if (_registerError.isEmpty) {
-                  //TODO: check credentials with backend
-                  _registerError = 'false';
-                  Navigator.push(
+                    if (_registerError.isEmpty) {
+                      //TODO: check credentials with backend
+                      _registerError = 'false';
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const WelcomePage();
+                          },
+                        ),
+                      );
+                    }
+                  }
+                },
+              ),
+              const SerManosSizedBox.sl(),
+              SerManosButton.longButton(
+                text: 'Ya tengo cuenta',
+                filled: false,
+                onPressed: () {
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) {
-                        return const WelcomePage();
-                      },
+                      builder: (context) => const LoginPage(),
                     ),
                   );
-                }
-              }
-            },
-          ),
-          if (_registerError.isNotEmpty)
-            Container(
-              margin: const EdgeInsets.only(top: 8),
-              child: SerManosText.caption(
-                _registerError,
-                color: SerManosColors.error100,
+                },
               ),
-            ),
-          SerManosButton.longButton(
-            text: 'Ya tengo cuenta',
-            filled: false,
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginPage(),
-                ),
-              );
-            },
+              const SerManosSizedBox.lg(),
+            ],
           ),
-          const SerManosSizedBox.lg(),
-        ]),
+        ),
       ),
     );
   }
