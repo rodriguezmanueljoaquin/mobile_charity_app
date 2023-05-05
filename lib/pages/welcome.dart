@@ -35,7 +35,7 @@ class WelcomePage extends StatelessWidget {
             text: 'Comenzar',
             onPressed: () {
               GoRouter.of(context).replaceNamed(
-                SerManosPagesName.home,
+                SerManosPagesName.volunteering,
               );
             },
           ),

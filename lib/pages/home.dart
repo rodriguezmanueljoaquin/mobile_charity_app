@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
@@ -8,6 +9,7 @@ import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_ca
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
+import 'package:mobile_charity_app/routes/paths.dart';
 
 class HomePage extends StatefulWidget {
   int tab;
@@ -19,6 +21,25 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final searchController = TextEditingController();
+
+  void _onTap(int tab) {
+    if (tab == widget.tab) return;
+
+    String pageName = "";
+    switch (tab) {
+      case 0:
+        pageName = SerManosPagesName.volunteering;
+        break;
+      case 1:
+        pageName = SerManosPagesName.profile;
+        break;
+      case 2:
+        pageName = SerManosPagesName.news;
+        break;
+    }
+
+    Router.neglect(context, () => GoRouter.of(context).replaceNamed(pageName));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +56,14 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [SerManosLogos.appBar, const Spacer()],
           ),
-          bottom: const PreferredSize(
-            preferredSize: Size.fromHeight(50.0),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(50.0),
             child: ColoredBox(
               color: SerManosColors.secondary100,
               child: TabBar(
                 unselectedLabelColor: SerManosColors.neutral0,
-                indicator: BoxDecoration(
+                onTap: _onTap,
+                indicator: const BoxDecoration(
                   color: SerManosColors.secondary200,
                   border: Border(
                     bottom: BorderSide(
@@ -118,4 +140,12 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  // @override
+  // void didUpdateWidget(covariant HomePage oldWidget) {
+  //   if (oldWidget.tab != widget.tab) {
+  //     DefaultTabController.of(context).animateTo(widget.tab);
+  //   }
+  //   super.didUpdateWidget(oldWidget);
+  // }
 }

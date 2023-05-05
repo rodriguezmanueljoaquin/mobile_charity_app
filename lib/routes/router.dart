@@ -11,11 +11,13 @@ import 'package:mobile_charity_app/pages/welcome.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 
 class SerManosRouter {
-  GoRouter router = GoRouter(
+  final GoRouter router = GoRouter(
+    initialLocation: '/welcome',
+    debugLogDiagnostics: true,
     routes: [
       GoRoute(
         path: '/',
-        redirect: (context, state) => '/volunteering',
+        redirect: (context, state) => '/onboarding',
       ),
       GoRoute(
         name: SerManosPagesName.onboarding,
@@ -37,19 +39,23 @@ class SerManosRouter {
         ],
       ),
       GoRoute(
-          name: SerManosPagesName.welcome,
-          path: "/welcome",
-          pageBuilder: (context, state) =>
-              const MaterialPage(child: WelcomePage())),
+        name: SerManosPagesName.welcome,
+        path: "/welcome",
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: WelcomePage()),
+      ),
       GoRoute(
         name: SerManosPagesName.volunteering,
         path: "/volunteering",
-        pageBuilder: (context, state) => MaterialPage(child: HomePage(tab: 0)),
+        pageBuilder: (context, state) {
+          return MaterialPage(child: HomePage(tab: 0));
+        },
         routes: [
           GoRoute(
             name: SerManosPagesName.volunteeringDetail,
             path: ':id',
             pageBuilder: (context, state) {
+              // TODO: check if extra is null in order to fetch data
               VolunteeringModel volunteering = state.extra as VolunteeringModel;
               return MaterialPage(
                   child: VolunteeringPage(
@@ -63,7 +69,9 @@ class SerManosRouter {
       GoRoute(
         name: SerManosPagesName.profile,
         path: "/profile",
-        pageBuilder: (context, state) => MaterialPage(child: HomePage(tab: 1)),
+        pageBuilder: (context, state) {
+          return MaterialPage(child: HomePage(tab: 1));
+        },
       ),
       GoRoute(
         name: SerManosPagesName.news,

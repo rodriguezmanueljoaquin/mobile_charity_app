@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/routes/router.dart';
 
 void main() {
@@ -13,11 +14,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final GoRouter _router = SerManosRouter().router;
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerDelegate: SerManosRouter().router.routerDelegate,
-      routeInformationParser: SerManosRouter().router.routeInformationParser,
+      routerDelegate: _router.routerDelegate,
+      routeInformationParser: _router.routeInformationParser,
     );
   }
 }
