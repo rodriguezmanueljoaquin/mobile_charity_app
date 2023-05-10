@@ -5,8 +5,11 @@ import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
 import 'package:mobile_charity_app/design_system/organisms/forms/register_form.dart';
+import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/pages/login.dart';
 import 'package:mobile_charity_app/pages/welcome.dart';
+import 'package:mobile_charity_app/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../design_system/tokens/colors.dart';
 import '../design_system/tokens/typography.dart';
@@ -80,14 +83,17 @@ class _RegisterPageState extends State<RegisterPage> {
                   //TODO: check credentials with backend
                   _registerError = 'false';
 
-                  bool registerSuccess = await SerManosApi().registerUser(
+                  UserModel? user = await SerManosApi().registerUser(
                     firstName: _firstNameController.text,
                     lastName: _lastNameController.text,
                     email: _emailController.text,
                     password: _passwordController.text,
                   );
 
-                  print(registerSuccess);
+                  Provider.of<UserProvider>(context, listen: false)
+                      .setUser(user!);
+
+                  print(user);
 
                   Navigator.push(
                     context,

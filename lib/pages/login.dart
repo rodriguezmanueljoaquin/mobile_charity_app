@@ -9,8 +9,11 @@ import 'package:mobile_charity_app/design_system/organisms/forms/login_form.dart
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/pages/register.dart';
 import 'package:mobile_charity_app/pages/welcome.dart';
+import 'package:provider/provider.dart';
 
 import '../design_system/tokens/colors.dart';
+import '../models/user.dart';
+import '../providers/user_provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -74,12 +77,15 @@ class _LoginPageState extends State<LoginPage> {
                     return;
                   }
 
-                  bool loginSuccess = await SerManosApi().loginUser(
+                  UserModel? user = await SerManosApi().loginUser(
                     email: _emailController.text,
                     password: _passwordController.text,
                   );
 
-                  print(loginSuccess);
+                  Provider.of<UserProvider>(context, listen: false)
+                      .setUser(user!);
+
+                  print(user);
 
                   //TODO: check credentials with backend
                   _loginError = 'false';

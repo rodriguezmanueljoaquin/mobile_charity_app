@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mobile_charity_app/models/user.dart';
 
 class SerManosApi {
   // singleton
@@ -12,7 +13,7 @@ class SerManosApi {
   SerManosApi._internal();
 
   // methods
-  Future<bool> registerUser(
+  Future<UserModel?> registerUser(
       {required String email,
       required String password,
       required String firstName,
@@ -36,44 +37,76 @@ class SerManosApi {
         },
       );
 
-      return true;
+      return UserModel(
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        avatarURL: null,
+        id: userCredential.user!.uid,
+      );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
-        return false;
+        return null;
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
-        return false;
+        return null;
       }
     } catch (e) {
       print(e);
-      return false;
+      return null;
     }
 
-    return false;
+    return null;
   }
 
-  Future<bool> loginUser(
+  Future<UserModel?> getUserById({
+    required String id,
+  }) async {
+    try {
+      DocumentSnapshot documentSnapshot =
+          await FirebaseFirestore.instance.collection('users').doc(id).get();
+
+      if (documentSnapshot.exists) {
+        return UserModel(
+          firstName: documentSnapshot.get('firstName'),
+          lastName: documentSnapshot.get('lastName'),
+          email: documentSnapshot.get('email'),
+          avatarURL: documentSnapshot.get('avatarURL'),
+          id: documentSnapshot.id,
+        );
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+
+    return null;
+  }
+
+  Future<UserModel?> loginUser(
       {required String email, required String password}) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
-      print(userCredential);
-      return true;
+      UserModel? user = await getUserById(id: userCredential.user!.uid);
+
+      print(user);
+      return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
-        return false;
+        return null;
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
-        return false;
+        return null;
       }
     } catch (e) {
       print(e);
-      return false;
+      return null;
     }
 
-    return false;
+    return null;
   }
 }
