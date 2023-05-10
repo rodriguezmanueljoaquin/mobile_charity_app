@@ -6,8 +6,6 @@ import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
 import 'package:mobile_charity_app/design_system/organisms/forms/login_form.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
-import 'package:mobile_charity_app/pages/register.dart';
-import 'package:mobile_charity_app/pages/welcome.dart';
 
 import '../design_system/tokens/colors.dart';
 import '../routes/paths.dart';
@@ -70,9 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                     if (_loginError.isEmpty) {
                       //TODO: check credentials with backend
                       _loginError = 'false';
-                      GoRouter.of(context).replaceNamed(
-                        SerManosPagesName.welcome,
-                      );
+                      context.replaceNamed(SerManosPagesName.welcome);
                     }
                   }
                 },

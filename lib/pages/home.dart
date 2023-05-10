@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
         break;
     }
 
-    Router.neglect(context, () => GoRouter.of(context).replaceNamed(pageName));
+    Router.neglect(context, () => context.replaceNamed(pageName));
   }
 
   @override
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                tabs: [
+                tabs: const [
                   Tab(
                     text: 'POSTULARSE',
                   ),

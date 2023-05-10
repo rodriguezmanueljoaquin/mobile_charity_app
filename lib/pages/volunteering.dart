@@ -61,7 +61,7 @@ class VolunteeringPage extends StatelessWidget {
                 left: SerManosSpacing.spaceMD,
                 child: SerManosIconButton(
                   icon: const SerManosIcon.back(color: SerManosColors.neutral0),
-                  onPressed: () => GoRouter.of(context).pop(),
+                  onPressed: () => context.pop(),
                 ),
               ),
             ],

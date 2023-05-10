@@ -6,10 +6,10 @@ import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
+import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
-import 'package:mobile_charity_app/pages/volunteering.dart';
 
 import '../../../routes/paths.dart';
 
@@ -73,7 +73,7 @@ class _VolunteeringCardState extends State<VolunteeringCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => GoRouter.of(context).pushNamed(
+      onTap: () => context.pushNamed(
         SerManosPagesName.volunteeringDetail,
         pathParameters: {
           "id": widget.volunteering.id,
@@ -81,7 +81,7 @@ class _VolunteeringCardState extends State<VolunteeringCard> {
         extra: widget.volunteering,
       ),
       child: Container(
-        width: 328,
+        width: SerManosSizes.sizeLG,
         decoration: BoxDecoration(
           color: SerManosColors.neutral0,
           boxShadow: SerManosShadows.shadow2,
