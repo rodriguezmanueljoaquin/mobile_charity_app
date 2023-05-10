@@ -34,9 +34,7 @@ class EntryPage extends StatelessWidget {
           SerManosButton.longButton(
             text: 'Iniciar Sesión',
             onPressed: () {
-              GoRouter.of(context).pushNamed(
-                SerManosPagesName.signin,
-              );
+              context.replaceNamed(SerManosPagesName.signin);
             },
           ),
           const SerManosSizedBox.sl(),
@@ -44,9 +42,7 @@ class EntryPage extends StatelessWidget {
             text: 'Registrarse',
             filled: false,
             onPressed: () {
-              GoRouter.of(context).pushNamed(
-                SerManosPagesName.signup,
-              );
+              context.replaceNamed(SerManosPagesName.signup);
             },
           ),
           const SerManosSizedBox.lg(),

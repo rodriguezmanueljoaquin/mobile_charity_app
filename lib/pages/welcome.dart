@@ -34,9 +34,7 @@ class WelcomePage extends StatelessWidget {
           SerManosButton.longButton(
             text: 'Comenzar',
             onPressed: () {
-              GoRouter.of(context).replaceNamed(
-                SerManosPagesName.volunteering,
-              );
+              context.replaceNamed(SerManosPagesName.volunteering);
             },
           ),
           const SizedBox(height: 92),

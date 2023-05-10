@@ -82,9 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                 text: 'No tengo cuenta',
                 filled: false,
                 onPressed: () {
-                  GoRouter.of(context).replaceNamed(
-                    SerManosPagesName.signup,
-                  );
+                  context.replaceNamed(SerManosPagesName.signup);
                 },
               ),
               const SerManosSizedBox.lg()

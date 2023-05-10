@@ -83,9 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 text: 'Ya tengo cuenta',
                 filled: false,
                 onPressed: () {
-                  GoRouter.of(context).replaceNamed(
-                    SerManosPagesName.signin,
-                  );
+                  context.replaceNamed(SerManosPagesName.signin);
                 },
               ),
               const SerManosSizedBox.lg(),

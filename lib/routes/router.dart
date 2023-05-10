@@ -22,46 +22,40 @@ class SerManosRouter {
       GoRoute(
         name: SerManosPagesName.onboarding,
         path: "/onboarding",
-        pageBuilder: (context, state) => const MaterialPage(child: EntryPage()),
-        routes: [
-          GoRoute(
-            name: SerManosPagesName.signin,
-            path: "signin",
-            pageBuilder: (context, state) =>
-                const MaterialPage(child: LoginPage()),
-          ),
-          GoRoute(
-            name: SerManosPagesName.signup,
-            path: "signup",
-            pageBuilder: (context, state) =>
-                const MaterialPage(child: RegisterPage()),
-          ),
-        ],
+        builder: (context, state) => const EntryPage(),
+      ),
+      GoRoute(
+        name: SerManosPagesName.signup,
+        path: "/onboarding/signup",
+        builder: (context, state) => const RegisterPage(),
+      ),
+      GoRoute(
+        name: SerManosPagesName.signin,
+        path: "/onboarding/signin",
+        builder: (context, state) => const LoginPage(),
       ),
       GoRoute(
         name: SerManosPagesName.welcome,
         path: "/welcome",
-        pageBuilder: (context, state) =>
-            const MaterialPage(child: WelcomePage()),
+        builder: (context, state) => const WelcomePage(),
       ),
       GoRoute(
         name: SerManosPagesName.volunteering,
         path: "/volunteering",
-        pageBuilder: (context, state) {
-          return MaterialPage(child: HomePage(tab: 0));
+        builder: (context, state) {
+          return HomePage(tab: 0);
         },
         routes: [
           GoRoute(
             name: SerManosPagesName.volunteeringDetail,
             path: ':id',
-            pageBuilder: (context, state) {
+            builder: (context, state) {
               // TODO: check if extra is null in order to fetch data
               VolunteeringModel volunteering = state.extra as VolunteeringModel;
-              return MaterialPage(
-                  child: VolunteeringPage(
+              return VolunteeringPage(
                 volunteering: volunteering,
                 id: state.pathParameters['id']!,
-              ));
+              );
             },
           ),
         ],
@@ -69,17 +63,16 @@ class SerManosRouter {
       GoRoute(
         name: SerManosPagesName.profile,
         path: "/profile",
-        pageBuilder: (context, state) {
-          return MaterialPage(child: HomePage(tab: 1));
+        builder: (context, state) {
+          return HomePage(tab: 1);
         },
       ),
       GoRoute(
         name: SerManosPagesName.news,
         path: "/news",
-        pageBuilder: (context, state) => MaterialPage(child: HomePage(tab: 2)),
+        builder: (context, state) => HomePage(tab: 2),
       ),
     ],
-    errorPageBuilder: (context, state) =>
-        const MaterialPage(child: ErrorPage()),
+    errorBuilder: (context, state) => const ErrorPage(),
   );
 }
