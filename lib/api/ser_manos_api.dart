@@ -52,4 +52,28 @@ class SerManosApi {
 
     return false;
   }
+
+  Future<bool> loginUser(
+      {required String email, required String password}) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+
+      print(userCredential);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+        return false;
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+
+    return false;
+  }
 }

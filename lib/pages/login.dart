@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_charity_app/api/ser_manos_api.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
@@ -73,12 +74,12 @@ class _LoginPageState extends State<LoginPage> {
                     return;
                   }
 
-                  UserCredential credential = await FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          email: _emailController.text,
-                          password: _passwordController.text);
+                  bool loginSuccess = await SerManosApi().loginUser(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                  );
 
-                  print(credential.user!.email);
+                  print(loginSuccess);
 
                   //TODO: check credentials with backend
                   _loginError = 'false';
