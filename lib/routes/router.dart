@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/pages/entry.dart';
@@ -12,8 +11,6 @@ import 'package:mobile_charity_app/routes/paths.dart';
 
 class SerManosRouter {
   final GoRouter router = GoRouter(
-    initialLocation: '/welcome',
-    debugLogDiagnostics: true,
     routes: [
       GoRoute(
         path: '/',
