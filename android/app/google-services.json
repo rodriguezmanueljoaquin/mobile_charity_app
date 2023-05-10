@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "480244158445",
+    "project_id": "sermanos-c7580",
+    "storage_bucket": "sermanos-c7580.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480244158445:android:6842eb903cc8c24e9361e4",
+        "android_client_info": {
+          "package_name": "ar.edu.itba.mobile.mobile_charity_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480244158445-mpqtr42kc717hm5q8ka7li8t1dudalee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2wri2UB0pZYHtBbhixaU98ttf1Dupt9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480244158445-mpqtr42kc717hm5q8ka7li8t1dudalee.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

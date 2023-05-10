@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_charity_app/api/ser_manos_api.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
@@ -19,6 +20,10 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _disabled = true;
   String _registerError = '';
 
@@ -45,6 +50,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           _disabled = state;
                         });
                       },
+                      firstNameController: _firstNameController,
+                      lastNameController: _lastNameController,
+                      emailController: _emailController,
+                      passwordController: _passwordController,
                     )
                   ],
                 ),
@@ -59,26 +68,35 @@ class _RegisterPageState extends State<RegisterPage> {
               SerManosButton.longButton(
                 text: 'Registrarse',
                 disabled: _disabled,
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
+                onPressed: () async {
+                  if (!_formKey.currentState!.validate()) {
                     setState(() {
                       _registerError =
                           "Este email ya ha sido utilizado."; // TODO: Assign api response
                     });
-
-                    if (_registerError.isEmpty) {
-                      //TODO: check credentials with backend
-                      _registerError = 'false';
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return const WelcomePage();
-                          },
-                        ),
-                      );
-                    }
+                    return;
                   }
+
+                  //TODO: check credentials with backend
+                  _registerError = 'false';
+
+                  bool registerSuccess = await SerManosApi().registerUser(
+                    firstName: _firstNameController.text,
+                    lastName: _lastNameController.text,
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                  );
+
+                  print(registerSuccess);
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const WelcomePage();
+                      },
+                    ),
+                  );
                 },
               ),
               const SerManosSizedBox.sl(),

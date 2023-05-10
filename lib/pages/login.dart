@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
@@ -19,6 +20,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _disabled = true;
   String _loginError = '';
 
@@ -44,6 +47,8 @@ class _LoginPageState extends State<LoginPage> {
                           _disabled = state;
                         });
                       },
+                      emailController: _emailController,
+                      passwordController: _passwordController,
                     ),
                   ],
                 ),
@@ -58,25 +63,33 @@ class _LoginPageState extends State<LoginPage> {
               SerManosButton.longButton(
                 text: 'Iniciar Sesión',
                 disabled: _disabled,
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
+                onPressed: () async {
+                  if (!_formKey.currentState!.validate()) {
                     setState(() {
                       _loginError =
                           "Usuario y/o contraseña incorrectos."; // TODO: Assign api response
                     });
-                    if (_loginError.isEmpty) {
-                      //TODO: check credentials with backend
-                      _loginError = 'false';
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return const WelcomePage();
-                          },
-                        ),
-                      );
-                    }
+
+                    return;
                   }
+
+                  UserCredential credential = await FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: _emailController.text,
+                          password: _passwordController.text);
+
+                  print(credential.user!.email);
+
+                  //TODO: check credentials with backend
+                  _loginError = 'false';
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const WelcomePage();
+                      },
+                    ),
+                  );
                 },
               ),
               const SerManosSizedBox.sm(),

@@ -4,8 +4,15 @@ import 'package:mobile_charity_app/pages/home.dart';
 import 'package:mobile_charity_app/pages/login.dart';
 import 'package:mobile_charity_app/pages/register.dart';
 import 'package:mobile_charity_app/pages/welcome.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-void main() {
+Future<void> main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
