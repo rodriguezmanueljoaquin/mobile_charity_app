@@ -32,7 +32,6 @@ class SerManosApi {
           'first_name': firstName,
           'last_name': lastName,
           'email': email,
-          'password': password,
           'avatar_url': null
         },
       );
