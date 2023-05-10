@@ -29,10 +29,10 @@ class SerManosApi {
           .doc(userCredential.user!.uid)
           .set(
         {
-          'first_name': firstName,
-          'last_name': lastName,
+          'firstName': firstName,
+          'lastName': lastName,
           'email': email,
-          'avatar_url': null
+          'avatarURL': null
         },
       );
 
