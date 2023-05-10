@@ -3,6 +3,7 @@ import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
+import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/utils/validators.dart';
@@ -204,6 +205,7 @@ class _SerManosSearchFieldState extends State<SerManosSearchField> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: SerManosSizes.sizeLG,
       decoration: BoxDecoration(
         color: SerManosColors.neutral0,
         boxShadow: SerManosShadows.shadow1,

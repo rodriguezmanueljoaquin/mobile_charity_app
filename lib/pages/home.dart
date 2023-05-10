@@ -96,11 +96,12 @@ class _HomePageState extends State<HomePage> {
                 vertical: SerManosSpacing.spaceMD,
               ),
               itemBuilder: (context, index) {
-                if (index == 0) {
-                  return SerManosSearchField(controller: searchController);
-                }
+                Widget item;
 
-                return const VolunteeringCard(
+                if (index == 0) {
+                  item = SerManosSearchField(controller: searchController);
+                } else {
+                  item = const VolunteeringCard(
                     // TODO: Remove hardcoded data
                     category: 'Acción Social',
                     volunteering: VolunteeringModel(
@@ -108,7 +109,13 @@ class _HomePageState extends State<HomePage> {
                       title: 'Un Techo para mi País',
                       description:
                           'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
-                    ));
+                    ),
+                  );
+                }
+
+                return UnconstrainedBox(
+                  child: item,
+                );
               },
               separatorBuilder: (context, index) => index == 0
                   ? const SerManosSizedBox.lg()
@@ -126,11 +133,13 @@ class _HomePageState extends State<HomePage> {
                 horizontal: SerManosSpacing.spaceSL,
                 vertical: SerManosSpacing.spaceLG,
               ),
-              itemBuilder: (context, index) => NewsCard(
-                overline: 'reporte 2820',
-                title: 'Ser donante voluntario',
-                body:
-                    'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
+              itemBuilder: (context, index) => const UnconstrainedBox(
+                child: NewsCard(
+                  overline: 'reporte 2820',
+                  title: 'Ser donante voluntario',
+                  body:
+                      'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
+                ),
               ),
               separatorBuilder: (context, index) => const SerManosSizedBox.md(),
               itemCount: 5,

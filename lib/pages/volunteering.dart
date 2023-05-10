@@ -7,6 +7,7 @@ import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
 import 'package:mobile_charity_app/design_system/organisms/modals/volunteering_modal.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
+import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
@@ -67,25 +68,31 @@ class VolunteeringPage extends StatelessWidget {
             ],
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: SerManosSpacing.spaceSL),
+            child: SizedBox(
+              width: SerManosSizes.sizeLG,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SerManosText.headline1(volunteering.title),
-                  const SerManosSizedBox.md(),
-                  SerManosText.body1(volunteering.description),
+                  const SerManosSizedBox.lg(),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SerManosText.headline1(volunteering.title),
+                        const SerManosSizedBox.md(),
+                        SerManosText.body1(volunteering.description),
+                      ],
+                    ),
+                  ),
+                  SerManosButton.longButton(
+                    text: 'Postularme',
+                    onPressed: _showDialog(context: context),
+                    onLongPress: _showDialog(context: context),
+                  ),
+                  const SerManosSizedBox.height(height: 56),
                 ],
               ),
             ),
           ),
-          SerManosButton.longButton(
-            text: 'Postularme',
-            onPressed: _showDialog(context: context),
-            onLongPress: _showDialog(context: context),
-          ),
-          const SerManosSizedBox.height(height: 56),
         ],
       ),
     );
