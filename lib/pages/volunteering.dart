@@ -52,7 +52,7 @@ class VolunteeringPage extends StatelessWidget {
                   gradient: const LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.black, Colors.transparent],
+                    colors: [Colors.black, SerManosColors.transparent],
                     stops: [0.0, 0.3555],
                   ),
                 ),
