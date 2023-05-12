@@ -19,4 +19,7 @@ class SerManosColors {
   static const Color secondary200 = Color(0xFF0D47A1);
 
   static const Color error100 = Color(0xFFB3261E);
+
+  static const Color transparent = Colors.transparent;
+  static const Color black = Colors.black;
 }

@@ -22,6 +22,7 @@ class SerManosScaffold extends StatelessWidget {
           statusBarColor: SerManosColors.secondary90,
         ),
       ),
+      backgroundColor: SerManosColors.neutral0,
       body: SizedBox(
         width: double.infinity,
         child: Padding(
