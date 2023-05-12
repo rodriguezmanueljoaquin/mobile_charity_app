@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
-import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
+import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
@@ -18,7 +18,7 @@ class SerManosButton extends TextButton {
           onLongPress: disabled ? null : onLongPress,
           child: SizedBox(
             height: 44,
-            width: 328,
+            width: SerManosSizes.sizeLG,
             child: Center(
               child: Text(
                 text,
@@ -35,7 +35,7 @@ class SerManosButton extends TextButton {
           ),
           style: TextButton.styleFrom(
             backgroundColor:
-                filled ? SerManosColors.primary100 : SerManosColors.neutral0,
+                filled ? SerManosColors.primary100 : SerManosColors.transparent,
             disabledBackgroundColor: SerManosColors.neutral25,
             foregroundColor:
                 filled ? SerManosColors.neutral10 : SerManosColors.neutral25,
@@ -110,7 +110,8 @@ class SerManosButton extends TextButton {
             ),
           ),
           style: TextButton.styleFrom(
-            backgroundColor: filled ? SerManosColors.primary100 : SerManosColors.neutral0,
+            backgroundColor:
+                filled ? SerManosColors.primary100 : SerManosColors.transparent,
             disabledBackgroundColor: SerManosColors.neutral25,
             foregroundColor:
                 filled ? SerManosColors.neutral10 : SerManosColors.neutral25,
@@ -130,8 +131,8 @@ class SerManosIconButton extends IconButton {
           iconSize: SerManosSpacing.spaceMD,
           padding: const EdgeInsets.all(0),
           constraints: const BoxConstraints(),
-          hoverColor: Colors.transparent,
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+          hoverColor: SerManosColors.transparent,
+          splashColor: SerManosColors.transparent,
+          highlightColor: SerManosColors.transparent,
         );
 }

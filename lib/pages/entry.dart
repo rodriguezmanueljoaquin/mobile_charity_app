@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
-import 'package:mobile_charity_app/pages/login.dart';
-import 'package:mobile_charity_app/pages/register.dart';
+import 'package:mobile_charity_app/routes/paths.dart';
 
 class EntryPage extends StatelessWidget {
   const EntryPage({super.key});
@@ -31,12 +31,7 @@ class EntryPage extends StatelessWidget {
           SerManosButton.longButton(
             text: 'Iniciar Sesión',
             onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginPage(),
-                ),
-              );
+              context.replaceNamed(SerManosPagesName.signin);
             },
           ),
           const SerManosSizedBox.sl(),
@@ -44,12 +39,7 @@ class EntryPage extends StatelessWidget {
             text: 'Registrarse',
             filled: false,
             onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const RegisterPage(),
-                ),
-              );
+              context.replaceNamed(SerManosPagesName.signup);
             },
           ),
           const SerManosSizedBox.lg(),

@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
+import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
-import 'package:mobile_charity_app/pages/volunteering.dart';
+import 'package:mobile_charity_app/models/volunteering.dart';
+import 'package:mobile_charity_app/routes/paths.dart';
 
 class VolunteeringCard extends StatefulWidget {
   final String category;
-  final String title;
-  final String description;
+  final VolunteeringModel volunteering;
 
   const VolunteeringCard({
     super.key,
     required this.category,
-    required this.title,
-    required this.description,
+    required this.volunteering,
   });
 
   @override
@@ -37,7 +38,7 @@ class _VolunteeringCardState extends State<VolunteeringCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SerManosText.overline(widget.category.toUpperCase()),
-              SerManosText.subtitle1(widget.title),
+              SerManosText.subtitle1(widget.volunteering.title),
             ],
           ),
         ),
@@ -71,17 +72,15 @@ class _VolunteeringCardState extends State<VolunteeringCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => VolunteeringPage(
-            description: widget.description,
-            title: widget.title,
-          ),
-        ),
+      onTap: () => context.pushNamed(
+        SerManosPagesName.volunteeringDetail,
+        pathParameters: {
+          "id": widget.volunteering.id,
+        },
+        extra: widget.volunteering,
       ),
       child: Container(
-        width: 328,
+        width: SerManosSizes.sizeLG,
         decoration: BoxDecoration(
           color: SerManosColors.neutral0,
           boxShadow: SerManosShadows.shadow2,

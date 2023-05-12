@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
@@ -7,13 +8,15 @@ import 'package:mobile_charity_app/design_system/organisms/cards/news_card.dart'
 import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_card.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
+import 'package:mobile_charity_app/models/user.dart';
+import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:provider/provider.dart';
-
-import '../models/user.dart';
-import '../providers/user_provider.dart';
+import 'package:mobile_charity_app/models/volunteering.dart';
+import 'package:mobile_charity_app/routes/paths.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  int tab;
+  HomePage({super.key, this.tab = 0});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -21,6 +24,25 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final searchController = TextEditingController();
+
+  void _onTap(int tab) {
+    if (tab == widget.tab) return;
+
+    String pageName = "";
+    switch (tab) {
+      case 0:
+        pageName = SerManosPagesName.volunteering;
+        break;
+      case 1:
+        pageName = SerManosPagesName.profile;
+        break;
+      case 2:
+        pageName = SerManosPagesName.news;
+        break;
+    }
+
+    Router.neglect(context, () => context.replaceNamed(pageName));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +52,7 @@ class _HomePageState extends State<HomePage> {
 
     return DefaultTabController(
       length: 3,
+      initialIndex: widget.tab,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: SerManosColors.secondary90,
@@ -40,13 +63,14 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [SerManosLogos.appBar, const Spacer()],
           ),
-          bottom: const PreferredSize(
-            preferredSize: Size.fromHeight(50.0),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(50.0),
             child: ColoredBox(
               color: SerManosColors.secondary100,
               child: TabBar(
                 unselectedLabelColor: SerManosColors.neutral0,
-                indicator: BoxDecoration(
+                onTap: _onTap,
+                indicator: const BoxDecoration(
                   color: SerManosColors.secondary200,
                   border: Border(
                     bottom: BorderSide(
@@ -56,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                tabs: [
+                tabs: const [
                   Tab(
                     text: 'POSTULARSE',
                   ),
@@ -79,15 +103,25 @@ class _HomePageState extends State<HomePage> {
                 vertical: SerManosSpacing.spaceMD,
               ),
               itemBuilder: (context, index) {
+                Widget item;
+
                 if (index == 0) {
-                  return SerManosSearchField(controller: searchController);
+                  item = SerManosSearchField(controller: searchController);
+                } else {
+                  item = const VolunteeringCard(
+                    // TODO: Remove hardcoded data
+                    category: 'Acción Social',
+                    volunteering: VolunteeringModel(
+                      id: '1',
+                      title: 'Un Techo para mi País',
+                      description:
+                          'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
+                    ),
+                  );
                 }
 
-                return const VolunteeringCard(
-                  category: 'Acción Social',
-                  title: 'Un Techo para mi País',
-                  description:
-                      'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
+                return UnconstrainedBox(
+                  child: item,
                 );
               },
               separatorBuilder: (context, index) => index == 0
@@ -106,11 +140,13 @@ class _HomePageState extends State<HomePage> {
                 horizontal: SerManosSpacing.spaceSL,
                 vertical: SerManosSpacing.spaceLG,
               ),
-              itemBuilder: (context, index) => NewsCard(
-                overline: 'reporte 2820',
-                title: 'Ser donante voluntario',
-                body:
-                    'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
+              itemBuilder: (context, index) => const UnconstrainedBox(
+                child: NewsCard(
+                  overline: 'reporte 2820',
+                  title: 'Ser donante voluntario',
+                  body:
+                      'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
+                ),
               ),
               separatorBuilder: (context, index) => const SerManosSizedBox.md(),
               itemCount: 5,
@@ -120,4 +156,12 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  // @override
+  // void didUpdateWidget(covariant HomePage oldWidget) {
+  //   if (oldWidget.tab != widget.tab) {
+  //     DefaultTabController.of(context).animateTo(widget.tab);
+  //   }
+  //   super.didUpdateWidget(oldWidget);
+  // }
 }

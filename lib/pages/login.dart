@@ -1,19 +1,17 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/api/ser_manos_api.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/logos.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
 import 'package:mobile_charity_app/design_system/organisms/forms/login_form.dart';
+import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
-import 'package:mobile_charity_app/pages/register.dart';
-import 'package:mobile_charity_app/pages/welcome.dart';
+import 'package:mobile_charity_app/models/user.dart';
+import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:provider/provider.dart';
-
-import '../design_system/tokens/colors.dart';
-import '../models/user.dart';
-import '../providers/user_provider.dart';
+import 'package:mobile_charity_app/routes/paths.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -70,8 +68,9 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () async {
                   if (!_formKey.currentState!.validate()) {
                     setState(() {
-                      _loginError =
-                          "Usuario y/o contraseña incorrectos."; // TODO: Assign api response
+                      _loginError = "";
+                      // _loginError =
+                      //     "Usuario y/o contraseña incorrectos."; // TODO: Assign api response
                     });
 
                     return;
@@ -89,14 +88,7 @@ class _LoginPageState extends State<LoginPage> {
 
                   //TODO: check credentials with backend
                   _loginError = 'false';
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const WelcomePage();
-                      },
-                    ),
-                  );
+                  context.replaceNamed(SerManosPagesName.welcome);
                 },
               ),
               const SerManosSizedBox.sm(),
@@ -104,14 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                 text: 'No tengo cuenta',
                 filled: false,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const RegisterPage();
-                      },
-                    ),
-                  );
+                  context.replaceNamed(SerManosPagesName.signup);
                 },
               ),
               const SerManosSizedBox.lg()

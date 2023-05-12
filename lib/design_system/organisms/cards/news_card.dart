@@ -22,7 +22,7 @@ class NewsCard extends StatelessWidget {
 
   Widget _buildInformation() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,10 +33,13 @@ class NewsCard extends StatelessWidget {
           ],
         ),
         const SerManosSizedBox.sm(),
-        SerManosButton.shortTextButton(
-          text: 'Leer Más',
-          onPressed: () {},
-          filled: false,
+        Align(
+          alignment: Alignment.centerRight,
+          child: SerManosButton.shortTextButton(
+            text: 'Leer Más',
+            onPressed: () {},
+            filled: false,
+          ),
         ),
       ],
     );
