@@ -5,7 +5,6 @@ import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
-import 'package:mobile_charity_app/pages/home.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 
 class WelcomePage extends StatelessWidget {

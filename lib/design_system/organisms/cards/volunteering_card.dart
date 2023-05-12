@@ -10,8 +10,7 @@ import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
-
-import '../../../routes/paths.dart';
+import 'package:mobile_charity_app/routes/paths.dart';
 
 class VolunteeringCard extends StatefulWidget {
   final String category;
