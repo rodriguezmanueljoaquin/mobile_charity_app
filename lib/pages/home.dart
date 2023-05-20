@@ -88,46 +88,52 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+
         body: TabBarView(
           children: [
-            ListView.separated(
-              padding: const EdgeInsets.symmetric(
-                horizontal: SerManosSpacing.spaceSL,
-                vertical: SerManosSpacing.spaceMD,
-              ),
-              itemBuilder: (context, index) {
-                Widget item;
+            // POSTULARSE
+            SingleChildScrollView(
+                child: Column(
+              children: [
+                const SerManosSizedBox.lg(),
+                SerManosSearchField(controller: searchController),
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: SerManosSpacing.spaceSL,
+                    vertical: SerManosSpacing.spaceMD,
+                  ),
+                  itemBuilder: (context, index) {
+                    return const UnconstrainedBox(
+                      child: VolunteeringCard(
+                        // TODO: Remove hardcoded data
+                        category: 'Acción Social',
+                        volunteering: VolunteeringModel(
+                          id: '1',
+                          title: 'Un Techo para mi País',
+                          description:
+                              'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
+                        ),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) =>
+                      const SerManosSizedBox.md(),
+                  itemCount: 5,
+                ),
+              ],
+            )),
 
-                if (index == 0) {
-                  item = SerManosSearchField(controller: searchController);
-                } else {
-                  item = const VolunteeringCard(
-                    // TODO: Remove hardcoded data
-                    category: 'Acción Social',
-                    volunteering: VolunteeringModel(
-                      id: '1',
-                      title: 'Un Techo para mi País',
-                      description:
-                          'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
-                    ),
-                  );
-                }
-
-                return UnconstrainedBox(
-                  child: item,
-                );
-              },
-              separatorBuilder: (context, index) => index == 0
-                  ? const SerManosSizedBox.lg()
-                  : const SerManosSizedBox.md(),
-              itemCount: 5 + 1,
-            ),
+            // MI PERFIL
             Container(
               color: Colors.amberAccent,
               child: Center(
                 child: Text('Mi Perfil'),
               ),
             ),
+
+            // NOVEDADES
             ListView.separated(
               padding: const EdgeInsets.symmetric(
                 horizontal: SerManosSpacing.spaceSL,
