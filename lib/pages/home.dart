@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile_charity_app/design_system/atoms/logos.dart';
+import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/news_card.dart';
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
           ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [SerManosLogos.appBar, const Spacer()],
+            children: [SerManosImages.appBar, const Spacer()],
           ),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(50.0),
@@ -126,12 +126,20 @@ class _HomePageState extends State<HomePage> {
             )),
 
             // MI PERFIL
-            Container(
-              color: Colors.amberAccent,
-              child: Center(
-                child: Text('Mi Perfil'),
-              ),
-            ),
+
+            // POSTULARSE
+            SingleChildScrollView(
+                child: Column(
+              children: [
+                const SerManosSizedBox.lg(),
+                Container(
+                  color: Colors.amberAccent,
+                  child: Center(
+                    child: SerManosImages.profileDefaultPhoto,
+                  ),
+                ),
+              ],
+            )),
 
             // NOVEDADES
             ListView.separated(

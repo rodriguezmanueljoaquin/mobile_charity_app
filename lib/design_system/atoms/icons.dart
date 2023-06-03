@@ -22,6 +22,9 @@ class SerManosIcon extends Icon {
   const SerManosIcon.location({super.key, required bool state, super.color})
       : super(state ? Icons.location_on : Icons.location_off);
 
+  const SerManosIcon.locationOutline({super.key, required bool state, super.color})
+      : super(state ? Icons.location_on_outlined : Icons.location_off_outlined);
+
   const SerManosIcon.close({super.key, super.color}) : super(Icons.close);
 
   const SerManosIcon.error({super.key})
@@ -36,7 +39,23 @@ class SerManosIcon extends Icon {
             color: !enabled
                 ? SerManosColors.secondary80
                 : activated
-                    ? SerManosColors.neutral75
-                    : SerManosColors.secondary200);
+                    ? SerManosColors.secondary200
+                    : SerManosColors.neutral75);
+
+  const SerManosIcon.radioButton({super.key, bool enabled = true, bool activated = false})
+      : super(Icons.radio_button_checked,
+            color: !enabled
+                ? SerManosColors.neutral25
+                : activated
+                    ? SerManosColors.primary100
+                    : SerManosColors.neutral75);
+
+  const SerManosIcon.radioButtonUnchecked({super.key, bool enabled = true, bool activated = false})
+      : super(Icons.radio_button_unchecked,
+            color: !enabled
+                ? SerManosColors.neutral25
+                : activated
+                    ? SerManosColors.primary100
+                    : SerManosColors.neutral75);
 
 }

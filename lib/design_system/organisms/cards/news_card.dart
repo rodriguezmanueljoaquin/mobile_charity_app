@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_charity_app/design_system/atoms/logos.dart';
+import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
@@ -60,7 +60,7 @@ class NewsCard extends StatelessWidget {
               width: 118,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: SerManosLogos.full.image,
+                  image: SerManosImages.full.image,
                   fit: BoxFit.contain,
                 ),
               ),
