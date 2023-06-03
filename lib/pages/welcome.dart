@@ -30,7 +30,7 @@ class WelcomePage extends StatelessWidget {
               ],
             ),
           ),
-          SerManosButton.longButton(
+          SerManosButton.longTextButton(
             text: 'Comenzar',
             onPressed: () {
               context.replaceNamed(SerManosPagesName.volunteering);

@@ -56,7 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   color: SerManosColors.error100,
                 ),
               ),
-              SerManosButton.longButton(
+              SerManosButton.longTextButton(
                 text: 'Registrarse',
                 disabled: _disabled,
                 onPressed: () {
@@ -75,7 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 },
               ),
               const SerManosSizedBox.sl(),
-              SerManosButton.longButton(
+              SerManosButton.longTextButton(
                 text: 'Ya tengo cuenta',
                 filled: false,
                 onPressed: () {

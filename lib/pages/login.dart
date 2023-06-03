@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                   color: SerManosColors.error100,
                 ),
               ),
-              SerManosButton.longButton(
+              SerManosButton.longTextButton(
                 text: 'Iniciar Sesión',
                 disabled: _disabled,
                 onPressed: () {
@@ -73,8 +73,8 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 },
               ),
-              const SerManosSizedBox.sm(),
-              SerManosButton.longButton(
+              const SerManosSizedBox.sl(),
+              SerManosButton.longTextButton(
                 text: 'No tengo cuenta',
                 filled: false,
                 onPressed: () {
