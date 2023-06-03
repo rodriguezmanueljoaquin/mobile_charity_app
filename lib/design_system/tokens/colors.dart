@@ -10,8 +10,12 @@ class SerManosColors {
   static const Color neutral75 = Color(0xFF666666);
   static const Color neutral100 = Color(0xFF191919);
 
+  static const Color primary5 = Color(0xFFF3F9F5);
+  static const Color primary10 = Color(0xFFE7F4EC);
   static const Color primary100 = Color(0xFF14903F);
 
+  static const Color secondary10 = Color(0xFFE1ECF5);
+  static const Color secondary25 = Color(0xFFCAE5FB);
   static const Color secondary50 = Color(0xFF90CAF9);
   static const Color secondary80 = Color(0xFF6CB6F3);
   static const Color secondary90 = Color(0xFF4AA9F5);
