@@ -37,6 +37,7 @@ class VolunteeringPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SerManosScaffold(
       applyPadding: false,
+      whiteStatusBar: false,
       body: Column(
         children: [
           Stack(

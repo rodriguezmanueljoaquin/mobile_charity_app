@@ -47,6 +47,7 @@ class _HomePageState extends State<HomePage> {
       length: 3,
       initialIndex: widget.tab,
       child: Scaffold(
+        backgroundColor: SerManosColors.secondary10,
         appBar: AppBar(
           backgroundColor: SerManosColors.secondary90,
           systemOverlayStyle: const SystemUiOverlayStyle(
