@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
+import 'package:mobile_charity_app/design_system/molecules/components.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
@@ -39,6 +42,8 @@ class _VolunteeringCardState extends State<VolunteeringCard> {
             children: [
               SerManosText.overline(widget.category.toUpperCase()),
               SerManosText.subtitle1(widget.volunteering.title),
+              const SerManosSizedBox.xs(),
+              Vacancies(vacancies: Random().nextInt(3),)
             ],
           ),
         ),
@@ -111,3 +116,4 @@ class _VolunteeringCardState extends State<VolunteeringCard> {
     );
   }
 }
+

@@ -41,10 +41,6 @@ class VolunteeringModal extends StatelessWidget {
             children: [
               SerManosText.subtitle1('Te estás por postular a'),
               SerManosText.headline2(title),
-              const SerManosSizedBox.sl(),
-              SerManosText.body1('Días $schedules'),
-              const SerManosSizedBox.height(height: 2),
-              SerManosText.body1(location),
             ],
           ),
         ),
