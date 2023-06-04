@@ -5,12 +5,12 @@ import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
-class VolunteeringModal extends StatelessWidget {
+class SerManosVolunteeringModal extends StatelessWidget {
   final String title;
   final String schedules;
   final String location;
 
-  const VolunteeringModal({
+  const SerManosVolunteeringModal({
     super.key,
     required this.title,
     required this.schedules,

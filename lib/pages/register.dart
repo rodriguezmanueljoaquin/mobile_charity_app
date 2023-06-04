@@ -38,7 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     SerManosImages.full,
                     const SerManosSizedBox.lg(),
-                    RegisterForm(
+                    SerManosRegisterForm(
                       formKey: _formKey,
                       changeDisabledStateTo: (bool state) {
                         setState(() {

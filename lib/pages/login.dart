@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     SerManosImages.full,
                     const SerManosSizedBox.lg(),
-                    LoginForm(
+                    SerManosLoginForm(
                       formKey: _formKey,
                       changeDisabledStateTo: (bool state) {
                         setState(() {

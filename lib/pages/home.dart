@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   itemBuilder: (context, index) {
                     return const UnconstrainedBox(
-                      child: VolunteeringCard(
+                      child: SerManosVolunteeringCard(
                         // TODO: Remove hardcoded data
                         category: 'Acción Social',
                         volunteering: VolunteeringModel(
@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                 vertical: SerManosSpacing.spaceLG,
               ),
               itemBuilder: (context, index) => const UnconstrainedBox(
-                child: NewsCard(
+                child: SerManosNewsCard(
                   overline: 'reporte 2820',
                   title: 'Ser donante voluntario',
                   body:

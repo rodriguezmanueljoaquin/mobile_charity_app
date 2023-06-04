@@ -15,21 +15,21 @@ import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 
-class VolunteeringCard extends StatefulWidget {
+class SerManosVolunteeringCard extends StatefulWidget {
   final String category;
   final VolunteeringModel volunteering;
 
-  const VolunteeringCard({
+  const SerManosVolunteeringCard({
     super.key,
     required this.category,
     required this.volunteering,
   });
 
   @override
-  State<VolunteeringCard> createState() => _VolunteeringCardState();
+  State<SerManosVolunteeringCard> createState() => _SerManosVolunteeringCardState();
 }
 
-class _VolunteeringCardState extends State<VolunteeringCard> {
+class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
   bool _isFavorite = false;
 
   Widget _buildInformation() {

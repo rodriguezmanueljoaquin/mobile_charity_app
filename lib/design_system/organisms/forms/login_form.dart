@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 
-class LoginForm extends StatefulWidget {
+class SerManosLoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final Function(bool) changeDisabledStateTo;
 
-  const LoginForm(
+  const SerManosLoginForm(
       {super.key, required this.formKey, required this.changeDisabledStateTo});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<SerManosLoginForm> createState() => _SerManosLoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _SerManosLoginFormState extends State<SerManosLoginForm> {
   // controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();

@@ -25,7 +25,7 @@ class VolunteeringPage extends StatelessWidget {
   Function _showDialog({required BuildContext context}) {
     return () => showDialog(
           context: context,
-          builder: (BuildContext context) => VolunteeringModal(
+          builder: (BuildContext context) => SerManosVolunteeringModal(
             title: volunteering.title,
             schedules: 'Sábados de 9.00 a 17.00 horas',
             location: 'Caballito',

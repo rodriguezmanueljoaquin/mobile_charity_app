@@ -8,12 +8,12 @@ import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
-class NewsCard extends StatelessWidget {
+class SerManosNewsCard extends StatelessWidget {
   final String overline;
   final String title;
   final String body;
 
-  const NewsCard({
+  const SerManosNewsCard({
     super.key,
     required this.overline,
     required this.title,
