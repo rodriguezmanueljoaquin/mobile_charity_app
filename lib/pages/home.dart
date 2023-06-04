@@ -3,11 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
+import 'package:mobile_charity_app/design_system/molecules/components.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
+import 'package:mobile_charity_app/design_system/organisms/cards/current_voluntering_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/news_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_card.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
+import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
+import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 
@@ -43,6 +47,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Remove hardcoded data
+    String? currentVolunteeringTitle = "Techo para mi pais";
+    // String? currentVolunteeringTitle;
+
     return DefaultTabController(
       length: 3,
       initialIndex: widget.tab,
@@ -89,7 +97,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-
         body: TabBarView(
           children: [
             // POSTULARSE
@@ -98,6 +105,26 @@ class _HomePageState extends State<HomePage> {
               children: [
                 const SerManosSizedBox.lg(),
                 SerManosSearchField(controller: searchController),
+                const SerManosSizedBox.lg(),
+                if (currentVolunteeringTitle != null)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SerManosText.headline1("Tu actividad"),
+                      const SerManosSizedBox.sl(),
+                      SerManosCurrentVolunteringCard(
+                        title: currentVolunteeringTitle,
+                      ),
+                      const SerManosSizedBox.md(),
+                    ],
+                  ),
+                SizedBox(
+                  width: SerManosSizes.sizeLG,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: SerManosText.headline1("Voluntariados"),
+                  ),
+                ),
                 ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -134,9 +161,8 @@ class _HomePageState extends State<HomePage> {
               children: [
                 const SerManosSizedBox.lg(),
                 Container(
-                  color: Colors.amberAccent,
-                  child: Center(
-                    child: SerManosImages.profileDefaultPhoto,
+                  child: const Center(
+                    child: SerManosProfilePhoto(url: null),
                   ),
                 ),
               ],

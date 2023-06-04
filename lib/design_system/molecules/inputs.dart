@@ -233,8 +233,7 @@ class _SerManosSearchFieldState extends State<SerManosSearchField> {
           isCollapsed: true,
           suffixIcon: _hasText
               ? SerManosIconButton(
-                  icon:
-                      const SerManosIcon.close(color: SerManosColors.neutral75),
+                  icon: const SerManosIcon.close(),
                   onPressed: () {
                     widget.controller.clear();
                     setState(() {
@@ -243,8 +242,7 @@ class _SerManosSearchFieldState extends State<SerManosSearchField> {
                   },
                 )
               : SerManosIconButton(
-                  icon: const SerManosIcon.search(
-                      color: SerManosColors.neutral75),
+                  icon: const SerManosIcon.search(),
                   onPressed: () => print('Typing...'),
                 ),
           contentPadding: const EdgeInsets.only(

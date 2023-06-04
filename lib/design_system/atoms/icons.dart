@@ -13,19 +13,40 @@ class SerManosIcon extends Icon {
   const SerManosIcon.favorite({super.key, required bool state, super.color})
       : super(state ? Icons.favorite : Icons.favorite_outline);
 
-  const SerManosIcon.search({super.key, super.color}) : super(Icons.search);
+  const SerManosIcon.search(
+      {super.key, bool enabled = true, bool activated = false})
+      : super(Icons.search,
+            color: !enabled
+                ? SerManosColors.neutral25
+                : activated
+                    ? SerManosColors.primary100
+                    : SerManosColors.neutral75);
 
   const SerManosIcon.add({super.key, super.color}) : super(Icons.add);
 
   const SerManosIcon.back({super.key, super.color}) : super(Icons.arrow_back);
 
-  const SerManosIcon.location({super.key, required bool state, super.color})
-      : super(state ? Icons.location_on : Icons.location_off);
+  const SerManosIcon.location(
+      {super.key, bool enabled = true, bool activated = false})
+      : super(Icons.location_on,
+            color: !enabled
+                ? SerManosColors.neutral25
+                : activated
+                    ? SerManosColors.primary100
+                    : SerManosColors.neutral75);
 
-  const SerManosIcon.locationOutline({super.key, required bool state, super.color})
+  const SerManosIcon.locationOutline(
+      {super.key, required bool state, super.color})
       : super(state ? Icons.location_on_outlined : Icons.location_off_outlined);
 
-  const SerManosIcon.close({super.key, super.color}) : super(Icons.close);
+  const SerManosIcon.close(
+      {super.key, bool enabled = true, bool activated = false})
+      : super(Icons.calendar_today,
+            color: !enabled
+                ? SerManosColors.neutral25
+                : activated
+                    ? SerManosColors.primary100
+                    : SerManosColors.neutral75);
 
   const SerManosIcon.error({super.key})
       : super(Icons.error, color: SerManosColors.error100);
@@ -42,7 +63,8 @@ class SerManosIcon extends Icon {
                     ? SerManosColors.secondary200
                     : SerManosColors.neutral75);
 
-  const SerManosIcon.radioButton({super.key, bool enabled = true, bool activated = false})
+  const SerManosIcon.radioButton(
+      {super.key, bool enabled = true, bool activated = false})
       : super(Icons.radio_button_checked,
             color: !enabled
                 ? SerManosColors.neutral25
@@ -50,7 +72,8 @@ class SerManosIcon extends Icon {
                     ? SerManosColors.primary100
                     : SerManosColors.neutral75);
 
-  const SerManosIcon.radioButtonUnchecked({super.key, bool enabled = true, bool activated = false})
+  const SerManosIcon.radioButtonUnchecked(
+      {super.key, bool enabled = true, bool activated = false})
       : super(Icons.radio_button_unchecked,
             color: !enabled
                 ? SerManosColors.neutral25
@@ -58,4 +81,12 @@ class SerManosIcon extends Icon {
                     ? SerManosColors.primary100
                     : SerManosColors.neutral75);
 
+  const SerManosIcon.calendar(
+      {super.key, bool enabled = true, bool activated = false})
+      : super(Icons.calendar_today,
+            color: !enabled
+                ? SerManosColors.neutral25
+                : activated
+                    ? SerManosColors.primary100
+                    : SerManosColors.neutral75);
 }

@@ -43,7 +43,9 @@ class _VolunteeringCardState extends State<VolunteeringCard> {
               SerManosText.overline(widget.category.toUpperCase()),
               SerManosText.subtitle1(widget.volunteering.title),
               const SerManosSizedBox.xs(),
-              Vacancies(vacancies: Random().nextInt(3),)
+              SerManosVacancies(
+                vacancies: Random().nextInt(3),
+              )
             ],
           ),
         ),
@@ -63,10 +65,7 @@ class _VolunteeringCardState extends State<VolunteeringCard> {
             const SerManosSizedBox.sl(useWidth: true, useHeight: false),
             SerManosIconButton(
               onPressed: () {},
-              icon: const SerManosIcon.location(
-                state: true,
-                color: SerManosColors.primary100,
-              ),
+              icon: const SerManosIcon.location(activated: true),
             )
           ],
         )
@@ -116,4 +115,3 @@ class _VolunteeringCardState extends State<VolunteeringCard> {
     );
   }
 }
-

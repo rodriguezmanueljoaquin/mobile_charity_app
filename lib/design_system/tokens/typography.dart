@@ -75,7 +75,7 @@ class SerManosTextStyle extends TextStyle {
       : super(
           fontWeight: SerManosTypography.regularFontWeight,
           fontSize: SerManosTypography.fontSizeOverline,
-          color: color ?? SerManosColors.neutral100,
+          color: color ?? SerManosColors.neutral75,
         );
 }
 
