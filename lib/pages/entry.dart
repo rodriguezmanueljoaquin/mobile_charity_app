@@ -28,14 +28,14 @@ class EntryPage extends StatelessWidget {
               ],
             ),
           ),
-          SerManosButton.longTextButton(
+          SerManosTextButton.longTextButton(
             text: 'Iniciar Sesión',
             onPressed: () {
               context.replaceNamed(SerManosPagesName.signin);
             },
           ),
           const SerManosSizedBox.sl(),
-          SerManosButton.longTextButton(
+          SerManosTextButton.longTextButton(
             text: 'Registrarse',
             filled: false,
             onPressed: () {

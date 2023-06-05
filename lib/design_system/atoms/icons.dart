@@ -63,24 +63,6 @@ class SerManosIcon extends Icon {
                     ? SerManosColors.secondary200
                     : SerManosColors.neutral75);
 
-  const SerManosIcon.radioButton(
-      {super.key, bool enabled = true, bool activated = false})
-      : super(Icons.radio_button_checked,
-            color: !enabled
-                ? SerManosColors.neutral25
-                : activated
-                    ? SerManosColors.primary100
-                    : SerManosColors.neutral75);
-
-  const SerManosIcon.radioButtonUnchecked(
-      {super.key, bool enabled = true, bool activated = false})
-      : super(Icons.radio_button_unchecked,
-            color: !enabled
-                ? SerManosColors.neutral25
-                : activated
-                    ? SerManosColors.primary100
-                    : SerManosColors.neutral75);
-
   const SerManosIcon.calendar(
       {super.key, bool enabled = true, bool activated = false})
       : super(Icons.calendar_today,

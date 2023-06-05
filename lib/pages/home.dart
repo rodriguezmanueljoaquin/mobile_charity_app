@@ -6,6 +6,7 @@ import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/components.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/current_voluntering_card.dart';
+import 'package:mobile_charity_app/design_system/organisms/cards/gender_input_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/news_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_card.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
@@ -154,8 +155,6 @@ class _HomePageState extends State<HomePage> {
             )),
 
             // MI PERFIL
-
-            // POSTULARSE
             SingleChildScrollView(
                 child: Column(
               children: [
@@ -165,6 +164,7 @@ class _HomePageState extends State<HomePage> {
                     child: SerManosProfilePhoto(url: null),
                   ),
                 ),
+                SerManosGenderInputCard(),
               ],
             )),
 

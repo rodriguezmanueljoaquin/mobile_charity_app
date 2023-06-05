@@ -45,12 +45,12 @@ class SerManosVolunteeringModal extends StatelessWidget {
           ),
         ),
         actions: [
-          SerManosButton.shortTextButton(
+          SerManosTextButton.shortTextButton(
             text: 'Cancelar',
             filled: false,
             onPressed: () => Navigator.pop(context),
           ),
-          SerManosButton.shortTextButton(
+          SerManosTextButton.shortTextButton(
             text: 'Confirmar',
             filled: false,
             onPressed: () {

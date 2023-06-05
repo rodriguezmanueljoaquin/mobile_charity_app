@@ -84,7 +84,7 @@ class VolunteeringPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SerManosButton.longTextButton(
+                  SerManosTextButton.longTextButton(
                     text: 'Postularme',
                     onPressed: _showDialog(context: context),
                     onLongPress: _showDialog(context: context),

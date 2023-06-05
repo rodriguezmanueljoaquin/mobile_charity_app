@@ -35,7 +35,7 @@ class SerManosNewsCard extends StatelessWidget {
         const SerManosSizedBox.sm(),
         Align(
           alignment: Alignment.centerRight,
-          child: SerManosButton.shortTextButton(
+          child: SerManosTextButton.shortTextButton(
             text: 'Leer Más',
             onPressed: () {},
             filled: false,

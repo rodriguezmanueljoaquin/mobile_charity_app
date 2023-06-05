@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
-class SerManosButton extends TextButton {
-  SerManosButton.longTextButton(
+class SerManosTextButton extends TextButton {
+  SerManosTextButton.longTextButton(
       {super.key,
       onPressed,
       onLongPress,
@@ -44,7 +43,7 @@ class SerManosButton extends TextButton {
           ),
         );
 
-  SerManosButton.shortTextButton({
+  SerManosTextButton.shortTextButton({
     super.key,
     onPressed,
     onLongPress,
