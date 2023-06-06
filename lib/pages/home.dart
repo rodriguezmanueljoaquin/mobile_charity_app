@@ -6,6 +6,7 @@ import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/components.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/current_voluntering_card.dart';
+import 'package:mobile_charity_app/design_system/organisms/cards/edit_profile_photo_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/gender_input_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/information_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/news_card.dart';
@@ -161,14 +162,20 @@ class _HomePageState extends State<HomePage> {
               children: [
                 const SerManosSizedBox.lg(),
                 const Center(
-                    child: SerManosProfilePhoto(url: null),
-                  ),
+                  child: SerManosProfilePhoto(url: null),
+                ),
+                const SerManosSizedBox.sm(),
                 const SerManosGenderInputCard(),
-                SerManosInformationCard(title: "Información personal",
+                const SerManosSizedBox.sm(),
+                SerManosInformationCard(
+                  title: "Información personal",
                   contentsByLabel: Map.from({
                     "Fecha de nacimiento": "12/12/1999",
                     "Género": "Masculino",
-                  }),)
+                  }),
+                ),
+                const SerManosSizedBox.sm(),
+                SerManosEditPhotoCard(currentPhotoUrl: "asd")
               ],
             )),
 

@@ -39,7 +39,7 @@ class SerManosCurrentVolunteringCard extends StatelessWidget {
             children: const [
               Center(
                 child: SerManosIcon.location(
-                  activated: true,
+                  isPrimaryAction: true,
                 ),
               )
             ],

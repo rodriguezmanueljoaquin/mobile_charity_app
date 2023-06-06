@@ -26,7 +26,8 @@ class SerManosVolunteeringCard extends StatefulWidget {
   });
 
   @override
-  State<SerManosVolunteeringCard> createState() => _SerManosVolunteeringCardState();
+  State<SerManosVolunteeringCard> createState() =>
+      _SerManosVolunteeringCardState();
 }
 
 class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
@@ -65,7 +66,7 @@ class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
             const SerManosSizedBox.sl(useWidth: true, useHeight: false),
             SerManosIconButton(
               onPressed: () {},
-              icon: const SerManosIcon.location(activated: true),
+              icon: const SerManosIcon.location(isPrimaryAction: true),
             )
           ],
         )
