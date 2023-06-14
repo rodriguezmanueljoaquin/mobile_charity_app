@@ -19,7 +19,6 @@ class SerManosGenderInputCard extends StatefulWidget {
 }
 
 class _SerManosGenderInputCardState extends State<SerManosGenderInputCard> {
-
   @override
   Widget build(BuildContext context) {
     return Container(

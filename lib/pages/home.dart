@@ -11,6 +11,7 @@ import 'package:mobile_charity_app/design_system/organisms/cards/gender_input_ca
 import 'package:mobile_charity_app/design_system/organisms/cards/information_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/news_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_card.dart';
+import 'package:mobile_charity_app/design_system/organisms/forms/personal_data_form.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
@@ -175,7 +176,11 @@ class _HomePageState extends State<HomePage> {
                   }),
                 ),
                 const SerManosSizedBox.sm(),
-                SerManosEditPhotoCard(currentPhotoUrl: "asd")
+                const SerManosEditPhotoCard(currentPhotoUrl: "asd"),
+                const SerManosSizedBox.sm(),
+                SerManosPersonalDataForm(
+                    formKey: GlobalKey<FormState>(),
+                    changeDisabledStateTo: (bool state) {})
               ],
             )),
 

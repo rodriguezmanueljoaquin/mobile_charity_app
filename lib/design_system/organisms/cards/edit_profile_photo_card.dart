@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/components.dart';
-import 'package:mobile_charity_app/design_system/molecules/radio_list_tile.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
 class SerManosEditPhotoCard extends StatefulWidget {
-  String? currentPhotoUrl;
+  final String? currentPhotoUrl;
 
-  SerManosEditPhotoCard({
+  const SerManosEditPhotoCard({
     super.key,
     this.currentPhotoUrl,
   });
