@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
+import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:go_router/go_router.dart';
@@ -30,7 +31,11 @@ class _MyAppState extends State<MyApp> {
       providers: [
         Provider<UserProvider>(
           create: (_) => UserProvider(),
-        )
+        ),
+        ProxyProvider<UserProvider, VolunteeringProvider>(
+          update: (_, UserProvider userProvider, __) =>
+              VolunteeringProvider(userProvider),
+        ),
       ],
       child: MaterialApp.router(
         title: 'SER MANOS',
