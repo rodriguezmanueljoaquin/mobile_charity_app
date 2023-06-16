@@ -64,7 +64,7 @@ class ProfileTab extends StatelessWidget {
                       SerManosTextButton.longTextButton(
                         text: "Editar perfil",
                         onPressed: () {
-                          context.replaceNamed(SerManosPagesName.profileEdit);
+                          context.pushNamed(SerManosPagesName.profileEdit);
                         },
                       ),
                       const SerManosSizedBox.sm(),
@@ -83,7 +83,7 @@ class ProfileTab extends StatelessWidget {
                         text: "Completar",
                         icon: const SerManosIcon.add(),
                         onPressed: () {
-                          context.replaceNamed(SerManosPagesName.profileEdit);
+                          context.pushNamed(SerManosPagesName.profileEdit);
                         },
                       ),
                       const SerManosSizedBox.xl(),

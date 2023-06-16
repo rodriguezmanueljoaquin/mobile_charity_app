@@ -16,12 +16,10 @@ import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 
 class SerManosVolunteeringCard extends StatefulWidget {
-  final String category;
   final VolunteeringModel volunteering;
 
   const SerManosVolunteeringCard({
     super.key,
-    required this.category,
     required this.volunteering,
   });
 
@@ -41,7 +39,7 @@ class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SerManosText.overline(widget.category.toUpperCase()),
+              SerManosText.overline(widget.volunteering.category.toUpperCase()),
               SerManosText.subtitle1(widget.volunteering.title),
               const SerManosSizedBox.xs(),
               SerManosVacancies(

@@ -10,6 +10,7 @@ import 'package:mobile_charity_app/design_system/organisms/cards/gender_input_ca
 import 'package:mobile_charity_app/design_system/organisms/forms/contact_data_form.dart';
 import 'package:mobile_charity_app/design_system/organisms/forms/profile_data_form.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
+import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
@@ -40,7 +41,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       horizontal: SerManosSpacing.spaceSL, vertical: 20),
                   child: SerManosIconButton(
                       icon: const SerManosIcon.close(),
-                      onPressed: () => Navigator.pop(context)),
+                      onPressed: () => context.pop()),
                 ),
               ],
             ),
@@ -48,7 +49,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SerManosText.headline1("Datos de perfil"),
+                Container(
+                  width: SerManosSizes.sizeLG,
+                  alignment: Alignment.centerLeft,
+                  child: SerManosText.headline1("Datos de perfil"),
+                ),
                 const SerManosSizedBox.sl(),
                 SerManosProfileDataForm(
                   currentPhotoUrl: "https://via.placeholder.com/150",

@@ -5,7 +5,7 @@ import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/pages/home/tabs/news.dart';
 import 'package:mobile_charity_app/pages/home/tabs/profile.dart';
-import 'package:mobile_charity_app/pages/home/tabs/volunteering.dart';
+import 'package:mobile_charity_app/pages/home/tabs/volunteerings.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 
 class HomePage extends StatefulWidget {
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
         ),
         body: TabBarView(
           children: [
-            VolunteeringTab(
+            VolunteeringsTab(
                 searchController: searchController,
                 currentVolunteeringTitle: currentVolunteeringTitle),
             ProfileTab(toolbarHeight: AppBar().preferredSize.height + 50),

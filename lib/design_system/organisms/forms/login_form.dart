@@ -5,9 +5,15 @@ import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 class SerManosLoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final Function(bool) changeDisabledStateTo;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
 
   const SerManosLoginForm(
-      {super.key, required this.formKey, required this.changeDisabledStateTo});
+      {super.key,
+      required this.formKey,
+      required this.changeDisabledStateTo,
+      required this.emailController,
+      required this.passwordController});
 
   @override
   State<SerManosLoginForm> createState() => _SerManosLoginFormState();
@@ -15,9 +21,16 @@ class SerManosLoginForm extends StatefulWidget {
 
 class _SerManosLoginFormState extends State<SerManosLoginForm> {
   // controllers
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  late final TextEditingController _emailController;
+  late final TextEditingController _passwordController;
   bool _allowSubmission = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController = widget.emailController;
+    _passwordController = widget.passwordController;
+  }
 
   @override
   void dispose() {

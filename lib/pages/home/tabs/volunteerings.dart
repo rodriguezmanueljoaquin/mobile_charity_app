@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
@@ -6,10 +7,11 @@ import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_ca
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
+import 'package:mobile_charity_app/models/availability.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 
-class VolunteeringTab extends StatelessWidget {
-  const VolunteeringTab({
+class VolunteeringsTab extends StatelessWidget {
+  const VolunteeringsTab({
     super.key,
     required this.searchController,
     required this.currentVolunteeringTitle,
@@ -53,16 +55,31 @@ class VolunteeringTab extends StatelessWidget {
             vertical: SerManosSpacing.spaceMD,
           ),
           itemBuilder: (context, index) {
-            return const UnconstrainedBox(
+            return UnconstrainedBox(
               child: SerManosVolunteeringCard(
                 // TODO: Remove hardcoded data
-                category: 'Acción Social',
                 volunteering: VolunteeringModel(
-                  id: '1',
-                  title: 'Un Techo para mi País',
-                  description:
-                      'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
-                ),
+                    id: '1',
+                    title: 'Un Techo para mi País',
+                    description:
+                        'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
+                    imageURL: 'https://via.placeholder.com/150',
+                    category: "Acción Social",
+                    about:
+                        'Un Techo para mi País es una organización latinoamericana que busca superar la situación de pobreza que viven miles de personas en los asentamientos precarios, a través de la acción conjunta de sus habitantes y jóvenes voluntarios y voluntarias. Para esto, trabajamos en la construcción de viviendas de emergencia, la ejecución de programas de educación y trabajo, y la incidencia en políticas públicas.',
+                    address: "Cabildo 600",
+                    requirements: [
+                      "Ser mayor de 18 años",
+                      "Tener disponibilidad para participar de la actividad",
+                      "Tener ganas de ayudar",
+                    ],
+                    availability: [
+                      Availability(dayOfWeek: 1, startHour: 12, endHour: 13)
+                    ],
+                    vacancies: 5,
+                    createdAt: DateTime.now(),
+                    volunteerIds: ["1"],
+                    location: GeoPoint(1, 1)),
               ),
             );
           },
