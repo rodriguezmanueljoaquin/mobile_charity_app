@@ -32,7 +32,8 @@ class _MyAppState extends State<MyApp> {
         Provider<UserProvider>(
           create: (_) => UserProvider(),
         ),
-        ProxyProvider<UserProvider, VolunteeringProvider>(
+        ChangeNotifierProxyProvider<UserProvider, VolunteeringProvider>(
+          create: (_) => VolunteeringProvider(null),
           update: (_, UserProvider userProvider, __) =>
               VolunteeringProvider(userProvider),
         ),

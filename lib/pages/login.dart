@@ -75,14 +75,10 @@ class _LoginPageState extends State<LoginPage> {
                 return;
               }
 
-              UserModel? user = await SerManosApi().loginUser(
+              Provider.of<UserProvider>(context, listen: false).login(
                 email: _emailController.text,
                 password: _passwordController.text,
               );
-
-                  Provider.of<UserProvider>(context, listen: false).user = user;
-
-              print(user);
 
               //TODO: check credentials with backend
               _loginError = 'false';

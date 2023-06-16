@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile_charity_app/models/user.dart';
+import 'package:mobile_charity_app/models/volunteering.dart';
+
+import '../models/news.dart';
 
 class SerManosApi {
   // singleton
@@ -101,5 +104,86 @@ class SerManosApi {
     }
 
     return null;
+  }
+
+  Future<List<VolunteeringModel>> getVolunteerings() async {
+    try {
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('volunteerings').get();
+
+      print(querySnapshot.docs[0].data());
+      return querySnapshot.docs
+          .map((e) =>
+              VolunteeringModel.fromJson(e.data() as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
+  Future<List<NewsModel>> getNews() async {
+    try {
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('news').get();
+
+      return querySnapshot.docs
+          .map((e) => NewsModel.fromJson(e.data() as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
+  Future<bool> setVolunteeringAsFavorite({
+    required String userId,
+    required String volunteeringId,
+    required bool isFavorite,
+  }) async {
+    try {
+      FieldValue fieldValue = isFavorite
+          ? FieldValue.arrayUnion([volunteeringId])
+          : FieldValue.arrayRemove([volunteeringId]);
+
+      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+        'favoriteVolunteeringsIds': fieldValue,
+      });
+
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> applyToVolunteering({
+    required String userId,
+    required String volunteeringId,
+  }) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+        'currentVolunteeringId': volunteeringId,
+      });
+
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> updateProfileInfo(UserModel user) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.id)
+          .update(user.toJson());
+
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
   }
 }
