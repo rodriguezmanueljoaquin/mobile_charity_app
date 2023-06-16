@@ -1,27 +1,25 @@
-class VolunteeringModel {
-  final String id;
-  final String title;
-  final String description;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const VolunteeringModel({
-    required this.id,
-    required this.title,
-    required this.description,
-  });
+part 'volunteering.freezed.dart';
+part 'volunteering.g.dart';
 
-  factory VolunteeringModel.fromJson(Map<String, dynamic> json) {
-    return VolunteeringModel(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      description: json['description'] as String,
-    );
-  }
+@freezed
+class VolunteeringModel with _$VolunteeringModel {
+  const factory VolunteeringModel({
+    required String id,
+    required String title,
+    required String description,
+    required String imageURL,
+    required String category,
+    required String about,
+    required String address,
+    required List<String> requirements,
+    required List<String> availability,
+    required int vacancies,
+    required DateTime createdAt,
+    required List<String> volunteerIds,
+  }) = _VolunteeringModel;
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'description': description,
-    };
-  }
+  factory VolunteeringModel.fromJson(Map<String, dynamic> json) =>
+      _$VolunteeringModelFromJson(json);
 }

@@ -1,20 +1,24 @@
-class UserModel {
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String? avatarURL;
-  final String id;
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
-  UserModel({
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.avatarURL,
-    required this.id,
-  });
+part 'user.freezed.dart';
+part 'user.g.dart';
 
-  @override
-  String toString() {
-    return 'UserModel(firstName: $firstName, lastName: $lastName, email: $email, avatarURL: $avatarURL, id: $id)';
-  }
+@freezed
+class UserModel with _$UserModel {
+  const factory UserModel({
+    required String firstName,
+    required String lastName,
+    required String email,
+    String? id,
+    String? avatarURL,
+    String? gender,
+    DateTime? birthDate,
+    String? phoneNumber,
+    String? currentVolunteeringId,
+    List<String>? favoriteVolunteeringsIds,
+  }) = _UserModel;
+
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
 }

@@ -25,25 +25,18 @@ class SerManosApi {
 
       print(userCredential);
       // save user data in Firestore
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userCredential.user!.uid)
-          .set(
-        {
-          'firstName': firstName,
-          'lastName': lastName,
-          'email': email,
-          'avatarURL': null
-        },
-      );
-
-      return UserModel(
+      UserModel newUser = UserModel(
         firstName: firstName,
         lastName: lastName,
         email: email,
-        avatarURL: null,
-        id: userCredential.user!.uid,
       );
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set(newUser.toJson());
+
+      return newUser.copyWith(id: userCredential.user!.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
