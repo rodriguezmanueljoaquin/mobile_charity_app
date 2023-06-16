@@ -30,10 +30,9 @@ mixin _$VolunteeringModel {
   List<String> get requirements => throw _privateConstructorUsedError;
   List<Availability> get availability => throw _privateConstructorUsedError;
   int get vacancies => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
   List<String> get volunteerIds => throw _privateConstructorUsedError;
-  @GeoPointConverter()
-  GeoPoint get location => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,9 +57,8 @@ abstract class $VolunteeringModelCopyWith<$Res> {
       List<String> requirements,
       List<Availability> availability,
       int vacancies,
-      DateTime createdAt,
-      List<String> volunteerIds,
-      @GeoPointConverter() GeoPoint location});
+      @TimestampConverter() DateTime createdAt,
+      List<String> volunteerIds});
 }
 
 /// @nodoc
@@ -88,7 +86,6 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
     Object? vacancies = null,
     Object? createdAt = null,
     Object? volunteerIds = null,
-    Object? location = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -139,10 +136,6 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
           ? _value.volunteerIds
           : volunteerIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as GeoPoint,
     ) as $Val);
   }
 }
@@ -166,9 +159,8 @@ abstract class _$$_VolunteeringModelCopyWith<$Res>
       List<String> requirements,
       List<Availability> availability,
       int vacancies,
-      DateTime createdAt,
-      List<String> volunteerIds,
-      @GeoPointConverter() GeoPoint location});
+      @TimestampConverter() DateTime createdAt,
+      List<String> volunteerIds});
 }
 
 /// @nodoc
@@ -194,7 +186,6 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
     Object? vacancies = null,
     Object? createdAt = null,
     Object? volunteerIds = null,
-    Object? location = null,
   }) {
     return _then(_$_VolunteeringModel(
       id: null == id
@@ -245,10 +236,6 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
           ? _value._volunteerIds
           : volunteerIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as GeoPoint,
     ));
   }
 }
@@ -267,9 +254,8 @@ class _$_VolunteeringModel implements _VolunteeringModel {
       required final List<String> requirements,
       required final List<Availability> availability,
       required this.vacancies,
-      required this.createdAt,
-      required final List<String> volunteerIds,
-      @GeoPointConverter() required this.location})
+      @TimestampConverter() required this.createdAt,
+      required final List<String> volunteerIds})
       : _requirements = requirements,
         _availability = availability,
         _volunteerIds = volunteerIds;
@@ -310,6 +296,7 @@ class _$_VolunteeringModel implements _VolunteeringModel {
   @override
   final int vacancies;
   @override
+  @TimestampConverter()
   final DateTime createdAt;
   final List<String> _volunteerIds;
   @override
@@ -320,12 +307,8 @@ class _$_VolunteeringModel implements _VolunteeringModel {
   }
 
   @override
-  @GeoPointConverter()
-  final GeoPoint location;
-
-  @override
   String toString() {
-    return 'VolunteeringModel(id: $id, title: $title, description: $description, imageURL: $imageURL, category: $category, about: $about, address: $address, requirements: $requirements, availability: $availability, vacancies: $vacancies, createdAt: $createdAt, volunteerIds: $volunteerIds, location: $location)';
+    return 'VolunteeringModel(id: $id, title: $title, description: $description, imageURL: $imageURL, category: $category, about: $about, address: $address, requirements: $requirements, availability: $availability, vacancies: $vacancies, createdAt: $createdAt, volunteerIds: $volunteerIds)';
   }
 
   @override
@@ -352,9 +335,7 @@ class _$_VolunteeringModel implements _VolunteeringModel {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             const DeepCollectionEquality()
-                .equals(other._volunteerIds, _volunteerIds) &&
-            (identical(other.location, location) ||
-                other.location == location));
+                .equals(other._volunteerIds, _volunteerIds));
   }
 
   @JsonKey(ignore: true)
@@ -372,8 +353,7 @@ class _$_VolunteeringModel implements _VolunteeringModel {
       const DeepCollectionEquality().hash(_availability),
       vacancies,
       createdAt,
-      const DeepCollectionEquality().hash(_volunteerIds),
-      location);
+      const DeepCollectionEquality().hash(_volunteerIds));
 
   @JsonKey(ignore: true)
   @override
@@ -392,20 +372,18 @@ class _$_VolunteeringModel implements _VolunteeringModel {
 
 abstract class _VolunteeringModel implements VolunteeringModel {
   const factory _VolunteeringModel(
-          {required final String id,
-          required final String title,
-          required final String description,
-          required final String imageURL,
-          required final String category,
-          required final String about,
-          required final String address,
-          required final List<String> requirements,
-          required final List<Availability> availability,
-          required final int vacancies,
-          required final DateTime createdAt,
-          required final List<String> volunteerIds,
-          @GeoPointConverter() required final GeoPoint location}) =
-      _$_VolunteeringModel;
+      {required final String id,
+      required final String title,
+      required final String description,
+      required final String imageURL,
+      required final String category,
+      required final String about,
+      required final String address,
+      required final List<String> requirements,
+      required final List<Availability> availability,
+      required final int vacancies,
+      @TimestampConverter() required final DateTime createdAt,
+      required final List<String> volunteerIds}) = _$_VolunteeringModel;
 
   factory _VolunteeringModel.fromJson(Map<String, dynamic> json) =
       _$_VolunteeringModel.fromJson;
@@ -431,12 +409,10 @@ abstract class _VolunteeringModel implements VolunteeringModel {
   @override
   int get vacancies;
   @override
+  @TimestampConverter()
   DateTime get createdAt;
   @override
   List<String> get volunteerIds;
-  @override
-  @GeoPointConverter()
-  GeoPoint get location;
   @override
   @JsonKey(ignore: true)
   _$$_VolunteeringModelCopyWith<_$_VolunteeringModel> get copyWith =>

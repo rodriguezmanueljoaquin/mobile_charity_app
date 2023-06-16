@@ -30,4 +30,39 @@ class UserProvider {
     this.user = user;
     return user;
   }
+
+  Future<bool> setVolunteeringAsFavorite({
+    required String volunteeringId,
+    required bool isFavorite,
+  }) async {
+    try {
+      await SerManosApi().setVolunteeringAsFavorite(
+        userId: user!.id!,
+        volunteeringId: volunteeringId,
+        isFavorite: isFavorite,
+      );
+
+      if (isFavorite) {
+        user = user?.copyWith(
+          favoriteVolunteeringsIds: [
+            ...user!.favoriteVolunteeringsIds!,
+            volunteeringId
+          ],
+        );
+      } else {
+        user = user?.copyWith(
+          favoriteVolunteeringsIds:
+              user!.favoriteVolunteeringsIds!.where((element) {
+            return element != volunteeringId;
+          }).toList(),
+        );
+      }
+
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+
+  }
 }

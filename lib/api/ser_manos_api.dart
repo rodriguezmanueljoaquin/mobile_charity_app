@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mobile_charity_app/models/news.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
-
-import '../models/news.dart';
+import 'package:mobile_charity_app/utils/firestore.dart';
 
 class SerManosApi {
   // singleton
@@ -16,11 +16,12 @@ class SerManosApi {
   SerManosApi._internal();
 
   // methods
-  Future<UserModel?> registerUser(
-      {required String email,
-      required String password,
-      required String firstName,
-      required String lastName}) async {
+  Future<UserModel?> registerUser({
+    required String email,
+    required String password,
+    required String firstName,
+    required String lastName,
+  }) async {
     // save user in Firebase Auth & other data in Firestore users collection
     try {
       UserCredential userCredential = await FirebaseAuth.instance
@@ -32,6 +33,8 @@ class SerManosApi {
         firstName: firstName,
         lastName: lastName,
         email: email,
+        id: userCredential.user!.uid,
+        favoriteVolunteeringsIds: [],
       );
 
       await FirebaseFirestore.instance
@@ -63,21 +66,11 @@ class SerManosApi {
       DocumentSnapshot documentSnapshot =
           await FirebaseFirestore.instance.collection('users').doc(id).get();
 
-      if (documentSnapshot.exists) {
-        return UserModel(
-          firstName: documentSnapshot.get('firstName'),
-          lastName: documentSnapshot.get('lastName'),
-          email: documentSnapshot.get('email'),
-          avatarURL: documentSnapshot.get('avatarURL'),
-          id: documentSnapshot.id,
-        );
-      }
+      return UserModel.fromJson(buildProperties(documentSnapshot));
     } catch (e) {
       print(e);
       return null;
     }
-
-    return null;
   }
 
   Future<UserModel?> loginUser(
@@ -89,6 +82,7 @@ class SerManosApi {
       UserModel? user = await getUserById(id: userCredential.user!.uid);
 
       print(user);
+
       return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -111,10 +105,8 @@ class SerManosApi {
       QuerySnapshot querySnapshot =
           await FirebaseFirestore.instance.collection('volunteerings').get();
 
-      print(querySnapshot.docs[0].data());
       return querySnapshot.docs
-          .map((e) =>
-              VolunteeringModel.fromJson(e.data() as Map<String, dynamic>))
+          .map((e) => VolunteeringModel.fromJson(buildProperties(e)))
           .toList();
     } catch (e) {
       print(e);

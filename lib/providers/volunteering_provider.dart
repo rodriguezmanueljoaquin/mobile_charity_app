@@ -12,7 +12,6 @@ class VolunteeringProvider extends ChangeNotifier {
   VolunteeringProvider(this._userProvider);
 
   Future<void> fetchVolunteerings() async {
-    print('fetchVolunteerings');
     isLoading = true;
 
     try {
