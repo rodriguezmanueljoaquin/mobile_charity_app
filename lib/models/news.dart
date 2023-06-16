@@ -12,6 +12,7 @@ class NewsModel with _$NewsModel {
     required String summary,
     required String imageURL,
     required String source,
+    required DateTime createdAt,
   }) = _NewsModel;
 
   factory NewsModel.fromJson(Map<String, dynamic> json) =>

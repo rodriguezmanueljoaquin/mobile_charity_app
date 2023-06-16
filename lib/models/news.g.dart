@@ -13,6 +13,7 @@ _$_NewsModel _$$_NewsModelFromJson(Map<String, dynamic> json) => _$_NewsModel(
       summary: json['summary'] as String,
       imageURL: json['imageURL'] as String,
       source: json['source'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$$_NewsModelToJson(_$_NewsModel instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$$_NewsModelToJson(_$_NewsModel instance) =>
       'summary': instance.summary,
       'imageURL': instance.imageURL,
       'source': instance.source,
+      'createdAt': instance.createdAt.toIso8601String(),
     };

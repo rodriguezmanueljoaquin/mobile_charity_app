@@ -26,6 +26,7 @@ mixin _$NewsModel {
   String get summary => throw _privateConstructorUsedError;
   String get imageURL => throw _privateConstructorUsedError;
   String get source => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +45,8 @@ abstract class $NewsModelCopyWith<$Res> {
       String description,
       String summary,
       String imageURL,
-      String source});
+      String source,
+      DateTime createdAt});
 }
 
 /// @nodoc
@@ -66,6 +68,7 @@ class _$NewsModelCopyWithImpl<$Res, $Val extends NewsModel>
     Object? summary = null,
     Object? imageURL = null,
     Object? source = null,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -92,6 +95,10 @@ class _$NewsModelCopyWithImpl<$Res, $Val extends NewsModel>
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -109,7 +116,8 @@ abstract class _$$_NewsModelCopyWith<$Res> implements $NewsModelCopyWith<$Res> {
       String description,
       String summary,
       String imageURL,
-      String source});
+      String source,
+      DateTime createdAt});
 }
 
 /// @nodoc
@@ -129,6 +137,7 @@ class __$$_NewsModelCopyWithImpl<$Res>
     Object? summary = null,
     Object? imageURL = null,
     Object? source = null,
+    Object? createdAt = null,
   }) {
     return _then(_$_NewsModel(
       id: null == id
@@ -155,6 +164,10 @@ class __$$_NewsModelCopyWithImpl<$Res>
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -168,7 +181,8 @@ class _$_NewsModel implements _NewsModel {
       required this.description,
       required this.summary,
       required this.imageURL,
-      required this.source});
+      required this.source,
+      required this.createdAt});
 
   factory _$_NewsModel.fromJson(Map<String, dynamic> json) =>
       _$$_NewsModelFromJson(json);
@@ -185,10 +199,12 @@ class _$_NewsModel implements _NewsModel {
   final String imageURL;
   @override
   final String source;
+  @override
+  final DateTime createdAt;
 
   @override
   String toString() {
-    return 'NewsModel(id: $id, title: $title, description: $description, summary: $summary, imageURL: $imageURL, source: $source)';
+    return 'NewsModel(id: $id, title: $title, description: $description, summary: $summary, imageURL: $imageURL, source: $source, createdAt: $createdAt)';
   }
 
   @override
@@ -203,13 +219,15 @@ class _$_NewsModel implements _NewsModel {
             (identical(other.summary, summary) || other.summary == summary) &&
             (identical(other.imageURL, imageURL) ||
                 other.imageURL == imageURL) &&
-            (identical(other.source, source) || other.source == source));
+            (identical(other.source, source) || other.source == source) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, title, description, summary, imageURL, source);
+  int get hashCode => Object.hash(runtimeType, id, title, description, summary,
+      imageURL, source, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -232,7 +250,8 @@ abstract class _NewsModel implements NewsModel {
       required final String description,
       required final String summary,
       required final String imageURL,
-      required final String source}) = _$_NewsModel;
+      required final String source,
+      required final DateTime createdAt}) = _$_NewsModel;
 
   factory _NewsModel.fromJson(Map<String, dynamic> json) =
       _$_NewsModel.fromJson;
@@ -249,6 +268,8 @@ abstract class _NewsModel implements NewsModel {
   String get imageURL;
   @override
   String get source;
+  @override
+  DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$_NewsModelCopyWith<_$_NewsModel> get copyWith =>

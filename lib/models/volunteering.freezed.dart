@@ -28,10 +28,12 @@ mixin _$VolunteeringModel {
   String get about => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   List<String> get requirements => throw _privateConstructorUsedError;
-  List<String> get availability => throw _privateConstructorUsedError;
+  List<Availability> get availability => throw _privateConstructorUsedError;
   int get vacancies => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   List<String> get volunteerIds => throw _privateConstructorUsedError;
+  @GeoPointConverter()
+  GeoPoint get location => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,10 +56,11 @@ abstract class $VolunteeringModelCopyWith<$Res> {
       String about,
       String address,
       List<String> requirements,
-      List<String> availability,
+      List<Availability> availability,
       int vacancies,
       DateTime createdAt,
-      List<String> volunteerIds});
+      List<String> volunteerIds,
+      @GeoPointConverter() GeoPoint location});
 }
 
 /// @nodoc
@@ -85,6 +88,7 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
     Object? vacancies = null,
     Object? createdAt = null,
     Object? volunteerIds = null,
+    Object? location = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -122,7 +126,7 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
       availability: null == availability
           ? _value.availability
           : availability // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<Availability>,
       vacancies: null == vacancies
           ? _value.vacancies
           : vacancies // ignore: cast_nullable_to_non_nullable
@@ -135,6 +139,10 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
           ? _value.volunteerIds
           : volunteerIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as GeoPoint,
     ) as $Val);
   }
 }
@@ -156,10 +164,11 @@ abstract class _$$_VolunteeringModelCopyWith<$Res>
       String about,
       String address,
       List<String> requirements,
-      List<String> availability,
+      List<Availability> availability,
       int vacancies,
       DateTime createdAt,
-      List<String> volunteerIds});
+      List<String> volunteerIds,
+      @GeoPointConverter() GeoPoint location});
 }
 
 /// @nodoc
@@ -185,6 +194,7 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
     Object? vacancies = null,
     Object? createdAt = null,
     Object? volunteerIds = null,
+    Object? location = null,
   }) {
     return _then(_$_VolunteeringModel(
       id: null == id
@@ -222,7 +232,7 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
       availability: null == availability
           ? _value._availability
           : availability // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<Availability>,
       vacancies: null == vacancies
           ? _value.vacancies
           : vacancies // ignore: cast_nullable_to_non_nullable
@@ -235,6 +245,10 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
           ? _value._volunteerIds
           : volunteerIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as GeoPoint,
     ));
   }
 }
@@ -251,10 +265,11 @@ class _$_VolunteeringModel implements _VolunteeringModel {
       required this.about,
       required this.address,
       required final List<String> requirements,
-      required final List<String> availability,
+      required final List<Availability> availability,
       required this.vacancies,
       required this.createdAt,
-      required final List<String> volunteerIds})
+      required final List<String> volunteerIds,
+      @GeoPointConverter() required this.location})
       : _requirements = requirements,
         _availability = availability,
         _volunteerIds = volunteerIds;
@@ -284,9 +299,9 @@ class _$_VolunteeringModel implements _VolunteeringModel {
     return EqualUnmodifiableListView(_requirements);
   }
 
-  final List<String> _availability;
+  final List<Availability> _availability;
   @override
-  List<String> get availability {
+  List<Availability> get availability {
     if (_availability is EqualUnmodifiableListView) return _availability;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_availability);
@@ -305,8 +320,12 @@ class _$_VolunteeringModel implements _VolunteeringModel {
   }
 
   @override
+  @GeoPointConverter()
+  final GeoPoint location;
+
+  @override
   String toString() {
-    return 'VolunteeringModel(id: $id, title: $title, description: $description, imageURL: $imageURL, category: $category, about: $about, address: $address, requirements: $requirements, availability: $availability, vacancies: $vacancies, createdAt: $createdAt, volunteerIds: $volunteerIds)';
+    return 'VolunteeringModel(id: $id, title: $title, description: $description, imageURL: $imageURL, category: $category, about: $about, address: $address, requirements: $requirements, availability: $availability, vacancies: $vacancies, createdAt: $createdAt, volunteerIds: $volunteerIds, location: $location)';
   }
 
   @override
@@ -333,7 +352,9 @@ class _$_VolunteeringModel implements _VolunteeringModel {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             const DeepCollectionEquality()
-                .equals(other._volunteerIds, _volunteerIds));
+                .equals(other._volunteerIds, _volunteerIds) &&
+            (identical(other.location, location) ||
+                other.location == location));
   }
 
   @JsonKey(ignore: true)
@@ -351,7 +372,8 @@ class _$_VolunteeringModel implements _VolunteeringModel {
       const DeepCollectionEquality().hash(_availability),
       vacancies,
       createdAt,
-      const DeepCollectionEquality().hash(_volunteerIds));
+      const DeepCollectionEquality().hash(_volunteerIds),
+      location);
 
   @JsonKey(ignore: true)
   @override
@@ -370,18 +392,20 @@ class _$_VolunteeringModel implements _VolunteeringModel {
 
 abstract class _VolunteeringModel implements VolunteeringModel {
   const factory _VolunteeringModel(
-      {required final String id,
-      required final String title,
-      required final String description,
-      required final String imageURL,
-      required final String category,
-      required final String about,
-      required final String address,
-      required final List<String> requirements,
-      required final List<String> availability,
-      required final int vacancies,
-      required final DateTime createdAt,
-      required final List<String> volunteerIds}) = _$_VolunteeringModel;
+          {required final String id,
+          required final String title,
+          required final String description,
+          required final String imageURL,
+          required final String category,
+          required final String about,
+          required final String address,
+          required final List<String> requirements,
+          required final List<Availability> availability,
+          required final int vacancies,
+          required final DateTime createdAt,
+          required final List<String> volunteerIds,
+          @GeoPointConverter() required final GeoPoint location}) =
+      _$_VolunteeringModel;
 
   factory _VolunteeringModel.fromJson(Map<String, dynamic> json) =
       _$_VolunteeringModel.fromJson;
@@ -403,13 +427,16 @@ abstract class _VolunteeringModel implements VolunteeringModel {
   @override
   List<String> get requirements;
   @override
-  List<String> get availability;
+  List<Availability> get availability;
   @override
   int get vacancies;
   @override
   DateTime get createdAt;
   @override
   List<String> get volunteerIds;
+  @override
+  @GeoPointConverter()
+  GeoPoint get location;
   @override
   @JsonKey(ignore: true)
   _$$_VolunteeringModelCopyWith<_$_VolunteeringModel> get copyWith =>
