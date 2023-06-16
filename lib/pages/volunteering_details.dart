@@ -18,22 +18,28 @@ import 'package:mobile_charity_app/utils/availability_converter.dart';
 class VolunteeringDetailsPage extends StatelessWidget {
   final VolunteeringModel volunteering;
   final String id;
-  final bool isUserVolunteering;
+  final String? userVolunteeringId;
+  final String cancelTitle = '¿Estás seguro que querés retirar tu postulación?';
+  final String enlistTitle = 'Te estás por postular a';
+  final String removeTitle =
+      '¿Estás seguro que querés abandonar tu voluntariado?';
 
   const VolunteeringDetailsPage({
     super.key,
     required this.volunteering,
     required this.id,
-    this.isUserVolunteering = true,
+    this.userVolunteeringId,
   });
 
   Function _showDialog(
-      {required BuildContext context, bool isEnlisting = true}) {
+      {required BuildContext context,
+      required String title,
+      required String volunteeringTitle}) {
     return () => showDialog(
           context: context,
           builder: (BuildContext context) => SerManosVolunteeringModal(
-            title: volunteering.title,
-            isEnlisting: isEnlisting,
+            title: title,
+            volunteeringTitle: volunteering.title,
           ),
         );
   }
@@ -130,7 +136,6 @@ class VolunteeringDetailsPage extends StatelessWidget {
                         SerManosVacancies(
                           vacancies: volunteering.vacancies,
                         ),
-                        const SerManosSizedBox.md(),
                       ],
                     ),
                   ),
@@ -138,12 +143,13 @@ class VolunteeringDetailsPage extends StatelessWidget {
               ),
             ),
           ),
-          isUserVolunteering
-              ? SizedBox(
-                  width: SerManosSizes.sizeLG,
-                  child: Column(
+          const SerManosSizedBox.md(),
+          SizedBox(
+            width: SerManosSizes.sizeLG,
+            child: userVolunteeringId != null &&
+                    userVolunteeringId == volunteering.id
+                ? Column(
                     children: [
-                      const SerManosSizedBox.lg(),
                       SerManosText.headline2("Te has postulado"),
                       const SerManosSizedBox.sm(),
                       SerManosText.body1(
@@ -153,25 +159,61 @@ class VolunteeringDetailsPage extends StatelessWidget {
                       SerManosTextButton.longTextButton(
                         text: 'Retirar postulación',
                         filled: false,
-                        onPressed:
-                            _showDialog(context: context, isEnlisting: false),
-                        onLongPress:
-                            _showDialog(context: context, isEnlisting: false),
+                        onPressed: _showDialog(
+                            context: context,
+                            title: cancelTitle,
+                            volunteeringTitle: volunteering.title),
+                        onLongPress: _showDialog(
+                            context: context,
+                            title: cancelTitle,
+                            volunteeringTitle: volunteering.title),
                       ),
                       const SerManosSizedBox.xl(),
                     ],
+                  )
+                : Column(
+                    children: [
+                      if (userVolunteeringId != null &&
+                          userVolunteeringId != volunteering.id)
+                        Column(
+                          children: [
+                            const SerManosSizedBox.md(),
+                            SerManosText.body1(
+                                textAlign: TextAlign.center,
+                                "Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este."),
+                            const SerManosSizedBox.sm(),
+                            SerManosTextButton.longTextButton(
+                              text: 'Abandonar voluntariado actual',
+                              filled: false,
+                              onPressed: _showDialog(
+                                  context: context,
+                                  title: removeTitle,
+                                  volunteeringTitle: volunteering.title),
+                              onLongPress: _showDialog(
+                                  context: context,
+                                  title: removeTitle,
+                                  volunteeringTitle: volunteering.title),
+                            ),
+                            const SerManosSizedBox.md(),
+                          ],
+                        ),
+                      SerManosTextButton.longTextButton(
+                        text: 'Postularme',
+                        disabled: volunteering.vacancies == 0 ||
+                            userVolunteeringId != null,
+                        onPressed: _showDialog(
+                            context: context,
+                            title: enlistTitle,
+                            volunteeringTitle: volunteering.title),
+                        onLongPress: _showDialog(
+                            context: context,
+                            title: enlistTitle,
+                            volunteeringTitle: volunteering.title),
+                      ),
+                      const SerManosSizedBox.lg(),
+                    ],
                   ),
-                )
-              : Column(
-                  children: [
-                    SerManosTextButton.longTextButton(
-                      text: 'Postularme',
-                      onPressed: _showDialog(context: context),
-                      onLongPress: _showDialog(context: context),
-                    ),
-                    const SerManosSizedBox.lg(),
-                  ],
-                ),
+          )
         ],
       ),
     );

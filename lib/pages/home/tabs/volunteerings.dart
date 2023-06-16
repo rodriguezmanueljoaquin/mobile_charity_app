@@ -59,7 +59,7 @@ class VolunteeringsTab extends StatelessWidget {
               child: SerManosVolunteeringCard(
                 // TODO: Remove hardcoded data
                 volunteering: VolunteeringModel(
-                    id: '1',
+                    id: '2',
                     title: 'Un Techo para mi País',
                     description:
                         'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
