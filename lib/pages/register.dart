@@ -89,8 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     password: _passwordController.text,
                   );
 
-                  Provider.of<UserProvider>(context, listen: false)
-                      .setUser(user!);
+                  Provider.of<UserProvider>(context, listen: false).user = user;
 
                   print(user);
 
