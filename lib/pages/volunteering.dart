@@ -50,7 +50,7 @@ class VolunteeringPage extends StatelessWidget {
                       image: SerManosImages.full.image,
                       // image: NetworkImage(
                       //     'https://p6.storage.canalblog.com/69/50/922142/85510911_o.png'),
-                      fit: BoxFit.fill),
+                      fit: BoxFit.contain),
                 ),
                 foregroundDecoration: const BoxDecoration(
                   gradient: LinearGradient(
