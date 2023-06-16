@@ -5,6 +5,7 @@ import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
+import 'package:mobile_charity_app/design_system/organisms/cards/ubication_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/modals/volunteering_modal.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
@@ -40,63 +41,78 @@ class VolunteeringPage extends StatelessWidget {
       whiteStatusBar: false,
       body: Column(
         children: [
-          Stack(
-            children: [
-              Container(
-                height: 234,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: SerManosImages.full.image,
-                      // image: NetworkImage(
-                      //     'https://p6.storage.canalblog.com/69/50/922142/85510911_o.png'),
-                      fit: BoxFit.contain),
-                ),
-                foregroundDecoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [SerManosColors.black, SerManosColors.transparent],
-                    stops: [0.0, 0.3555],
-                  ),
-                ),
-              ),
-              Positioned(
-                top: SerManosSpacing.spaceMD,
-                left: SerManosSpacing.spaceMD,
-                child: SerManosIconButton(
-                  icon: const SerManosIcon.back(color: SerManosColors.neutral0),
-                  onPressed: () => context.pop(),
-                ),
-              ),
-            ],
-          ),
           Expanded(
-            child: SizedBox(
-              width: SerManosSizes.sizeLG,
+            child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SerManosSizedBox.lg(),
-                  Expanded(
+                  Stack(
+                    children: [
+                      Container(
+                        height: 234,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: SerManosImages.full.image,
+                              // image: NetworkImage(
+                              //     'https://p6.storage.canalblog.com/69/50/922142/85510911_o.png'),
+                              fit: BoxFit.cover),
+                        ),
+                        foregroundDecoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              SerManosColors.black,
+                              SerManosColors.transparent
+                            ],
+                            stops: [0.0, 0.3555],
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: SerManosSpacing.spaceMD,
+                        left: SerManosSpacing.spaceMD,
+                        child: SerManosIconButton(
+                          icon: const SerManosIcon.back(
+                              color: SerManosColors.neutral0),
+                          onPressed: () => context.pop(),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: SerManosSizes.sizeLG,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        const SerManosSizedBox.lg(),
+                        SerManosText.overline(volunteering.category),
                         SerManosText.headline1(volunteering.title),
+                        const SerManosSizedBox.sl(),
+                        SerManosText.body1(
+                          volunteering.description,
+                          color: SerManosColors.secondary200,
+                        ),
                         const SerManosSizedBox.md(),
-                        SerManosText.body1(volunteering.description),
+                        SerManosText.headline1("Sobre la actividad"),
+                        const SerManosSizedBox.sm(),
+                        SerManosText.body1(volunteering.about),
+                        const SerManosSizedBox.md(),
+                        SerManosUbicationCard(
+                            address: volunteering.address),
                       ],
                     ),
                   ),
-                  SerManosTextButton.longTextButton(
-                    text: 'Postularme',
-                    onPressed: _showDialog(context: context),
-                    onLongPress: _showDialog(context: context),
-                  ),
-                  const SerManosSizedBox.height(height: 56),
                 ],
               ),
             ),
           ),
+          SerManosTextButton.longTextButton(
+            text: 'Postularme',
+            onPressed: _showDialog(context: context),
+            onLongPress: _showDialog(context: context),
+          ),
+          const SerManosSizedBox.lg(),
         ],
       ),
     );

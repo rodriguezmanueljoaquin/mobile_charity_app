@@ -23,15 +23,12 @@ class ProfileTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height - _toolbarHeight,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
+    return Column(
+      children: [
+        Expanded(
+          child: Center(
+            child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Center(
                     child: SerManosProfilePhoto(url: null),
@@ -49,49 +46,49 @@ class ProfileTab extends StatelessWidget {
                         )
                       : SerManosText.body1(
                           "¡Completá tu perfil para tener acceso a mejores oportunidades!"),
+                  if (completed) const SerManosSizedBox.lg(),
+                  if (completed)
+                    ProfileData(
+                      mail: _mail,
+                      phoneNumber: _phoneNumber,
+                    )
                 ],
               ),
             ),
-            completed
-                ? ProfileData(
-                    mail: _mail,
-                    phoneNumber: _phoneNumber,
-                  )
-                : Container(),
-            completed
-                ? Column(
-                    children: [
-                      SerManosTextButton.longTextButton(
-                        text: "Editar perfil",
-                        onPressed: () {
-                          context.pushNamed(SerManosPagesName.profileEdit);
-                        },
-                      ),
-                      const SerManosSizedBox.sm(),
-                      SerManosTextButton.longTextButton(
-                        text: "Cerrar sesión",
-                        onPressed: () {},
-                        filled: false,
-                        textColor: SerManosColors.error100,
-                      ),
-                      const SerManosSizedBox.xl(),
-                    ],
-                  )
-                : Column(
-                    children: [
-                      SerManosTextButton.shortTextButton(
-                        text: "Completar",
-                        icon: const SerManosIcon.add(),
-                        onPressed: () {
-                          context.pushNamed(SerManosPagesName.profileEdit);
-                        },
-                      ),
-                      const SerManosSizedBox.xl(),
-                    ],
-                  ),
-          ],
+          ),
         ),
-      ),
+        completed
+            ? Column(
+                children: [
+                  SerManosTextButton.longTextButton(
+                    text: "Editar perfil",
+                    onPressed: () {
+                      context.pushNamed(SerManosPagesName.profileEdit);
+                    },
+                  ),
+                  const SerManosSizedBox.sm(),
+                  SerManosTextButton.longTextButton(
+                    text: "Cerrar sesión",
+                    onPressed: () {},
+                    filled: false,
+                    textColor: SerManosColors.error100,
+                  ),
+                  const SerManosSizedBox.xl(),
+                ],
+              )
+            : Column(
+                children: [
+                  SerManosTextButton.shortTextButton(
+                    text: "Completar",
+                    icon: const SerManosIcon.add(),
+                    onPressed: () {
+                      context.pushNamed(SerManosPagesName.profileEdit);
+                    },
+                  ),
+                  const SerManosSizedBox.xl(),
+                ],
+              ),
+      ],
     );
   }
 }
