@@ -4,22 +4,22 @@ import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/edit_profile_photo_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/gender_input_card.dart';
 
-class SerManosPersonalDataForm extends StatefulWidget {
+class SerManosProfileDataForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final Function(bool) changeDisabledStateTo;
+  final String? currentPhotoUrl;
 
-  const SerManosPersonalDataForm(
-      {super.key, required this.formKey, required this.changeDisabledStateTo});
+  const SerManosProfileDataForm(
+      {super.key, required this.formKey, required this.changeDisabledStateTo, this.currentPhotoUrl});
 
   @override
-  State<SerManosPersonalDataForm> createState() =>
-      _SerManosPersonalDataFormState();
+  State<SerManosProfileDataForm> createState() =>
+      _SerManosProfileDataFormState();
 }
 
-class _SerManosPersonalDataFormState extends State<SerManosPersonalDataForm> {
+class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
   // controllers
   final _dateController = TextEditingController();
-  String? imageUrl;
   bool _allowSubmission = false;
 
   @override
@@ -57,7 +57,7 @@ class _SerManosPersonalDataFormState extends State<SerManosPersonalDataForm> {
           const SerManosGenderInputCard(),
           const SerManosSizedBox.md(),
           SerManosEditPhotoCard(
-            currentPhotoUrl: imageUrl,
+            currentPhotoUrl: widget.currentPhotoUrl,
           )
         ],
       ),

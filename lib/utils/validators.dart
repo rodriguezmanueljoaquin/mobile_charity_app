@@ -22,3 +22,10 @@ String? dateValidator(String? value) {
   }
   return null;
 }
+
+String? phoneValidator(String? value) {
+  if (value != null && !RegExp(r"^[\+][0-9]{14}$").hasMatch(value)) {
+    return 'No es un número de telefono valido';
+  }
+  return null;
+}

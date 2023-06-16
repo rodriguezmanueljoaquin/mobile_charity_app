@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/components.dart';
-import 'package:mobile_charity_app/design_system/organisms/cards/edit_profile_photo_card.dart';
-import 'package:mobile_charity_app/design_system/organisms/cards/gender_input_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/information_card.dart';
-import 'package:mobile_charity_app/design_system/organisms/forms/personal_data_form.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
+import 'package:mobile_charity_app/routes/paths.dart';
 
 class ProfileTab extends StatelessWidget {
   final bool completed = true;
@@ -25,78 +24,75 @@ class ProfileTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: SizedBox(
-            height: MediaQuery.of(context).size.height - _toolbarHeight,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height - _toolbarHeight,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Center(
+                    child: SerManosProfilePhoto(url: null),
+                  ),
+                  const SerManosSizedBox.sl(),
+                  SerManosText.overline("VOLUNTARIO"),
+                  const SerManosSizedBox.sm(),
+                  SerManosText.subtitle1(name),
+                  const SerManosSizedBox.sm(),
+                  completed
+                      ? SerManosText.body1(
+                          _mail,
+                          color: SerManosColors
+                              .secondary200, // TODO: ADD HIPERVINCULO AL MAIL
+                        )
+                      : SerManosText.body1(
+                          "¡Completá tu perfil para tener acceso a mejores oportunidades!"),
+                ],
+              ),
+            ),
+            completed
+                ? ProfileData(
+                    mail: _mail,
+                    phoneNumber: _phoneNumber,
+                  )
+                : Container(),
+            completed
+                ? Column(
                     children: [
-                      const Center(
-                        child: SerManosProfilePhoto(url: null),
+                      SerManosTextButton.longTextButton(
+                        text: "Editar perfil",
+                        onPressed: () {
+                          context.replaceNamed(SerManosPagesName.profileEdit);
+                        },
                       ),
-                      const SerManosSizedBox.sl(),
-                      SerManosText.overline("VOLUNTARIO"),
                       const SerManosSizedBox.sm(),
-                      SerManosText.subtitle1(name),
-                      const SerManosSizedBox.sm(),
-                      completed
-                          ? SerManosText.body1(
-                              _mail,
-                              color: SerManosColors
-                                  .secondary200, // TODO: ADD HIPERVINCULO AL MAIL
-                            )
-                          : SerManosText.body1(
-                              "¡Completá tu perfil para tener acceso a mejores oportunidades!"),
+                      SerManosTextButton.longTextButton(
+                        text: "Cerrar sesión",
+                        onPressed: () {},
+                        filled: false,
+                        textColor: SerManosColors.error100,
+                      ),
+                      const SerManosSizedBox.xl(),
+                    ],
+                  )
+                : Column(
+                    children: [
+                      SerManosTextButton.shortTextButton(
+                        text: "Completar",
+                        icon: const SerManosIcon.add(),
+                        onPressed: () {
+                          context.replaceNamed(SerManosPagesName.profileEdit);
+                        },
+                      ),
+                      const SerManosSizedBox.xl(),
                     ],
                   ),
-                ),
-                completed
-                    ? ProfileData(
-                        mail: _mail,
-                        phoneNumber: _phoneNumber,
-                      )
-                    : Container(),
-
-                completed
-                    ? Column(
-                        children: [
-                          SerManosTextButton.longTextButton(
-                            text: "Editar perfil",
-                            onPressed: () {},
-                          ),
-                          const SerManosSizedBox.sm(),
-                          SerManosTextButton.longTextButton(
-                            text: "Cerrar sesión",
-                            onPressed: () {},
-                            filled: false,
-                            textColor: SerManosColors.error100,
-                          ),
-                          const SerManosSizedBox.xl(),
-                        ],
-                      )
-                    : Column(
-                        children: [
-                          SerManosTextButton.shortTextButton(
-                            text: "Completar",
-                            icon: const SerManosIcon.add(),
-                            onPressed: () {},
-                          ),
-                          const SerManosSizedBox.xl(),
-                        ],
-                      ),
-                // const SerManosGenderInputCard(),
-                // const SerManosSizedBox.sm(),
-                // const SerManosSizedBox.sm(),
-                // const SerManosEditPhotoCard(currentPhotoUrl: "asd"),
-                // const SerManosSizedBox.sm(),
-                // SerManosPersonalDataForm(
-                //     formKey: GlobalKey<FormState>(),
-                //     changeDisabledStateTo: (bool state) {})
-              ],
-            )));
+          ],
+        ),
+      ),
+    );
   }
 }
 

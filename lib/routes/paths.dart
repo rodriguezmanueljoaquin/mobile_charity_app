@@ -6,5 +6,6 @@ class SerManosPagesName {
   static const String volunteering = 'volunteering';
   static const String volunteeringDetail = 'volunteeringDetail';
   static const String profile = 'profile';
+  static const String profileEdit = 'profileEdit';
   static const String news = 'news';
 }
