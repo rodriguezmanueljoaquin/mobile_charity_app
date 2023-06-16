@@ -48,7 +48,9 @@ class _HomePageState extends State<HomePage> {
       length: 3,
       initialIndex: widget.tab,
       child: Scaffold(
-        backgroundColor: SerManosColors.secondary10,
+        backgroundColor: widget.tab == 1
+            ? SerManosColors.neutral0
+            : SerManosColors.secondary10,
         appBar: AppBar(
           backgroundColor: SerManosColors.secondary90,
           systemOverlayStyle: const SystemUiOverlayStyle(
@@ -95,9 +97,7 @@ class _HomePageState extends State<HomePage> {
             VolunteeringTab(
                 searchController: searchController,
                 currentVolunteeringTitle: currentVolunteeringTitle),
-
-            const ProfileTab(),
-
+            ProfileTab(toolbarHeight: AppBar().preferredSize.height + 50),
             const NewsTab(),
           ],
         ),

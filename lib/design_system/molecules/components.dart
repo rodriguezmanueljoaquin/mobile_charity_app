@@ -19,8 +19,8 @@ class SerManosProfilePhoto extends StatelessWidget {
     return CircleAvatar(
       radius: size / 2,
       backgroundImage: url != null ? NetworkImage(url!) : null,
-      child: url != null ? null : SerManosImages.profileDefaultPhoto,
       backgroundColor: SerManosColors.neutral0,
+      child: url != null ? null : SerManosImages.profileDefaultPhoto,
     );
   }
 }

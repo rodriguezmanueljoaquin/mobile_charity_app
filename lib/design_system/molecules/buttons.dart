@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
@@ -11,7 +12,8 @@ class SerManosTextButton extends TextButton {
       onLongPress,
       required String text,
       bool disabled = false,
-      filled = true})
+      filled = true,
+      textColor})
       : super(
           onPressed: disabled ? null : onPressed,
           onLongPress: disabled ? null : onLongPress,
@@ -26,9 +28,10 @@ class SerManosTextButton extends TextButton {
                 style: SerManosTextStyle.button(
                   color: disabled
                       ? SerManosColors.neutral50
-                      : filled
-                          ? SerManosColors.neutral0
-                          : SerManosColors.primary100,
+                      : textColor ??
+                          (filled
+                              ? SerManosColors.neutral0
+                              : SerManosColors.primary100),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -51,6 +54,7 @@ class SerManosTextButton extends TextButton {
     bool disabled = false,
     bool filled = true,
     bool small = false,
+    Icon? icon,
   }) : super(
           onPressed: disabled ? null : onPressed,
           onLongPress: disabled ? null : onLongPress,
@@ -61,16 +65,26 @@ class SerManosTextButton extends TextButton {
             ),
             height: null,
             width: null,
-            child: Text(
-              text,
-              style: SerManosTextStyle.button(
-                color: disabled
-                    ? SerManosColors.neutral50
-                    : filled
-                        ? SerManosColors.neutral0
-                        : SerManosColors.primary100,
-              ),
-              textAlign: TextAlign.center,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (icon != null) icon,
+                if (icon != null)
+                  const SerManosSizedBox.sm(
+                    useWidth: true,
+                  ),
+                Text(
+                  text,
+                  style: SerManosTextStyle.button(
+                    color: disabled
+                        ? SerManosColors.neutral50
+                        : filled
+                            ? SerManosColors.neutral0
+                            : SerManosColors.primary100,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ),
           style: TextButton.styleFrom(

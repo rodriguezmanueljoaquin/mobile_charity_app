@@ -41,7 +41,7 @@ class SerManosIcon extends Icon {
 
   const SerManosIcon.close(
       {super.key, bool enabled = true, bool isPrimaryAction = false})
-      : super(Icons.calendar_today,
+      : super(Icons.close,
             color: !enabled
                 ? SerManosColors.neutral25
                 : isPrimaryAction
