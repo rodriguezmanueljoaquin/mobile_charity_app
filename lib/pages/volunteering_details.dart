@@ -168,7 +168,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
                             title: cancelTitle,
                             volunteeringTitle: volunteering.title),
                       ),
-                      const SerManosSizedBox.xl(),
+                      const SerManosSizedBox.md(),
                     ],
                   )
                 : Column(
@@ -210,10 +210,10 @@ class VolunteeringDetailsPage extends StatelessWidget {
                             title: enlistTitle,
                             volunteeringTitle: volunteering.title),
                       ),
-                      const SerManosSizedBox.lg(),
                     ],
                   ),
-          )
+          ),
+          const SerManosSizedBox.lg(),
         ],
       ),
     );
