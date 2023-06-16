@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 
-class RegisterForm extends StatefulWidget {
+class SerManosRegisterForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final Function(bool) changeDisabledStateTo;
   final TextEditingController firstNameController;
@@ -10,7 +10,7 @@ class RegisterForm extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
 
-  const RegisterForm(
+  const SerManosRegisterForm(
       {super.key,
       required this.formKey,
       required this.changeDisabledStateTo,
@@ -20,10 +20,10 @@ class RegisterForm extends StatefulWidget {
       required this.passwordController});
 
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  State<SerManosRegisterForm> createState() => _SerManosRegisterFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
+class _SerManosRegisterFormState extends State<SerManosRegisterForm> {
   // controllers
   late final TextEditingController _firstNameController;
   late final TextEditingController _lastNameController;

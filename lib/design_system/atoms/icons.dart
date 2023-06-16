@@ -10,30 +10,43 @@ class SerManosIcon extends Icon {
       : super(
             state ? Icons.visibility_outlined : Icons.visibility_off_outlined);
 
-  const SerManosIcon.visibilityTwoTone(
-      {super.key, required bool state, super.color})
-      : super(state
-            ? Icons.visibility_sharp
-            : Icons
-                .visibility_off_sharp); // FIXME: Should be two_tone not sharp, but two_tone is not available
-
   const SerManosIcon.favorite({super.key, required bool state, super.color})
       : super(state ? Icons.favorite : Icons.favorite_outline);
 
-  const SerManosIcon.search({super.key, super.color}) : super(Icons.search);
+  const SerManosIcon.search(
+      {super.key, bool enabled = true, bool isPrimaryAction = false})
+      : super(Icons.search,
+            color: !enabled
+                ? SerManosColors.neutral25
+                : isPrimaryAction
+                    ? SerManosColors.primary100
+                    : SerManosColors.neutral75);
 
   const SerManosIcon.add({super.key, super.color}) : super(Icons.add);
 
   const SerManosIcon.back({super.key, super.color}) : super(Icons.arrow_back);
 
-  const SerManosIcon.location({super.key, required bool state, super.color})
-      : super(state ? Icons.location_on : Icons.location_off);
+  const SerManosIcon.location(
+      {super.key, bool enabled = true, bool isPrimaryAction = false})
+      : super(Icons.location_on,
+            color: !enabled
+                ? SerManosColors.neutral25
+                : isPrimaryAction
+                    ? SerManosColors.primary100
+                    : SerManosColors.neutral75);
 
-  const SerManosIcon.locationTwoTone({super.key, super.color})
-      : super(Icons
-            .location_on_sharp); // FIXME: Should be two_tone not sharp, but two_tone is not available
+  const SerManosIcon.locationOutline(
+      {super.key, required bool state, super.color})
+      : super(state ? Icons.location_on_outlined : Icons.location_off_outlined);
 
-  const SerManosIcon.close({super.key, super.color}) : super(Icons.close);
+  const SerManosIcon.close(
+      {super.key, bool enabled = true, bool isPrimaryAction = false})
+      : super(Icons.close,
+            color: !enabled
+                ? SerManosColors.neutral25
+                : isPrimaryAction
+                    ? SerManosColors.primary100
+                    : SerManosColors.neutral75);
 
   const SerManosIcon.error({super.key})
       : super(Icons.error, color: SerManosColors.error100);
@@ -41,7 +54,21 @@ class SerManosIcon extends Icon {
   const SerManosIcon.errorOutline({super.key})
       : super(Icons.error_outline, color: SerManosColors.error100);
 
-  const SerManosIcon.errorTwoTone({super.key})
-      : super(Icons
-            .error_outline_sharp, color: SerManosColors.error100); // FIXME: Should be two_tone not sharp, but two_tone is not available
+  const SerManosIcon.person(
+      {super.key, bool enabled = true, bool isPrimaryAction = false})
+      : super(Icons.person,
+            color: !enabled
+                ? SerManosColors.secondary80
+                : isPrimaryAction
+                    ? SerManosColors.secondary200
+                    : SerManosColors.neutral75);
+
+  const SerManosIcon.calendar(
+      {super.key, bool enabled = true, bool isPrimaryAction = false})
+      : super(Icons.calendar_today,
+            color: !enabled
+                ? SerManosColors.neutral25
+                : isPrimaryAction
+                    ? SerManosColors.primary100
+                    : SerManosColors.neutral75);
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile_charity_app/design_system/atoms/logos.dart';
+import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
@@ -19,7 +19,7 @@ class WelcomePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SerManosLogos.full,
+                SerManosImages.full,
                 const SerManosSizedBox.lg(),
                 SerManosText.headline1('¡Bienvenido!'),
                 const SerManosSizedBox.xl(),
@@ -30,7 +30,7 @@ class WelcomePage extends StatelessWidget {
               ],
             ),
           ),
-          SerManosButton.longButton(
+          SerManosTextButton.longTextButton(
             text: 'Comenzar',
             onPressed: () {
               context.replaceNamed(SerManosPagesName.volunteering);

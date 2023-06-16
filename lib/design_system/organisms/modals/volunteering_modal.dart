@@ -5,12 +5,12 @@ import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
-class VolunteeringModal extends StatelessWidget {
+class SerManosVolunteeringModal extends StatelessWidget {
   final String title;
   final String schedules;
   final String location;
 
-  const VolunteeringModal({
+  const SerManosVolunteeringModal({
     super.key,
     required this.title,
     required this.schedules,
@@ -41,20 +41,16 @@ class VolunteeringModal extends StatelessWidget {
             children: [
               SerManosText.subtitle1('Te estás por postular a'),
               SerManosText.headline2(title),
-              const SerManosSizedBox.sl(),
-              SerManosText.body1('Días $schedules'),
-              const SerManosSizedBox.height(height: 2),
-              SerManosText.body1(location),
             ],
           ),
         ),
         actions: [
-          SerManosButton.shortTextButton(
+          SerManosTextButton.shortTextButton(
             text: 'Cancelar',
             filled: false,
             onPressed: () => Navigator.pop(context),
           ),
-          SerManosButton.shortTextButton(
+          SerManosTextButton.shortTextButton(
             text: 'Confirmar',
             filled: false,
             onPressed: () {

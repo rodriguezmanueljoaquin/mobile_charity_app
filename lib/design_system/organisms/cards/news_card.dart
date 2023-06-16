@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_charity_app/design_system/atoms/logos.dart';
+import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
@@ -8,12 +8,12 @@ import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
-class NewsCard extends StatelessWidget {
+class SerManosNewsCard extends StatelessWidget {
   final String overline;
   final String title;
   final String body;
 
-  const NewsCard({
+  const SerManosNewsCard({
     super.key,
     required this.overline,
     required this.title,
@@ -35,7 +35,7 @@ class NewsCard extends StatelessWidget {
         const SerManosSizedBox.sm(),
         Align(
           alignment: Alignment.centerRight,
-          child: SerManosButton.shortTextButton(
+          child: SerManosTextButton.shortTextButton(
             text: 'Leer Más',
             onPressed: () {},
             filled: false,
@@ -60,7 +60,7 @@ class NewsCard extends StatelessWidget {
               width: 118,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: SerManosLogos.full.image,
+                  image: SerManosImages.full.image,
                   fit: BoxFit.contain,
                 ),
               ),

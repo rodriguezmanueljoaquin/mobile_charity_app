@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
-import 'package:mobile_charity_app/design_system/atoms/logos.dart';
+import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
+import 'package:mobile_charity_app/design_system/molecules/components.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
@@ -12,21 +15,20 @@ import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 
-class VolunteeringCard extends StatefulWidget {
-  final String category;
+class SerManosVolunteeringCard extends StatefulWidget {
   final VolunteeringModel volunteering;
 
-  const VolunteeringCard({
+  const SerManosVolunteeringCard({
     super.key,
-    required this.category,
     required this.volunteering,
   });
 
   @override
-  State<VolunteeringCard> createState() => _VolunteeringCardState();
+  State<SerManosVolunteeringCard> createState() =>
+      _SerManosVolunteeringCardState();
 }
 
-class _VolunteeringCardState extends State<VolunteeringCard> {
+class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
   bool _isFavorite = false;
 
   Widget _buildInformation() {
@@ -37,8 +39,12 @@ class _VolunteeringCardState extends State<VolunteeringCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SerManosText.overline(widget.category.toUpperCase()),
+              SerManosText.overline(widget.volunteering.category.toUpperCase()),
               SerManosText.subtitle1(widget.volunteering.title),
+              const SerManosSizedBox.xs(),
+              SerManosVacancies(
+                vacancies: Random().nextInt(3),
+              )
             ],
           ),
         ),
@@ -58,10 +64,7 @@ class _VolunteeringCardState extends State<VolunteeringCard> {
             const SerManosSizedBox.sl(useWidth: true, useHeight: false),
             SerManosIconButton(
               onPressed: () {},
-              icon: const SerManosIcon.location(
-                state: true,
-                color: SerManosColors.primary100,
-              ),
+              icon: const SerManosIcon.location(isPrimaryAction: true),
             )
           ],
         )
@@ -91,7 +94,7 @@ class _VolunteeringCardState extends State<VolunteeringCard> {
               height: 138,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: SerManosLogos.full.image,
+                  image: SerManosImages.full.image,
                   fit: BoxFit.contain,
                 ),
               ),

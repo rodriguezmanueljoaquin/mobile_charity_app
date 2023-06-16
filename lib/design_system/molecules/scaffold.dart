@@ -6,11 +6,13 @@ import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 class SerManosScaffold extends StatelessWidget {
   final Widget body;
   final bool applyPadding;
+  final bool whiteStatusBar;
 
   const SerManosScaffold({
     super.key,
     required this.body,
     this.applyPadding = true,
+    this.whiteStatusBar = true,
   });
 
   @override
@@ -18,8 +20,10 @@ class SerManosScaffold extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: SerManosColors.secondary90,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: whiteStatusBar
+              ? SerManosColors.neutral0
+              : SerManosColors.neutral100,
         ),
       ),
       backgroundColor: SerManosColors.neutral0,

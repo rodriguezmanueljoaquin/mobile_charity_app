@@ -38,8 +38,9 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/logos/rectangular.png
-    - assets/logos/full.png
+    - assets/images/rectangular.png
+    - assets/images/full.png
+    - assets/images/profile_default_photo.svg
 
   fonts:
     - family: Roboto

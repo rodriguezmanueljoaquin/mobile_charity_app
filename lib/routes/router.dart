@@ -1,8 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
+import 'package:mobile_charity_app/pages/edit_profile.dart';
 import 'package:mobile_charity_app/pages/entry.dart';
 import 'package:mobile_charity_app/pages/error.dart';
-import 'package:mobile_charity_app/pages/home.dart';
+import 'package:mobile_charity_app/pages/home/home.dart';
 import 'package:mobile_charity_app/pages/login.dart';
 import 'package:mobile_charity_app/pages/register.dart';
 import 'package:mobile_charity_app/pages/volunteering.dart';
@@ -63,6 +64,15 @@ class SerManosRouter {
         builder: (context, state) {
           return HomePage(tab: 1);
         },
+        routes: [
+          GoRoute(
+            name: SerManosPagesName.profileEdit,
+            path: 'edit',
+            builder: (context, state) {
+              return const EditProfilePage();
+            },
+          ),
+        ],
       ),
       GoRoute(
         name: SerManosPagesName.news,
