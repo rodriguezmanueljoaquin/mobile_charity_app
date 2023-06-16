@@ -6,7 +6,7 @@ import 'package:mobile_charity_app/pages/error.dart';
 import 'package:mobile_charity_app/pages/home/home.dart';
 import 'package:mobile_charity_app/pages/login.dart';
 import 'package:mobile_charity_app/pages/register.dart';
-import 'package:mobile_charity_app/pages/volunteering.dart';
+import 'package:mobile_charity_app/pages/volunteering_details.dart';
 import 'package:mobile_charity_app/pages/welcome.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 
@@ -48,9 +48,9 @@ class SerManosRouter {
             name: SerManosPagesName.volunteeringDetail,
             path: ':id',
             builder: (context, state) {
-              // TODO: check if extra is null in order to fetch data
+              // TODO: check: if extra is null then order fetch data from id in path
               VolunteeringModel volunteering = state.extra as VolunteeringModel;
-              return VolunteeringPage(
+              return VolunteeringDetailsPage(
                 volunteering: volunteering,
                 id: state.pathParameters['id']!,
               );
