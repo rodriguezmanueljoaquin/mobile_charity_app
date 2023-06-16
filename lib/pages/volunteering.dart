@@ -43,14 +43,17 @@ class VolunteeringPage extends StatelessWidget {
           Stack(
             children: [
               Container(
+                height: 234,
                 width: double.infinity,
-                height: 243,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: SerManosImages.full.image,
-                    fit: BoxFit.contain,
-                  ),
-                  gradient: const LinearGradient(
+                      image: SerManosImages.full.image,
+                      // image: NetworkImage(
+                      //     'https://p6.storage.canalblog.com/69/50/922142/85510911_o.png'),
+                      fit: BoxFit.fill),
+                ),
+                foregroundDecoration: const BoxDecoration(
+                  gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [SerManosColors.black, SerManosColors.transparent],
