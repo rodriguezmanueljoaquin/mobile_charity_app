@@ -1,27 +1,29 @@
-class VolunteeringModel {
-  final String id;
-  final String title;
-  final String description;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mobile_charity_app/models/availability.dart';
+import 'package:mobile_charity_app/utils/geopoint_converter.dart';
 
-  const VolunteeringModel({
-    required this.id,
-    required this.title,
-    required this.description,
-  });
+part 'volunteering.freezed.dart';
+part 'volunteering.g.dart';
 
-  factory VolunteeringModel.fromJson(Map<String, dynamic> json) {
-    return VolunteeringModel(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      description: json['description'] as String,
-    );
-  }
+@freezed
+class VolunteeringModel with _$VolunteeringModel {
+  const factory VolunteeringModel({
+    required String id,
+    required String title,
+    required String description,
+    required String imageURL,
+    required String category,
+    required String about,
+    required String address,
+    required List<String> requirements,
+    required List<Availability> availability,
+    required int vacancies,
+    required DateTime createdAt,
+    required List<String> volunteerIds,
+    @GeoPointConverter() required GeoPoint location,
+  }) = _VolunteeringModel;
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'description': description,
-    };
-  }
+  factory VolunteeringModel.fromJson(Map<String, dynamic> json) =>
+      _$VolunteeringModelFromJson(json);
 }

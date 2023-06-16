@@ -8,6 +8,9 @@ import 'package:mobile_charity_app/design_system/organisms/cards/news_card.dart'
 import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_card.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
+import 'package:mobile_charity_app/models/user.dart';
+import 'package:mobile_charity_app/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 
@@ -43,6 +46,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    UserModel? user = Provider.of<UserProvider>(context, listen: false).user;
+
+    print(user);
+
     return DefaultTabController(
       length: 3,
       initialIndex: widget.tab,
