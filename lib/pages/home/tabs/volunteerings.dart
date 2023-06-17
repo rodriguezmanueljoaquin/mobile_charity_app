@@ -91,14 +91,14 @@ class _VolunteeringsTabState extends State<VolunteeringsTab> {
                               return UnconstrainedBox(
                                 child: SerManosVolunteeringCard(
                                   volunteering:
-                                      volunteeringProvider.volunteerings[index],
+                                      volunteeringProvider.volunteerings![index],
                                 ),
                               );
                             },
                             separatorBuilder: (context, index) =>
                                 const SerManosSizedBox.md(),
                             itemCount:
-                                volunteeringProvider.volunteerings.length,
+                                volunteeringProvider.volunteerings!.length,
                           ),
               )),
         ],

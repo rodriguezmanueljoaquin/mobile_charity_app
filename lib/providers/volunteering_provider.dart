@@ -9,8 +9,8 @@ class VolunteeringProvider extends ChangeNotifier {
   UserProvider? _userProvider;
   bool isFetchingVolunteerings = false;
   bool isApplyingToVolunteering = false;
-  Map<String, int> _volunteeringsIndexById = {};
-  List<VolunteeringModel> _volunteerings = [];
+  Map<String, int>? _volunteeringsIndexById;
+  List<VolunteeringModel>? _volunteerings;
 
   VolunteeringProvider(this._userProvider);
 
@@ -19,7 +19,7 @@ class VolunteeringProvider extends ChangeNotifier {
     return this;
   }
 
-  List<VolunteeringModel> get volunteerings => _volunteerings;
+  List<VolunteeringModel>? get volunteerings => _volunteerings;
 
   Future<void> fetchVolunteerings() async {
     isFetchingVolunteerings = true;
@@ -40,12 +40,12 @@ class VolunteeringProvider extends ChangeNotifier {
   }
 
   VolunteeringModel? getVolunteeringById(String id) =>
-      _volunteeringsIndexById[id] != null
-          ? _volunteerings[_volunteeringsIndexById[id]!]
+      _volunteeringsIndexById?[id] != null
+          ? _volunteerings![_volunteeringsIndexById![id]!]
           : null;
 
   List<VolunteeringModel> searchVolunteeringsByTitle(String query) {
-    return _volunteerings
+    return _volunteerings!
         .where((element) =>
             element.title.toLowerCase().contains(query.toLowerCase()))
         .toList();
