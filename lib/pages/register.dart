@@ -81,14 +81,15 @@ class _RegisterPageState extends State<RegisterPage> {
               //TODO: check credentials with backend
               _registerError = 'false';
 
-              await Provider.of<UserProvider>(context, listen: false).register(
-                firstName: _firstNameController.text,
-                lastName: _lastNameController.text,
-                email: _emailController.text,
-                password: _passwordController.text,
-              );
-
-              context.replaceNamed(SerManosPagesName.welcome);
+              await Provider.of<UserProvider>(context, listen: false)
+                  .register(
+                    firstName: _firstNameController.text,
+                    lastName: _lastNameController.text,
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                  )
+                  .then((value) =>
+                      context.replaceNamed(SerManosPagesName.welcome));
             },
           ),
           const SerManosSizedBox.sl(),
