@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
@@ -7,29 +8,27 @@ import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
+import 'package:mobile_charity_app/models/news.dart';
+import 'package:mobile_charity_app/routes/paths.dart';
 
 class SerManosNewsCard extends StatelessWidget {
-  final String overline;
-  final String title;
-  final String body;
+  final NewsModel news;
 
   const SerManosNewsCard({
     super.key,
-    required this.overline,
-    required this.title,
-    required this.body,
+    required this.news,
   });
 
-  Widget _buildInformation() {
+  Widget _buildInformation(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SerManosText.overline(overline.toUpperCase()),
-            SerManosText.subtitle1(title),
-            SerManosText.body2(body),
+            SerManosText.overline(news.source),
+            SerManosText.subtitle1(news.title),
+            SerManosText.body2(news.summary),
           ],
         ),
         const SerManosSizedBox.sm(),
@@ -37,7 +36,13 @@ class SerManosNewsCard extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: SerManosTextButton.shortTextButton(
             text: 'Leer Más',
-            onPressed: () {},
+            onPressed: () => context.pushNamed(
+              SerManosPagesName.newsDetails,
+              pathParameters: {
+                "id": news.id,
+              },
+              extra: news,
+            ),
             filled: false,
           ),
         ),
@@ -60,21 +65,21 @@ class SerManosNewsCard extends StatelessWidget {
               width: 118,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: SerManosImages.full.image,
+                  image: Image.network(news.imageURL).image,
                   fit: BoxFit.contain,
                 ),
               ),
             ),
             Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    right: SerManosSpacing.spaceSM,
-                    left: SerManosSpacing.spaceSM,
-                    top: SerManosSpacing.spaceSL,
-                  ),
-                  child: _buildInformation(),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  right: SerManosSpacing.spaceSM,
+                  left: SerManosSpacing.spaceSM,
+                  top: SerManosSpacing.spaceSL,
                 ),
+                child: _buildInformation(context),
               ),
+            ),
           ],
         ),
       ),
