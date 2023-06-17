@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mobile_charity_app/providers/news_provider.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
+import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:go_router/go_router.dart';
@@ -28,9 +30,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<UserProvider>(
-          create: (_) => UserProvider(),
-        )
+        ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
+        ChangeNotifierProxyProvider<UserProvider, VolunteeringProvider>(
+          create: (_) => VolunteeringProvider(null),
+          update: (_, UserProvider userProvider, __) =>
+              VolunteeringProvider(userProvider),
+        ),
+        ChangeNotifierProvider<NewsProvider>(create: (_) => NewsProvider())
       ],
       child: MaterialApp.router(
         title: 'SER MANOS',

@@ -81,16 +81,12 @@ class _RegisterPageState extends State<RegisterPage> {
               //TODO: check credentials with backend
               _registerError = 'false';
 
-              UserModel? user = await SerManosApi().registerUser(
+              await Provider.of<UserProvider>(context, listen: false).register(
                 firstName: _firstNameController.text,
                 lastName: _lastNameController.text,
                 email: _emailController.text,
                 password: _passwordController.text,
               );
-
-              Provider.of<UserProvider>(context, listen: false).setUser(user!);
-
-              print(user);
 
               context.replaceNamed(SerManosPagesName.welcome);
             },

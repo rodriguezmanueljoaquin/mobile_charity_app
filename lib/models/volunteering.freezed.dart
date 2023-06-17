@@ -30,6 +30,7 @@ mixin _$VolunteeringModel {
   List<String> get requirements => throw _privateConstructorUsedError;
   List<Availability> get availability => throw _privateConstructorUsedError;
   int get vacancies => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
   List<String> get volunteerIds => throw _privateConstructorUsedError;
   @GeoPointConverter()
@@ -58,7 +59,7 @@ abstract class $VolunteeringModelCopyWith<$Res> {
       List<String> requirements,
       List<Availability> availability,
       int vacancies,
-      DateTime createdAt,
+      @TimestampConverter() DateTime createdAt,
       List<String> volunteerIds,
       @GeoPointConverter() GeoPoint location});
 }
@@ -166,7 +167,7 @@ abstract class _$$_VolunteeringModelCopyWith<$Res>
       List<String> requirements,
       List<Availability> availability,
       int vacancies,
-      DateTime createdAt,
+      @TimestampConverter() DateTime createdAt,
       List<String> volunteerIds,
       @GeoPointConverter() GeoPoint location});
 }
@@ -267,7 +268,7 @@ class _$_VolunteeringModel implements _VolunteeringModel {
       required final List<String> requirements,
       required final List<Availability> availability,
       required this.vacancies,
-      required this.createdAt,
+      @TimestampConverter() required this.createdAt,
       required final List<String> volunteerIds,
       @GeoPointConverter() required this.location})
       : _requirements = requirements,
@@ -310,6 +311,7 @@ class _$_VolunteeringModel implements _VolunteeringModel {
   @override
   final int vacancies;
   @override
+  @TimestampConverter()
   final DateTime createdAt;
   final List<String> _volunteerIds;
   @override
@@ -402,7 +404,7 @@ abstract class _VolunteeringModel implements VolunteeringModel {
           required final List<String> requirements,
           required final List<Availability> availability,
           required final int vacancies,
-          required final DateTime createdAt,
+          @TimestampConverter() required final DateTime createdAt,
           required final List<String> volunteerIds,
           @GeoPointConverter() required final GeoPoint location}) =
       _$_VolunteeringModel;
@@ -431,6 +433,7 @@ abstract class _VolunteeringModel implements VolunteeringModel {
   @override
   int get vacancies;
   @override
+  @TimestampConverter()
   DateTime get createdAt;
   @override
   List<String> get volunteerIds;

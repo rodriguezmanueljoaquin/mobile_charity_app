@@ -51,9 +51,7 @@ class SerManosRouter {
             path: ':id',
             builder: (context, state) {
               // TODO: check: if extra is null then order fetch data from id in path
-              VolunteeringModel volunteering = state.extra as VolunteeringModel;
               return VolunteeringDetailsPage(
-                volunteering: volunteering,
                 id: state.pathParameters['id']!,
                 // userVolunteeringId: "1", // TODO: get from auth?
               );
@@ -86,10 +84,7 @@ class SerManosRouter {
             name: SerManosPagesName.newsDetails,
             path: ':id',
             builder: (context, state) {
-              // TODO: check: if extra is null then order fetch data from id in path
-              NewsModel news = state.extra as NewsModel;
               return NewsDetailsPage(
-                news: news,
                 id: state.pathParameters['id']!,
               );
             },

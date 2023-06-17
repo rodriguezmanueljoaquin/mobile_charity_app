@@ -26,6 +26,7 @@ mixin _$NewsModel {
   String get summary => throw _privateConstructorUsedError;
   String get imageURL => throw _privateConstructorUsedError;
   String get source => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,7 +47,7 @@ abstract class $NewsModelCopyWith<$Res> {
       String summary,
       String imageURL,
       String source,
-      DateTime createdAt});
+      @TimestampConverter() DateTime createdAt});
 }
 
 /// @nodoc
@@ -117,7 +118,7 @@ abstract class _$$_NewsModelCopyWith<$Res> implements $NewsModelCopyWith<$Res> {
       String summary,
       String imageURL,
       String source,
-      DateTime createdAt});
+      @TimestampConverter() DateTime createdAt});
 }
 
 /// @nodoc
@@ -182,7 +183,7 @@ class _$_NewsModel implements _NewsModel {
       required this.summary,
       required this.imageURL,
       required this.source,
-      required this.createdAt});
+      @TimestampConverter() required this.createdAt});
 
   factory _$_NewsModel.fromJson(Map<String, dynamic> json) =>
       _$$_NewsModelFromJson(json);
@@ -200,6 +201,7 @@ class _$_NewsModel implements _NewsModel {
   @override
   final String source;
   @override
+  @TimestampConverter()
   final DateTime createdAt;
 
   @override
@@ -251,7 +253,7 @@ abstract class _NewsModel implements NewsModel {
       required final String summary,
       required final String imageURL,
       required final String source,
-      required final DateTime createdAt}) = _$_NewsModel;
+      @TimestampConverter() required final DateTime createdAt}) = _$_NewsModel;
 
   factory _NewsModel.fromJson(Map<String, dynamic> json) =
       _$_NewsModel.fromJson;
@@ -269,6 +271,7 @@ abstract class _NewsModel implements NewsModel {
   @override
   String get source;
   @override
+  @TimestampConverter()
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
