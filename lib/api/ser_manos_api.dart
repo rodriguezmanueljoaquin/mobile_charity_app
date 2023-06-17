@@ -120,7 +120,7 @@ class SerManosApi {
           await FirebaseFirestore.instance.collection('news').get();
 
       return querySnapshot.docs
-          .map((e) => NewsModel.fromJson(e.data() as Map<String, dynamic>))
+          .map((e) => NewsModel.fromJson(buildProperties(e)))
           .toList();
     } catch (e) {
       print(e);
