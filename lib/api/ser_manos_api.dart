@@ -149,20 +149,53 @@ class SerManosApi {
     }
   }
 
-  Future<bool> applyToVolunteering({
+  Future<void> applyToVolunteering({
     required String userId,
     required String volunteeringId,
   }) async {
-    try {
-      await FirebaseFirestore.instance.collection('users').doc(userId).update({
-        'currentVolunteeringId': volunteeringId,
-      });
+    // Decrease vacancies by 1 and set current volunteering id
+    // Check that vacancies > 0
+    DocumentSnapshot volunteeringSnapshot = await FirebaseFirestore.instance
+        .collection('volunteerings')
+        .doc(volunteeringId)
+        .get();
 
-      return true;
-    } catch (e) {
-      print(e);
-      return false;
+    VolunteeringModel volunteering =
+        VolunteeringModel.fromJson(buildProperties(volunteeringSnapshot));
+
+    if (volunteering.vacancies <= 0) {
+      throw Exception('No vacancies available');
     }
+
+    await FirebaseFirestore.instance
+        .collection('volunteerings')
+        .doc(volunteeringId)
+        .update({
+      'vacancies': volunteering.vacancies - 1,
+      'volunteersIds': FieldValue.arrayUnion([userId]),
+    });
+
+    await FirebaseFirestore.instance.collection('users').doc(userId).update({
+      'currentVolunteeringId': volunteeringId,
+    });
+  }
+
+  Future<void> abandonVolunteering({
+    required String userId,
+    required String volunteeringId,
+  }) async {
+    // Increase vacancies by 1 and set current volunteering id to null
+    await FirebaseFirestore.instance
+        .collection('volunteerings')
+        .doc(volunteeringId)
+        .update({
+      'vacancies': FieldValue.increment(1),
+      'volunteersIds': FieldValue.arrayRemove([userId]),
+    });
+
+    await FirebaseFirestore.instance.collection('users').doc(userId).update({
+      'currentVolunteeringId': null,
+    });
   }
 
   Future<bool> updateProfileInfo(UserModel user) async {

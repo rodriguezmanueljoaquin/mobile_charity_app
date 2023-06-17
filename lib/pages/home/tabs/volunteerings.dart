@@ -65,7 +65,7 @@ class _VolunteeringsTabState extends State<VolunteeringsTab> {
                       .fetchVolunteerings,
               child: Consumer<VolunteeringProvider>(
                 builder: (context, volunteeringProvider, child) =>
-                    volunteeringProvider.isLoading
+                    volunteeringProvider.isFetchingVolunteerings
                         ? const Center(child: CircularProgressIndicator())
                         : ListView.separated(
                             shrinkWrap: true,

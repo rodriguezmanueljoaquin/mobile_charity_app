@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<UserProvider>(create: (_) => UserProvider()),
+        ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
         ChangeNotifierProxyProvider<UserProvider, VolunteeringProvider>(
           create: (_) => VolunteeringProvider(null),
           update: (_, UserProvider userProvider, __) =>
