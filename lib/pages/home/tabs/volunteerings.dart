@@ -6,6 +6,7 @@ import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_ca
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
+import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -13,17 +14,16 @@ class VolunteeringsTab extends StatefulWidget {
   const VolunteeringsTab({
     super.key,
     required this.searchController,
-    required this.currentVolunteeringTitle,
   });
 
   final TextEditingController searchController;
-  final String? currentVolunteeringTitle;
 
   @override
   State<VolunteeringsTab> createState() => _VolunteeringsTabState();
 }
 
-class _VolunteeringsTabState extends State<VolunteeringsTab> {
+class _VolunteeringsTabState extends State<VolunteeringsTab>
+    with AutomaticKeepAliveClientMixin<VolunteeringsTab> {
   @override
   void initState() {
     super.initState();
@@ -33,6 +33,9 @@ class _VolunteeringsTabState extends State<VolunteeringsTab> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -40,18 +43,32 @@ class _VolunteeringsTabState extends State<VolunteeringsTab> {
           const SerManosSizedBox.lg(),
           SerManosSearchField(controller: widget.searchController),
           const SerManosSizedBox.lg(),
-          if (widget.currentVolunteeringTitle != null)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SerManosText.headline1("Tu actividad"),
-                const SerManosSizedBox.sl(),
-                SerManosCurrentVolunteringCard(
-                  title: widget.currentVolunteeringTitle,
-                ),
-                const SerManosSizedBox.md(),
-              ],
-            ),
+          Consumer<UserProvider>(
+            builder: (context, userProvider, child) {
+              String? currentVolunteeringId =
+                  userProvider.user?.currentVolunteeringId;
+              if (currentVolunteeringId == null) {
+                return const SizedBox();
+              }
+
+              String currentVolunteeringTitle =
+                  Provider.of<VolunteeringProvider>(context, listen: false)
+                      .getVolunteeringById(currentVolunteeringId)!
+                      .title;
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SerManosText.headline1("Tu actividad"),
+                  const SerManosSizedBox.sl(),
+                  SerManosCurrentVolunteringCard(
+                    title: currentVolunteeringTitle,
+                  ),
+                  const SerManosSizedBox.md(),
+                ],
+              );
+            },
+          ),
           SizedBox(
             width: SerManosSizes.sizeLG,
             child: Align(
@@ -77,15 +94,15 @@ class _VolunteeringsTabState extends State<VolunteeringsTab> {
                             itemBuilder: (context, index) {
                               return UnconstrainedBox(
                                 child: SerManosVolunteeringCard(
-                                  volunteering:
-                                      volunteeringProvider.volunteerings[index],
+                                  volunteering: volunteeringProvider
+                                      .volunteerings![index],
                                 ),
                               );
                             },
                             separatorBuilder: (context, index) =>
                                 const SerManosSizedBox.md(),
                             itemCount:
-                                volunteeringProvider.volunteerings.length,
+                                volunteeringProvider.volunteerings!.length,
                           ),
               )),
         ],

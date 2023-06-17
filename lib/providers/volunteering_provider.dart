@@ -6,15 +6,20 @@ import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/utils/collections.dart';
 
 class VolunteeringProvider extends ChangeNotifier {
-  final UserProvider? _userProvider;
+  UserProvider? _userProvider;
   bool isFetchingVolunteerings = false;
   bool isApplyingToVolunteering = false;
-  Map<String, int> _volunteeringsIndexById = {};
-  List<VolunteeringModel> _volunteerings = [];
+  Map<String, int>? _volunteeringsIndexById;
+  List<VolunteeringModel>? _volunteerings;
 
   VolunteeringProvider(this._userProvider);
 
-  List<VolunteeringModel> get volunteerings => _volunteerings;
+  VolunteeringProvider update(UserProvider userProvider) {
+    _userProvider = userProvider;
+    return this;
+  }
+
+  List<VolunteeringModel>? get volunteerings => _volunteerings;
 
   Future<void> fetchVolunteerings() async {
     isFetchingVolunteerings = true;
@@ -35,12 +40,12 @@ class VolunteeringProvider extends ChangeNotifier {
   }
 
   VolunteeringModel? getVolunteeringById(String id) =>
-      _volunteeringsIndexById[id] != null
-          ? _volunteerings[_volunteeringsIndexById[id]!]
+      _volunteeringsIndexById?[id] != null
+          ? _volunteerings![_volunteeringsIndexById![id]!]
           : null;
 
   List<VolunteeringModel> searchVolunteeringsByTitle(String query) {
-    return _volunteerings
+    return _volunteerings!
         .where((element) =>
             element.title.toLowerCase().contains(query.toLowerCase()))
         .toList();
@@ -63,7 +68,6 @@ class VolunteeringProvider extends ChangeNotifier {
       print(e);
     } finally {
       isApplyingToVolunteering = false;
-      notifyListeners();
     }
   }
 
@@ -90,7 +94,6 @@ class VolunteeringProvider extends ChangeNotifier {
       print(e);
     } finally {
       isApplyingToVolunteering = false;
-      notifyListeners();
     }
   }
 }

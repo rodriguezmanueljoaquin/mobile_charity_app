@@ -33,8 +33,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
         ChangeNotifierProxyProvider<UserProvider, VolunteeringProvider>(
           create: (_) => VolunteeringProvider(null),
-          update: (_, UserProvider userProvider, __) =>
-              VolunteeringProvider(userProvider),
+          update: (_, UserProvider userProvider, VolunteeringProvider? prev) =>
+              prev?.update(userProvider) ?? VolunteeringProvider(userProvider),
         ),
         ChangeNotifierProvider<NewsProvider>(create: (_) => NewsProvider())
       ],

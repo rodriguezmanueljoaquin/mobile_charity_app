@@ -40,9 +40,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Remove hardcoded data
-    String? currentVolunteeringTitle = "Techo para mi pais";
-    // String? currentVolunteeringTitle;
 
     return DefaultTabController(
       length: 3,
@@ -95,8 +92,8 @@ class _HomePageState extends State<HomePage> {
         body: TabBarView(
           children: [
             VolunteeringsTab(
-                searchController: searchController,
-                currentVolunteeringTitle: currentVolunteeringTitle),
+              searchController: searchController,
+            ),
             ProfileTab(toolbarHeight: AppBar().preferredSize.height + 50),
             const NewsTab(),
           ],

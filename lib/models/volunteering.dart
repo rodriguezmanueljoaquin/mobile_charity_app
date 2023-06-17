@@ -21,7 +21,7 @@ class VolunteeringModel with _$VolunteeringModel {
     required List<Availability> availability,
     required int vacancies,
     @TimestampConverter() required DateTime createdAt,
-    required List<String> volunteerIds,
+    required List<String> volunteersIds,
     @GeoPointConverter() required GeoPoint location,
   }) = _VolunteeringModel;
 

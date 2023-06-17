@@ -73,14 +73,15 @@ class _LoginPageState extends State<LoginPage> {
                 return;
               }
 
-              Provider.of<UserProvider>(context, listen: false).login(
-                email: _emailController.text,
-                password: _passwordController.text,
-              );
-
               //TODO: check credentials with backend
               _loginError = 'false';
-              context.replaceNamed(SerManosPagesName.welcome);
+
+              await Provider.of<UserProvider>(context, listen: false)
+                  .login(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                  )
+                  .then((_) => context.replaceNamed(SerManosPagesName.welcome));
             },
           ),
           const SerManosSizedBox.sl(),

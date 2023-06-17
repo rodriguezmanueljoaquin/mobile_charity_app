@@ -14,13 +14,17 @@ class NewsTab extends StatefulWidget {
   State<NewsTab> createState() => _NewsTabState();
 }
 
-class _NewsTabState extends State<NewsTab> {
+class _NewsTabState extends State<NewsTab>
+    with AutomaticKeepAliveClientMixin<NewsTab> {
   @override
   void initState() {
     super.initState();
 
     Provider.of<NewsProvider>(context, listen: false).fetchNews();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {

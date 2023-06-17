@@ -32,7 +32,7 @@ mixin _$VolunteeringModel {
   int get vacancies => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
-  List<String> get volunteerIds => throw _privateConstructorUsedError;
+  List<String> get volunteersIds => throw _privateConstructorUsedError;
   @GeoPointConverter()
   GeoPoint get location => throw _privateConstructorUsedError;
 
@@ -60,7 +60,7 @@ abstract class $VolunteeringModelCopyWith<$Res> {
       List<Availability> availability,
       int vacancies,
       @TimestampConverter() DateTime createdAt,
-      List<String> volunteerIds,
+      List<String> volunteersIds,
       @GeoPointConverter() GeoPoint location});
 }
 
@@ -88,7 +88,7 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
     Object? availability = null,
     Object? vacancies = null,
     Object? createdAt = null,
-    Object? volunteerIds = null,
+    Object? volunteersIds = null,
     Object? location = null,
   }) {
     return _then(_value.copyWith(
@@ -136,9 +136,9 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      volunteerIds: null == volunteerIds
-          ? _value.volunteerIds
-          : volunteerIds // ignore: cast_nullable_to_non_nullable
+      volunteersIds: null == volunteersIds
+          ? _value.volunteersIds
+          : volunteersIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
       location: null == location
           ? _value.location
@@ -168,7 +168,7 @@ abstract class _$$_VolunteeringModelCopyWith<$Res>
       List<Availability> availability,
       int vacancies,
       @TimestampConverter() DateTime createdAt,
-      List<String> volunteerIds,
+      List<String> volunteersIds,
       @GeoPointConverter() GeoPoint location});
 }
 
@@ -194,7 +194,7 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
     Object? availability = null,
     Object? vacancies = null,
     Object? createdAt = null,
-    Object? volunteerIds = null,
+    Object? volunteersIds = null,
     Object? location = null,
   }) {
     return _then(_$_VolunteeringModel(
@@ -242,9 +242,9 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      volunteerIds: null == volunteerIds
-          ? _value._volunteerIds
-          : volunteerIds // ignore: cast_nullable_to_non_nullable
+      volunteersIds: null == volunteersIds
+          ? _value._volunteersIds
+          : volunteersIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
       location: null == location
           ? _value.location
@@ -269,11 +269,11 @@ class _$_VolunteeringModel implements _VolunteeringModel {
       required final List<Availability> availability,
       required this.vacancies,
       @TimestampConverter() required this.createdAt,
-      required final List<String> volunteerIds,
+      required final List<String> volunteersIds,
       @GeoPointConverter() required this.location})
       : _requirements = requirements,
         _availability = availability,
-        _volunteerIds = volunteerIds;
+        _volunteersIds = volunteersIds;
 
   factory _$_VolunteeringModel.fromJson(Map<String, dynamic> json) =>
       _$$_VolunteeringModelFromJson(json);
@@ -313,12 +313,12 @@ class _$_VolunteeringModel implements _VolunteeringModel {
   @override
   @TimestampConverter()
   final DateTime createdAt;
-  final List<String> _volunteerIds;
+  final List<String> _volunteersIds;
   @override
-  List<String> get volunteerIds {
-    if (_volunteerIds is EqualUnmodifiableListView) return _volunteerIds;
+  List<String> get volunteersIds {
+    if (_volunteersIds is EqualUnmodifiableListView) return _volunteersIds;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_volunteerIds);
+    return EqualUnmodifiableListView(_volunteersIds);
   }
 
   @override
@@ -327,7 +327,7 @@ class _$_VolunteeringModel implements _VolunteeringModel {
 
   @override
   String toString() {
-    return 'VolunteeringModel(id: $id, title: $title, description: $description, imageURL: $imageURL, category: $category, about: $about, address: $address, requirements: $requirements, availability: $availability, vacancies: $vacancies, createdAt: $createdAt, volunteerIds: $volunteerIds, location: $location)';
+    return 'VolunteeringModel(id: $id, title: $title, description: $description, imageURL: $imageURL, category: $category, about: $about, address: $address, requirements: $requirements, availability: $availability, vacancies: $vacancies, createdAt: $createdAt, volunteersIds: $volunteersIds, location: $location)';
   }
 
   @override
@@ -354,7 +354,7 @@ class _$_VolunteeringModel implements _VolunteeringModel {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             const DeepCollectionEquality()
-                .equals(other._volunteerIds, _volunteerIds) &&
+                .equals(other._volunteersIds, _volunteersIds) &&
             (identical(other.location, location) ||
                 other.location == location));
   }
@@ -374,7 +374,7 @@ class _$_VolunteeringModel implements _VolunteeringModel {
       const DeepCollectionEquality().hash(_availability),
       vacancies,
       createdAt,
-      const DeepCollectionEquality().hash(_volunteerIds),
+      const DeepCollectionEquality().hash(_volunteersIds),
       location);
 
   @JsonKey(ignore: true)
@@ -405,7 +405,7 @@ abstract class _VolunteeringModel implements VolunteeringModel {
           required final List<Availability> availability,
           required final int vacancies,
           @TimestampConverter() required final DateTime createdAt,
-          required final List<String> volunteerIds,
+          required final List<String> volunteersIds,
           @GeoPointConverter() required final GeoPoint location}) =
       _$_VolunteeringModel;
 
@@ -436,7 +436,7 @@ abstract class _VolunteeringModel implements VolunteeringModel {
   @TimestampConverter()
   DateTime get createdAt;
   @override
-  List<String> get volunteerIds;
+  List<String> get volunteersIds;
   @override
   @GeoPointConverter()
   GeoPoint get location;
