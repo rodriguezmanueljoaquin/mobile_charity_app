@@ -22,7 +22,8 @@ class VolunteeringsTab extends StatefulWidget {
   State<VolunteeringsTab> createState() => _VolunteeringsTabState();
 }
 
-class _VolunteeringsTabState extends State<VolunteeringsTab> {
+class _VolunteeringsTabState extends State<VolunteeringsTab>
+    with AutomaticKeepAliveClientMixin<VolunteeringsTab> {
   @override
   void initState() {
     super.initState();
@@ -30,6 +31,9 @@ class _VolunteeringsTabState extends State<VolunteeringsTab> {
     Provider.of<VolunteeringProvider>(context, listen: false)
         .fetchVolunteerings();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +94,8 @@ class _VolunteeringsTabState extends State<VolunteeringsTab> {
                             itemBuilder: (context, index) {
                               return UnconstrainedBox(
                                 child: SerManosVolunteeringCard(
-                                  volunteering:
-                                      volunteeringProvider.volunteerings![index],
+                                  volunteering: volunteeringProvider
+                                      .volunteerings![index],
                                 ),
                               );
                             },
