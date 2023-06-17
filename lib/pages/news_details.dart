@@ -8,16 +8,31 @@ import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/news.dart';
+import 'package:mobile_charity_app/providers/news_provider.dart';
+import 'package:provider/provider.dart';
 
-class NewsDetailsPage extends StatelessWidget {
-  final NewsModel news;
+class NewsDetailsPage extends StatefulWidget {
   final String id;
 
   const NewsDetailsPage({
     super.key,
     required this.id,
-    required this.news,
   });
+
+  @override
+  State<NewsDetailsPage> createState() => _NewsDetailsPageState();
+}
+
+class _NewsDetailsPageState extends State<NewsDetailsPage> {
+  late final NewsModel news;
+
+  @override
+  void initState() {
+    super.initState();
+    // TODO: check: if result is null then order fetch data from id in path
+    news = Provider.of<NewsProvider>(context, listen: false)
+        .getNewsById(widget.id)!;
+  }
 
   @override
   Widget build(BuildContext context) {

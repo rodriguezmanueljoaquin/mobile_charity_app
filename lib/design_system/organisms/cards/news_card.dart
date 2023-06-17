@@ -41,7 +41,6 @@ class SerManosNewsCard extends StatelessWidget {
               pathParameters: {
                 "id": news.id,
               },
-              extra: news,
             ),
             filled: false,
           ),

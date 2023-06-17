@@ -84,10 +84,7 @@ class SerManosRouter {
             name: SerManosPagesName.newsDetails,
             path: ':id',
             builder: (context, state) {
-              // TODO: check: if extra is null then order fetch data from id in path
-              NewsModel news = state.extra as NewsModel;
               return NewsDetailsPage(
-                news: news,
                 id: state.pathParameters['id']!,
               );
             },
