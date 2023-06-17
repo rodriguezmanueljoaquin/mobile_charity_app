@@ -92,9 +92,9 @@ class _HomePageState extends State<HomePage> {
         body: TabBarView(
           children: [
             VolunteeringsTab(
-              searchController: searchController,
+                searchController: searchController,
             ),
-            ProfileTab(toolbarHeight: AppBar().preferredSize.height + 50),
+            const ProfileTab(),
             const NewsTab(),
           ],
         ),

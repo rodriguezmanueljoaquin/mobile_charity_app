@@ -14,12 +14,10 @@ class ProfileTab extends StatelessWidget {
   final String _mail = "asdasd@asdasda.asdasd";
   final String _phoneNumber = "123123123";
   final String name = "Juan Cruz Gonzales";
-  final double _toolbarHeight;
 
   const ProfileTab({
     super.key,
-    required double toolbarHeight,
-  }) : _toolbarHeight = toolbarHeight;
+  });
 
   @override
   Widget build(BuildContext context) {
