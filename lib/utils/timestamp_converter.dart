@@ -6,13 +6,11 @@ class TimestampConverter implements JsonConverter<DateTime, Timestamp> {
 
   @override
   DateTime fromJson(Timestamp json) {
-    print('TimestampConverter.fromJson: $json');
     return json.toDate();
   }
 
   @override
   Timestamp toJson(DateTime object) {
-    print('TimestampConverter.toJson: $object');
     return Timestamp.fromDate(object);
   }
 }

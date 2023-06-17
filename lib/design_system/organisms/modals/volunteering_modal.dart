@@ -6,15 +6,13 @@ import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
 class SerManosVolunteeringModal extends StatelessWidget {
+  final String volunteeringTitle;
   final String title;
-  final String schedules;
-  final String location;
 
   const SerManosVolunteeringModal({
     super.key,
+    required this.volunteeringTitle,
     required this.title,
-    required this.schedules,
-    required this.location,
   });
 
   @override
@@ -39,8 +37,8 @@ class SerManosVolunteeringModal extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SerManosText.subtitle1('Te estás por postular a'),
-              SerManosText.headline2(title),
+              SerManosText.subtitle1(title),
+              SerManosText.headline2(volunteeringTitle),
             ],
           ),
         ),

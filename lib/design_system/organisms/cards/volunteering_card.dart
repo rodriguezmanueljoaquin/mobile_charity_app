@@ -97,7 +97,7 @@ class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => context.pushNamed(
-        SerManosPagesName.volunteeringDetail,
+        SerManosPagesName.volunteeringDetails,
         pathParameters: {
           "id": widget.volunteering.id,
         },

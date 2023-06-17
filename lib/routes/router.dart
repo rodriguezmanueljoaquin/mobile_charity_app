@@ -1,12 +1,14 @@
 import 'package:go_router/go_router.dart';
+import 'package:mobile_charity_app/models/news.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/pages/edit_profile.dart';
 import 'package:mobile_charity_app/pages/entry.dart';
 import 'package:mobile_charity_app/pages/error.dart';
 import 'package:mobile_charity_app/pages/home/home.dart';
 import 'package:mobile_charity_app/pages/login.dart';
+import 'package:mobile_charity_app/pages/news_details.dart';
 import 'package:mobile_charity_app/pages/register.dart';
-import 'package:mobile_charity_app/pages/volunteering.dart';
+import 'package:mobile_charity_app/pages/volunteering_details.dart';
 import 'package:mobile_charity_app/pages/welcome.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 
@@ -45,12 +47,13 @@ class SerManosRouter {
         },
         routes: [
           GoRoute(
-            name: SerManosPagesName.volunteeringDetail,
+            name: SerManosPagesName.volunteeringDetails,
             path: ':id',
             builder: (context, state) {
-              // TODO: check if extra is null in order to fetch data
-              return VolunteeringPage(
+              // TODO: check: if extra is null then order fetch data from id in path
+              return VolunteeringDetailsPage(
                 id: state.pathParameters['id']!,
+                // userVolunteeringId: "1", // TODO: get from auth?
               );
             },
           ),
@@ -76,6 +79,20 @@ class SerManosRouter {
         name: SerManosPagesName.news,
         path: "/news",
         builder: (context, state) => HomePage(tab: 2),
+        routes: [
+          GoRoute(
+            name: SerManosPagesName.newsDetails,
+            path: ':id',
+            builder: (context, state) {
+              // TODO: check: if extra is null then order fetch data from id in path
+              NewsModel news = state.extra as NewsModel;
+              return NewsDetailsPage(
+                news: news,
+                id: state.pathParameters['id']!,
+              );
+            },
+          ),
+        ],
       ),
     ],
     errorBuilder: (context, state) => const ErrorPage(),
