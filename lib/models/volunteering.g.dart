@@ -27,6 +27,8 @@ _$_VolunteeringModel _$$_VolunteeringModelFromJson(Map<String, dynamic> json) =>
       volunteerIds: (json['volunteerIds'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      location:
+          const GeoPointConverter().fromJson(json['location'] as GeoPoint),
     );
 
 Map<String, dynamic> _$$_VolunteeringModelToJson(
@@ -44,4 +46,5 @@ Map<String, dynamic> _$$_VolunteeringModelToJson(
       'vacancies': instance.vacancies,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'volunteerIds': instance.volunteerIds,
+      'location': const GeoPointConverter().toJson(instance.location),
     };

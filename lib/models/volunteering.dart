@@ -22,7 +22,7 @@ class VolunteeringModel with _$VolunteeringModel {
     required int vacancies,
     @TimestampConverter() required DateTime createdAt,
     required List<String> volunteerIds,
-    // @GeoPointConverter() required GeoPoint location,
+    @GeoPointConverter() required GeoPoint location,
   }) = _VolunteeringModel;
 
   factory VolunteeringModel.fromJson(Map<String, dynamic> json) =>

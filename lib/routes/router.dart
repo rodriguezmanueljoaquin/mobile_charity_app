@@ -49,9 +49,7 @@ class SerManosRouter {
             path: ':id',
             builder: (context, state) {
               // TODO: check if extra is null in order to fetch data
-              VolunteeringModel volunteering = state.extra as VolunteeringModel;
               return VolunteeringPage(
-                volunteering: volunteering,
                 id: state.pathParameters['id']!,
               );
             },

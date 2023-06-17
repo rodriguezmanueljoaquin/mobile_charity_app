@@ -1,13 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:mobile_charity_app/api/ser_manos_api.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
-import 'package:collection/collection.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 
 class VolunteeringProvider extends ChangeNotifier {
   final UserProvider? _userProvider;
   bool isLoading = false;
-  List<VolunteeringModel> _volunteerings = [];
+  Map<String, VolunteeringModel> _volunteeringsMap = {};
 
   VolunteeringProvider(this._userProvider);
 
@@ -21,21 +20,23 @@ class VolunteeringProvider extends ChangeNotifier {
         // volunteerings.sort((a, b) => a.distance!.compareTo(b.distance!));
         print('volunteerings: ${volunteerings.length}');
       }
-      _volunteerings = volunteerings;
+      _volunteeringsMap =
+          volunteerings.asMap().map((key, value) => MapEntry(value.id, value));
     } finally {
       isLoading = false;
       notifyListeners();
     }
   }
 
-  List<VolunteeringModel> get volunteerings => _volunteerings;
+  Map<String, VolunteeringModel> get volunteeringsMap => _volunteeringsMap;
 
-  VolunteeringModel? getVolunteeringById(String id) {
-    return _volunteerings.firstWhereOrNull((element) => element.id == id);
-  }
+  VolunteeringModel? getVolunteeringById(String id) => _volunteeringsMap[id];
+  VolunteeringModel getVolunteeringByIndex(int index) =>
+      _volunteeringsMap.values.toList()[index];
+
 
   List<VolunteeringModel> searchVolunteeringsByTitle(String query) {
-    return _volunteerings
+    return _volunteeringsMap.values
         .where((element) =>
             element.title.toLowerCase().contains(query.toLowerCase()))
         .toList();

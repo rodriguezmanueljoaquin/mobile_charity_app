@@ -12,16 +12,30 @@ import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
+import 'package:mobile_charity_app/providers/volunteering_provider.dart';
+import 'package:provider/provider.dart';
 
-class VolunteeringPage extends StatelessWidget {
-  final VolunteeringModel volunteering;
+class VolunteeringPage extends StatefulWidget {
   final String id;
 
   const VolunteeringPage({
     super.key,
-    required this.volunteering,
     required this.id,
   });
+
+  @override
+  State<VolunteeringPage> createState() => _VolunteeringPageState();
+}
+
+class _VolunteeringPageState extends State<VolunteeringPage> {
+  late VolunteeringModel volunteering;
+
+  @override
+  void initState() {
+    super.initState();
+    volunteering = Provider.of<VolunteeringProvider>(context, listen: false)
+        .volunteeringsMap[widget.id]!;
+  }
 
   Function _showDialog({required BuildContext context}) {
     return () => showDialog(
@@ -98,8 +112,7 @@ class VolunteeringPage extends StatelessWidget {
                         const SerManosSizedBox.sm(),
                         SerManosText.body1(volunteering.about),
                         const SerManosSizedBox.md(),
-                        SerManosUbicationCard(
-                            address: volunteering.address),
+                        SerManosUbicationCard(address: volunteering.address),
                       ],
                     ),
                   ),

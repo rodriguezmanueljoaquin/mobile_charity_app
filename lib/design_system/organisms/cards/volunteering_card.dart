@@ -101,7 +101,6 @@ class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
         pathParameters: {
           "id": widget.volunteering.id,
         },
-        extra: widget.volunteering,
       ),
       child: Container(
         width: SerManosSizes.sizeLG,
