@@ -6,13 +6,18 @@ import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/utils/collections.dart';
 
 class VolunteeringProvider extends ChangeNotifier {
-  final UserProvider? _userProvider;
+  UserProvider? _userProvider;
   bool isFetchingVolunteerings = false;
   bool isApplyingToVolunteering = false;
   Map<String, int> _volunteeringsIndexById = {};
   List<VolunteeringModel> _volunteerings = [];
 
   VolunteeringProvider(this._userProvider);
+
+  VolunteeringProvider update(UserProvider userProvider) {
+    _userProvider = userProvider;
+    return this;
+  }
 
   List<VolunteeringModel> get volunteerings => _volunteerings;
 
@@ -63,7 +68,6 @@ class VolunteeringProvider extends ChangeNotifier {
       print(e);
     } finally {
       isApplyingToVolunteering = false;
-      notifyListeners();
     }
   }
 
@@ -90,7 +94,6 @@ class VolunteeringProvider extends ChangeNotifier {
       print(e);
     } finally {
       isApplyingToVolunteering = false;
-      notifyListeners();
     }
   }
 }
