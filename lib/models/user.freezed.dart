@@ -20,12 +20,13 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserModel {
-  String get firstName => throw _privateConstructorUsedError;
-  String get lastName => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  String? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String? get firstName => throw _privateConstructorUsedError;
+  String? get lastName => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
   String? get avatarURL => throw _privateConstructorUsedError;
   String? get gender => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime? get birthDate => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get currentVolunteeringId => throw _privateConstructorUsedError;
@@ -44,13 +45,13 @@ abstract class $UserModelCopyWith<$Res> {
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call(
-      {String firstName,
-      String lastName,
-      String email,
-      String? id,
+      {String id,
+      String? firstName,
+      String? lastName,
+      String? email,
       String? avatarURL,
       String? gender,
-      DateTime? birthDate,
+      @TimestampConverter() DateTime? birthDate,
       String? phoneNumber,
       String? currentVolunteeringId,
       List<String>? favoriteVolunteeringsIds});
@@ -69,10 +70,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? firstName = null,
-    Object? lastName = null,
-    Object? email = null,
-    Object? id = freezed,
+    Object? id = null,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
+    Object? email = freezed,
     Object? avatarURL = freezed,
     Object? gender = freezed,
     Object? birthDate = freezed,
@@ -81,21 +82,21 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? favoriteVolunteeringsIds = freezed,
   }) {
     return _then(_value.copyWith(
-      firstName: null == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      firstName: freezed == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastName: freezed == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String?,
       avatarURL: freezed == avatarURL
           ? _value.avatarURL
@@ -133,13 +134,13 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String firstName,
-      String lastName,
-      String email,
-      String? id,
+      {String id,
+      String? firstName,
+      String? lastName,
+      String? email,
       String? avatarURL,
       String? gender,
-      DateTime? birthDate,
+      @TimestampConverter() DateTime? birthDate,
       String? phoneNumber,
       String? currentVolunteeringId,
       List<String>? favoriteVolunteeringsIds});
@@ -156,10 +157,10 @@ class __$$_UserModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? firstName = null,
-    Object? lastName = null,
-    Object? email = null,
-    Object? id = freezed,
+    Object? id = null,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
+    Object? email = freezed,
     Object? avatarURL = freezed,
     Object? gender = freezed,
     Object? birthDate = freezed,
@@ -168,21 +169,21 @@ class __$$_UserModelCopyWithImpl<$Res>
     Object? favoriteVolunteeringsIds = freezed,
   }) {
     return _then(_$_UserModel(
-      firstName: null == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      firstName: freezed == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastName: freezed == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String?,
       avatarURL: freezed == avatarURL
           ? _value.avatarURL
@@ -214,36 +215,38 @@ class __$$_UserModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
+class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
   const _$_UserModel(
-      {required this.firstName,
-      required this.lastName,
-      required this.email,
-      this.id,
+      {required this.id,
+      this.firstName,
+      this.lastName,
+      this.email,
       this.avatarURL,
       this.gender,
-      this.birthDate,
+      @TimestampConverter() this.birthDate,
       this.phoneNumber,
       this.currentVolunteeringId,
       final List<String>? favoriteVolunteeringsIds})
-      : _favoriteVolunteeringsIds = favoriteVolunteeringsIds;
+      : _favoriteVolunteeringsIds = favoriteVolunteeringsIds,
+        super._();
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$$_UserModelFromJson(json);
 
   @override
-  final String firstName;
+  final String id;
   @override
-  final String lastName;
+  final String? firstName;
   @override
-  final String email;
+  final String? lastName;
   @override
-  final String? id;
+  final String? email;
   @override
   final String? avatarURL;
   @override
   final String? gender;
   @override
+  @TimestampConverter()
   final DateTime? birthDate;
   @override
   final String? phoneNumber;
@@ -262,7 +265,7 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserModel(firstName: $firstName, lastName: $lastName, email: $email, id: $id, avatarURL: $avatarURL, gender: $gender, birthDate: $birthDate, phoneNumber: $phoneNumber, currentVolunteeringId: $currentVolunteeringId, favoriteVolunteeringsIds: $favoriteVolunteeringsIds)';
+    return 'UserModel(id: $id, firstName: $firstName, lastName: $lastName, email: $email, avatarURL: $avatarURL, gender: $gender, birthDate: $birthDate, phoneNumber: $phoneNumber, currentVolunteeringId: $currentVolunteeringId, favoriteVolunteeringsIds: $favoriteVolunteeringsIds)';
   }
 
   @override
@@ -270,10 +273,10 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'UserModel'))
+      ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('firstName', firstName))
       ..add(DiagnosticsProperty('lastName', lastName))
       ..add(DiagnosticsProperty('email', email))
-      ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('avatarURL', avatarURL))
       ..add(DiagnosticsProperty('gender', gender))
       ..add(DiagnosticsProperty('birthDate', birthDate))
@@ -288,12 +291,12 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserModel &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
                 other.lastName == lastName) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.avatarURL, avatarURL) ||
                 other.avatarURL == avatarURL) &&
             (identical(other.gender, gender) || other.gender == gender) &&
@@ -311,10 +314,10 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
       firstName,
       lastName,
       email,
-      id,
       avatarURL,
       gender,
       birthDate,
@@ -336,35 +339,37 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
   }
 }
 
-abstract class _UserModel implements UserModel {
+abstract class _UserModel extends UserModel {
   const factory _UserModel(
-      {required final String firstName,
-      required final String lastName,
-      required final String email,
-      final String? id,
+      {required final String id,
+      final String? firstName,
+      final String? lastName,
+      final String? email,
       final String? avatarURL,
       final String? gender,
-      final DateTime? birthDate,
+      @TimestampConverter() final DateTime? birthDate,
       final String? phoneNumber,
       final String? currentVolunteeringId,
       final List<String>? favoriteVolunteeringsIds}) = _$_UserModel;
+  const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
 
   @override
-  String get firstName;
+  String get id;
   @override
-  String get lastName;
+  String? get firstName;
   @override
-  String get email;
+  String? get lastName;
   @override
-  String? get id;
+  String? get email;
   @override
   String? get avatarURL;
   @override
   String? get gender;
   @override
+  @TimestampConverter()
   DateTime? get birthDate;
   @override
   String? get phoneNumber;

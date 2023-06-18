@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
@@ -6,6 +7,7 @@ import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
 import 'package:mobile_charity_app/utils/validators.dart';
 
 class SerManosTextFormField extends StatefulWidget {
@@ -17,6 +19,8 @@ class SerManosTextFormField extends StatefulWidget {
   final bool required;
   final String? Function(String?)? validator;
   final bool isPassword;
+  final SerManosIcon? icon;
+  final VoidCallback? iconOnPressed;
 
   const SerManosTextFormField(
       {super.key,
@@ -27,7 +31,9 @@ class SerManosTextFormField extends StatefulWidget {
       this.errorText,
       this.required = true,
       this.disabled = false,
-      this.isPassword = false});
+      this.isPassword = false,
+      this.icon,
+      this.iconOnPressed});
 
   @override
   State<SerManosTextFormField> createState() => _SerManosTextFormFieldState();
@@ -103,9 +109,17 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
                     });
                   },
                 )
-              : _hasError
-                  ? const SerManosIcon.error()
-                  : null,
+              : widget.icon != null
+                  ? IconButton(
+                      icon: widget.icon!,
+                      onPressed: widget.iconOnPressed,
+                      color: _hasError
+                          ? SerManosColors.error100
+                          : SerManosColors.primary100,
+                    )
+                  : _hasError
+                      ? const SerManosIcon.error()
+                      : null,
           labelStyle: SerManosTextStyle.subtitle1(
             color: widget.disabled
                 ? SerManosColors.neutral50
@@ -117,7 +131,7 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
             color: widget.disabled
                 ? SerManosColors.neutral50
                 : SerManosColors
-                    .neutral75, // TODO: should be secondary200 when focus
+                    .neutral75, // TODO: should be secondary200 when focus?
           ),
           errorStyle: const SerManosTextStyle.body2(
             color: SerManosColors.error100,
@@ -149,6 +163,24 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class SerManosPhoneFormField extends StatelessWidget {
+  final TextEditingController controller;
+  final String? placeholder;
+
+  const SerManosPhoneFormField(
+      {super.key, required this.controller, this.placeholder});
+
+  @override
+  Widget build(BuildContext context) {
+    return SerManosTextFormField(
+      controller: controller,
+      label: 'Teléfono',
+      placeholder: placeholder,
+      validator: phoneValidator,
     );
   }
 }
@@ -190,6 +222,58 @@ class SerManosPasswordFormField extends StatelessWidget {
   }
 }
 
+class SerManosDateFormField extends StatelessWidget {
+  final TextEditingController controller;
+  final String? placeholder;
+
+  const SerManosDateFormField(
+      {super.key, required this.controller, this.placeholder});
+
+  @override
+  Widget build(BuildContext context) {
+    return SerManosTextFormField(
+      controller: controller,
+      label: 'Fecha de nacimiento',
+      placeholder: 'DD/MM/YYYY',
+      validator: dateValidator,
+      isPassword: false,
+      icon: const SerManosIcon.calendar(
+        isPrimaryAction: true,
+      ),
+      iconOnPressed: () async {
+        var dateFormat = DateFormat('dd/MM/yyyy');
+        DateTime _initialDate = DateTime.now();
+        if (dateValidator(controller.text) == null) {
+          _initialDate = dateFormat.parse(controller.text);
+        }
+        DateTime? date = await showDatePicker(
+          context: context,
+          initialDate: _initialDate,
+          firstDate: DateTime(1900),
+          lastDate: DateTime(2100),
+          builder: (BuildContext context, Widget? child) {
+            return Theme(
+              data: ThemeData.light().copyWith(
+                colorScheme: const ColorScheme.light(
+                  primary: SerManosColors.primary100,
+                  onPrimary: SerManosColors.neutral0,
+                  surface: SerManosColors.neutral100,
+                  onSurface: SerManosColors.neutral100,
+                ),
+                dialogBackgroundColor: SerManosColors.neutral0,
+              ),
+              child: child!,
+            );
+          },
+        );
+        if (date != null) {
+          controller.text = dateFormat.format(date);
+        }
+      },
+    );
+  }
+}
+
 class SerManosSearchField extends StatefulWidget {
   final TextEditingController controller;
 
@@ -227,14 +311,13 @@ class _SerManosSearchFieldState extends State<SerManosSearchField> {
             });
           }
         },
-        onSubmitted: (String value) => print('Searching $value...'),
+        onSubmitted: (String value) => logger.i('Searching $value...'),
         decoration: InputDecoration(
           hintText: 'Buscar',
           isCollapsed: true,
           suffixIcon: _hasText
               ? SerManosIconButton(
-                  icon:
-                      const SerManosIcon.close(color: SerManosColors.neutral75),
+                  icon: const SerManosIcon.close(),
                   onPressed: () {
                     widget.controller.clear();
                     setState(() {
@@ -243,9 +326,8 @@ class _SerManosSearchFieldState extends State<SerManosSearchField> {
                   },
                 )
               : SerManosIconButton(
-                  icon: const SerManosIcon.search(
-                      color: SerManosColors.neutral75),
-                  onPressed: () => print('Typing...'),
+                  icon: const SerManosIcon.search(),
+                  onPressed: () => logger.i('Typing...'),
                 ),
           contentPadding: const EdgeInsets.only(
             top: 12,

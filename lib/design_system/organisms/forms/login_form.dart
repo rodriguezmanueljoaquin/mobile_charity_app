@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 
-class LoginForm extends StatefulWidget {
+class SerManosLoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final Function(bool) changeDisabledStateTo;
   final TextEditingController emailController;
   final TextEditingController passwordController;
 
-  const LoginForm(
+  const SerManosLoginForm(
       {super.key,
       required this.formKey,
       required this.changeDisabledStateTo,
@@ -16,10 +16,10 @@ class LoginForm extends StatefulWidget {
       required this.passwordController});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<SerManosLoginForm> createState() => _SerManosLoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _SerManosLoginFormState extends State<SerManosLoginForm> {
   // controllers
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
@@ -63,11 +63,13 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         children: [
           SerManosEmailFormField(
+            key: const Key('email-field'),
             controller: _emailController,
             placeholder: 'Ingrese su email',
           ),
           const SerManosSizedBox.sm(),
           SerManosPasswordFormField(
+            key: const Key('password-field'),
             controller: _passwordController,
             placeholder: 'Ingrese su contraseña',
           ),

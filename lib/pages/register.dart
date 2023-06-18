@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/api/ser_manos_api.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile_charity_app/design_system/atoms/logos.dart';
+import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
@@ -32,20 +32,17 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return SerManosScaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height -
-              AppBar(toolbarHeight: 0).preferredSize.height,
-          child: Column(
-            children: [
-              const SerManosSizedBox.lg(),
-              Expanded(
+      body: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SerManosLogos.full,
                     const SerManosSizedBox.lg(),
-                    RegisterForm(
+                    SerManosImages.full,
+                    const SerManosSizedBox.lg(),
+                    SerManosRegisterForm(
                       formKey: _formKey,
                       changeDisabledStateTo: (bool state) {
                         setState(() {
@@ -56,59 +53,55 @@ class _RegisterPageState extends State<RegisterPage> {
                       lastNameController: _lastNameController,
                       emailController: _emailController,
                       passwordController: _passwordController,
-                    )
+                    ),
                   ],
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 8),
-                child: SerManosText.caption(
-                  _registerError,
-                  color: SerManosColors.error100,
-                ),
-              ),
-              SerManosButton.longButton(
-                text: 'Registrarse',
-                disabled: _disabled,
-                onPressed: () async {
-                  if (!_formKey.currentState!.validate()) {
-                    setState(() {
-                      _registerError =
-                          "Este email ya ha sido utilizado."; // TODO: Assign api response
-                    });
-                    return;
-                  }
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 8),
+            child: SerManosText.caption(
+              _registerError,
+              color: SerManosColors.error100,
+            ),
+          ),
+          SerManosTextButton.longTextButton(
+            text: 'Registrarse',
+            disabled: _disabled,
+            onPressed: () async {
+              if (!_formKey.currentState!.validate()) {
+                setState(() {
+                  _registerError =
+                      "Este email ya ha sido utilizado."; // TODO: Assign api response
+                });
+                return;
+              }
 
-                  //TODO: check credentials with backend
-                  _registerError = 'false';
+              //TODO: check credentials with backend
+              _registerError = 'false';
 
-                  UserModel? user = await SerManosApi().registerUser(
+              await Provider.of<UserProvider>(context, listen: false)
+                  .register(
                     firstName: _firstNameController.text,
                     lastName: _lastNameController.text,
                     email: _emailController.text,
                     password: _passwordController.text,
-                  );
-
-                  Provider.of<UserProvider>(context, listen: false)
-                      .setUser(user!);
-
-                  print(user);
-
-                  context.replaceNamed(SerManosPagesName.welcome);
-                },
-              ),
-              const SerManosSizedBox.sl(),
-              SerManosButton.longButton(
-                text: 'Ya tengo cuenta',
-                filled: false,
-                onPressed: () {
-                  context.replaceNamed(SerManosPagesName.signin);
-                },
-              ),
-              const SerManosSizedBox.lg(),
-            ],
+                  )
+                  .then((value) =>
+                      context.replaceNamed(SerManosPagesName.welcome));
+            },
           ),
-        ),
+          const SerManosSizedBox.sl(),
+          SerManosTextButton.longTextButton(
+            text: 'Ya tengo cuenta',
+            filled: false,
+            onPressed: () {
+              context.replaceNamed(SerManosPagesName.signin);
+            },
+          ),
+          const SerManosSizedBox.lg(),
+        ],
       ),
     );
   }

@@ -21,6 +21,14 @@ dependencies:
   go_router: ^7.0.0
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.1
+  flutter_svg: ^2.0.5
+  intl: ^0.18.1
+  collection: ^1.17.0
+  golden_toolkit: ^0.15.0
+  mockito: ^5.4.0
+  network_image_mock: ^2.1.1
+  logger: ^1.4.0
+  flutter_markdown: ^0.6.15
 
 dev_dependencies:
   flutter_test:
@@ -35,8 +43,9 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/logos/rectangular.png
-    - assets/logos/full.png
+    - assets/images/rectangular.png
+    - assets/images/full.png
+    - assets/images/profile_default_photo.svg
 
   fonts:
     - family: Roboto

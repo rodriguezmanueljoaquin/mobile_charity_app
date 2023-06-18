@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_charity_app/design_system/atoms/icons.dart';
+import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
-class SerManosButton extends TextButton {
-  SerManosButton.longButton(
+class SerManosTextButton extends TextButton {
+  SerManosTextButton.longTextButton(
       {super.key,
       onPressed,
       onLongPress,
       required String text,
       bool disabled = false,
-      filled = true})
+      filled = true,
+      textColor})
       : super(
           onPressed: disabled ? null : onPressed,
           onLongPress: disabled ? null : onLongPress,
-          child: SizedBox(
-            height: 44,
+          child: Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: 12.0,
+            ),
             width: SerManosSizes.sizeLG,
             child: Center(
               child: Text(
@@ -25,9 +28,10 @@ class SerManosButton extends TextButton {
                 style: SerManosTextStyle.button(
                   color: disabled
                       ? SerManosColors.neutral50
-                      : filled
-                          ? SerManosColors.neutral0
-                          : SerManosColors.primary100,
+                      : textColor ??
+                          (filled
+                              ? SerManosColors.neutral0
+                              : SerManosColors.primary100),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -42,71 +46,45 @@ class SerManosButton extends TextButton {
           ),
         );
 
-  SerManosButton.shortButton(
-      {super.key,
-      onPressed,
-      onLongPress,
-      required String text,
-      bool disabled = false})
-      : super(
-          onPressed: disabled ? null : onPressed,
-          onLongPress: disabled ? null : onLongPress,
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 8),
-            height: 48,
-            width: null,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const SerManosIcon.add(color: SerManosColors.neutral0),
-                const SizedBox(width: 10),
-                Text(
-                  text,
-                  style: SerManosTextStyle.button(
-                    color: disabled
-                        ? SerManosColors.neutral50
-                        : SerManosColors.neutral0,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
-          style: TextButton.styleFrom(
-            backgroundColor: SerManosColors.primary100,
-            disabledBackgroundColor: SerManosColors.neutral25,
-            foregroundColor: SerManosColors.neutral10,
-          ),
-        );
-
-  SerManosButton.shortTextButton({
+  SerManosTextButton.shortTextButton({
     super.key,
     onPressed,
     onLongPress,
     required String text,
     bool disabled = false,
     bool filled = true,
+    bool small = false,
+    Icon? icon,
   }) : super(
           onPressed: disabled ? null : onPressed,
           onLongPress: disabled ? null : onLongPress,
           child: Container(
-            margin: const EdgeInsets.symmetric(
+            margin: EdgeInsets.symmetric(
               horizontal: SerManosSpacing.spaceSM,
-              vertical: 12.0,
+              vertical: small ? 10.0 : 14.0,
             ),
             height: null,
             width: null,
-            child: Text(
-              text,
-              style: SerManosTextStyle.button(
-                color: disabled
-                    ? SerManosColors.neutral50
-                    : filled
-                        ? SerManosColors.neutral0
-                        : SerManosColors.primary100,
-              ),
-              textAlign: TextAlign.center,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (icon != null) icon,
+                if (icon != null)
+                  const SerManosSizedBox.sm(
+                    useWidth: true,
+                  ),
+                Text(
+                  text,
+                  style: SerManosTextStyle.button(
+                    color: disabled
+                        ? SerManosColors.neutral50
+                        : filled
+                            ? SerManosColors.neutral0
+                            : SerManosColors.primary100,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ),
           style: TextButton.styleFrom(

@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
+import 'package:mobile_charity_app/models/volunteering.dart';
 
-class VolunteeringModal extends StatelessWidget {
+class SerManosVolunteeringModal extends StatelessWidget {
+  final VolunteeringModel volunteering;
   final String title;
-  final String schedules;
-  final String location;
+  final Function onConfirm;
 
-  const VolunteeringModal({
-    super.key,
-    required this.title,
-    required this.schedules,
-    required this.location,
-  });
+  const SerManosVolunteeringModal(
+      {super.key,
+      required this.volunteering,
+      required this.title,
+      required this.onConfirm});
 
   @override
   Widget build(BuildContext context) {
@@ -39,25 +38,22 @@ class VolunteeringModal extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SerManosText.subtitle1('Te estás por postular a'),
-              SerManosText.headline2(title),
-              const SerManosSizedBox.sl(),
-              SerManosText.body1('Días $schedules'),
-              const SerManosSizedBox.height(height: 2),
-              SerManosText.body1(location),
+              SerManosText.subtitle1(title),
+              SerManosText.headline2(volunteering.title),
             ],
           ),
         ),
         actions: [
-          SerManosButton.shortTextButton(
+          SerManosTextButton.shortTextButton(
             text: 'Cancelar',
             filled: false,
             onPressed: () => Navigator.pop(context),
           ),
-          SerManosButton.shortTextButton(
+          SerManosTextButton.shortTextButton(
             text: 'Confirmar',
             filled: false,
-            onPressed: () {
+            onPressed: () async {
+              await onConfirm();
               Navigator.pop(context);
             },
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_charity_app/design_system/atoms/logos.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
@@ -7,37 +8,40 @@ import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
+import 'package:mobile_charity_app/models/news.dart';
+import 'package:mobile_charity_app/routes/paths.dart';
 
-class NewsCard extends StatelessWidget {
-  final String overline;
-  final String title;
-  final String body;
+class SerManosNewsCard extends StatelessWidget {
+  final NewsModel news;
 
-  const NewsCard({
+  const SerManosNewsCard({
     super.key,
-    required this.overline,
-    required this.title,
-    required this.body,
+    required this.news,
   });
 
-  Widget _buildInformation() {
+  Widget _buildInformation(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SerManosText.overline(overline.toUpperCase()),
-            SerManosText.subtitle1(title),
-            SerManosText.body2(body),
+            SerManosText.overline(news.source),
+            SerManosText.subtitle1(news.title),
+            SerManosText.body2(news.summary),
           ],
         ),
         const SerManosSizedBox.sm(),
         Align(
           alignment: Alignment.centerRight,
-          child: SerManosButton.shortTextButton(
+          child: SerManosTextButton.shortTextButton(
             text: 'Leer Más',
-            onPressed: () {},
+            onPressed: () => context.pushNamed(
+              SerManosPagesName.newsDetails,
+              pathParameters: {
+                "id": news.id,
+              },
+            ),
             filled: false,
           ),
         ),
@@ -60,21 +64,21 @@ class NewsCard extends StatelessWidget {
               width: 118,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: SerManosLogos.full.image,
-                  fit: BoxFit.contain,
+                  image: Image.network(news.imageURL).image,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
             Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    right: SerManosSpacing.spaceSM,
-                    left: SerManosSpacing.spaceSM,
-                    top: SerManosSpacing.spaceSL,
-                  ),
-                  child: _buildInformation(),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  right: SerManosSpacing.spaceSM,
+                  left: SerManosSpacing.spaceSM,
+                  top: SerManosSpacing.spaceSL,
                 ),
+                child: _buildInformation(context),
               ),
+            ),
           ],
         ),
       ),

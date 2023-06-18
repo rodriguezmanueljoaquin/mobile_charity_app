@@ -75,7 +75,7 @@ class SerManosTextStyle extends TextStyle {
       : super(
           fontWeight: SerManosTypography.regularFontWeight,
           fontSize: SerManosTypography.fontSizeOverline,
-          color: color ?? SerManosColors.neutral100,
+          color: color ?? SerManosColors.neutral75,
         );
 }
 
@@ -95,13 +95,13 @@ class SerManosText extends Text {
   SerManosText.body2(super.text, {super.key, Color? color, super.textAlign})
       : super(style: SerManosTextStyle.body2(color: color));
 
-  SerManosText.button(super.text, {super.key, Color? color})
+  SerManosText.button(super.text, {super.key, Color? color, super.textAlign})
       : super(style: SerManosTextStyle.button(color: color));
 
-  SerManosText.caption(super.text, {super.key, Color? color})
+  SerManosText.caption(super.text, {super.key, Color? color, super.textAlign})
       : super(style: SerManosTextStyle.caption(color: color));
 
-  SerManosText.overline(String text, {super.key, Color? color})
+  SerManosText.overline(String text, {super.key, Color? color, super.textAlign})
       : super(text.toUpperCase(),
             style: SerManosTextStyle.overline(color: color));
 }
