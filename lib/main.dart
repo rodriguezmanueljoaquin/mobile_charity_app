@@ -9,6 +9,8 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/routes/router.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
