@@ -4,6 +4,7 @@ import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/utils/collections.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
 
 class VolunteeringProvider extends ChangeNotifier {
   UserProvider? _userProvider;
@@ -29,7 +30,7 @@ class VolunteeringProvider extends ChangeNotifier {
           await SerManosApi().getVolunteerings();
       if (_userProvider!.userLocation != null) {
         // volunteerings.sort((a, b) => a.distance!.compareTo(b.distance!));
-        print('volunteerings: ${volunteerings.length}');
+        logger.d('volunteerings: ${volunteerings.length}');
       }
       _volunteeringsIndexById = listToIndexMapByKey(volunteerings, (e) => e.id);
       _volunteerings = volunteerings;
@@ -56,7 +57,7 @@ class VolunteeringProvider extends ChangeNotifier {
       isApplyingToVolunteering = true;
 
       await SerManosApi().applyToVolunteering(
-        userId: _userProvider!.user!.id!,
+        userId: _userProvider!.user!.id,
         volunteeringId: volunteeringId,
       );
 
@@ -65,10 +66,30 @@ class VolunteeringProvider extends ChangeNotifier {
       await _userProvider!.fetchUser();
     } catch (e) {
       // TODO: handle error
-      print(e);
+      logger.e(e);
     } finally {
       isApplyingToVolunteering = false;
     }
+  }
+
+  Future<void> fetchVolunteeringById(String volunteeringId) async {
+    VolunteeringModel? volunteering =
+        await SerManosApi().getVolunteeringById(volunteeringId: volunteeringId);
+
+    if (volunteering == null) {
+      throw Exception('Volunteering not found');
+    }
+
+    // add or update volunteering
+    if (_volunteeringsIndexById?[volunteeringId] == null) {
+      // TODO: sort by distance
+      _volunteerings!.add(volunteering);
+      _volunteeringsIndexById?[volunteeringId] = _volunteerings!.length - 1;
+    } else {
+      _volunteerings![_volunteeringsIndexById![volunteeringId]!] = volunteering;
+    }
+
+    notifyListeners();
   }
 
   Future<void> abandonCurrentVolunteering() async {
@@ -82,7 +103,7 @@ class VolunteeringProvider extends ChangeNotifier {
       }
 
       await SerManosApi().abandonVolunteering(
-        userId: user.id!,
+        userId: user.id,
         volunteeringId: user.currentVolunteeringId!,
       );
 
@@ -91,7 +112,7 @@ class VolunteeringProvider extends ChangeNotifier {
       await _userProvider!.fetchUser();
     } catch (e) {
       // TODO: handle error
-      print(e);
+      logger.e(e);
     } finally {
       isApplyingToVolunteering = false;
     }

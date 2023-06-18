@@ -7,6 +7,7 @@ import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
 import 'package:mobile_charity_app/utils/validators.dart';
 
 class SerManosTextFormField extends StatefulWidget {
@@ -310,7 +311,7 @@ class _SerManosSearchFieldState extends State<SerManosSearchField> {
             });
           }
         },
-        onSubmitted: (String value) => print('Searching $value...'),
+        onSubmitted: (String value) => logger.i('Searching $value...'),
         decoration: InputDecoration(
           hintText: 'Buscar',
           isCollapsed: true,
@@ -326,7 +327,7 @@ class _SerManosSearchFieldState extends State<SerManosSearchField> {
                 )
               : SerManosIconButton(
                   icon: const SerManosIcon.search(),
-                  onPressed: () => print('Typing...'),
+                  onPressed: () => logger.i('Typing...'),
                 ),
           contentPadding: const EdgeInsets.only(
             top: 12,

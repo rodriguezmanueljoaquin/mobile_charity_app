@@ -35,4 +35,14 @@ class MockUserProvider extends ChangeNotifier implements UserProvider {
       {required String volunteeringId, required bool isFavorite}) {
     return Future.value(false);
   }
+  
+  @override
+  Future<void> loadUserFromCache() {
+    return Future.value();
+  }
+  
+  @override
+  Future<void> logout() {
+    return Future.value();
+  }
 }

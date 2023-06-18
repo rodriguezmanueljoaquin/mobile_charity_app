@@ -28,8 +28,11 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
   void initState() {
     super.initState();
 
-    Provider.of<VolunteeringProvider>(context, listen: false)
-        .fetchVolunteerings();
+    VolunteeringProvider volunteeringProvider =
+        Provider.of<VolunteeringProvider>(context, listen: false);
+    if (volunteeringProvider.volunteerings == null) {
+      volunteeringProvider.fetchVolunteerings();
+    }
   }
 
   @override
@@ -37,75 +40,77 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SerManosSizedBox.lg(),
-          SerManosSearchField(controller: widget.searchController),
-          const SerManosSizedBox.lg(),
-          Consumer<UserProvider>(
-            builder: (context, userProvider, child) {
-              String? currentVolunteeringId =
-                  userProvider.user?.currentVolunteeringId;
-              if (currentVolunteeringId == null) {
-                return const SizedBox();
-              }
+    return RefreshIndicator(
+      onRefresh: () => Provider.of<VolunteeringProvider>(context, listen: false)
+          .fetchVolunteerings()
+          .then((_) =>
+              Provider.of<UserProvider?>(context, listen: false)?.fetchUser()),
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            const SerManosSizedBox.lg(),
+            SerManosSearchField(controller: widget.searchController),
+            const SerManosSizedBox.lg(),
+            Consumer2<UserProvider, VolunteeringProvider>(
+              builder: (context, userProvider, volunteeringProvider, child) {
+                String? currentVolunteeringId =
+                    userProvider.user?.currentVolunteeringId;
+                if (currentVolunteeringId == null ||
+                    volunteeringProvider.isFetchingVolunteerings) {
+                  return const SizedBox();
+                }
 
-              String currentVolunteeringTitle =
-                  Provider.of<VolunteeringProvider>(context, listen: false)
-                      .getVolunteeringById(currentVolunteeringId)!
-                      .title;
+                String? currentVolunteeringTitle = volunteeringProvider
+                    .getVolunteeringById(currentVolunteeringId)
+                    ?.title;
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SerManosText.headline1("Tu actividad"),
-                  const SerManosSizedBox.sl(),
-                  SerManosCurrentVolunteringCard(
-                    title: currentVolunteeringTitle,
-                  ),
-                  const SerManosSizedBox.md(),
-                ],
-              );
-            },
-          ),
-          SizedBox(
-            width: SerManosSizes.sizeLG,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: SerManosText.headline1("Voluntariados"),
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SerManosText.headline1("Tu actividad"),
+                    const SerManosSizedBox.sl(),
+                    SerManosCurrentVolunteringCard(
+                      title: currentVolunteeringTitle,
+                    ),
+                    const SerManosSizedBox.md(),
+                  ],
+                );
+              },
             ),
-          ),
-          RefreshIndicator(
-              onRefresh:
-                  Provider.of<VolunteeringProvider>(context, listen: false)
-                      .fetchVolunteerings,
-              child: Consumer<VolunteeringProvider>(
-                builder: (context, volunteeringProvider, child) =>
-                    volunteeringProvider.isFetchingVolunteerings
-                        ? const Center(child: CircularProgressIndicator())
-                        : ListView.separated(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: SerManosSpacing.spaceSL,
-                              vertical: SerManosSpacing.spaceMD,
-                            ),
-                            itemBuilder: (context, index) {
-                              return UnconstrainedBox(
-                                child: SerManosVolunteeringCard(
-                                  volunteering: volunteeringProvider
-                                      .volunteerings![index],
-                                ),
-                              );
-                            },
-                            separatorBuilder: (context, index) =>
-                                const SerManosSizedBox.md(),
-                            itemCount:
-                                volunteeringProvider.volunteerings!.length,
+            SizedBox(
+              width: SerManosSizes.sizeLG,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: SerManosText.headline1("Voluntariados"),
+              ),
+            ),
+            Consumer<VolunteeringProvider>(
+              builder: (context, volunteeringProvider, child) =>
+                  volunteeringProvider.isFetchingVolunteerings
+                      ? const Center(child: CircularProgressIndicator())
+                      : ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: SerManosSpacing.spaceSL,
+                            vertical: SerManosSpacing.spaceMD,
                           ),
-              )),
-        ],
+                          itemBuilder: (context, index) {
+                            return UnconstrainedBox(
+                              child: SerManosVolunteeringCard(
+                                volunteering:
+                                    volunteeringProvider.volunteerings![index],
+                              ),
+                            );
+                          },
+                          separatorBuilder: (context, index) =>
+                              const SerManosSizedBox.md(),
+                          itemCount: volunteeringProvider.volunteerings!.length,
+                        ),
+            ),
+          ],
+        ),
       ),
     );
   }

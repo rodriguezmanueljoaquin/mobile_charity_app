@@ -132,4 +132,9 @@ class MockVolunteeringProvider extends ChangeNotifier
         volunteersIds: [],
         location: const GeoPoint(1, 1))
   ];
+  
+  @override
+  Future<void> fetchVolunteeringById(String volunteeringId) {
+    return Future.value();
+  }
 }
