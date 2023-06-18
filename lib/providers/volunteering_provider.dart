@@ -56,7 +56,7 @@ class VolunteeringProvider extends ChangeNotifier {
       isApplyingToVolunteering = true;
 
       await SerManosApi().applyToVolunteering(
-        userId: _userProvider!.user!.id!,
+        userId: _userProvider!.user!.id,
         volunteeringId: volunteeringId,
       );
 
@@ -82,7 +82,7 @@ class VolunteeringProvider extends ChangeNotifier {
       }
 
       await SerManosApi().abandonVolunteering(
-        userId: user.id!,
+        userId: user.id,
         volunteeringId: user.currentVolunteeringId!,
       );
 

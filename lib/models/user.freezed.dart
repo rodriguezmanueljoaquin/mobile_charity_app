@@ -26,6 +26,7 @@ mixin _$UserModel {
   String? get email => throw _privateConstructorUsedError;
   String? get avatarURL => throw _privateConstructorUsedError;
   String? get gender => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime? get birthDate => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get currentVolunteeringId => throw _privateConstructorUsedError;
@@ -50,7 +51,7 @@ abstract class $UserModelCopyWith<$Res> {
       String? email,
       String? avatarURL,
       String? gender,
-      DateTime? birthDate,
+      @TimestampConverter() DateTime? birthDate,
       String? phoneNumber,
       String? currentVolunteeringId,
       List<String>? favoriteVolunteeringsIds});
@@ -139,7 +140,7 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String? email,
       String? avatarURL,
       String? gender,
-      DateTime? birthDate,
+      @TimestampConverter() DateTime? birthDate,
       String? phoneNumber,
       String? currentVolunteeringId,
       List<String>? favoriteVolunteeringsIds});
@@ -214,7 +215,7 @@ class __$$_UserModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
+class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
   const _$_UserModel(
       {required this.id,
       this.firstName,
@@ -222,11 +223,12 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
       this.email,
       this.avatarURL,
       this.gender,
-      this.birthDate,
+      @TimestampConverter() this.birthDate,
       this.phoneNumber,
       this.currentVolunteeringId,
       final List<String>? favoriteVolunteeringsIds})
-      : _favoriteVolunteeringsIds = favoriteVolunteeringsIds;
+      : _favoriteVolunteeringsIds = favoriteVolunteeringsIds,
+        super._();
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$$_UserModelFromJson(json);
@@ -244,6 +246,7 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
   @override
   final String? gender;
   @override
+  @TimestampConverter()
   final DateTime? birthDate;
   @override
   final String? phoneNumber;
@@ -336,7 +339,7 @@ class _$_UserModel with DiagnosticableTreeMixin implements _UserModel {
   }
 }
 
-abstract class _UserModel implements UserModel {
+abstract class _UserModel extends UserModel {
   const factory _UserModel(
       {required final String id,
       final String? firstName,
@@ -344,10 +347,11 @@ abstract class _UserModel implements UserModel {
       final String? email,
       final String? avatarURL,
       final String? gender,
-      final DateTime? birthDate,
+      @TimestampConverter() final DateTime? birthDate,
       final String? phoneNumber,
       final String? currentVolunteeringId,
       final List<String>? favoriteVolunteeringsIds}) = _$_UserModel;
+  const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
@@ -365,6 +369,7 @@ abstract class _UserModel implements UserModel {
   @override
   String? get gender;
   @override
+  @TimestampConverter()
   DateTime? get birthDate;
   @override
   String? get phoneNumber;
