@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
-import 'package:mobile_charity_app/design_system/organisms/cards/edit_profile_photo_card.dart';
-import 'package:mobile_charity_app/design_system/organisms/cards/gender_input_card.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
 class SerManosContactDataForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final Function(bool) changeDisabledStateTo;
+  final TextEditingController phoneController;
+  final TextEditingController emailController;
 
   const SerManosContactDataForm(
-      {super.key, required this.formKey, required this.changeDisabledStateTo});
+      {super.key,
+      required this.formKey,
+      required this.changeDisabledStateTo,
+      required this.phoneController,
+      required this.emailController});
 
   @override
   State<SerManosContactDataForm> createState() =>
@@ -20,10 +24,18 @@ class SerManosContactDataForm extends StatefulWidget {
 
 class _SerManosContactDataFormState extends State<SerManosContactDataForm> {
   // controllers
-  final _phoneController = TextEditingController();
-  final _emailController = TextEditingController();
+  late final TextEditingController _phoneController;
+  late final TextEditingController _emailController;
+
   String? imageUrl;
   bool _allowSubmission = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _phoneController = widget.phoneController;
+    _emailController = widget.emailController;
+  }
 
   @override
   void dispose() {

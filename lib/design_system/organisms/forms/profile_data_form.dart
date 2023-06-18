@@ -8,9 +8,14 @@ class SerManosProfileDataForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final Function(bool) changeDisabledStateTo;
   final String? currentPhotoUrl;
+  final TextEditingController dateController;
 
   const SerManosProfileDataForm(
-      {super.key, required this.formKey, required this.changeDisabledStateTo, this.currentPhotoUrl});
+      {super.key,
+      required this.formKey,
+      required this.changeDisabledStateTo,
+      required this.dateController,
+      this.currentPhotoUrl});
 
   @override
   State<SerManosProfileDataForm> createState() =>
@@ -18,9 +23,14 @@ class SerManosProfileDataForm extends StatefulWidget {
 }
 
 class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
-  // controllers
-  final _dateController = TextEditingController();
+  late final TextEditingController _dateController;
   bool _allowSubmission = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _dateController = widget.dateController;
+  }
 
   @override
   void dispose() {

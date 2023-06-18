@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
@@ -172,12 +173,13 @@ class VolunteeringDetailsPage extends StatelessWidget {
                               const SerManosSizedBox.sm(),
                               SerManosText.subtitle1("Requisitos"),
                               const SerManosSizedBox.sm(),
-                              ListView(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                children: volunteering.requirements
-                                    .map((e) => SerManosText.body1('\u2022 $e'))
-                                    .toList(),
+                              MarkdownBody(
+                                data: volunteering.requirements[0],
+                                styleSheet: MarkdownStyleSheet(
+                                  a: const SerManosTextStyle.body1(),
+                                  h1: const SerManosTextStyle.headline1(),
+                                  h2: const SerManosTextStyle.headline2(),
+                                ),
                               ),
                               const SerManosSizedBox.sm(),
                               SerManosText.subtitle1("Disponibilidad"),

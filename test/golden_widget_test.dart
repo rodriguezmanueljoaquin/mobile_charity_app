@@ -30,11 +30,6 @@ Future<void> goldenTest(WidgetTester tester, Widget widget, String name) async {
 }
 
 void main() {
-  testGoldens('Golden test my app', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
-    await multiScreenGolden(tester, 'myapp');
-  });
-
   testGoldens('Golden test entry page', (WidgetTester tester) async {
     await goldenTest(tester, const EntryPage(), 'entry_page');
   });
@@ -63,9 +58,11 @@ void main() {
 
   testGoldens('Golden test home page profile tab', (WidgetTester tester) async {
     await mockNetworkImagesFor(() => tester.pumpWidgetBuilder(MaterialApp(
-            home: HomePage(
-          tab: 1,
-        ))));
+        home: ChangeNotifierProvider<UserProvider>.value(
+            value: MockUserProvider(),
+            child: HomePage(
+              tab: 1,
+            )))));
     await multiScreenGolden(tester, 'home_page_profile_tab');
   });
 

@@ -23,8 +23,12 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  final _formKey = GlobalKey<FormState>();
+  final _profileDataFormKey = GlobalKey<FormState>();
+  final _contactDataFormKey = GlobalKey<FormState>();
   bool _disabled = true;
+  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   String _error = '';
 
   @override
@@ -56,8 +60,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 const SerManosSizedBox.sl(),
                 SerManosProfileDataForm(
+                  dateController: _dateController,
                   currentPhotoUrl: "https://via.placeholder.com/150",
-                  formKey: GlobalKey<FormState>(),
+                  formKey: _profileDataFormKey,
                   changeDisabledStateTo: (bool state) {
                     setState(() {
                       _disabled = state;
@@ -67,7 +72,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 const SerManosSizedBox.sm(),
                 const SerManosSizedBox.lg(),
                 SerManosContactDataForm(
-                  formKey: _formKey,
+                  formKey: _contactDataFormKey,
+                  phoneController: _phoneController,
+                  emailController: _emailController,
                   changeDisabledStateTo: (bool state) {
                     setState(() {
                       _disabled = state;
@@ -87,7 +94,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               text: 'Iniciar Sesión',
               disabled: _disabled,
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
+                if (_contactDataFormKey.currentState!.validate()) {
                   setState(() {
                     _error = ""; // TODO: Assign api response
                   });

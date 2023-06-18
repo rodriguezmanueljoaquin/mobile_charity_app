@@ -29,7 +29,7 @@ class MockVolunteeringProvider extends ChangeNotifier
 
   @override
   VolunteeringModel? getVolunteeringById(String id) {
-    return _volunteerings.first;
+    return _volunteerings.firstWhere((element) => element.id == id);
   }
 
   @override
