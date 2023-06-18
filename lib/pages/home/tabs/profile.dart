@@ -14,11 +14,6 @@ import 'package:mobile_charity_app/routes/paths.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTab extends StatelessWidget {
-  final bool completed = true;
-  final String _mail = "asdasd@asdasda.asdasd";
-  final String _phoneNumber = "123123123";
-  final String name = "Juan Cruz Gonzales";
-  final double _toolbarHeight;
 
   const ProfileTab({
     super.key,

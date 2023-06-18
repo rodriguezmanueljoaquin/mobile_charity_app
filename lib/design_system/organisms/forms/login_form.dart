@@ -63,11 +63,13 @@ class _SerManosLoginFormState extends State<SerManosLoginForm> {
       child: Column(
         children: [
           SerManosEmailFormField(
+            key: const Key('email-field'),
             controller: _emailController,
             placeholder: 'Ingrese su email',
           ),
           const SerManosSizedBox.sm(),
           SerManosPasswordFormField(
+            key: const Key('password-field'),
             controller: _passwordController,
             placeholder: 'Ingrese su contraseña',
           ),

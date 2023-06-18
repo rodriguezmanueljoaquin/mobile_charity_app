@@ -76,13 +76,13 @@ class _HomePageState extends State<HomePage> {
                 ),
                 tabs: const [
                   Tab(
-                    text: 'POSTULARSE',
+                    text: 'Postularse',
                   ),
                   Tab(
-                    text: 'MI PERFIL',
+                    text: 'Mi perfil',
                   ),
                   Tab(
-                    text: 'NOVEDADES',
+                    text: 'Novedades',
                   ),
                 ],
               ),
