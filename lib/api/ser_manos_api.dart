@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:logger/logger.dart';
 import 'package:mobile_charity_app/models/news.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/utils/firestore.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
 
 class SerManosApi {
   // singleton
@@ -27,7 +29,7 @@ class SerManosApi {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
-      print(userCredential);
+      logger.d(userCredential);
       // save user data in Firestore
       UserModel newUser = UserModel(
         firstName: firstName,
@@ -45,14 +47,14 @@ class SerManosApi {
       return newUser.copyWith(id: userCredential.user!.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        logger.d('The password provided is too weak.');
         return null;
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        logger.d('The account already exists for that email.');
         return null;
       }
     } catch (e) {
-      print(e);
+      logger.e(e);
       return null;
     }
 
@@ -68,7 +70,7 @@ class SerManosApi {
 
       return UserModel.fromJson(buildProperties(documentSnapshot));
     } catch (e) {
-      print(e);
+      logger.e(e);
       return null;
     }
   }
@@ -81,19 +83,19 @@ class SerManosApi {
 
       UserModel? user = await getUserById(id: userCredential.user!.uid);
 
-      print(user);
+      logger.d(user);
 
       return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        logger.w('No user found for that email.');
         return null;
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        logger.w('Wrong password provided for that user.');
         return null;
       }
     } catch (e) {
-      print(e);
+      logger.e(e);
       return null;
     }
 
@@ -109,7 +111,7 @@ class SerManosApi {
           .map((e) => VolunteeringModel.fromJson(buildProperties(e)))
           .toList();
     } catch (e) {
-      print(e);
+      logger.e(e);
       return [];
     }
   }
@@ -123,7 +125,7 @@ class SerManosApi {
           .map((e) => NewsModel.fromJson(buildProperties(e)))
           .toList();
     } catch (e) {
-      print(e);
+      logger.d(e);
       return [];
     }
   }
@@ -144,7 +146,7 @@ class SerManosApi {
 
       return true;
     } catch (e) {
-      print(e);
+      logger.e(e);
       return false;
     }
   }
@@ -207,7 +209,7 @@ class SerManosApi {
 
       return true;
     } catch (e) {
-      print(e);
+      logger.e(e);
       return false;
     }
   }
