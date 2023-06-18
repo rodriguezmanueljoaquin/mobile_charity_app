@@ -25,6 +25,9 @@ dependencies:
   intl: ^0.18.1
   collection: ^1.17.0
   logger: ^1.4.0
+  share_plus: ^7.0.2
+  http: ^0.13.6
+  image_downloader: ^0.31.0
 
 dev_dependencies:
   flutter_test:

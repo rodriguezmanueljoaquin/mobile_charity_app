@@ -10,6 +10,8 @@ import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/news.dart';
 import 'package:mobile_charity_app/providers/news_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:http/http.dart' as http;
 
 class NewsDetailsPage extends StatefulWidget {
   final String id;
@@ -24,14 +26,29 @@ class NewsDetailsPage extends StatefulWidget {
 }
 
 class _NewsDetailsPageState extends State<NewsDetailsPage> {
-  late final NewsModel news;
+  late final NewsModel _news;
 
   @override
   void initState() {
     super.initState();
     // TODO: check: if result is null then order fetch data from id in path
-    news = Provider.of<NewsProvider>(context, listen: false)
+    _news = Provider.of<NewsProvider>(context, listen: false)
         .getNewsById(widget.id)!;
+  }
+
+  Future<void> _onShare(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+    final url = Uri.parse(_news.imageURL);
+    final imageRes = await http.get(url);
+
+    XFile imageFile = XFile.fromData(imageRes.bodyBytes);
+
+    await Share.shareXFiles(
+      [imageFile],
+      text: _news.summary,
+      subject: _news.title,
+      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+    );
   }
 
   @override
@@ -69,24 +86,24 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SerManosSizedBox.md(),
-                    SerManosText.overline(news.source,
+                    SerManosText.overline(_news.source,
                         textAlign: TextAlign.left),
-                    SerManosText.headline2(news.title,
+                    SerManosText.headline2(_news.title,
                         textAlign: TextAlign.left),
                     const SerManosSizedBox.sl(),
                     Image.network(
-                      news.imageURL,
+                      _news.imageURL,
                       height: 200,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
                     const SerManosSizedBox.sl(),
                     SerManosText.body1(
-                      news.summary,
+                      _news.summary,
                       color: SerManosColors.secondary200,
                     ),
                     const SerManosSizedBox.sl(),
-                    SerManosText.body1(news.description),
+                    SerManosText.body1(_news.description),
                     const SerManosSizedBox.sl(),
                     Center(
                       child: SerManosText.headline1(
@@ -96,7 +113,7 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                     const SerManosSizedBox.sl(),
                     SerManosTextButton.longTextButton(
                       text: 'Compartir',
-                      onPressed: () {}, // TODO: deeplink
+                      onPressed: () => _onShare(context),
                     ),
                     const SerManosSizedBox.lg(),
                   ],
