@@ -7,10 +7,10 @@ part of 'user.dart';
 // **************************************************************************
 
 _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
-      firstName: json['firstName'] as String,
-      lastName: json['lastName'] as String,
-      email: json['email'] as String,
-      id: json['id'] as String?,
+      id: json['id'] as String,
+      firstName: json['firstName'] as String?,
+      lastName: json['lastName'] as String?,
+      email: json['email'] as String?,
       avatarURL: json['avatarURL'] as String?,
       gender: json['gender'] as String?,
       birthDate: json['birthDate'] == null
@@ -26,10 +26,10 @@ _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
 
 Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'email': instance.email,
-      'id': instance.id,
       'avatarURL': instance.avatarURL,
       'gender': instance.gender,
       'birthDate': instance.birthDate?.toIso8601String(),

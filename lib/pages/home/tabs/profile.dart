@@ -7,7 +7,9 @@ import 'package:mobile_charity_app/design_system/molecules/components.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/information_card.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
+import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
+import 'package:provider/provider.dart';
 
 class ProfileTab extends StatelessWidget {
   final bool completed = true;
@@ -69,7 +71,14 @@ class ProfileTab extends StatelessWidget {
                   const SerManosSizedBox.sm(),
                   SerManosTextButton.longTextButton(
                     text: "Cerrar sesión",
-                    onPressed: () {},
+                    onPressed: () async {
+                      return await Provider.of<UserProvider>(
+                        context,
+                        listen: false,
+                      ).logout().then(
+                            (_) => context.replaceNamed(SerManosPagesName.signin),
+                          );
+                    },
                     filled: false,
                     textColor: SerManosColors.error100,
                   ),

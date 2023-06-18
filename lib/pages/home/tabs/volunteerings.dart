@@ -28,8 +28,10 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
   void initState() {
     super.initState();
 
-    Provider.of<VolunteeringProvider>(context, listen: false)
-        .fetchVolunteerings();
+    VolunteeringProvider volunteeringProvider = Provider.of<VolunteeringProvider>(context, listen: false);
+    if (volunteeringProvider.volunteerings == null) {
+      volunteeringProvider.fetchVolunteerings();
+    }
   }
 
   @override

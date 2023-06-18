@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mobile_charity_app/api/ser_manos_api.dart';
 import 'package:mobile_charity_app/models/user.dart';
@@ -38,7 +39,7 @@ class UserProvider extends ChangeNotifier {
   }) async {
     try {
       await SerManosApi().setVolunteeringAsFavorite(
-        userId: user!.id!,
+        userId: user!.id,
         volunteeringId: volunteeringId,
         isFavorite: isFavorite,
       );
@@ -69,7 +70,20 @@ class UserProvider extends ChangeNotifier {
   Future<void> fetchUser() async {
     if (user?.id == null) return;
 
-    user = await SerManosApi().getUserById(id: user!.id!);
+    user = await SerManosApi().getUserById(id: user!.id);
     notifyListeners();
+  }
+
+  Future<void> loadUserFromCache() async {
+    User? firebaseUser = FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null) {
+      user = UserModel(id: firebaseUser.uid);
+      await fetchUser();
+    }
+  }
+
+  Future<void> logout() async {
+    await FirebaseAuth.instance.signOut();
+    user = null;
   }
 }

@@ -112,16 +112,25 @@ class SerManosRouter {
       ),
     ],
     errorBuilder: (context, state) => const ErrorPage(),
-    redirect: (context, state) {
-      final bool isUnauthorizedRoute =
-          unauthorizedRoutes.any((element) => element == state.location);
-      if (isUnauthorizedRoute) {
-        return null;
+    redirect: (context, state) async {
+      UserProvider userProvider =
+          Provider.of<UserProvider>(context, listen: false);
+
+      if (userProvider.user == null) {
+        await userProvider.loadUserFromCache();
       }
 
-      UserModel? user =
-          Provider.of<UserProvider?>(context, listen: false)?.user;
-      return user == null ? '/onboarding' : null;
+      final bool isUnauthorizedRoute =
+          unauthorizedRoutes.any((element) => element == state.location);
+      final bool isLoggedIn = userProvider.user != null;
+
+      if (isUnauthorizedRoute && isLoggedIn) {
+        return '/volunteering';
+      } else if (isLoggedIn) {
+        return null;
+      }
+      
+      return isUnauthorizedRoute ? null : '/onboarding';
     },
   );
 }
