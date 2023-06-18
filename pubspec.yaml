@@ -29,6 +29,7 @@ dependencies:
   network_image_mock: ^2.1.1
   logger: ^1.4.0
   flutter_markdown: ^0.6.15
+  firebase_analytics: ^10.4.3
 
 dev_dependencies:
   flutter_test:

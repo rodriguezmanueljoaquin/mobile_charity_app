@@ -40,12 +40,12 @@ class _NewsTabState extends State<NewsTab>
                     ),
                     itemBuilder: (context, index) => UnconstrainedBox(
                       child: SerManosNewsCard(
-                        news: newsProvider.news[index],
+                        news: newsProvider.news![index],
                       ),
                     ),
                     separatorBuilder: (context, index) =>
                         const SerManosSizedBox.md(),
-                    itemCount: newsProvider.news.length,
+                    itemCount: newsProvider.news!.length,
                   )));
   }
 }

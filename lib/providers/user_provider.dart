@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mobile_charity_app/api/ser_manos_api.dart';
@@ -16,6 +17,8 @@ class UserProvider extends ChangeNotifier {
     UserModel? user =
         await SerManosApi().loginUser(email: email, password: password);
     this.user = user;
+
+    await FirebaseAnalytics.instance.logLogin(loginMethod: 'email');
     return user;
   }
 
@@ -31,6 +34,9 @@ class UserProvider extends ChangeNotifier {
         firstName: firstName,
         lastName: lastName);
     this.user = user;
+
+    await FirebaseAnalytics.instance.logSignUp(signUpMethod: 'email');
+
     return user;
   }
 
@@ -61,6 +67,15 @@ class UserProvider extends ChangeNotifier {
         );
       }
 
+      // log event
+      await FirebaseAnalytics.instance.logEvent(
+        name: 'favorite_volunteering',
+        parameters: {
+          'volunteering_id': volunteeringId,
+          'is_favorite': isFavorite,
+        },
+      );
+
       return true;
     } catch (e) {
       logger.e(e);
@@ -80,10 +95,13 @@ class UserProvider extends ChangeNotifier {
     if (firebaseUser != null) {
       user = UserModel(id: firebaseUser.uid);
       await fetchUser();
+      await FirebaseAnalytics.instance.logLogin(loginMethod: 'cache');
     }
   }
 
   Future<void> logout() async {
+    await FirebaseAnalytics.instance.logEvent(name: 'logout');
+
     await FirebaseAuth.instance.signOut();
     user = null;
   }

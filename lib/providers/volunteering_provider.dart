@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mobile_charity_app/api/ser_manos_api.dart';
 import 'package:mobile_charity_app/models/user.dart';
@@ -46,6 +47,13 @@ class VolunteeringProvider extends ChangeNotifier {
           : null;
 
   List<VolunteeringModel> searchVolunteeringsByTitle(String query) {
+    FirebaseAnalytics.instance.logEvent(
+      name: 'search_volunteerings',
+      parameters: {
+        'query': query,
+      },
+    );
+
     return _volunteerings!
         .where((element) =>
             element.title.toLowerCase().contains(query.toLowerCase()))
@@ -59,6 +67,13 @@ class VolunteeringProvider extends ChangeNotifier {
       await SerManosApi().applyToVolunteering(
         userId: _userProvider!.user!.id,
         volunteeringId: volunteeringId,
+      );
+
+      FirebaseAnalytics.instance.logEvent(
+        name: 'apply_to_volunteering',
+        parameters: {
+          'volunteering_id': volunteeringId,
+        },
       );
 
       // refetch user and volunteerings
@@ -105,6 +120,13 @@ class VolunteeringProvider extends ChangeNotifier {
       await SerManosApi().abandonVolunteering(
         userId: user.id,
         volunteeringId: user.currentVolunteeringId!,
+      );
+
+      FirebaseAnalytics.instance.logEvent(
+        name: 'abandon_volunteering',
+        parameters: {
+          'volunteering_id': user.currentVolunteeringId!,
+        },
       );
 
       // refetch user and volunteerings
