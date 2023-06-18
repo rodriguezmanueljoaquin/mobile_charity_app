@@ -15,9 +15,7 @@ _$_VolunteeringModel _$$_VolunteeringModelFromJson(Map<String, dynamic> json) =>
       category: json['category'] as String,
       about: json['about'] as String,
       address: json['address'] as String,
-      requirements: (json['requirements'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
+      requirements: json['requirements'] as String,
       availability: (json['availability'] as List<dynamic>)
           .map((e) => Availability.fromJson(e as Map<String, dynamic>))
           .toList(),

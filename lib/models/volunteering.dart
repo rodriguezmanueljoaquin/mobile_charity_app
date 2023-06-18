@@ -17,7 +17,7 @@ class VolunteeringModel with _$VolunteeringModel {
     required String category,
     required String about,
     required String address,
-    required List<String> requirements,
+    required String requirements,
     required List<Availability> availability,
     required int vacancies,
     @TimestampConverter() required DateTime createdAt,

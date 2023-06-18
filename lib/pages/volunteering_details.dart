@@ -174,7 +174,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
                               SerManosText.subtitle1("Requisitos"),
                               const SerManosSizedBox.sm(),
                               MarkdownBody(
-                                data: volunteering.requirements[0],
+                                data: volunteering.requirements,
                                 styleSheet: MarkdownStyleSheet(
                                   a: const SerManosTextStyle.body1(),
                                   h1: const SerManosTextStyle.headline1(),
