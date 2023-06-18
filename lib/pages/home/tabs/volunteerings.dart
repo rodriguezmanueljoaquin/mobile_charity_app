@@ -28,7 +28,8 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
   void initState() {
     super.initState();
 
-    VolunteeringProvider volunteeringProvider = Provider.of<VolunteeringProvider>(context, listen: false);
+    VolunteeringProvider volunteeringProvider =
+        Provider.of<VolunteeringProvider>(context, listen: false);
     if (volunteeringProvider.volunteerings == null) {
       volunteeringProvider.fetchVolunteerings();
     }
@@ -40,8 +41,10 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: Provider.of<VolunteeringProvider>(context, listen: false)
-          .fetchVolunteerings,
+      onRefresh: () => Provider.of<VolunteeringProvider>(context, listen: false)
+          .fetchVolunteerings()
+          .then((_) =>
+              Provider.of<UserProvider>(context, listen: false).fetchUser()),
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: SizedBox(
