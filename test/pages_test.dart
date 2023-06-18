@@ -15,6 +15,7 @@ import 'package:mobile_charity_app/pages/volunteering_details.dart';
 import 'package:mobile_charity_app/providers/news_provider.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
+import 'package:mobile_charity_app/routes/home_tabs.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:provider/provider.dart';
 
@@ -129,7 +130,7 @@ void main() {
             ],
             child: MaterialApp(
                 home: HomePage(
-              tab: 2,
+              activeTabIndex: HomeTabs.news.index,
             )))));
     await tester.pumpAndSettle(); //load frame
 
@@ -152,7 +153,7 @@ void main() {
             ],
             child: MaterialApp(
                 home: HomePage(
-              tab: 1,
+              activeTabIndex: HomeTabs.profile.index,
             )))));
     await tester.pumpAndSettle(); //load frame
 

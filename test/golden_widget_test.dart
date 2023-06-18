@@ -15,6 +15,7 @@ import 'package:mobile_charity_app/pages/welcome.dart';
 import 'package:mobile_charity_app/providers/news_provider.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
+import 'package:mobile_charity_app/routes/home_tabs.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:provider/provider.dart';
 
@@ -61,7 +62,7 @@ void main() {
         home: ChangeNotifierProvider<UserProvider>.value(
             value: MockUserProvider(),
             child: HomePage(
-              tab: 1,
+              activeTabIndex: HomeTabs.profile.index,
             )))));
     await multiScreenGolden(tester, 'home_page_profile_tab');
   });
@@ -71,7 +72,7 @@ void main() {
         home: ChangeNotifierProvider<NewsProvider>.value(
             value: MockNewsProvider(),
             child: HomePage(
-              tab: 2,
+              activeTabIndex: HomeTabs.news.index,
             )))));
 
     await multiScreenGolden(tester, 'home_page_news_tab');
@@ -88,7 +89,7 @@ void main() {
             ],
             child: MaterialApp(
                 home: HomePage(
-              tab: 0,
+              activeTabIndex: HomeTabs.volunteering.index,
             )))));
 
     await multiScreenGolden(tester, 'home_page_volunteerings_tab');

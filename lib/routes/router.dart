@@ -12,6 +12,7 @@ import 'package:mobile_charity_app/pages/welcome.dart';
 import 'package:mobile_charity_app/providers/news_provider.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
+import 'package:mobile_charity_app/routes/home_tabs.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 import 'package:provider/provider.dart';
 import 'package:mobile_charity_app/utils/logger.dart';
@@ -62,7 +63,7 @@ class SerManosRouter {
           }
 
           return HomePage(
-            tab: 0,
+            activeTabIndex: HomeTabs.volunteering.index,
           );
         },
         routes: [
@@ -92,7 +93,7 @@ class SerManosRouter {
         name: SerManosPagesName.profile,
         path: "/profile",
         builder: (context, state) {
-          return HomePage(tab: 1);
+          return HomePage(activeTabIndex: HomeTabs.profile.index);
         },
         routes: [
           GoRoute(
@@ -115,7 +116,7 @@ class SerManosRouter {
           }
 
           return HomePage(
-            tab: 0,
+            activeTabIndex: HomeTabs.news.index,
           );
         },
         routes: [
