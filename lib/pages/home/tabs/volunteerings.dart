@@ -39,50 +39,54 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SerManosSizedBox.lg(),
-          SerManosSearchField(controller: widget.searchController),
-          const SerManosSizedBox.lg(),
-          Consumer<UserProvider>(
-            builder: (context, userProvider, child) {
-              String? currentVolunteeringId =
-                  userProvider.user?.currentVolunteeringId;
-              if (currentVolunteeringId == null) {
-                return const SizedBox();
-              }
+    return RefreshIndicator(
+      onRefresh: Provider.of<VolunteeringProvider>(context, listen: false)
+          .fetchVolunteerings,
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height -
+              MediaQuery.of(context).padding.top -
+              kToolbarHeight,
+          child: Column(
+            children: [
+              const SerManosSizedBox.lg(),
+              SerManosSearchField(controller: widget.searchController),
+              const SerManosSizedBox.lg(),
+              Consumer<UserProvider>(
+                builder: (context, userProvider, child) {
+                  String? currentVolunteeringId =
+                      userProvider.user?.currentVolunteeringId;
+                  if (currentVolunteeringId == null) {
+                    return const SizedBox();
+                  }
 
-              String currentVolunteeringTitle =
-                  Provider.of<VolunteeringProvider>(context, listen: false)
-                      .getVolunteeringById(currentVolunteeringId)!
-                      .title;
+                  String currentVolunteeringTitle =
+                      Provider.of<VolunteeringProvider>(context, listen: false)
+                          .getVolunteeringById(currentVolunteeringId)!
+                          .title;
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SerManosText.headline1("Tu actividad"),
-                  const SerManosSizedBox.sl(),
-                  SerManosCurrentVolunteringCard(
-                    title: currentVolunteeringTitle,
-                  ),
-                  const SerManosSizedBox.md(),
-                ],
-              );
-            },
-          ),
-          SizedBox(
-            width: SerManosSizes.sizeLG,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: SerManosText.headline1("Voluntariados"),
-            ),
-          ),
-          RefreshIndicator(
-              onRefresh:
-                  Provider.of<VolunteeringProvider>(context, listen: false)
-                      .fetchVolunteerings,
-              child: Consumer<VolunteeringProvider>(
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SerManosText.headline1("Tu actividad"),
+                      const SerManosSizedBox.sl(),
+                      SerManosCurrentVolunteringCard(
+                        title: currentVolunteeringTitle,
+                      ),
+                      const SerManosSizedBox.md(),
+                    ],
+                  );
+                },
+              ),
+              SizedBox(
+                width: SerManosSizes.sizeLG,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: SerManosText.headline1("Voluntariados"),
+                ),
+              ),
+              Consumer<VolunteeringProvider>(
                 builder: (context, volunteeringProvider, child) =>
                     volunteeringProvider.isFetchingVolunteerings
                         ? const Center(child: CircularProgressIndicator())
@@ -106,8 +110,10 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                             itemCount:
                                 volunteeringProvider.volunteerings!.length,
                           ),
-              )),
-        ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

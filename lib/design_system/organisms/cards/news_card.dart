@@ -65,7 +65,7 @@ class SerManosNewsCard extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: Image.network(news.imageURL).image,
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

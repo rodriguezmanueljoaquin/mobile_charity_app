@@ -11,7 +11,7 @@ import 'package:mobile_charity_app/routes/router.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter binding is initialized
+  WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
