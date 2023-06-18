@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile_charity_app/models/news.dart';
-import 'package:mobile_charity_app/models/user.dart';
-import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/pages/edit_profile.dart';
 import 'package:mobile_charity_app/pages/entry.dart';
 import 'package:mobile_charity_app/pages/error.dart';
@@ -16,6 +12,7 @@ import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 import 'package:provider/provider.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
 
 class SerManosRouter {
   static final List<String> unauthorizedRoutes = [
@@ -57,7 +54,8 @@ class SerManosRouter {
           final volunteeringProvider =
               Provider.of<VolunteeringProvider>(context);
 
-          if (volunteeringProvider.volunteerings == null && state.location != "/volunteering") {
+          if (volunteeringProvider.volunteerings == null &&
+              state.location != "/volunteering") {
             volunteeringProvider.fetchVolunteerings();
           }
 
@@ -70,7 +68,7 @@ class SerManosRouter {
             name: SerManosPagesName.volunteeringDetails,
             path: ':id',
             builder: (context, state) {
-              print("HELLO FROM /volunteering/:id");
+              logger.d("HELLO FROM /volunteering/:id");
               return VolunteeringDetailsPage(
                 id: state.pathParameters['id']!,
               );
@@ -129,7 +127,7 @@ class SerManosRouter {
       } else if (isLoggedIn) {
         return null;
       }
-      
+
       return isUnauthorizedRoute ? null : '/onboarding';
     },
   );

@@ -4,6 +4,7 @@ import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/utils/collections.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
 
 class VolunteeringProvider extends ChangeNotifier {
   UserProvider? _userProvider;
@@ -29,7 +30,7 @@ class VolunteeringProvider extends ChangeNotifier {
           await SerManosApi().getVolunteerings();
       if (_userProvider!.userLocation != null) {
         // volunteerings.sort((a, b) => a.distance!.compareTo(b.distance!));
-        print('volunteerings: ${volunteerings.length}');
+        logger.d('volunteerings: ${volunteerings.length}');
       }
       _volunteeringsIndexById = listToIndexMapByKey(volunteerings, (e) => e.id);
       _volunteerings = volunteerings;
@@ -65,7 +66,7 @@ class VolunteeringProvider extends ChangeNotifier {
       await _userProvider!.fetchUser();
     } catch (e) {
       // TODO: handle error
-      print(e);
+      logger.e(e);
     } finally {
       isApplyingToVolunteering = false;
     }
@@ -91,7 +92,7 @@ class VolunteeringProvider extends ChangeNotifier {
       await _userProvider!.fetchUser();
     } catch (e) {
       // TODO: handle error
-      print(e);
+      logger.e(e);
     } finally {
       isApplyingToVolunteering = false;
     }

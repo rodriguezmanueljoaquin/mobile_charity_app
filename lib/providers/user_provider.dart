@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mobile_charity_app/api/ser_manos_api.dart';
 import 'package:mobile_charity_app/models/user.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
 
 class UserProvider extends ChangeNotifier {
   UserModel? user;
@@ -62,7 +63,7 @@ class UserProvider extends ChangeNotifier {
 
       return true;
     } catch (e) {
-      print(e);
+      logger.e(e);
       return false;
     }
   }
