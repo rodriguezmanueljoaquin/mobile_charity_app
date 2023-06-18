@@ -56,7 +56,8 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
               builder: (context, userProvider, volunteeringProvider, child) {
                 String? currentVolunteeringId =
                     userProvider.user?.currentVolunteeringId;
-                if (currentVolunteeringId == null) {
+                if (currentVolunteeringId == null ||
+                    volunteeringProvider.isFetchingVolunteerings) {
                   return const SizedBox();
                 }
 
