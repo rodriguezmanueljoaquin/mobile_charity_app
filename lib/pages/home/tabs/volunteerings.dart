@@ -44,7 +44,7 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
       onRefresh: () => Provider.of<VolunteeringProvider>(context, listen: false)
           .fetchVolunteerings()
           .then((_) =>
-              Provider.of<UserProvider>(context, listen: false).fetchUser()),
+              Provider.of<UserProvider?>(context, listen: false)?.fetchUser()),
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: SizedBox(
@@ -56,18 +56,17 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
               const SerManosSizedBox.lg(),
               SerManosSearchField(controller: widget.searchController),
               const SerManosSizedBox.lg(),
-              Consumer<UserProvider>(
-                builder: (context, userProvider, child) {
+              Consumer2<UserProvider, VolunteeringProvider>(
+                builder: (context, userProvider, volunteeringProvider, child) {
                   String? currentVolunteeringId =
                       userProvider.user?.currentVolunteeringId;
                   if (currentVolunteeringId == null) {
                     return const SizedBox();
                   }
 
-                  String currentVolunteeringTitle =
-                      Provider.of<VolunteeringProvider>(context, listen: false)
-                          .getVolunteeringById(currentVolunteeringId)!
-                          .title;
+                  String? currentVolunteeringTitle = volunteeringProvider
+                      .getVolunteeringById(currentVolunteeringId)
+                      ?.title;
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
