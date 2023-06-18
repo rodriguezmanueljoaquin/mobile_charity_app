@@ -105,9 +105,9 @@ class VolunteeringDetailsPage extends StatelessWidget {
             children: [
               Expanded(
                 child: RefreshIndicator(
-                  onRefresh: () =>
-                      Provider.of<VolunteeringProvider>(context, listen: false)
-                          .fetchVolunteeringById(id),
+                  onRefresh: () => volunteeringProvider
+                      .fetchVolunteeringById(id)
+                      .then((_) => userProvider.fetchUser()),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
