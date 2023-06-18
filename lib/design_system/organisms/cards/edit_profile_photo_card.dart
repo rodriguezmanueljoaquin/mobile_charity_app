@@ -54,7 +54,7 @@ class _SerManosEditPhotoCardState extends State<SerManosEditPhotoCard> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [leftWidget, rightWidget],
+          children: [Expanded(child: leftWidget), rightWidget],
         ));
   }
 }

@@ -14,12 +14,10 @@ import 'package:mobile_charity_app/routes/paths.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTab extends StatelessWidget {
-  final double _toolbarHeight;
 
   const ProfileTab({
     super.key,
-    required double toolbarHeight,
-  }) : _toolbarHeight = toolbarHeight;
+  });
 
   @override
   Widget build(BuildContext context) {

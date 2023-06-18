@@ -16,11 +16,14 @@ class SerManosProfilePhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double size = smallSize ? 84 : 110;
-    return CircleAvatar(
-      radius: size / 2,
-      backgroundColor: SerManosColors.neutral0,
-      backgroundImage: url != null ? NetworkImage(url!) : null,
-      child: url != null ? null : SerManosImages.profileDefaultPhoto,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(size / 2),
+      child: CircleAvatar(
+        radius: size / 2,
+        backgroundColor: SerManosColors.neutral0,
+        backgroundImage: url != null ? NetworkImage(url!) : null,
+        child: url != null ? null : SerManosImages.profileDefaultPhoto,
+      ),
     );
   }
 }
