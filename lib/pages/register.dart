@@ -29,6 +29,32 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _disabled = true;
   String _registerError = '';
 
+  void _submit() async {
+    if (!_formKey.currentState!.validate()) {
+      setState(() {
+        _registerError =
+            "Este email ya ha sido utilizado."; // TODO: Assign api response
+      });
+      return;
+    }
+
+    _registerError = '';
+    setState(() {
+      _disabled = true;
+    });
+    await Provider.of<UserProvider>(context, listen: false)
+        .register(
+          firstName: _firstNameController.text,
+          lastName: _lastNameController.text,
+          email: _emailController.text,
+          password: _passwordController.text,
+        )
+        .then((value) => context.replaceNamed(SerManosPagesName.welcome));
+    setState(() {
+      _disabled = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SerManosScaffold(
@@ -44,6 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     const SerManosSizedBox.lg(),
                     SerManosRegisterForm(
                       formKey: _formKey,
+                      onFieldSubmitted: _submit,
                       changeDisabledStateTo: (bool state) {
                         setState(() {
                           _disabled = state;
@@ -67,31 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
           SerManosTextButton.longTextButton(
-            text: 'Registrarse',
-            disabled: _disabled,
-            onPressed: () async {
-              if (!_formKey.currentState!.validate()) {
-                setState(() {
-                  _registerError =
-                      "Este email ya ha sido utilizado."; // TODO: Assign api response
-                });
-                return;
-              }
-
-              //TODO: check credentials with backend
-              _registerError = 'false';
-
-              await Provider.of<UserProvider>(context, listen: false)
-                  .register(
-                    firstName: _firstNameController.text,
-                    lastName: _lastNameController.text,
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                  )
-                  .then((value) =>
-                      context.replaceNamed(SerManosPagesName.welcome));
-            },
-          ),
+              text: 'Registrarse', disabled: _disabled, onPressed: _submit),
           const SerManosSizedBox.sl(),
           SerManosTextButton.longTextButton(
             text: 'Ya tengo cuenta',
