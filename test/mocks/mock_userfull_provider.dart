@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 
-class MockUserProvider extends ChangeNotifier implements UserProvider {
+class MockUserFullProvider extends ChangeNotifier implements UserProvider {
   @override
   UserModel? user = const UserModel(
-      id: "1", firstName: "John", lastName: "Doe", email: "asdaaa@asdasd.aaa");
+      id: "1",
+      firstName: "John",
+      lastName: "Doe",
+      email: "asdaaa@asdasd.aaa",
+      currentVolunteeringId: "1");
 
   @override
   GeoPoint? userLocation = const GeoPoint(1, 1);
