@@ -6,11 +6,11 @@ import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/pages/home/tabs/news.dart';
 import 'package:mobile_charity_app/pages/home/tabs/profile.dart';
 import 'package:mobile_charity_app/pages/home/tabs/volunteerings.dart';
-import 'package:mobile_charity_app/routes/paths.dart';
+import 'package:mobile_charity_app/routes/home_tabs.dart';
 
 class HomePage extends StatefulWidget {
-  int tab;
-  HomePage({super.key, this.tab = 0});
+  int activeTabIndex;
+  HomePage({super.key, this.activeTabIndex = 0});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -19,33 +19,21 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final searchController = TextEditingController();
 
-  void _onTap(int tab) {
-    if (tab == widget.tab) return;
+  void _onTap(int tabIndex) {
+    if (tabIndex == widget.activeTabIndex) return;
 
-    String pageName = "";
-    switch (tab) {
-      case 0:
-        pageName = SerManosPagesName.volunteering;
-        break;
-      case 1:
-        pageName = SerManosPagesName.profile;
-        break;
-      case 2:
-        pageName = SerManosPagesName.news;
-        break;
-    }
+    final tab = HomeTabs.values[tabIndex];
 
-    Router.neglect(context, () => context.replaceNamed(pageName));
+    Router.neglect(context, () => context.replaceNamed(tab.pageName));
   }
 
   @override
   Widget build(BuildContext context) {
-
     return DefaultTabController(
-      length: 3,
-      initialIndex: widget.tab,
+      length: HomeTabs.values.length,
+      initialIndex: widget.activeTabIndex,
       child: Scaffold(
-        backgroundColor: widget.tab == 1
+        backgroundColor: widget.activeTabIndex == HomeTabs.profile.index
             ? SerManosColors.neutral0
             : SerManosColors.secondary10,
         appBar: AppBar(
@@ -74,17 +62,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                tabs: const [
-                  Tab(
-                    text: 'Postularse',
-                  ),
-                  Tab(
-                    text: 'Mi perfil',
-                  ),
-                  Tab(
-                    text: 'Novedades',
-                  ),
-                ],
+                tabs: HomeTabs.values
+                    .map(
+                      (tab) => Tab(
+                        text: tab.tabText,
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           ),
@@ -92,7 +76,7 @@ class _HomePageState extends State<HomePage> {
         body: TabBarView(
           children: [
             VolunteeringsTab(
-                searchController: searchController,
+              searchController: searchController,
             ),
             const ProfileTab(),
             const NewsTab(),

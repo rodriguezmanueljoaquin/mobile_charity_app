@@ -88,8 +88,14 @@ class VolunteeringDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer2<VolunteeringProvider, UserProvider>(
       builder: (context, volunteeringProvider, userProvider, child) {
-        if (volunteeringProvider.isFetchingVolunteerings) {
-          return const CircularProgressIndicator();
+        if (volunteeringProvider.volunteerings == null) {
+          return const SerManosScaffold(
+            applyPadding: false,
+            whiteStatusBar: false,
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
         }
 
         VolunteeringModel volunteering =
