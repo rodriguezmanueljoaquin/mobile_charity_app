@@ -130,6 +130,22 @@ class SerManosApi {
     }
   }
 
+  Future<VolunteeringModel?> getVolunteeringById({
+    required String volunteeringId,
+  }) async {
+    try {
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection('volunteerings')
+          .doc(volunteeringId)
+          .get();
+
+      return VolunteeringModel.fromJson(buildProperties(documentSnapshot));
+    } catch (e) {
+      logger.e(e);
+      return null;
+    }
+  }
+
   Future<bool> setVolunteeringAsFavorite({
     required String userId,
     required String volunteeringId,

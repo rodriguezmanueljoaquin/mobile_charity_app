@@ -72,6 +72,26 @@ class VolunteeringProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> fetchVolunteeringById(String volunteeringId) async {
+    VolunteeringModel? volunteering =
+        await SerManosApi().getVolunteeringById(volunteeringId: volunteeringId);
+
+    if (volunteering == null) {
+      throw Exception('Volunteering not found');
+    }
+
+    // add or update volunteering
+    if (_volunteeringsIndexById?[volunteeringId] == null) {
+      // TODO: sort by distance
+      _volunteerings!.add(volunteering);
+      _volunteeringsIndexById?[volunteeringId] = _volunteerings!.length - 1;
+    } else {
+      _volunteerings![_volunteeringsIndexById![volunteeringId]!] = volunteering;
+    }
+
+    notifyListeners();
+  }
+
   Future<void> abandonCurrentVolunteering() async {
     try {
       isApplyingToVolunteering = true;
