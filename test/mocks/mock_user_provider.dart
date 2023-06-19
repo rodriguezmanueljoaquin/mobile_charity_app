@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/models/user.dart';
@@ -43,6 +45,16 @@ class MockUserProvider extends ChangeNotifier implements UserProvider {
 
   @override
   Future<void> logout() {
+    return Future.value();
+  }
+
+  @override
+  Future<void> updateProfile(
+      {String? email,
+      String? gender,
+      DateTime? birthDate,
+      String? phoneNumber,
+      File? avatar}) {
     return Future.value();
   }
 }
