@@ -50,7 +50,7 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
         child: Column(
           children: [
             const SerManosSizedBox.lg(),
-            SerManosSearchField(controller: widget.searchController),
+            SerManosSearchField(controller: widget.searchController, onFieldSubmitted: (_) {},),
             const SerManosSizedBox.lg(),
             Consumer2<UserProvider, VolunteeringProvider>(
               builder: (context, userProvider, volunteeringProvider, child) {

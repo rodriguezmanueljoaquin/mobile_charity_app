@@ -7,13 +7,15 @@ class SerManosLoginForm extends StatefulWidget {
   final Function(bool) changeDisabledStateTo;
   final TextEditingController emailController;
   final TextEditingController passwordController;
+  final Function onFieldSubmitted;
 
   const SerManosLoginForm(
       {super.key,
       required this.formKey,
       required this.changeDisabledStateTo,
       required this.emailController,
-      required this.passwordController});
+      required this.passwordController,
+      required this.onFieldSubmitted});
 
   @override
   State<SerManosLoginForm> createState() => _SerManosLoginFormState();
@@ -64,12 +66,14 @@ class _SerManosLoginFormState extends State<SerManosLoginForm> {
         children: [
           SerManosEmailFormField(
             key: const Key('email-field'),
+            onFieldSubmitted: widget.onFieldSubmitted,
             controller: _emailController,
             placeholder: 'Ingrese su email',
           ),
           const SerManosSizedBox.sm(),
           SerManosPasswordFormField(
             key: const Key('password-field'),
+            onFieldSubmitted: widget.onFieldSubmitted,
             controller: _passwordController,
             placeholder: 'Ingrese su contraseña',
           ),
