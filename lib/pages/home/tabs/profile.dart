@@ -14,12 +14,10 @@ import 'package:mobile_charity_app/routes/paths.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTab extends StatelessWidget {
-  final double _toolbarHeight;
 
   const ProfileTab({
     super.key,
-    required double toolbarHeight,
-  }) : _toolbarHeight = toolbarHeight;
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +32,7 @@ class ProfileTab extends StatelessWidget {
               child: Column(
                 children: [
                   Center(
-                    child: SerManosProfilePhoto(url: user.avatarURL),
+                    child: SerManosProfilePhoto(url: user.downloadAvatarURL),
                   ),
                   const SerManosSizedBox.sl(),
                   SerManosText.overline("VOLUNTARIO"),
@@ -45,7 +43,7 @@ class ProfileTab extends StatelessWidget {
                     SerManosText.body1(
                       user.email!,
                       color: SerManosColors
-                          .secondary200, // TODO: ADD HIPERVINCULO AL MAIL
+                          .secondary200,
                     ),
                     const SerManosSizedBox.lg(),
                     ProfileData(user: user),

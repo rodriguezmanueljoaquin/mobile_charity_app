@@ -6,11 +6,16 @@ import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/pages/home/tabs/news.dart';
 import 'package:mobile_charity_app/pages/home/tabs/profile.dart';
 import 'package:mobile_charity_app/pages/home/tabs/volunteerings.dart';
-import 'package:mobile_charity_app/routes/paths.dart';
+import 'package:mobile_charity_app/providers/user_provider.dart';
+import 'package:mobile_charity_app/providers/volunteering_provider.dart';
+import 'package:mobile_charity_app/routes/home_tabs.dart';
+import 'package:mobile_charity_app/utils/geolocator.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
-  int tab;
-  HomePage({super.key, this.tab = 0});
+  int activeTabIndex;
+  HomePage({super.key, this.activeTabIndex = 0});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -19,33 +24,41 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final searchController = TextEditingController();
 
-  void _onTap(int tab) {
-    if (tab == widget.tab) return;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => requestLocationPermission()
+            .then(
+              (value) => Provider.of<UserProvider>(context, listen: false)
+                  .loadLocation()
+                  .then(
+                (location) {
+                  if (location != null) {
+                    Provider.of<VolunteeringProvider>(context, listen: false)
+                        .fetchVolunteerings();
+                  }
+                },
+              ),
+            )
+            .catchError((e) => logger.d(e)));
+  }
 
-    String pageName = "";
-    switch (tab) {
-      case 0:
-        pageName = SerManosPagesName.volunteering;
-        break;
-      case 1:
-        pageName = SerManosPagesName.profile;
-        break;
-      case 2:
-        pageName = SerManosPagesName.news;
-        break;
-    }
+  void _onTap(int tabIndex) {
+    if (tabIndex == widget.activeTabIndex) return;
 
-    Router.neglect(context, () => context.replaceNamed(pageName));
+    final tab = HomeTabs.values[tabIndex];
+
+    Router.neglect(context, () => context.replaceNamed(tab.pageName));
   }
 
   @override
   Widget build(BuildContext context) {
-
     return DefaultTabController(
-      length: 3,
-      initialIndex: widget.tab,
+      length: HomeTabs.values.length,
+      initialIndex: widget.activeTabIndex,
       child: Scaffold(
-        backgroundColor: widget.tab == 1
+        backgroundColor: widget.activeTabIndex == HomeTabs.profile.index
             ? SerManosColors.neutral0
             : SerManosColors.secondary10,
         appBar: AppBar(
@@ -74,17 +87,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                tabs: const [
-                  Tab(
-                    text: 'POSTULARSE',
-                  ),
-                  Tab(
-                    text: 'MI PERFIL',
-                  ),
-                  Tab(
-                    text: 'NOVEDADES',
-                  ),
-                ],
+                tabs: HomeTabs.values
+                    .map(
+                      (tab) => Tab(
+                        text: tab.tabText,
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           ),
@@ -94,7 +103,7 @@ class _HomePageState extends State<HomePage> {
             VolunteeringsTab(
               searchController: searchController,
             ),
-            ProfileTab(toolbarHeight: AppBar().preferredSize.height + 50),
+            const ProfileTab(),
             const NewsTab(),
           ],
         ),

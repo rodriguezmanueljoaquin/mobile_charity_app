@@ -27,7 +27,7 @@ mixin _$VolunteeringModel {
   String get category => throw _privateConstructorUsedError;
   String get about => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
-  List<String> get requirements => throw _privateConstructorUsedError;
+  String get requirements => throw _privateConstructorUsedError;
   List<Availability> get availability => throw _privateConstructorUsedError;
   int get vacancies => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -56,7 +56,7 @@ abstract class $VolunteeringModelCopyWith<$Res> {
       String category,
       String about,
       String address,
-      List<String> requirements,
+      String requirements,
       List<Availability> availability,
       int vacancies,
       @TimestampConverter() DateTime createdAt,
@@ -123,7 +123,7 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
       requirements: null == requirements
           ? _value.requirements
           : requirements // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as String,
       availability: null == availability
           ? _value.availability
           : availability // ignore: cast_nullable_to_non_nullable
@@ -164,7 +164,7 @@ abstract class _$$_VolunteeringModelCopyWith<$Res>
       String category,
       String about,
       String address,
-      List<String> requirements,
+      String requirements,
       List<Availability> availability,
       int vacancies,
       @TimestampConverter() DateTime createdAt,
@@ -227,9 +227,9 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
           : address // ignore: cast_nullable_to_non_nullable
               as String,
       requirements: null == requirements
-          ? _value._requirements
+          ? _value.requirements
           : requirements // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as String,
       availability: null == availability
           ? _value._availability
           : availability // ignore: cast_nullable_to_non_nullable
@@ -265,14 +265,13 @@ class _$_VolunteeringModel implements _VolunteeringModel {
       required this.category,
       required this.about,
       required this.address,
-      required final List<String> requirements,
+      required this.requirements,
       required final List<Availability> availability,
       required this.vacancies,
       @TimestampConverter() required this.createdAt,
       required final List<String> volunteersIds,
       @GeoPointConverter() required this.location})
-      : _requirements = requirements,
-        _availability = availability,
+      : _availability = availability,
         _volunteersIds = volunteersIds;
 
   factory _$_VolunteeringModel.fromJson(Map<String, dynamic> json) =>
@@ -292,14 +291,8 @@ class _$_VolunteeringModel implements _VolunteeringModel {
   final String about;
   @override
   final String address;
-  final List<String> _requirements;
   @override
-  List<String> get requirements {
-    if (_requirements is EqualUnmodifiableListView) return _requirements;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_requirements);
-  }
-
+  final String requirements;
   final List<Availability> _availability;
   @override
   List<Availability> get availability {
@@ -345,8 +338,8 @@ class _$_VolunteeringModel implements _VolunteeringModel {
                 other.category == category) &&
             (identical(other.about, about) || other.about == about) &&
             (identical(other.address, address) || other.address == address) &&
-            const DeepCollectionEquality()
-                .equals(other._requirements, _requirements) &&
+            (identical(other.requirements, requirements) ||
+                other.requirements == requirements) &&
             const DeepCollectionEquality()
                 .equals(other._availability, _availability) &&
             (identical(other.vacancies, vacancies) ||
@@ -370,7 +363,7 @@ class _$_VolunteeringModel implements _VolunteeringModel {
       category,
       about,
       address,
-      const DeepCollectionEquality().hash(_requirements),
+      requirements,
       const DeepCollectionEquality().hash(_availability),
       vacancies,
       createdAt,
@@ -401,7 +394,7 @@ abstract class _VolunteeringModel implements VolunteeringModel {
           required final String category,
           required final String about,
           required final String address,
-          required final List<String> requirements,
+          required final String requirements,
           required final List<Availability> availability,
           required final int vacancies,
           @TimestampConverter() required final DateTime createdAt,
@@ -427,7 +420,7 @@ abstract class _VolunteeringModel implements VolunteeringModel {
   @override
   String get address;
   @override
-  List<String> get requirements;
+  String get requirements;
   @override
   List<Availability> get availability;
   @override

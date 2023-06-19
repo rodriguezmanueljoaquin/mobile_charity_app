@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:logger/logger.dart';
 import 'package:mobile_charity_app/models/news.dart';
 import 'package:mobile_charity_app/models/user.dart';
@@ -68,7 +71,8 @@ class SerManosApi {
       DocumentSnapshot documentSnapshot =
           await FirebaseFirestore.instance.collection('users').doc(id).get();
 
-      return UserModel.fromJson(buildProperties(documentSnapshot));
+      return await UserModel.fromJson(buildProperties(documentSnapshot))
+          .fetchDownloadAvatarURL();
     } catch (e) {
       logger.e(e);
       return null;
@@ -104,8 +108,10 @@ class SerManosApi {
 
   Future<List<VolunteeringModel>> getVolunteerings() async {
     try {
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('volunteerings').get();
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('volunteerings')
+          .orderBy('createdAt', descending: false)
+          .get();
 
       return querySnapshot.docs
           .map((e) => VolunteeringModel.fromJson(buildProperties(e)))
@@ -216,14 +222,34 @@ class SerManosApi {
     });
   }
 
-  Future<bool> updateProfileInfo(UserModel user) async {
+  Future<bool> updateProfileInfo({
+    required UserModel updatedUser,
+    required bool changedEmail,
+    File? avatar,
+  }) async {
     try {
+      if (changedEmail) {
+        await FirebaseAuth.instance.currentUser!
+            .updateEmail(updatedUser.email!);
+      }
+
+      if (avatar != null) {
+        final String key =
+            'users/${updatedUser.id}'; // should not change but just in case
+        await uploadFile(key: key, file: avatar);
+
+        updatedUser = updatedUser.copyWith(avatarImageKey: key);
+      }
+
       await FirebaseFirestore.instance
           .collection('users')
-          .doc(user.id)
-          .update(user.toJson());
+          .doc(updatedUser.id)
+          .update(updatedUser.toJson());
 
       return true;
+    } on FirebaseException catch (e) {
+      logger.e('Error updating user: ${e.message}');
+      return false;
     } catch (e) {
       logger.e(e);
       return false;

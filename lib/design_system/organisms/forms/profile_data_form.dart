@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
@@ -8,9 +10,21 @@ class SerManosProfileDataForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final Function(bool) changeDisabledStateTo;
   final String? currentPhotoUrl;
+  final TextEditingController dateController;
+  final Function(int) onGenderChange;
+  final int? genderValue;
+  final Function(File?) onImageChange;
 
-  const SerManosProfileDataForm(
-      {super.key, required this.formKey, required this.changeDisabledStateTo, this.currentPhotoUrl});
+  const SerManosProfileDataForm({
+    super.key,
+    required this.formKey,
+    required this.changeDisabledStateTo,
+    required this.dateController,
+    required this.onGenderChange,
+    required this.onImageChange,
+    this.currentPhotoUrl,
+    this.genderValue,
+  });
 
   @override
   State<SerManosProfileDataForm> createState() =>
@@ -18,9 +32,14 @@ class SerManosProfileDataForm extends StatefulWidget {
 }
 
 class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
-  // controllers
-  final _dateController = TextEditingController();
+  late final TextEditingController _dateController;
   bool _allowSubmission = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _dateController = widget.dateController;
+  }
 
   @override
   void dispose() {
@@ -54,10 +73,12 @@ class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
             controller: _dateController,
           ),
           const SerManosSizedBox.md(),
-          const SerManosGenderInputCard(),
+          SerManosGenderInputCard(
+              onGenderChange: widget.onGenderChange, value: widget.genderValue),
           const SerManosSizedBox.md(),
           SerManosEditPhotoCard(
             currentPhotoUrl: widget.currentPhotoUrl,
+            onChange: widget.onImageChange,
           )
         ],
       ),

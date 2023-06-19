@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/news_card.dart';
+import 'package:mobile_charity_app/design_system/tokens/indicators.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/providers/news_provider.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,7 @@ class _NewsTabState extends State<NewsTab>
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
+    return SerManosRefreshIndicator(
         onRefresh: Provider.of<NewsProvider>(context).fetchNews,
         child: Consumer<NewsProvider>(
             builder: (context, newsProvider, child) => newsProvider.isLoading
@@ -40,12 +41,12 @@ class _NewsTabState extends State<NewsTab>
                     ),
                     itemBuilder: (context, index) => UnconstrainedBox(
                       child: SerManosNewsCard(
-                        news: newsProvider.news[index],
+                        news: newsProvider.news![index],
                       ),
                     ),
                     separatorBuilder: (context, index) =>
                         const SerManosSizedBox.md(),
-                    itemCount: newsProvider.news.length,
+                    itemCount: newsProvider.news!.length,
                   )));
   }
 }

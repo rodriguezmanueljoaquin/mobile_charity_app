@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/pages/edit_profile.dart';
 import 'package:mobile_charity_app/pages/entry.dart';
@@ -8,14 +9,17 @@ import 'package:mobile_charity_app/pages/news_details.dart';
 import 'package:mobile_charity_app/pages/register.dart';
 import 'package:mobile_charity_app/pages/volunteering_details.dart';
 import 'package:mobile_charity_app/pages/welcome.dart';
+import 'package:mobile_charity_app/providers/news_provider.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
+import 'package:mobile_charity_app/routes/home_tabs.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 import 'package:provider/provider.dart';
 import 'package:mobile_charity_app/utils/logger.dart';
 
 class SerManosRouter {
-  static final List<String> unauthorizedRoutes = [
+  static final List<String> authlessRoutes = [
+    '/',
     '/onboarding',
     '/onboarding/signup',
     '/onboarding/signin',
@@ -60,7 +64,7 @@ class SerManosRouter {
           }
 
           return HomePage(
-            tab: 0,
+            activeTabIndex: HomeTabs.volunteering.index,
           );
         },
         routes: [
@@ -68,9 +72,19 @@ class SerManosRouter {
             name: SerManosPagesName.volunteeringDetails,
             path: ':id',
             builder: (context, state) {
+              String id = state.pathParameters['id']!;
+
+              FirebaseAnalytics.instance.logEvent(
+                name: 'select_content',
+                parameters: {
+                  'content_type': 'volunteering',
+                  'id': id,
+                },
+              );
+
               logger.d("HELLO FROM /volunteering/:id");
               return VolunteeringDetailsPage(
-                id: state.pathParameters['id']!,
+                id: id,
               );
             },
           ),
@@ -80,7 +94,7 @@ class SerManosRouter {
         name: SerManosPagesName.profile,
         path: "/profile",
         builder: (context, state) {
-          return HomePage(tab: 1);
+          return HomePage(activeTabIndex: HomeTabs.profile.index);
         },
         routes: [
           GoRoute(
@@ -95,14 +109,34 @@ class SerManosRouter {
       GoRoute(
         name: SerManosPagesName.news,
         path: "/news",
-        builder: (context, state) => HomePage(tab: 2),
+        builder: (context, state) {
+          final newsProvider = Provider.of<NewsProvider>(context);
+
+          if (newsProvider.news == null && state.location != "/news") {
+            newsProvider.fetchNews();
+          }
+
+          return HomePage(
+            activeTabIndex: HomeTabs.news.index,
+          );
+        },
         routes: [
           GoRoute(
             name: SerManosPagesName.newsDetails,
             path: ':id',
             builder: (context, state) {
+              String id = state.pathParameters['id']!;
+
+              FirebaseAnalytics.instance.logEvent(
+                name: 'select_content',
+                parameters: {
+                  'content_type': 'news',
+                  'id': id,
+                },
+              );
+
               return NewsDetailsPage(
-                id: state.pathParameters['id']!,
+                id: id,
               );
             },
           ),
@@ -118,17 +152,28 @@ class SerManosRouter {
         await userProvider.loadUserFromCache();
       }
 
-      final bool isUnauthorizedRoute =
-          unauthorizedRoutes.any((element) => element == state.location);
+      final bool isAuthlessRoute =
+          authlessRoutes.any((element) => element == state.location);
       final bool isLoggedIn = userProvider.user != null;
 
-      if (isUnauthorizedRoute && isLoggedIn) {
+      if (isAuthlessRoute && isLoggedIn) {
         return '/volunteering';
       } else if (isLoggedIn) {
         return null;
       }
 
-      return isUnauthorizedRoute ? null : '/onboarding';
+      // log unauthorized access attempts
+      if (!isAuthlessRoute) {
+        logger.w('Unauthorized access attempt to ${state.location}');
+        FirebaseAnalytics.instance.logEvent(
+          name: 'unauthorized_access',
+          parameters: {
+            'screen_name': state.location,
+          },
+        );
+      }
+
+      return isAuthlessRoute ? null : '/onboarding';
     },
   );
 }

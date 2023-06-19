@@ -24,10 +24,18 @@ dependencies:
   flutter_svg: ^2.0.5
   intl: ^0.18.1
   collection: ^1.17.0
+  golden_toolkit: ^0.15.0
+  mockito: ^5.4.0
+  network_image_mock: ^2.1.1
   logger: ^1.4.0
+  flutter_markdown: ^0.6.15
+  firebase_analytics: ^10.4.3
+  firebase_crashlytics: ^3.3.3
+  image_picker: ^0.8.9
+  firebase_storage: ^11.2.3
+  geolocator: ^9.0.2
   share_plus: ^7.0.2
   http: ^0.13.6
-  image_downloader: ^0.31.0
 
 dev_dependencies:
   flutter_test:

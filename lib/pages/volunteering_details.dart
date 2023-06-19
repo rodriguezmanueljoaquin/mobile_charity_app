@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
@@ -8,6 +9,7 @@ import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/ubication_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/modals/volunteering_modal.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
+import 'package:mobile_charity_app/design_system/tokens/indicators.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
@@ -16,6 +18,7 @@ import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 import 'package:mobile_charity_app/utils/availability_converter.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
 import 'package:provider/provider.dart';
 
 class VolunteeringDetailsPage extends StatelessWidget {
@@ -87,8 +90,14 @@ class VolunteeringDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer2<VolunteeringProvider, UserProvider>(
       builder: (context, volunteeringProvider, userProvider, child) {
-        if (volunteeringProvider.isFetchingVolunteerings) {
-          return const CircularProgressIndicator();
+        if (volunteeringProvider.volunteerings == null) {
+          return const SerManosScaffold(
+            applyPadding: false,
+            whiteStatusBar: false,
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
         }
 
         VolunteeringModel volunteering =
@@ -104,7 +113,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
           body: Column(
             children: [
               Expanded(
-                child: RefreshIndicator(
+                child: SerManosRefreshIndicator(
                   onRefresh: () => volunteeringProvider
                       .fetchVolunteeringById(id)
                       .then((_) => userProvider.fetchUser()),
@@ -172,23 +181,19 @@ class VolunteeringDetailsPage extends StatelessWidget {
                               const SerManosSizedBox.sm(),
                               SerManosText.subtitle1("Requisitos"),
                               const SerManosSizedBox.sm(),
-                              ListView(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                children: volunteering.requirements
-                                    .map((e) => SerManosText.body1('\u2022 $e'))
-                                    .toList(),
+                              MarkdownBody(
+                                data: volunteering.requirements.replaceAll(r'\n', '\n'),
+                                styleSheet: MarkdownStyleSheet(
+                                  a: const SerManosTextStyle.body1(),
+                                  h1: const SerManosTextStyle.headline1(),
+                                  h2: const SerManosTextStyle.headline2(),
+                                ),
                               ),
                               const SerManosSizedBox.sm(),
                               SerManosText.subtitle1("Disponibilidad"),
                               const SerManosSizedBox.sm(),
-                              ListView(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                children: volunteering.availability
-                                    .map((e) => SerManosText.body1(
-                                        '\u2022 ${availabilityToStr(e)}'))
-                                    .toList(),
+                              MarkdownBody(
+                                data: availabilitiesToMarkdown(volunteering.availability),
                               ),
                               const SerManosSizedBox.sm(),
                               SerManosVacancies(
