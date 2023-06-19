@@ -17,6 +17,7 @@ import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 import 'package:mobile_charity_app/utils/availability_converter.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
 import 'package:provider/provider.dart';
 
 class VolunteeringDetailsPage extends StatelessWidget {
@@ -180,7 +181,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
                               SerManosText.subtitle1("Requisitos"),
                               const SerManosSizedBox.sm(),
                               MarkdownBody(
-                                data: volunteering.requirements,
+                                data: volunteering.requirements.replaceAll(r'\n', '\n'),
                                 styleSheet: MarkdownStyleSheet(
                                   a: const SerManosTextStyle.body1(),
                                   h1: const SerManosTextStyle.headline1(),
