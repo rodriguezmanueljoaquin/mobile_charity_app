@@ -62,7 +62,7 @@ class _SerManosVolunteeringModalState extends State<SerManosVolunteeringModal> {
             text: 'Cancelar',
             filled: false,
             disabled: _loading,
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(context, "Cancel"),
           ),
           const SerManosSizedBox.sm(
             useWidth: true,

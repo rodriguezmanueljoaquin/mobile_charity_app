@@ -30,7 +30,8 @@ void volunteeringDetailsModalTest(
     UserProvider userProvider,
     openModalButtonText,
     String modalText,
-    Function extraExpectBeforeModal) async {
+    Function extraExpectBeforeModal,
+    bool modalHasVolunteeringTitle) async {
   await mockNetworkImagesFor(() => tester.pumpWidget(MultiProvider(
           providers: [
             ChangeNotifierProvider<UserProvider>.value(value: userProvider),
@@ -58,8 +59,10 @@ void volunteeringDetailsModalTest(
 
   expect(find.byType(SerManosVolunteeringModal), findsOneWidget);
   expect(find.text(modalText), findsOneWidget);
-  expect(find.text(modelExpected.title),
-      findsNWidgets(2)); // one from modal and one from details
+  if (modalHasVolunteeringTitle) {
+    expect(find.text(modelExpected.title),
+        findsNWidgets(2)); // one from modal and one from details
+  }
 
   await tester.tap(find.text('Cancelar'));
   await tester.pumpAndSettle();
@@ -166,11 +169,26 @@ void main() {
     expect(find.byType(SerManosNewsCard), findsNothing);
   });
 
-  testWidgets('volunteering details modal not current volunteering test',
+  testWidgets(
+      'volunteering details modal not current volunteering and profile not completed test',
       (WidgetTester tester) async {
     String volunteeringId = "2";
-    volunteeringDetailsModalTest(tester, volunteeringId, MockUserProvider(),
-        'Postularme', 'Te estás por postular a', () => {});
+    volunteeringDetailsModalTest(
+        tester,
+        volunteeringId,
+        MockUserProvider(),
+        'Postularme',
+        'Para postularte debes primero completar tus datos.',
+        () => {},
+        false);
+  });
+
+  testWidgets(
+      'volunteering details modal not current volunteering and profile completed test',
+      (WidgetTester tester) async {
+    String volunteeringId = "2";
+    volunteeringDetailsModalTest(tester, volunteeringId, MockUserFullProvider(),
+        'Postularme', 'Te estás por postular a', () => {}, true);
   });
 
   testWidgets('volunteering details modal current volunteering test',
@@ -183,7 +201,8 @@ void main() {
         MockUserFullProvider(),
         'Retirar postulación',
         '¿Estás seguro que querés retirar tu postulación?',
-        () => expect(find.text('Te has postulado'), findsOneWidget));
+        () => expect(find.text('Te has postulado'), findsOneWidget),
+        true);
   });
 
   testWidgets(
@@ -199,6 +218,7 @@ void main() {
         () => expect(
             find.text(
                 'Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este.'),
-            findsOneWidget));
+            findsOneWidget),
+        true);
   });
 }

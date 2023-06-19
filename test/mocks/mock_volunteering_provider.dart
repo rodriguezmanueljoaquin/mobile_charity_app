@@ -125,4 +125,9 @@ class MockVolunteeringProvider extends ChangeNotifier
   Future<void> fetchVolunteeringById(String volunteeringId) {
     return Future.value();
   }
+  
+  @override
+  List<VolunteeringModel> searchVolunteeringsByTitleAndDescription(String query) {
+    return _volunteerings;
+  }
 }

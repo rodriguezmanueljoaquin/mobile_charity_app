@@ -93,7 +93,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
   void _completeProfileDialog(
       {required BuildContext context,
       required VolunteeringModel volunteering}) async {
-    await showDialog(
+    String answer = await showDialog(
       context: context,
       builder: (BuildContext context) => SerManosVolunteeringModal(
         title: completeProfileTitle,
@@ -103,6 +103,9 @@ class VolunteeringDetailsPage extends StatelessWidget {
         },
       ),
     );
+    if (answer == "Cancel") {
+      return;
+    }
 
     logger.i(
         'User completed profile, applying to volunteering ${volunteering.id}');
