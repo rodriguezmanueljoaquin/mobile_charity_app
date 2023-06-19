@@ -64,7 +64,7 @@ class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
             controller: _dateController,
           ),
           const SerManosSizedBox.md(),
-          const SerManosGenderInputCard(),
+          const SerManosGenderInputCard(), // TODO: pasar genero
           const SerManosSizedBox.md(),
           SerManosEditPhotoCard(
             currentPhotoUrl: widget.currentPhotoUrl,

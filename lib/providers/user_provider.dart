@@ -105,4 +105,10 @@ class UserProvider extends ChangeNotifier {
     await FirebaseAuth.instance.signOut();
     user = null;
   }
+
+  // update only properties that are not null
+  Future<void> updateProfile(UserModel user) async {
+    await SerManosApi().updateProfileInfo(user);
+    await fetchUser();
+  }
 }

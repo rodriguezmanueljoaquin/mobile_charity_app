@@ -19,6 +19,7 @@ import 'package:mobile_charity_app/utils/logger.dart';
 
 class SerManosRouter {
   static final List<String> authlessRoutes = [
+    '/',
     '/onboarding',
     '/onboarding/signup',
     '/onboarding/signin',

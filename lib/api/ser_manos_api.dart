@@ -218,6 +218,10 @@ class SerManosApi {
 
   Future<bool> updateProfileInfo(UserModel user) async {
     try {
+      if (user.email != null) {
+        await FirebaseAuth.instance.currentUser!.updateEmail(user.email!);
+      }
+
       await FirebaseFirestore.instance
           .collection('users')
           .doc(user.id)

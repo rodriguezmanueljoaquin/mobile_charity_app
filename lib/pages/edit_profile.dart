@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
@@ -13,7 +14,10 @@ import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
+import 'package:mobile_charity_app/models/user.dart';
+import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
+import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -32,7 +36,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String _error = '';
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+
+    final UserModel user = Provider.of<UserProvider>(context, listen: false).user!;
+    _dateController.text = DateFormat('dd/MM/yyyy').format(user.birthDate!);
+    _phoneController.text = user.phoneNumber!;
+    _emailController.text = user.email!;
+  }
+
+  @override
+  Widget build(BuildContext context) {    
     return SerManosScaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -91,10 +105,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             SerManosTextButton.longTextButton(
-              text: 'Iniciar Sesión',
+              text: 'Guardar datos',
               disabled: _disabled,
-              onPressed: () {
+              onPressed: () async {
                 if (_contactDataFormKey.currentState!.validate()) {
+                  UserProvider userProvider =
+                      Provider.of<UserProvider>(context, listen: false);
+
+                  final UserModel updatedUser = userProvider.user!.copyWith(
+                    phoneNumber: _phoneController.text,
+                    email: _emailController.text,
+                    birthDate: DateFormat('dd/MM/yyyy').parse(_dateController.text),
+                  );
+
+                  await userProvider.updateProfile(updatedUser);
+
                   setState(() {
                     _error = ""; // TODO: Assign api response
                   });
