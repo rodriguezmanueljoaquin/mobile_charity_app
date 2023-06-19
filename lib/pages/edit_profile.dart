@@ -35,6 +35,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final _profileDataFormKey = GlobalKey<FormState>();
   final _contactDataFormKey = GlobalKey<FormState>();
   bool _disabled = true;
+  bool _loading = false;
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -68,6 +69,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     if (_contactDataFormKey.currentState!.validate()) {
       setState(() {
         _disabled = true;
+        _loading = true;
       });
       UserProvider userProvider =
           Provider.of<UserProvider>(context, listen: false);
@@ -83,6 +85,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       setState(() {
         _error = ""; // TODO: Assign api response
         _disabled = false;
+        _loading = false;
       });
       if (_error.isEmpty) {
         context.replaceNamed(SerManosPagesName.profile);
@@ -156,6 +159,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             SerManosTextButton.longTextButton(
               text: 'Guardar datos',
               disabled: _disabled,
+              loading: _loading,
               onPressed: _submit,
             ),
             const SerManosSizedBox.lg()

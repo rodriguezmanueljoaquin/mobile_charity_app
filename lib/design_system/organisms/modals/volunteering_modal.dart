@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_charity_app/design_system/atoms/loading_indicator.dart';
+import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
+import 'package:mobile_charity_app/design_system/tokens/indicators.dart';
 import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
@@ -22,7 +25,7 @@ class SerManosVolunteeringModal extends StatefulWidget {
 }
 
 class _SerManosVolunteeringModalState extends State<SerManosVolunteeringModal> {
-  bool _disabled = false;
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,19 +58,24 @@ class _SerManosVolunteeringModalState extends State<SerManosVolunteeringModal> {
           SerManosTextButton.shortTextButton(
             text: 'Cancelar',
             filled: false,
+            disabled: _loading,
             onPressed: () => Navigator.pop(context),
+          ),
+          const SerManosSizedBox.sm(
+            useWidth: true,
           ),
           SerManosTextButton.shortTextButton(
             text: 'Confirmar',
             filled: false,
-            disabled: _disabled,
+            disabled: _loading,
+            loading: _loading,
             onPressed: () async {
               setState(() {
-                _disabled = true;
+                _loading = true;
               });
               await widget.onConfirm();
               setState(() {
-                _disabled = false;
+                _loading = false;
               });
               Navigator.pop(context);
             },

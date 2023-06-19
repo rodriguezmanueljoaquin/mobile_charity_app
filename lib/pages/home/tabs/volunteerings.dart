@@ -3,6 +3,7 @@ import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/current_voluntering_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_card.dart';
+import 'package:mobile_charity_app/design_system/tokens/indicators.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
@@ -40,7 +41,7 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
+    return SerManosRefreshIndicator(
       onRefresh: () async {
         UserProvider userProvider =
             Provider.of<UserProvider>(context, listen: false);

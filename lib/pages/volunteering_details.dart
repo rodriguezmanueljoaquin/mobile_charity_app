@@ -9,6 +9,7 @@ import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/ubication_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/modals/volunteering_modal.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
+import 'package:mobile_charity_app/design_system/tokens/indicators.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
@@ -111,7 +112,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
           body: Column(
             children: [
               Expanded(
-                child: RefreshIndicator(
+                child: SerManosRefreshIndicator(
                   onRefresh: () => volunteeringProvider
                       .fetchVolunteeringById(id)
                       .then((_) => userProvider.fetchUser()),
