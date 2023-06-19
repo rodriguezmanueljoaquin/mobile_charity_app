@@ -40,11 +40,12 @@ class VolunteeringProvider extends ChangeNotifier {
                       target: _userProvider!.userLocation!,
                     ))
                 .toList();
-        
+
         volunteeringsWithDistance.sort();
-        volunteerings = volunteeringsWithDistance.map((e) => e.volunteering).toList();
+        volunteerings =
+            volunteeringsWithDistance.map((e) => e.volunteering).toList();
       }
-      
+
       _volunteeringsIndexById = listToIndexMapByKey(volunteerings, (e) => e.id);
       _volunteerings = volunteerings;
     } finally {
@@ -58,7 +59,8 @@ class VolunteeringProvider extends ChangeNotifier {
           ? _volunteerings![_volunteeringsIndexById![id]!]
           : null;
 
-  List<VolunteeringModel> searchVolunteeringsByTitle(String query) {
+  List<VolunteeringModel> searchVolunteeringsByTitleAndDescription(
+      String query) {
     FirebaseAnalytics.instance.logEvent(
       name: 'search_volunteerings',
       parameters: {
@@ -68,7 +70,8 @@ class VolunteeringProvider extends ChangeNotifier {
 
     return _volunteerings!
         .where((element) =>
-            element.title.toLowerCase().contains(query.toLowerCase()))
+            element.title.toLowerCase().contains(query.toLowerCase()) ||
+            element.description.toLowerCase().contains(query.toLowerCase()))
         .toList();
   }
 
