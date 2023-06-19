@@ -43,7 +43,7 @@ class ProfileTab extends StatelessWidget {
                     SerManosText.body1(
                       user.email!,
                       color: SerManosColors
-                          .secondary200, // TODO: ADD HIPERVINCULO AL MAIL
+                          .secondary200,
                     ),
                     const SerManosSizedBox.lg(),
                     ProfileData(user: user),

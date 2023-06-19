@@ -9,6 +9,7 @@ class SerManosRegisterForm extends StatefulWidget {
   final TextEditingController lastNameController;
   final TextEditingController emailController;
   final TextEditingController passwordController;
+  final Function onFieldSubmitted;
 
   const SerManosRegisterForm(
       {super.key,
@@ -17,7 +18,8 @@ class SerManosRegisterForm extends StatefulWidget {
       required this.firstNameController,
       required this.lastNameController,
       required this.emailController,
-      required this.passwordController});
+      required this.passwordController,
+      required this.onFieldSubmitted});
 
   @override
   State<SerManosRegisterForm> createState() => _SerManosRegisterFormState();
@@ -74,23 +76,27 @@ class _SerManosRegisterFormState extends State<SerManosRegisterForm> {
         onChanged: _inputListener,
         child: Column(children: [
           SerManosTextFormField(
+            onFieldSubmitted: () {},
             controller: _firstNameController,
             label: 'Nombre',
             placeholder: 'Ej: Juan',
           ),
           const SerManosSizedBox.sm(),
           SerManosTextFormField(
+            onFieldSubmitted: () {},
             controller: _lastNameController,
             label: 'Apellido',
             placeholder: 'Ej: Barcena',
           ),
           const SerManosSizedBox.sm(),
           SerManosEmailFormField(
+            onFieldSubmitted: () {},
             controller: _emailController,
             placeholder: 'Ej: juanbarcena@mail.com',
           ),
           const SerManosSizedBox.sm(),
           SerManosPasswordFormField(
+            onFieldSubmitted: () {},
             controller: _passwordController,
             placeholder: 'Ej: ABCD1234',
           ),

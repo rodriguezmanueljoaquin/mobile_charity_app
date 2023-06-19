@@ -1,7 +1,6 @@
 class SerManosSizes {
   SerManosSizes._();
 
-  // TODO
   static const double sizeXXS = 30;
   static const double sizeXS = 50;
   static const double sizeSM = 80;

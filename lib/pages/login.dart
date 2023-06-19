@@ -8,6 +8,7 @@ import 'package:mobile_charity_app/design_system/organisms/forms/login_form.dart
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 
@@ -25,6 +26,27 @@ class _LoginPageState extends State<LoginPage> {
   bool _disabled = true;
   String _loginError = '';
 
+  void _submit() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _disabled = true;
+      });
+      await Provider.of<UserProvider>(context, listen: false)
+          .login(
+            email: _emailController.text,
+            password: _passwordController.text,
+          )
+          .then((response) => {context.replaceNamed(SerManosPagesName.welcome)})
+          .catchError((error) => setState(() {
+                _loginError = error.toString();
+              }));
+      setState(() {
+        _disabled = false;
+      });
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SerManosScaffold(
@@ -39,6 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SerManosSizedBox.lg(),
                     SerManosLoginForm(
                       formKey: _formKey,
+                      onFieldSubmitted: _submit,
                       changeDisabledStateTo: (bool state) {
                         setState(() {
                           _disabled = state;
@@ -63,25 +86,7 @@ class _LoginPageState extends State<LoginPage> {
             text: 'Iniciar Sesión',
             disabled: _disabled,
             onPressed: () async {
-              if (!_formKey.currentState!.validate()) {
-                setState(() {
-                  _loginError = "";
-                  // _loginError =
-                  //     "Usuario y/o contraseña incorrectos."; // TODO: Assign api response
-                });
-
-                return;
-              }
-
-              //TODO: check credentials with backend
-              _loginError = 'false';
-
-              await Provider.of<UserProvider>(context, listen: false)
-                  .login(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                  )
-                  .then((_) => context.replaceNamed(SerManosPagesName.welcome));
+              _submit();
             },
           ),
           const SerManosSizedBox.sl(),

@@ -29,6 +29,13 @@
             {
               "client_id": "480244158445-mpqtr42kc717hm5q8ka7li8t1dudalee.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "480244158445-rg70k0re7s2u94cunu2oir7enmvik36c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ar.edu.itba.mobile.mobileCharityApp"
+              }
             }
           ]
         }

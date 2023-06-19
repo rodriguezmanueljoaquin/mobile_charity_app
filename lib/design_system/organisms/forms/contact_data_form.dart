@@ -81,7 +81,8 @@ class _SerManosContactDataFormState extends State<SerManosContactDataForm> {
           const SerManosSizedBox.sl(),
           SerManosPhoneFormField(controller: _phoneController),
           const SerManosSizedBox.sl(),
-          SerManosEmailFormField(controller: _emailController),
+          SerManosEmailFormField(controller: _emailController,
+            onFieldSubmitted: () {},),
         ],
       ),
     );
