@@ -25,7 +25,7 @@ String? dateValidator(String? value) {
 
 String? phoneValidator(String? value) {
   if (value == null || !RegExp(r"^[\+][0-9]{8,14}$").hasMatch(value)) {
-    return 'No es un número de telefono valido';
+    return 'No es un número de telefono valido, debe inicializar con + y ser de entre 8 y 14 números';
   }
   return null;
 }

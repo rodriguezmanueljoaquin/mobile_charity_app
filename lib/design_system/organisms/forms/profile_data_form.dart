@@ -11,6 +11,8 @@ class SerManosProfileDataForm extends StatefulWidget {
   final Function(bool) changeDisabledStateTo;
   final String? currentPhotoUrl;
   final TextEditingController dateController;
+  final Function(int) onGenderChange;
+  final int? genderValue;
   final Function(File?) onImageChange;
 
   const SerManosProfileDataForm({
@@ -18,8 +20,10 @@ class SerManosProfileDataForm extends StatefulWidget {
     required this.formKey,
     required this.changeDisabledStateTo,
     required this.dateController,
+    required this.onGenderChange,
     required this.onImageChange,
     this.currentPhotoUrl,
+    this.genderValue,
   });
 
   @override
@@ -69,7 +73,8 @@ class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
             controller: _dateController,
           ),
           const SerManosSizedBox.md(),
-          const SerManosGenderInputCard(), // TODO: pasar genero
+          SerManosGenderInputCard(
+              onGenderChange: widget.onGenderChange, value: widget.genderValue),
           const SerManosSizedBox.md(),
           SerManosEditPhotoCard(
             currentPhotoUrl: widget.currentPhotoUrl,

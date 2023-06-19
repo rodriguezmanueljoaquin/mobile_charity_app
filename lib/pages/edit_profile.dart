@@ -10,6 +10,7 @@ import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/edit_profile_photo_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/gender_input_card.dart';
+import 'package:mobile_charity_app/design_system/organisms/cards/genders_constants.dart';
 import 'package:mobile_charity_app/design_system/organisms/forms/contact_data_form.dart';
 import 'package:mobile_charity_app/design_system/organisms/forms/profile_data_form.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
@@ -20,6 +21,7 @@ import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 import 'package:mobile_charity_app/utils/firestore.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -37,6 +39,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   File? _image;
+  int? _genderIdSelected;
   String _error = '';
   String? _currentPhotoUrl;
 
@@ -46,9 +49,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
     final UserModel user =
         Provider.of<UserProvider>(context, listen: false).user!;
-    _dateController.text = DateFormat('dd/MM/yyyy').format(user.birthDate!);
-    _phoneController.text = user.phoneNumber!;
-    _emailController.text = user.email!;
+    _dateController.text = user.birthDate != null
+        ? DateFormat('dd/MM/yyyy').format(user.birthDate!)
+        : '';
+    _phoneController.text = user.phoneNumber ?? '';
+    _emailController.text = user.email ?? '';
+    _genderIdSelected = genderIdByName[user.gender];
     _currentPhotoUrl = user.downloadAvatarURL;
   }
 
@@ -56,6 +62,32 @@ class _EditProfilePageState extends State<EditProfilePage> {
     setState(() {
       _image = image;
     });
+  }
+
+  void _submit() async {
+    if (_contactDataFormKey.currentState!.validate()) {
+      setState(() {
+        _disabled = true;
+      });
+      UserProvider userProvider =
+          Provider.of<UserProvider>(context, listen: false);
+
+      await userProvider.updateProfile(
+        phoneNumber: _phoneController.text,
+        email: _emailController.text,
+        birthDate: DateFormat('dd/MM/yyyy').parse(_dateController.text),
+        gender: genderStrById[_genderIdSelected],
+        avatar: _image,
+      );
+
+      setState(() {
+        _error = ""; // TODO: Assign api response
+        _disabled = false;
+      });
+      if (_error.isEmpty) {
+        context.replaceNamed(SerManosPagesName.profile);
+      }
+    }
   }
 
   @override
@@ -91,6 +123,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   currentPhotoUrl: _currentPhotoUrl,
                   formKey: _profileDataFormKey,
                   onImageChange: onImageChange,
+                  onGenderChange: (id) => _genderIdSelected = id,
+                  genderValue: _genderIdSelected,
                   changeDisabledStateTo: (bool state) {
                     setState(() {
                       _disabled = state;
@@ -101,6 +135,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 const SerManosSizedBox.lg(),
                 SerManosContactDataForm(
                   formKey: _contactDataFormKey,
+                  onFieldSubmitted: _submit,
                   phoneController: _phoneController,
                   emailController: _emailController,
                   changeDisabledStateTo: (bool state) {
@@ -121,28 +156,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             SerManosTextButton.longTextButton(
               text: 'Guardar datos',
               disabled: _disabled,
-              onPressed: () async {
-                if (_contactDataFormKey.currentState!.validate()) {
-                  UserProvider userProvider =
-                      Provider.of<UserProvider>(context, listen: false);
-
-                  await userProvider.updateProfile(
-                    email: _emailController.text,
-                    phoneNumber: _phoneController.text,
-                    birthDate: _dateController.text != null
-                        ? DateFormat('dd/MM/yyyy').parse(_dateController.text)
-                        : null,
-                    avatar: _image,
-                  );
-
-                  setState(() {
-                    _error = ""; // TODO: Assign api response
-                  });
-                  if (_error.isEmpty) {
-                    context.replaceNamed(SerManosPagesName.profile);
-                  }
-                }
-              },
+              onPressed: _submit,
             ),
             const SerManosSizedBox.lg()
           ],

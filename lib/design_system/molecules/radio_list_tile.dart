@@ -4,8 +4,14 @@ import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
 class SerManosRadioListTile extends StatefulWidget {
   final Map<int, String> options;
+  final Function(int) onGenderChange;
+  final int? value;
 
-  const SerManosRadioListTile({super.key, required this.options});
+  const SerManosRadioListTile(
+      {super.key,
+      required this.options,
+      required this.onGenderChange,
+      this.value});
 
   @override
   State<SerManosRadioListTile> createState() => _SerManosRadioListTileState();
@@ -13,6 +19,12 @@ class SerManosRadioListTile extends StatefulWidget {
 
 class _SerManosRadioListTileState extends State<SerManosRadioListTile> {
   int? _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = widget.value;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +43,11 @@ class _SerManosRadioListTileState extends State<SerManosRadioListTile> {
                 }),
                 value: option.key,
                 groupValue: _selectedValue,
-                onChanged: (value) {
+                onChanged: (id) {
                   setState(() {
-                    _selectedValue = value;
+                    _selectedValue = id;
                   });
+                  widget.onGenderChange(id);
                 },
               ),
               SerManosText.body1(option.value)

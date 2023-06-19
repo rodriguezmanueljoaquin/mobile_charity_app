@@ -173,9 +173,13 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
 class SerManosPhoneFormField extends StatelessWidget {
   final TextEditingController controller;
   final String? placeholder;
+  final Function? onFieldSubmitted;
 
   const SerManosPhoneFormField(
-      {super.key, required this.controller, this.placeholder});
+      {super.key,
+      required this.controller,
+      this.placeholder,
+      this.onFieldSubmitted});
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +187,7 @@ class SerManosPhoneFormField extends StatelessWidget {
       controller: controller,
       label: 'Teléfono',
       placeholder: placeholder,
-      onFieldSubmitted: (_) {},
+      onFieldSubmitted: onFieldSubmitted ?? () {},
       validator: phoneValidator,
     );
   }
@@ -221,7 +225,7 @@ class SerManosPasswordFormField extends StatelessWidget {
       {super.key,
       required this.controller,
       this.placeholder,
-       this.onFieldSubmitted});
+      this.onFieldSubmitted});
 
   @override
   Widget build(BuildContext context) {

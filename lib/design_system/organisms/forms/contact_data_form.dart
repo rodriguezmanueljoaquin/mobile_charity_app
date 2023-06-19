@@ -9,13 +9,15 @@ class SerManosContactDataForm extends StatefulWidget {
   final Function(bool) changeDisabledStateTo;
   final TextEditingController phoneController;
   final TextEditingController emailController;
+  final Function onFieldSubmitted;
 
   const SerManosContactDataForm(
       {super.key,
       required this.formKey,
       required this.changeDisabledStateTo,
       required this.phoneController,
-      required this.emailController});
+      required this.emailController,
+      required this.onFieldSubmitted});
 
   @override
   State<SerManosContactDataForm> createState() =>
@@ -79,10 +81,11 @@ class _SerManosContactDataFormState extends State<SerManosContactDataForm> {
             ),
           ),
           const SerManosSizedBox.sl(),
-          SerManosPhoneFormField(controller: _phoneController),
+          SerManosPhoneFormField(controller: _phoneController,
+            onFieldSubmitted: widget.onFieldSubmitted),
           const SerManosSizedBox.sl(),
           SerManosEmailFormField(controller: _emailController,
-            onFieldSubmitted: () {},),
+            onFieldSubmitted: widget.onFieldSubmitted,),
         ],
       ),
     );
