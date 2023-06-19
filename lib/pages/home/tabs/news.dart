@@ -30,7 +30,7 @@ class _NewsTabState extends State<NewsTab>
   @override
   Widget build(BuildContext context) {
     return SerManosRefreshIndicator(
-        onRefresh: Provider.of<NewsProvider>(context).fetchNews,
+        onRefresh: Provider.of<NewsProvider>(context, listen: false).fetchNews,
         child: Consumer<NewsProvider>(
             builder: (context, newsProvider, child) => newsProvider.isLoading
                 ? const Center(child: CircularProgressIndicator())
