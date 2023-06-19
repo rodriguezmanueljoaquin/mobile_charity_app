@@ -30,6 +30,7 @@ dependencies:
   logger: ^1.4.0
   flutter_markdown: ^0.6.15
   firebase_analytics: ^10.4.3
+  firebase_crashlytics: ^3.3.3
 
 dev_dependencies:
   flutter_test:
