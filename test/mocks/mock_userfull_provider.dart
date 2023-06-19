@@ -53,7 +53,12 @@ class MockUserFullProvider extends ChangeNotifier implements UserProvider {
   }
 
   @override
-  Future<void> updateProfile({String? email, String? gender, DateTime? birthDate, String? phoneNumber, File? avatar}) {
+  Future<void> updateProfile(
+      {String? email,
+      String? gender,
+      DateTime? birthDate,
+      String? phoneNumber,
+      File? avatar}) {
     return Future.value();
   }
 }

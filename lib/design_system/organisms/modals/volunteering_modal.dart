@@ -5,7 +5,7 @@ import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 
-class SerManosVolunteeringModal extends StatelessWidget {
+class SerManosVolunteeringModal extends StatefulWidget {
   final VolunteeringModel volunteering;
   final String title;
   final Function onConfirm;
@@ -15,6 +15,14 @@ class SerManosVolunteeringModal extends StatelessWidget {
       required this.volunteering,
       required this.title,
       required this.onConfirm});
+
+  @override
+  State<SerManosVolunteeringModal> createState() =>
+      _SerManosVolunteeringModalState();
+}
+
+class _SerManosVolunteeringModalState extends State<SerManosVolunteeringModal> {
+  bool _disabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +46,8 @@ class SerManosVolunteeringModal extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SerManosText.subtitle1(title),
-              SerManosText.headline2(volunteering.title),
+              SerManosText.subtitle1(widget.title),
+              SerManosText.headline2(widget.volunteering.title),
             ],
           ),
         ),
@@ -52,8 +60,15 @@ class SerManosVolunteeringModal extends StatelessWidget {
           SerManosTextButton.shortTextButton(
             text: 'Confirmar',
             filled: false,
+            disabled: _disabled,
             onPressed: () async {
-              await onConfirm();
+              setState(() {
+                _disabled = true;
+              });
+              await widget.onConfirm();
+              setState(() {
+                _disabled = false;
+              });
               Navigator.pop(context);
             },
           ),
