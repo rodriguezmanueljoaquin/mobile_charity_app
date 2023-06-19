@@ -56,11 +56,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         about:
             'Un Techo para mi País es una organización latinoamericana que busca superar la situación de pobreza que viven miles de personas en los asentamientos precarios, a través de la acción conjunta de sus habitantes y jóvenes voluntarios y voluntarias. Para esto, trabajamos en la construcción de viviendas de emergencia, la ejecución de programas de educación y trabajo, y la incidencia en políticas públicas.',
         address: "Cabildo 600",
-        requirements: [
-          "Ser mayor de 18 años",
-          "Tener disponibilidad para participar de la actividad",
-          "Tener ganas de ayudar",
-        ],
+        requirements: "Ser mayor de 18 años Tener disponibilidad para participar de la actividad Tener ganas de ayudar",
         availability: [
           const Availability(dayOfWeek: 1, startHour: 12, endHour: 13)
         ],
@@ -77,11 +73,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         category: "Acción Social",
         about: "ASDASDASDA",
         address: "Cabildo 600",
-        requirements: [
-          "Ser mayor de 18 años",
-          "Tener disponibilidad para participar de la actividad",
-          "Tener ganas de ayudar",
-        ],
+        requirements: "Ser mayor de 18 años Tener disponibilidad para participar de la actividad Tener ganas de ayudar",
         availability: [
           const Availability(dayOfWeek: 1, startHour: 12, endHour: 13)
         ],
@@ -98,11 +90,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         category: "Acción Social",
         about: "ASDASDASDA",
         address: "Cabildo 600",
-        requirements: [
-          "Ser mayor de 18 años",
-          "Tener disponibilidad para participar de la actividad",
-          "Tener ganas de ayudar",
-        ],
+        requirements: "Ser mayor de 18 años Tener disponibilidad para participar de la actividad Tener ganas de ayudar",
         availability: [
           const Availability(dayOfWeek: 1, startHour: 12, endHour: 13)
         ],
@@ -119,11 +107,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         category: "Acción Social",
         about: "ASDASDASDA",
         address: "Cabildo 600",
-        requirements: [
-          "Ser mayor de 18 años",
-          "Tener disponibilidad para participar de la actividad",
-          "Tener ganas de ayudar",
-        ],
+        requirements: "Ser mayor de 18 años Tener disponibilidad para participar de la actividad Tener ganas de ayudar",
         availability: [
           const Availability(dayOfWeek: 1, startHour: 12, endHour: 13)
         ],
