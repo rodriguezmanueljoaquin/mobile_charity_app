@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/current_voluntering_card.dart';
+import 'package:mobile_charity_app/design_system/organisms/cards/empty_list_placeholder_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_card.dart';
 import 'package:mobile_charity_app/design_system/tokens/indicators.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
@@ -28,7 +29,6 @@ class VolunteeringsTab extends StatefulWidget {
 
 class _VolunteeringsTabState extends State<VolunteeringsTab>
     with AutomaticKeepAliveClientMixin<VolunteeringsTab> {
-  
   Timer? _debounce;
 
   @override
@@ -128,8 +128,16 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
               }
 
               if (volunteerings == null || volunteerings.isEmpty) {
-                return Center(
-                  child: SerManosText.body1("No hay voluntariados"),
+                return const Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SerManosSpacing.spaceSL,
+                      vertical: SerManosSpacing.spaceMD,
+                    ),
+                    child: EmptyListPlaceholderCard(
+                        text:
+                            "Actualmente no hay voluntariados vigentes. Pronto se irán ircorporando nuevos."),
+                  ),
                 );
               }
 
