@@ -41,16 +41,25 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () => Provider.of<VolunteeringProvider>(context, listen: false)
-          .fetchVolunteerings()
-          .then((_) =>
-              Provider.of<UserProvider?>(context, listen: false)?.fetchUser()),
+      onRefresh: () async {
+        UserProvider userProvider =
+            Provider.of<UserProvider>(context, listen: false);
+        return await userProvider
+            .loadLocation()
+            .then((_) =>
+                Provider.of<VolunteeringProvider>(context, listen: false)
+                    .fetchVolunteerings())
+            .then((_) => userProvider.fetchUser());
+      },
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
           children: [
             const SerManosSizedBox.lg(),
-            SerManosSearchField(controller: widget.searchController, onFieldSubmitted: (_) {},),
+            SerManosSearchField(
+              controller: widget.searchController,
+              onFieldSubmitted: (_) {},
+            ),
             const SerManosSizedBox.lg(),
             Consumer2<UserProvider, VolunteeringProvider>(
               builder: (context, userProvider, volunteeringProvider, child) {

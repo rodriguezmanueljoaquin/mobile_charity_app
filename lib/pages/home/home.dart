@@ -6,7 +6,12 @@ import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/pages/home/tabs/news.dart';
 import 'package:mobile_charity_app/pages/home/tabs/profile.dart';
 import 'package:mobile_charity_app/pages/home/tabs/volunteerings.dart';
+import 'package:mobile_charity_app/providers/user_provider.dart';
+import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 import 'package:mobile_charity_app/routes/home_tabs.dart';
+import 'package:mobile_charity_app/utils/geolocator.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   int activeTabIndex;
@@ -18,6 +23,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => requestLocationPermission()
+            .then(
+              (value) => Provider.of<UserProvider>(context, listen: false)
+                  .loadLocation()
+                  .then(
+                (location) {
+                  if (location != null) {
+                    Provider.of<VolunteeringProvider>(context, listen: false)
+                        .fetchVolunteerings();
+                  }
+                },
+              ),
+            )
+            .catchError((e) => logger.d(e)));
+  }
 
   void _onTap(int tabIndex) {
     if (tabIndex == widget.activeTabIndex) return;

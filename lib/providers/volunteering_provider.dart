@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:mobile_charity_app/api/ser_manos_api.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
@@ -30,9 +32,19 @@ class VolunteeringProvider extends ChangeNotifier {
       List<VolunteeringModel> volunteerings =
           await SerManosApi().getVolunteerings();
       if (_userProvider!.userLocation != null) {
-        // volunteerings.sort((a, b) => a.distance!.compareTo(b.distance!));
-        logger.d('volunteerings: ${volunteerings.length}');
+        // calculate distance to user location
+        final List<VolunteeringModelWithDistance> volunteeringsWithDistance =
+            volunteerings
+                .map((volunteering) => VolunteeringModelWithDistance(
+                      volunteering: volunteering,
+                      target: _userProvider!.userLocation!,
+                    ))
+                .toList();
+        
+        volunteeringsWithDistance.sort();
+        volunteerings = volunteeringsWithDistance.map((e) => e.volunteering).toList();
       }
+      
       _volunteeringsIndexById = listToIndexMapByKey(volunteerings, (e) => e.id);
       _volunteerings = volunteerings;
     } finally {
@@ -138,5 +150,22 @@ class VolunteeringProvider extends ChangeNotifier {
     } finally {
       isApplyingToVolunteering = false;
     }
+  }
+}
+
+class VolunteeringModelWithDistance
+    implements Comparable<VolunteeringModelWithDistance> {
+  final VolunteeringModel volunteering;
+  late final double distance;
+
+  VolunteeringModelWithDistance(
+      {required this.volunteering, required GeoPoint target}) {
+    distance = Geolocator.distanceBetween(target.latitude, target.longitude,
+        volunteering.location.latitude, volunteering.location.longitude);
+  }
+
+  @override
+  int compareTo(VolunteeringModelWithDistance other) {
+    return distance.compareTo(other.distance);
   }
 }

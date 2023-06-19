@@ -33,6 +33,7 @@ dependencies:
   firebase_crashlytics: ^3.3.3
   image_picker: ^0.8.9
   firebase_storage: ^11.2.3
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:

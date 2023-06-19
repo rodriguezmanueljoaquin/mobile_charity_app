@@ -71,7 +71,8 @@ class SerManosApi {
       DocumentSnapshot documentSnapshot =
           await FirebaseFirestore.instance.collection('users').doc(id).get();
 
-      return await UserModel.fromJson(buildProperties(documentSnapshot)).fetchDownloadAvatarURL();
+      return await UserModel.fromJson(buildProperties(documentSnapshot))
+          .fetchDownloadAvatarURL();
     } catch (e) {
       logger.e(e);
       return null;
@@ -107,8 +108,10 @@ class SerManosApi {
 
   Future<List<VolunteeringModel>> getVolunteerings() async {
     try {
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('volunteerings').get();
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('volunteerings')
+          .orderBy('createdAt', descending: false)
+          .get();
 
       return querySnapshot.docs
           .map((e) => VolunteeringModel.fromJson(buildProperties(e)))
@@ -231,7 +234,8 @@ class SerManosApi {
       }
 
       if (avatar != null) {
-        final String key = 'users/${updatedUser.id}'; // should not change but just in case
+        final String key =
+            'users/${updatedUser.id}'; // should not change but just in case
         await uploadFile(key: key, file: avatar);
 
         updatedUser = updatedUser.copyWith(avatarImageKey: key);

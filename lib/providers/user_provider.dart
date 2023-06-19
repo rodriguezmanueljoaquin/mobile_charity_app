@@ -4,8 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:mobile_charity_app/api/ser_manos_api.dart';
 import 'package:mobile_charity_app/models/user.dart';
+import 'package:mobile_charity_app/utils/geolocator.dart';
 import 'package:mobile_charity_app/utils/logger.dart';
 
 class UserProvider extends ChangeNotifier {
@@ -138,5 +140,21 @@ class UserProvider extends ChangeNotifier {
     await SerManosApi().updateProfileInfo(
         updatedUser: updatedUser, changedEmail: changedEmail, avatar: avatar);
     await fetchUser();
+  }
+
+  Future<GeoPoint?> loadLocation() async {
+    Position? position = await getCurrentPosition();
+    if (position != null) {
+      userLocation = GeoPoint(position.latitude, position.longitude);
+
+      await FirebaseAnalytics.instance.logEvent(name: 'userLocation');
+      logger.d('latitude: ${userLocation!.latitude}, longitude: ${userLocation!.longitude}');
+
+      notifyListeners();
+      
+      return userLocation;
+    }
+
+    return null;
   }
 }
