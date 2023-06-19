@@ -74,7 +74,11 @@ class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
           ),
           const SerManosSizedBox.md(),
           SerManosGenderInputCard(
-              onGenderChange: widget.onGenderChange, value: widget.genderValue),
+              onGenderChange: (value) {
+                widget.onGenderChange(value);
+                _inputListener(); // force check to enable form submission
+              },
+              value: widget.genderValue),
           const SerManosSizedBox.md(),
           SerManosEditPhotoCard(
             currentPhotoUrl: widget.currentPhotoUrl,

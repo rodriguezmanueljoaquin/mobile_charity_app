@@ -88,7 +88,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         _loading = false;
       });
       if (_error.isEmpty) {
-        context.replaceNamed(SerManosPagesName.profile);
+        Navigator.pop(context);
       }
     }
   }
