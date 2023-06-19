@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/images.dart';
+import 'package:mobile_charity_app/design_system/atoms/loading_indicator.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
@@ -24,12 +25,14 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _disabled = true;
+  bool _loading = false;
   String _loginError = '';
 
   void _submit() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         _disabled = true;
+        _loading = true;
       });
       await Provider.of<UserProvider>(context, listen: false)
           .login(
@@ -42,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
               }));
       setState(() {
         _disabled = false;
+        _loading = false;
       });
       return;
     }
@@ -85,6 +89,7 @@ class _LoginPageState extends State<LoginPage> {
           SerManosTextButton.longTextButton(
             text: 'Iniciar Sesión',
             disabled: _disabled,
+            loading: _loading,
             onPressed: () async {
               _submit();
             },
@@ -93,6 +98,7 @@ class _LoginPageState extends State<LoginPage> {
           SerManosTextButton.longTextButton(
             text: 'No tengo cuenta',
             filled: false,
+            disabled: _loading,
             onPressed: () {
               context.replaceNamed(SerManosPagesName.signup);
             },

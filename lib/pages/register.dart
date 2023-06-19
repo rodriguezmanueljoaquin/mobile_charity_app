@@ -27,6 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _disabled = true;
+  bool _loading = false;
   String _registerError = '';
 
   void _submit() async {
@@ -41,6 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _registerError = '';
     setState(() {
       _disabled = true;
+      _loading = true;
     });
     await Provider.of<UserProvider>(context, listen: false)
         .register(
@@ -52,6 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
         .then((value) => context.replaceNamed(SerManosPagesName.welcome));
     setState(() {
       _disabled = false;
+      _loading = false;
     });
   }
 
@@ -94,11 +97,12 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
           SerManosTextButton.longTextButton(
-              text: 'Registrarse', disabled: _disabled, onPressed: _submit),
+              text: 'Registrarse', disabled: _disabled, loading: _loading, onPressed: _submit),
           const SerManosSizedBox.sl(),
           SerManosTextButton.longTextButton(
             text: 'Ya tengo cuenta',
             filled: false,
+            disabled: _loading,
             onPressed: () {
               context.replaceNamed(SerManosPagesName.signin);
             },
