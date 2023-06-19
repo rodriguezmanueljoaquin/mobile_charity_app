@@ -192,13 +192,8 @@ class VolunteeringDetailsPage extends StatelessWidget {
                               const SerManosSizedBox.sm(),
                               SerManosText.subtitle1("Disponibilidad"),
                               const SerManosSizedBox.sm(),
-                              ListView(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                children: volunteering.availability
-                                    .map((e) => SerManosText.body1(
-                                        '\u2022 ${availabilityToStr(e)}'))
-                                    .toList(),
+                              MarkdownBody(
+                                data: availabilitiesToMarkdown(volunteering.availability),
                               ),
                               const SerManosSizedBox.sm(),
                               SerManosVacancies(
