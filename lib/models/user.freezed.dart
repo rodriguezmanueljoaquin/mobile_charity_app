@@ -24,7 +24,7 @@ mixin _$UserModel {
   String? get firstName => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
-  String? get avatarURL => throw _privateConstructorUsedError;
+  String? get avatarImageKey => throw _privateConstructorUsedError;
   String? get gender => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime? get birthDate => throw _privateConstructorUsedError;
@@ -32,6 +32,8 @@ mixin _$UserModel {
   String? get currentVolunteeringId => throw _privateConstructorUsedError;
   List<String>? get favoriteVolunteeringsIds =>
       throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  String? get downloadAvatarURL => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,12 +51,13 @@ abstract class $UserModelCopyWith<$Res> {
       String? firstName,
       String? lastName,
       String? email,
-      String? avatarURL,
+      String? avatarImageKey,
       String? gender,
       @TimestampConverter() DateTime? birthDate,
       String? phoneNumber,
       String? currentVolunteeringId,
-      List<String>? favoriteVolunteeringsIds});
+      List<String>? favoriteVolunteeringsIds,
+      @JsonKey(ignore: true) String? downloadAvatarURL});
 }
 
 /// @nodoc
@@ -74,12 +77,13 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? email = freezed,
-    Object? avatarURL = freezed,
+    Object? avatarImageKey = freezed,
     Object? gender = freezed,
     Object? birthDate = freezed,
     Object? phoneNumber = freezed,
     Object? currentVolunteeringId = freezed,
     Object? favoriteVolunteeringsIds = freezed,
+    Object? downloadAvatarURL = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -98,9 +102,9 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      avatarURL: freezed == avatarURL
-          ? _value.avatarURL
-          : avatarURL // ignore: cast_nullable_to_non_nullable
+      avatarImageKey: freezed == avatarImageKey
+          ? _value.avatarImageKey
+          : avatarImageKey // ignore: cast_nullable_to_non_nullable
               as String?,
       gender: freezed == gender
           ? _value.gender
@@ -122,6 +126,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.favoriteVolunteeringsIds
           : favoriteVolunteeringsIds // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      downloadAvatarURL: freezed == downloadAvatarURL
+          ? _value.downloadAvatarURL
+          : downloadAvatarURL // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -138,12 +146,13 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String? firstName,
       String? lastName,
       String? email,
-      String? avatarURL,
+      String? avatarImageKey,
       String? gender,
       @TimestampConverter() DateTime? birthDate,
       String? phoneNumber,
       String? currentVolunteeringId,
-      List<String>? favoriteVolunteeringsIds});
+      List<String>? favoriteVolunteeringsIds,
+      @JsonKey(ignore: true) String? downloadAvatarURL});
 }
 
 /// @nodoc
@@ -161,12 +170,13 @@ class __$$_UserModelCopyWithImpl<$Res>
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? email = freezed,
-    Object? avatarURL = freezed,
+    Object? avatarImageKey = freezed,
     Object? gender = freezed,
     Object? birthDate = freezed,
     Object? phoneNumber = freezed,
     Object? currentVolunteeringId = freezed,
     Object? favoriteVolunteeringsIds = freezed,
+    Object? downloadAvatarURL = freezed,
   }) {
     return _then(_$_UserModel(
       id: null == id
@@ -185,9 +195,9 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      avatarURL: freezed == avatarURL
-          ? _value.avatarURL
-          : avatarURL // ignore: cast_nullable_to_non_nullable
+      avatarImageKey: freezed == avatarImageKey
+          ? _value.avatarImageKey
+          : avatarImageKey // ignore: cast_nullable_to_non_nullable
               as String?,
       gender: freezed == gender
           ? _value.gender
@@ -209,6 +219,10 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value._favoriteVolunteeringsIds
           : favoriteVolunteeringsIds // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      downloadAvatarURL: freezed == downloadAvatarURL
+          ? _value.downloadAvatarURL
+          : downloadAvatarURL // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -221,12 +235,13 @@ class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
       this.firstName,
       this.lastName,
       this.email,
-      this.avatarURL,
+      this.avatarImageKey,
       this.gender,
       @TimestampConverter() this.birthDate,
       this.phoneNumber,
       this.currentVolunteeringId,
-      final List<String>? favoriteVolunteeringsIds})
+      final List<String>? favoriteVolunteeringsIds,
+      @JsonKey(ignore: true) this.downloadAvatarURL})
       : _favoriteVolunteeringsIds = favoriteVolunteeringsIds,
         super._();
 
@@ -242,7 +257,7 @@ class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
   @override
   final String? email;
   @override
-  final String? avatarURL;
+  final String? avatarImageKey;
   @override
   final String? gender;
   @override
@@ -264,8 +279,12 @@ class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
   }
 
   @override
+  @JsonKey(ignore: true)
+  final String? downloadAvatarURL;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserModel(id: $id, firstName: $firstName, lastName: $lastName, email: $email, avatarURL: $avatarURL, gender: $gender, birthDate: $birthDate, phoneNumber: $phoneNumber, currentVolunteeringId: $currentVolunteeringId, favoriteVolunteeringsIds: $favoriteVolunteeringsIds)';
+    return 'UserModel(id: $id, firstName: $firstName, lastName: $lastName, email: $email, avatarImageKey: $avatarImageKey, gender: $gender, birthDate: $birthDate, phoneNumber: $phoneNumber, currentVolunteeringId: $currentVolunteeringId, favoriteVolunteeringsIds: $favoriteVolunteeringsIds, downloadAvatarURL: $downloadAvatarURL)';
   }
 
   @override
@@ -277,13 +296,14 @@ class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('firstName', firstName))
       ..add(DiagnosticsProperty('lastName', lastName))
       ..add(DiagnosticsProperty('email', email))
-      ..add(DiagnosticsProperty('avatarURL', avatarURL))
+      ..add(DiagnosticsProperty('avatarImageKey', avatarImageKey))
       ..add(DiagnosticsProperty('gender', gender))
       ..add(DiagnosticsProperty('birthDate', birthDate))
       ..add(DiagnosticsProperty('phoneNumber', phoneNumber))
       ..add(DiagnosticsProperty('currentVolunteeringId', currentVolunteeringId))
       ..add(DiagnosticsProperty(
-          'favoriteVolunteeringsIds', favoriteVolunteeringsIds));
+          'favoriteVolunteeringsIds', favoriteVolunteeringsIds))
+      ..add(DiagnosticsProperty('downloadAvatarURL', downloadAvatarURL));
   }
 
   @override
@@ -297,8 +317,8 @@ class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
             (identical(other.lastName, lastName) ||
                 other.lastName == lastName) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.avatarURL, avatarURL) ||
-                other.avatarURL == avatarURL) &&
+            (identical(other.avatarImageKey, avatarImageKey) ||
+                other.avatarImageKey == avatarImageKey) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.birthDate, birthDate) ||
                 other.birthDate == birthDate) &&
@@ -307,7 +327,9 @@ class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
             (identical(other.currentVolunteeringId, currentVolunteeringId) ||
                 other.currentVolunteeringId == currentVolunteeringId) &&
             const DeepCollectionEquality().equals(
-                other._favoriteVolunteeringsIds, _favoriteVolunteeringsIds));
+                other._favoriteVolunteeringsIds, _favoriteVolunteeringsIds) &&
+            (identical(other.downloadAvatarURL, downloadAvatarURL) ||
+                other.downloadAvatarURL == downloadAvatarURL));
   }
 
   @JsonKey(ignore: true)
@@ -318,12 +340,13 @@ class _$_UserModel extends _UserModel with DiagnosticableTreeMixin {
       firstName,
       lastName,
       email,
-      avatarURL,
+      avatarImageKey,
       gender,
       birthDate,
       phoneNumber,
       currentVolunteeringId,
-      const DeepCollectionEquality().hash(_favoriteVolunteeringsIds));
+      const DeepCollectionEquality().hash(_favoriteVolunteeringsIds),
+      downloadAvatarURL);
 
   @JsonKey(ignore: true)
   @override
@@ -345,12 +368,13 @@ abstract class _UserModel extends UserModel {
       final String? firstName,
       final String? lastName,
       final String? email,
-      final String? avatarURL,
+      final String? avatarImageKey,
       final String? gender,
       @TimestampConverter() final DateTime? birthDate,
       final String? phoneNumber,
       final String? currentVolunteeringId,
-      final List<String>? favoriteVolunteeringsIds}) = _$_UserModel;
+      final List<String>? favoriteVolunteeringsIds,
+      @JsonKey(ignore: true) final String? downloadAvatarURL}) = _$_UserModel;
   const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -365,7 +389,7 @@ abstract class _UserModel extends UserModel {
   @override
   String? get email;
   @override
-  String? get avatarURL;
+  String? get avatarImageKey;
   @override
   String? get gender;
   @override
@@ -377,6 +401,9 @@ abstract class _UserModel extends UserModel {
   String? get currentVolunteeringId;
   @override
   List<String>? get favoriteVolunteeringsIds;
+  @override
+  @JsonKey(ignore: true)
+  String? get downloadAvatarURL;
   @override
   @JsonKey(ignore: true)
   _$$_UserModelCopyWith<_$_UserModel> get copyWith =>

@@ -32,7 +32,7 @@ class ProfileTab extends StatelessWidget {
               child: Column(
                 children: [
                   Center(
-                    child: SerManosProfilePhoto(url: user.avatarURL),
+                    child: SerManosProfilePhoto(url: user.downloadAvatarURL),
                   ),
                   const SerManosSizedBox.sl(),
                   SerManosText.overline("VOLUNTARIO"),

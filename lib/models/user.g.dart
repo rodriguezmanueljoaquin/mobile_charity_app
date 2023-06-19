@@ -11,7 +11,7 @@ _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
       email: json['email'] as String?,
-      avatarURL: json['avatarURL'] as String?,
+      avatarImageKey: json['avatarImageKey'] as String?,
       gender: json['gender'] as String?,
       birthDate: _$JsonConverterFromJson<Timestamp, DateTime>(
           json['birthDate'], const TimestampConverter().fromJson),
@@ -29,7 +29,7 @@ Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'email': instance.email,
-      'avatarURL': instance.avatarURL,
+      'avatarImageKey': instance.avatarImageKey,
       'gender': instance.gender,
       'birthDate': _$JsonConverterToJson<Timestamp, DateTime>(
           instance.birthDate, const TimestampConverter().toJson),

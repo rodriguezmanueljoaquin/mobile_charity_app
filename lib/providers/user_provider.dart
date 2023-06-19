@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -107,8 +109,34 @@ class UserProvider extends ChangeNotifier {
   }
 
   // update only properties that are not null
-  Future<void> updateProfile(UserModel user) async {
-    await SerManosApi().updateProfileInfo(user);
+  Future<void> updateProfile({
+    String? email,
+    String? gender,
+    DateTime? birthDate,
+    String? phoneNumber,
+    File? avatar,
+  }) async {
+    final bool changedEmail = email != null && email != user!.email;
+    UserModel updatedUser = user!.copyWith();
+
+    if (changedEmail) {
+      updatedUser = updatedUser.copyWith(email: email);
+    }
+
+    if (gender != null) {
+      updatedUser = updatedUser.copyWith(gender: gender);
+    }
+
+    if (birthDate != null) {
+      updatedUser = updatedUser.copyWith(birthDate: birthDate);
+    }
+
+    if (phoneNumber != null) {
+      updatedUser = updatedUser.copyWith(phoneNumber: phoneNumber);
+    }
+
+    await SerManosApi().updateProfileInfo(
+        updatedUser: updatedUser, changedEmail: changedEmail, avatar: avatar);
     await fetchUser();
   }
 }

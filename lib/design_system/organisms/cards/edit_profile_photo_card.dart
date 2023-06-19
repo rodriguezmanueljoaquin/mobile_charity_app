@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/components.dart';
@@ -7,10 +11,12 @@ import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
 class SerManosEditPhotoCard extends StatefulWidget {
   final String? currentPhotoUrl;
+  final Function(File?) onChange;
 
   const SerManosEditPhotoCard({
     super.key,
     this.currentPhotoUrl,
+    required this.onChange,
   });
 
   @override
@@ -19,6 +25,20 @@ class SerManosEditPhotoCard extends StatefulWidget {
 
 class _SerManosEditPhotoCardState extends State<SerManosEditPhotoCard> {
   Widget title = SerManosText.subtitle1("Foto de perfil");
+  File? _image;
+
+  Future<void> _pickImage() async {
+    try {
+      final XFile? pickedImage =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedImage == null) return;
+      final imageTemp = File(pickedImage.path);
+      widget.onChange(imageTemp);
+      setState(() => _image = imageTemp);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +47,7 @@ class _SerManosEditPhotoCardState extends State<SerManosEditPhotoCard> {
     if (widget.currentPhotoUrl == null) {
       leftWidget = title;
       rightWidget = SerManosTextButton.shortTextButton(
-          text: "Subir foto", small: true, onPressed: () {});
+          text: "Subir foto", small: true, onPressed: _pickImage);
     } else {
       leftWidget = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,11 +55,15 @@ class _SerManosEditPhotoCardState extends State<SerManosEditPhotoCard> {
           title,
           const SerManosSizedBox.sm(),
           SerManosTextButton.shortTextButton(
-              text: "Cambiar foto", small: true, onPressed: () {})
+            text: "Cambiar foto",
+            small: true,
+            onPressed: _pickImage,
+          )
         ],
       );
       rightWidget = SerManosProfilePhoto(
         url: widget.currentPhotoUrl,
+        image: _image,
         smallSize: true,
       );
     }

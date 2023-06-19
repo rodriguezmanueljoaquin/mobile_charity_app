@@ -31,6 +31,8 @@ dependencies:
   flutter_markdown: ^0.6.15
   firebase_analytics: ^10.4.3
   firebase_crashlytics: ^3.3.3
+  image_picker: ^0.8.9
+  firebase_storage: ^11.2.3
 
 dev_dependencies:
   flutter_test:

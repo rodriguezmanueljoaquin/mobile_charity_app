@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
@@ -9,13 +11,16 @@ class SerManosProfileDataForm extends StatefulWidget {
   final Function(bool) changeDisabledStateTo;
   final String? currentPhotoUrl;
   final TextEditingController dateController;
+  final Function(File?) onImageChange;
 
-  const SerManosProfileDataForm(
-      {super.key,
-      required this.formKey,
-      required this.changeDisabledStateTo,
-      required this.dateController,
-      this.currentPhotoUrl});
+  const SerManosProfileDataForm({
+    super.key,
+    required this.formKey,
+    required this.changeDisabledStateTo,
+    required this.dateController,
+    required this.onImageChange,
+    this.currentPhotoUrl,
+  });
 
   @override
   State<SerManosProfileDataForm> createState() =>
@@ -68,6 +73,7 @@ class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
           const SerManosSizedBox.md(),
           SerManosEditPhotoCard(
             currentPhotoUrl: widget.currentPhotoUrl,
+            onChange: widget.onImageChange,
           )
         ],
       ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +19,7 @@ import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
+import 'package:mobile_charity_app/utils/firestore.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -33,20 +36,30 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  File? _image;
   String _error = '';
+  String? _currentPhotoUrl;
 
   @override
   void initState() {
     super.initState();
 
-    final UserModel user = Provider.of<UserProvider>(context, listen: false).user!;
+    final UserModel user =
+        Provider.of<UserProvider>(context, listen: false).user!;
     _dateController.text = DateFormat('dd/MM/yyyy').format(user.birthDate!);
     _phoneController.text = user.phoneNumber!;
     _emailController.text = user.email!;
+    _currentPhotoUrl = user.downloadAvatarURL;
+  }
+
+  void onImageChange(File? image) {
+    setState(() {
+      _image = image;
+    });
   }
 
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
     return SerManosScaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -75,8 +88,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 const SerManosSizedBox.sl(),
                 SerManosProfileDataForm(
                   dateController: _dateController,
-                  currentPhotoUrl: "https://via.placeholder.com/150",
+                  currentPhotoUrl: _currentPhotoUrl,
                   formKey: _profileDataFormKey,
+                  onImageChange: onImageChange,
                   changeDisabledStateTo: (bool state) {
                     setState(() {
                       _disabled = state;
@@ -112,13 +126,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   UserProvider userProvider =
                       Provider.of<UserProvider>(context, listen: false);
 
-                  final UserModel updatedUser = userProvider.user!.copyWith(
-                    phoneNumber: _phoneController.text,
+                  await userProvider.updateProfile(
                     email: _emailController.text,
-                    birthDate: DateFormat('dd/MM/yyyy').parse(_dateController.text),
+                    phoneNumber: _phoneController.text,
+                    birthDate: _dateController.text != null
+                        ? DateFormat('dd/MM/yyyy').parse(_dateController.text)
+                        : null,
+                    avatar: _image,
                   );
-
-                  await userProvider.updateProfile(updatedUser);
 
                   setState(() {
                     _error = ""; // TODO: Assign api response
