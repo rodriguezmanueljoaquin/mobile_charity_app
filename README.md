@@ -15,7 +15,12 @@
     4. [State Management](#state-management)
     5. [Deep Links](#deep-links)
     6. [Testing](#testing)
-3. [Autores](#autores)
+3. [Requerimientos no funcionales](#requerimientos-no-funcionales)
+    1. [Monitoreo y eventos](#monitoreo-y-eventos)
+    2. [Seguridad](#seguridad)
+    3. [Privacidad](#privacidad)
+    4. [Usabilidad](#usabilidad)
+4. [Autores](#autores)
 
 <br/>
 
