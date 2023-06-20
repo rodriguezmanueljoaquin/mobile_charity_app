@@ -47,19 +47,22 @@ class _SerManosEditPhotoCardState extends State<SerManosEditPhotoCard> {
     if (widget.currentPhotoUrl == null) {
       leftWidget = title;
       rightWidget = SerManosTextButton.shortTextButton(
-          text: "Subir foto", small: true, onPressed: _pickImage);
+          text: "Subir foto", onPressed: _pickImage);
     } else {
-      leftWidget = Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          title,
-          const SerManosSizedBox.sm(),
-          SerManosTextButton.shortTextButton(
-            text: "Cambiar foto",
-            small: true,
-            onPressed: _pickImage,
-          )
-        ],
+      leftWidget = Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            title,
+            const SerManosSizedBox.sm(),
+            SerManosTextButton.shortTextButton(
+              text: "Cambiar foto",
+              onPressed: _pickImage,
+            )
+          ],
+        ),
       );
       rightWidget = SerManosProfilePhoto(
         url: widget.currentPhotoUrl,

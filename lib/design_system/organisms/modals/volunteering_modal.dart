@@ -52,6 +52,7 @@ class _SerManosVolunteeringModalState extends State<SerManosVolunteeringModal> {
               SerManosText.subtitle1(widget.title),
               if (widget.volunteering != null)
                 SerManosText.headline2(widget.volunteering!.title),
+              const SerManosSizedBox.sm()
             ],
           ),
         ),

@@ -20,8 +20,8 @@ class SerManosTextButton extends TextButton {
           onPressed: (disabled || loading) ? null : onPressed,
           onLongPress: (disabled || loading) ? null : onLongPress,
           child: Container(
-            margin: const EdgeInsets.symmetric(
-              vertical: 12.0,
+            margin: EdgeInsets.symmetric(
+              vertical: filled ? 12 : 6,
             ),
             width: SerManosSizes.sizeLG,
             child: Center(
@@ -61,16 +61,14 @@ class SerManosTextButton extends TextButton {
     required String text,
     bool disabled = false,
     bool filled = true,
-    bool small = false,
     bool loading = false,
     Icon? icon,
   }) : super(
           onPressed: (disabled || loading) ? null : onPressed,
           onLongPress: (disabled || loading) ? null : onLongPress,
           child: Container(
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               horizontal: SerManosSpacing.spaceSM,
-              vertical: small ? 10.0 : 14.0,
             ),
             height: null,
             width: null,
