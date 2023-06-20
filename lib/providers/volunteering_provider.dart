@@ -97,8 +97,8 @@ class VolunteeringProvider extends ChangeNotifier {
       await fetchVolunteerings();
       await _userProvider!.fetchUser();
     } catch (e) {
-      // TODO: handle error
       logger.e(e);
+      rethrow;
     } finally {
       isApplyingToVolunteering = false;
     }

@@ -31,10 +31,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void _submit() async {
     if (!_formKey.currentState!.validate()) {
-      setState(() {
-        _registerError =
-            "Este email ya ha sido utilizado."; // TODO: Assign api response
-      });
       return;
     }
 
