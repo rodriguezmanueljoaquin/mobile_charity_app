@@ -76,7 +76,7 @@ class UserProvider extends ChangeNotifier {
         name: 'favorite_volunteering',
         parameters: {
           'volunteering_id': volunteeringId,
-          'is_favorite': isFavorite,
+          'is_favorite': isFavorite.toString(),
         },
       );
 
@@ -148,10 +148,11 @@ class UserProvider extends ChangeNotifier {
       userLocation = GeoPoint(position.latitude, position.longitude);
 
       await FirebaseAnalytics.instance.logEvent(name: 'userLocation');
-      logger.d('latitude: ${userLocation!.latitude}, longitude: ${userLocation!.longitude}');
+      logger.d(
+          'latitude: ${userLocation!.latitude}, longitude: ${userLocation!.longitude}');
 
       notifyListeners();
-      
+
       return userLocation;
     }
 
