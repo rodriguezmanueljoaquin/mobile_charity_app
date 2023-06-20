@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 
-class SerManosScaffold extends StatelessWidget {
+class SerManosDefaultScaffold extends StatelessWidget {
   final Widget body;
   final bool applyPadding;
   final bool whiteStatusBar;
 
-  const SerManosScaffold({
+  const SerManosDefaultScaffold({
     super.key,
     required this.body,
     this.applyPadding = true,
@@ -41,6 +42,40 @@ class SerManosScaffold extends StatelessWidget {
           child: body,
         ),
       ),
+    );
+  }
+}
+
+class SerManosLightBlueScaffold extends StatelessWidget {
+  final Widget body;
+  final Color backgroundColor;
+  final PreferredSize? bottom;
+
+  const SerManosLightBlueScaffold({
+    super.key,
+    required this.body,
+    this.backgroundColor = SerManosColors.neutral0,
+    this.bottom,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: backgroundColor,
+      appBar: AppBar(
+        backgroundColor: SerManosColors.secondary90,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: SerManosColors.secondary90,
+        ),
+        shadowColor: null,
+        elevation: 0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [SerManosImages.appBar, const Spacer()],
+        ),
+        bottom: bottom,
+      ),
+      body: body,
     );
   }
 }

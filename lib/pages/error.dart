@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
-import 'package:mobile_charity_app/design_system/tokens/colors.dart';
+import 'package:mobile_charity_app/design_system/molecules/scaffolds.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
@@ -18,17 +16,7 @@ class ErrorPage extends StatelessWidget {
     final bool isLoggedIn =
         Provider.of<UserProvider>(context, listen: false).user != null;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: SerManosColors.secondary90,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: SerManosColors.secondary90,
-        ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [SerManosImages.appBar, const Spacer()],
-        ),
-      ),
+    return SerManosLightBlueScaffold(
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

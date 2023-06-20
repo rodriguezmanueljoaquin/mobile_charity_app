@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/images.dart';
+import 'package:mobile_charity_app/design_system/molecules/scaffolds.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/pages/home/tabs/news.dart';
 import 'package:mobile_charity_app/pages/home/tabs/profile.dart';
@@ -57,22 +58,11 @@ class _HomePageState extends State<HomePage> {
     return DefaultTabController(
       length: HomeTabs.values.length,
       initialIndex: widget.activeTabIndex,
-      child: Scaffold(
+      child: SerManosLightBlueScaffold(
         backgroundColor: widget.activeTabIndex == HomeTabs.profile.index
             ? SerManosColors.neutral0
             : SerManosColors.secondary10,
-        appBar: AppBar(
-          backgroundColor: SerManosColors.secondary90,
-          systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: SerManosColors.secondary90,
-          ),
-          shadowColor: null,
-          elevation: 0,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [SerManosImages.appBar, const Spacer()],
-          ),
-          bottom: PreferredSize(
+        bottom: PreferredSize(
             preferredSize: const Size.fromHeight(50.0),
             child: ColoredBox(
               color: SerManosColors.secondary100,
@@ -99,8 +89,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-        ),
-        body: TabBarView(
+          body: TabBarView(
           children: [
             VolunteeringsTab(
               searchController: searchController,

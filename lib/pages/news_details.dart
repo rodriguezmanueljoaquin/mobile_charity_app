@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
-import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
+import 'package:mobile_charity_app/design_system/molecules/scaffolds.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
@@ -62,7 +62,7 @@ class NewsDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<NewsProvider>(builder: (context, newsProvider, child) {
       if (newsProvider.news == null) {
-        return const SerManosScaffold(
+        return const SerManosDefaultScaffold(
           applyPadding: false,
           whiteStatusBar: false,
           body: Center(
@@ -77,7 +77,7 @@ class NewsDetailsPage extends StatelessWidget {
         return const ErrorPage();
       }
 
-      return SerManosScaffold(
+      return SerManosDefaultScaffold(
         applyPadding: false,
         whiteStatusBar: false,
         body: Column(

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:go_router/go_router.dart';
@@ -7,7 +5,7 @@ import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/components.dart';
-import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
+import 'package:mobile_charity_app/design_system/molecules/scaffolds.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/location_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/modals/volunteering_modal.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
@@ -122,7 +120,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
     return Consumer2<VolunteeringProvider, UserProvider>(
       builder: (context, volunteeringProvider, userProvider, child) {
         if (volunteeringProvider.volunteerings == null) {
-          return const SerManosScaffold(
+          return const SerManosDefaultScaffold(
             applyPadding: false,
             whiteStatusBar: false,
             body: Center(
@@ -142,7 +140,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
         bool userIsAlreadyVolunteer =
             user.currentVolunteeringId == volunteering.id;
 
-        return SerManosScaffold(
+        return SerManosDefaultScaffold(
           applyPadding: false,
           whiteStatusBar: false,
           body: Column(
