@@ -254,23 +254,43 @@ class VolunteeringDetailsPage extends StatelessWidget {
               SizedBox(
                 width: SerManosSizes.sizeLG,
                 child: userIsAlreadyVolunteer
-                    ? Column(
-                        children: [
-                          SerManosText.headline2("Te has postulado"),
-                          const SerManosSizedBox.sm(),
-                          SerManosText.body1(
-                              textAlign: TextAlign.center,
-                              "Pronto la organización se pondrá en contacto contigo y te inscribirá como participante."),
-                          const SerManosSizedBox.sm(),
-                          SerManosTextButton.longTextButton(
-                            text: 'Retirar postulación',
-                            filled: false,
-                            onPressed: _getCancelDialogFunc(
-                                context: context, volunteering: volunteering),
-                          ),
-                          const SerManosSizedBox.md(),
-                        ],
-                      )
+                    ? volunteering.userIsParticipant(user.id)
+                        ? Column(
+                            children: [
+                              SerManosText.headline2("Estas participando"),
+                              const SerManosSizedBox.sm(),
+                              SerManosText.body1(
+                                  textAlign: TextAlign.center,
+                                  "La organización confirmó que ya estas participando de este voluntariado."),
+                              const SerManosSizedBox.sm(),
+                              SerManosTextButton.longTextButton(
+                                text: 'Abandonar voluntariado',
+                                filled: false,
+                                onPressed: _getAbandonDialogFunc(
+                                    context: context,
+                                    volunteering: volunteering),
+                              ),
+                              const SerManosSizedBox.md(),
+                            ],
+                          )
+                        : Column(
+                            children: [
+                              SerManosText.headline2("Te has postulado"),
+                              const SerManosSizedBox.sm(),
+                              SerManosText.body1(
+                                  textAlign: TextAlign.center,
+                                  "Pronto la organización se pondrá en contacto contigo y te inscribirá como participante."),
+                              const SerManosSizedBox.sm(),
+                              SerManosTextButton.longTextButton(
+                                text: 'Retirar postulación',
+                                filled: false,
+                                onPressed: _getCancelDialogFunc(
+                                    context: context,
+                                    volunteering: volunteering),
+                              ),
+                              const SerManosSizedBox.md(),
+                            ],
+                          )
                     : Column(
                         children: [
                           if (user.currentVolunteeringId != null)
