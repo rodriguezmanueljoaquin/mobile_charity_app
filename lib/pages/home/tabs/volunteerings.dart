@@ -67,100 +67,108 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                     .fetchVolunteerings())
             .then((_) => userProvider.fetchUser());
       },
-      child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            const SerManosSizedBox.lg(),
-            SerManosSearchField(
-              controller: widget.searchController,
-              onFieldSubmitted: (_) {},
+      child: LayoutBuilder(
+        builder: (context, constraints) => SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: constraints.maxHeight,
             ),
-            const SerManosSizedBox.lg(),
-            Consumer2<UserProvider, VolunteeringProvider>(
-              builder: (context, userProvider, volunteeringProvider, child) {
-                String? currentVolunteeringId =
-                    userProvider.user?.currentVolunteeringId;
-                if (currentVolunteeringId == null ||
-                    volunteeringProvider.isFetchingVolunteerings) {
-                  return const SizedBox();
-                }
-
-                String? currentVolunteeringTitle = volunteeringProvider
-                    .getVolunteeringById(currentVolunteeringId)
-                    ?.title;
-
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SerManosText.headline1("Tu actividad"),
-                    const SerManosSizedBox.sl(),
-                    SerManosCurrentVolunteringCard(
-                      title: currentVolunteeringTitle,
-                    ),
-                    const SerManosSizedBox.md(),
-                  ],
-                );
-              },
-            ),
-            SizedBox(
-              width: SerManosSizes.sizeLG,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: SerManosText.headline1("Voluntariados"),
-              ),
-            ),
-            Consumer<VolunteeringProvider>(
-                builder: (context, volunteeringProvider, child) {
-              if (volunteeringProvider.isFetchingVolunteerings) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-
-              List<VolunteeringModel>? volunteerings =
-                  volunteeringProvider.volunteerings;
-
-              if (widget.searchController.text.isNotEmpty) {
-                volunteerings = volunteeringProvider
-                    .searchVolunteeringsByTitleAndDescription(
-                        widget.searchController.text);
-              }
-
-              if (volunteerings == null || volunteerings.isEmpty) {
-                return const Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
+            child: Column(
+              children: [
+                const SerManosSizedBox.lg(),
+                SerManosSearchField(
+                  controller: widget.searchController,
+                  onFieldSubmitted: (_) {},
+                ),
+                const SerManosSizedBox.lg(),
+                Consumer2<UserProvider, VolunteeringProvider>(
+                  builder:
+                      (context, userProvider, volunteeringProvider, child) {
+                    String? currentVolunteeringId =
+                        userProvider.user?.currentVolunteeringId;
+                    if (currentVolunteeringId == null ||
+                        volunteeringProvider.isFetchingVolunteerings) {
+                      return const SizedBox();
+                    }
+                    
+                    String? currentVolunteeringTitle = volunteeringProvider
+                        .getVolunteeringById(currentVolunteeringId)
+                        ?.title;
+                    
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SerManosText.headline1("Tu actividad"),
+                        const SerManosSizedBox.sl(),
+                        SerManosCurrentVolunteringCard(
+                          title: currentVolunteeringTitle,
+                        ),
+                        const SerManosSizedBox.md(),
+                      ],
+                    );
+                  },
+                ),
+                SizedBox(
+                  width: SerManosSizes.sizeLG,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: SerManosText.headline1("Voluntariados"),
+                  ),
+                ),
+                Consumer<VolunteeringProvider>(
+                    builder: (context, volunteeringProvider, child) {
+                  if (volunteeringProvider.isFetchingVolunteerings) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                        
+                  List<VolunteeringModel>? volunteerings =
+                      volunteeringProvider.volunteerings;
+                        
+                  if (widget.searchController.text.isNotEmpty) {
+                    volunteerings = volunteeringProvider
+                        .searchVolunteeringsByTitleAndDescription(
+                            widget.searchController.text);
+                  }
+                        
+                  if (volunteerings == null || volunteerings.isEmpty) {
+                    return const Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: SerManosSpacing.spaceSL,
+                          vertical: SerManosSpacing.spaceMD,
+                        ),
+                        child: EmptyListPlaceholderCard(
+                            text:
+                                "Actualmente no hay voluntariados vigentes. Pronto se irán ircorporando nuevos."),
+                      ),
+                    );
+                  }
+                        
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.symmetric(
                       horizontal: SerManosSpacing.spaceSL,
                       vertical: SerManosSpacing.spaceMD,
                     ),
-                    child: EmptyListPlaceholderCard(
-                        text:
-                            "Actualmente no hay voluntariados vigentes. Pronto se irán ircorporando nuevos."),
-                  ),
-                );
-              }
-
-              return ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: SerManosSpacing.spaceSL,
-                  vertical: SerManosSpacing.spaceMD,
-                ),
-                itemBuilder: (context, index) {
-                  return UnconstrainedBox(
-                    child: SerManosVolunteeringCard(
-                      volunteering: volunteerings![index],
-                    ),
+                    itemBuilder: (context, index) {
+                      return UnconstrainedBox(
+                        child: SerManosVolunteeringCard(
+                          volunteering: volunteerings![index],
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) =>
+                        const SerManosSizedBox.md(),
+                    itemCount: volunteerings.length,
                   );
-                },
-                separatorBuilder: (context, index) =>
-                    const SerManosSizedBox.md(),
-                itemCount: volunteerings.length,
-              );
-            }),
-          ],
+                }),
+              ],
+            ),
+          ),
         ),
       ),
     );
