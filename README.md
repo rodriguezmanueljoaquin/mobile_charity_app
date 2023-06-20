@@ -27,7 +27,7 @@
 ## Descripción
 Este repositorio contiene el código fuente de la aplicación de flutter desarrollada para el trabajo práctico de la materia 73.21 - Desarrollo de Aplicaciones Móviles Multiplataforma del ITBA, que consiste en una aplicación desarrollada en Flutter para que personas puedan, principalmente, averiguar sobre voluntariados cercanos e inscribirse a ellos.
 
-En nuestro caso se desarrolló la funcionalidad extra de refresh de voluntariados, un voluntariado en particular y noticias.
+En nuestro caso se desarrolló la funcionalidad extra de pull to refresh de voluntariados, un voluntariado en particular y noticias.
 
 <br/>
 
@@ -84,7 +84,16 @@ Se ejecutaran golden tests para asegurar que nada haya cambiado en la UI respect
 Lorem ipsum
 
 ### Seguridad
-Lorem ipsum
+La comunicación con el backend es vía HTTPS, por lo que la información viaja encriptada.
+
+Adicionalmente, se utilizó [FlutterDotenv](https://pub.dev/packages/flutter_dotenv) para manejar las variables de entorno conteniendo las credenciales, de forma que las mismas no se encuentren hardcodeadas en el código fuente de la aplicación, e ignorando el archivo `.env` en el `.gitignore` para que no se suba al repositorio.
+
+Finalmente, se ignoraron los siguientes archivos dado que contenían información sensible:
+- `android/app/google-services.json`
+- `ios/firebase_app_id_file.json`
+- `ios/Runner/GoogleService-Info.plist`
+- `macos/firebase_app_id_file.json`
+- `macos/Runner/GoogleService-Info.plist`
 
 ### Privacidad
 Lorem ipsum
