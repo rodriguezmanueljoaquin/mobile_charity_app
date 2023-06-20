@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:mobile_charity_app/main.dart';
 import 'package:mobile_charity_app/pages/edit_profile.dart';
 import 'package:mobile_charity_app/pages/entry.dart';
 import 'package:mobile_charity_app/pages/error.dart';
 import 'package:mobile_charity_app/pages/home/home.dart';
-import 'package:mobile_charity_app/pages/home/tabs/news.dart';
 import 'package:mobile_charity_app/pages/login.dart';
 import 'package:mobile_charity_app/pages/news_details.dart';
 import 'package:mobile_charity_app/pages/register.dart';
@@ -17,7 +14,6 @@ import 'package:mobile_charity_app/providers/news_provider.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 import 'package:mobile_charity_app/routes/home_tabs.dart';
-import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:provider/provider.dart';
 

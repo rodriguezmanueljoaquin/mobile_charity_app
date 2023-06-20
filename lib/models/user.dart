@@ -35,7 +35,6 @@ class UserModel with _$UserModel {
         firstName,
         lastName,
         email,
-        avatarImageKey,
         gender,
         birthDate,
         phoneNumber

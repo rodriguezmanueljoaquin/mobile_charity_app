@@ -34,10 +34,12 @@ class SerManosProfileDataForm extends StatefulWidget {
 class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
   late final TextEditingController _dateController;
   bool _allowSubmission = false;
+  bool _genderSelected = false;
 
   @override
   void initState() {
     super.initState();
+    _genderSelected = widget.genderValue != null;
     _dateController = widget.dateController;
   }
 
@@ -48,7 +50,7 @@ class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
   }
 
   void _inputListener() {
-    if (_dateController.text.isNotEmpty) {
+    if (_dateController.text.isNotEmpty && _genderSelected) {
       bool isValid = widget.formKey.currentState!.validate();
       widget.changeDisabledStateTo(!isValid);
       setState(() {
@@ -75,6 +77,7 @@ class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
           const SerManosSizedBox.md(),
           SerManosGenderInputCard(
               onGenderChange: (value) {
+                _genderSelected = true;
                 widget.onGenderChange(value);
                 _inputListener(); // force check to enable form submission
               },

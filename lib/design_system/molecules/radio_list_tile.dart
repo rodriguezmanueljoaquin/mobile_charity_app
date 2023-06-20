@@ -44,10 +44,10 @@ class _SerManosRadioListTileState extends State<SerManosRadioListTile> {
                 value: option.key,
                 groupValue: _selectedValue,
                 onChanged: (id) {
+                  widget.onGenderChange(id);
                   setState(() {
                     _selectedValue = id;
                   });
-                  widget.onGenderChange(id);
                 },
               ),
               SerManosText.body1(option.value)

@@ -17,6 +17,7 @@ import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/utils/handle_exception.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -30,6 +31,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final _profileDataFormKey = GlobalKey<FormState>();
   final _contactDataFormKey = GlobalKey<FormState>();
   bool _disabled = true;
+  bool _contactFormCompleted = false;
+  bool _profileFormCompleted = false;
+
   bool _loading = false;
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
@@ -52,6 +56,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _emailController.text = user.email ?? '';
     _genderIdSelected = genderIdByName[user.gender];
     _currentPhotoUrl = user.downloadAvatarURL;
+    _profileFormCompleted = user.birthDate != null && user.gender != null;
+    _contactFormCompleted = user.phoneNumber != null && user.email != null;
   }
 
   void onImageChange(File? image) {
@@ -61,7 +67,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   void _submit() async {
-    if (_contactDataFormKey.currentState!.validate()) {
+    if (_contactFormCompleted && _profileFormCompleted) {
       setState(() {
         _disabled = true;
         _loading = true;
@@ -96,9 +102,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
         _loading = false;
       });
 
-      if (hasErrors) {
+      if (!hasErrors) {
         context.pop();
       }
+    }
+  }
+
+  void checkForm() {
+    if (_profileFormCompleted && _contactFormCompleted && _disabled) {
+      setState(() {
+        _disabled = false;
+      });
     }
   }
 
@@ -138,9 +152,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   onGenderChange: (id) => _genderIdSelected = id,
                   genderValue: _genderIdSelected,
                   changeDisabledStateTo: (bool state) {
-                    setState(() {
-                      _disabled = state;
-                    });
+                    _profileFormCompleted =
+                        !state; // if state is true, form is not completed (buttonn has to be disabled)
+                    checkForm();
                   },
                 ),
                 const SerManosSizedBox.sm(),
@@ -151,9 +165,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   phoneController: _phoneController,
                   emailController: _emailController,
                   changeDisabledStateTo: (bool state) {
-                    setState(() {
-                      _disabled = state;
-                    });
+                    _contactFormCompleted =
+                        !state; // if state is true, form is not completed (buttonn has to be disabled)
+                    checkForm();
                   },
                 ),
               ],
