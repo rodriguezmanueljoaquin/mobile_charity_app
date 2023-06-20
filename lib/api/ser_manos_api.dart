@@ -178,7 +178,6 @@ class SerManosApi {
       await FirebaseFirestore.instance.collection('users').doc(userId).update({
         'favoriteVolunteeringsIds': fieldValue,
       });
-
     } catch (e) {
       logger.e(e);
       rethrow;
@@ -189,8 +188,6 @@ class SerManosApi {
     required String userId,
     required String volunteeringId,
   }) async {
-    // Decrease vacancies by 1 and set current volunteering id
-    // Check that vacancies > 0
     DocumentSnapshot volunteeringSnapshot = await FirebaseFirestore.instance
         .collection('volunteerings')
         .doc(volunteeringId)
@@ -199,6 +196,7 @@ class SerManosApi {
     VolunteeringModel volunteering =
         VolunteeringModel.fromJson(buildProperties(volunteeringSnapshot));
 
+    // Check that vacancies > 0
     if (volunteering.vacancies <= 0) {
       throw Exception('No vacancies available');
     }
@@ -207,7 +205,6 @@ class SerManosApi {
         .collection('volunteerings')
         .doc(volunteeringId)
         .update({
-      'vacancies': volunteering.vacancies - 1,
       'volunteersIds': FieldValue.arrayUnion([userId]),
     });
 
@@ -220,13 +217,13 @@ class SerManosApi {
     required String userId,
     required String volunteeringId,
   }) async {
-    // Increase vacancies by 1 and set current volunteering id to null
     await FirebaseFirestore.instance
         .collection('volunteerings')
         .doc(volunteeringId)
         .update({
-      'vacancies': FieldValue.increment(1),
       'volunteersIds': FieldValue.arrayRemove([userId]),
+      'participantsIds':
+          FieldValue.arrayRemove([userId]), // maybe user is participant
     });
 
     await FirebaseFirestore.instance.collection('users').doc(userId).update({

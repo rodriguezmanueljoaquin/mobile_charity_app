@@ -29,10 +29,11 @@ mixin _$VolunteeringModel {
   String get address => throw _privateConstructorUsedError;
   String get requirements => throw _privateConstructorUsedError;
   List<Availability> get availability => throw _privateConstructorUsedError;
-  int get vacancies => throw _privateConstructorUsedError;
+  int get maxVacancies => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
   List<String> get volunteersIds => throw _privateConstructorUsedError;
+  List<String> get participantsIds => throw _privateConstructorUsedError;
   @GeoPointConverter()
   GeoPoint get location => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -60,9 +61,10 @@ abstract class $VolunteeringModelCopyWith<$Res> {
       String address,
       String requirements,
       List<Availability> availability,
-      int vacancies,
+      int maxVacancies,
       @TimestampConverter() DateTime createdAt,
       List<String> volunteersIds,
+      List<String> participantsIds,
       @GeoPointConverter() GeoPoint location,
       @JsonKey(ignore: true) String? downloadImageURL});
 }
@@ -89,9 +91,10 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
     Object? address = null,
     Object? requirements = null,
     Object? availability = null,
-    Object? vacancies = null,
+    Object? maxVacancies = null,
     Object? createdAt = null,
     Object? volunteersIds = null,
+    Object? participantsIds = null,
     Object? location = null,
     Object? downloadImageURL = freezed,
   }) {
@@ -132,9 +135,9 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
           ? _value.availability
           : availability // ignore: cast_nullable_to_non_nullable
               as List<Availability>,
-      vacancies: null == vacancies
-          ? _value.vacancies
-          : vacancies // ignore: cast_nullable_to_non_nullable
+      maxVacancies: null == maxVacancies
+          ? _value.maxVacancies
+          : maxVacancies // ignore: cast_nullable_to_non_nullable
               as int,
       createdAt: null == createdAt
           ? _value.createdAt
@@ -143,6 +146,10 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
       volunteersIds: null == volunteersIds
           ? _value.volunteersIds
           : volunteersIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      participantsIds: null == participantsIds
+          ? _value.participantsIds
+          : participantsIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
       location: null == location
           ? _value.location
@@ -174,9 +181,10 @@ abstract class _$$_VolunteeringModelCopyWith<$Res>
       String address,
       String requirements,
       List<Availability> availability,
-      int vacancies,
+      int maxVacancies,
       @TimestampConverter() DateTime createdAt,
       List<String> volunteersIds,
+      List<String> participantsIds,
       @GeoPointConverter() GeoPoint location,
       @JsonKey(ignore: true) String? downloadImageURL});
 }
@@ -201,9 +209,10 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
     Object? address = null,
     Object? requirements = null,
     Object? availability = null,
-    Object? vacancies = null,
+    Object? maxVacancies = null,
     Object? createdAt = null,
     Object? volunteersIds = null,
+    Object? participantsIds = null,
     Object? location = null,
     Object? downloadImageURL = freezed,
   }) {
@@ -244,9 +253,9 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
           ? _value._availability
           : availability // ignore: cast_nullable_to_non_nullable
               as List<Availability>,
-      vacancies: null == vacancies
-          ? _value.vacancies
-          : vacancies // ignore: cast_nullable_to_non_nullable
+      maxVacancies: null == maxVacancies
+          ? _value.maxVacancies
+          : maxVacancies // ignore: cast_nullable_to_non_nullable
               as int,
       createdAt: null == createdAt
           ? _value.createdAt
@@ -255,6 +264,10 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
       volunteersIds: null == volunteersIds
           ? _value._volunteersIds
           : volunteersIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      participantsIds: null == participantsIds
+          ? _value._participantsIds
+          : participantsIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
       location: null == location
           ? _value.location
@@ -281,13 +294,15 @@ class _$_VolunteeringModel extends _VolunteeringModel {
       required this.address,
       required this.requirements,
       required final List<Availability> availability,
-      required this.vacancies,
+      required this.maxVacancies,
       @TimestampConverter() required this.createdAt,
       required final List<String> volunteersIds,
+      required final List<String> participantsIds,
       @GeoPointConverter() required this.location,
       @JsonKey(ignore: true) this.downloadImageURL})
       : _availability = availability,
         _volunteersIds = volunteersIds,
+        _participantsIds = participantsIds,
         super._();
 
   factory _$_VolunteeringModel.fromJson(Map<String, dynamic> json) =>
@@ -318,7 +333,7 @@ class _$_VolunteeringModel extends _VolunteeringModel {
   }
 
   @override
-  final int vacancies;
+  final int maxVacancies;
   @override
   @TimestampConverter()
   final DateTime createdAt;
@@ -330,6 +345,14 @@ class _$_VolunteeringModel extends _VolunteeringModel {
     return EqualUnmodifiableListView(_volunteersIds);
   }
 
+  final List<String> _participantsIds;
+  @override
+  List<String> get participantsIds {
+    if (_participantsIds is EqualUnmodifiableListView) return _participantsIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_participantsIds);
+  }
+
   @override
   @GeoPointConverter()
   final GeoPoint location;
@@ -339,7 +362,7 @@ class _$_VolunteeringModel extends _VolunteeringModel {
 
   @override
   String toString() {
-    return 'VolunteeringModel(id: $id, title: $title, description: $description, imageKey: $imageKey, category: $category, about: $about, address: $address, requirements: $requirements, availability: $availability, vacancies: $vacancies, createdAt: $createdAt, volunteersIds: $volunteersIds, location: $location, downloadImageURL: $downloadImageURL)';
+    return 'VolunteeringModel(id: $id, title: $title, description: $description, imageKey: $imageKey, category: $category, about: $about, address: $address, requirements: $requirements, availability: $availability, maxVacancies: $maxVacancies, createdAt: $createdAt, volunteersIds: $volunteersIds, participantsIds: $participantsIds, location: $location, downloadImageURL: $downloadImageURL)';
   }
 
   @override
@@ -361,12 +384,14 @@ class _$_VolunteeringModel extends _VolunteeringModel {
                 other.requirements == requirements) &&
             const DeepCollectionEquality()
                 .equals(other._availability, _availability) &&
-            (identical(other.vacancies, vacancies) ||
-                other.vacancies == vacancies) &&
+            (identical(other.maxVacancies, maxVacancies) ||
+                other.maxVacancies == maxVacancies) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             const DeepCollectionEquality()
                 .equals(other._volunteersIds, _volunteersIds) &&
+            const DeepCollectionEquality()
+                .equals(other._participantsIds, _participantsIds) &&
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.downloadImageURL, downloadImageURL) ||
@@ -386,9 +411,10 @@ class _$_VolunteeringModel extends _VolunteeringModel {
       address,
       requirements,
       const DeepCollectionEquality().hash(_availability),
-      vacancies,
+      maxVacancies,
       createdAt,
       const DeepCollectionEquality().hash(_volunteersIds),
+      const DeepCollectionEquality().hash(_participantsIds),
       location,
       downloadImageURL);
 
@@ -418,9 +444,10 @@ abstract class _VolunteeringModel extends VolunteeringModel {
           required final String address,
           required final String requirements,
           required final List<Availability> availability,
-          required final int vacancies,
+          required final int maxVacancies,
           @TimestampConverter() required final DateTime createdAt,
           required final List<String> volunteersIds,
+          required final List<String> participantsIds,
           @GeoPointConverter() required final GeoPoint location,
           @JsonKey(ignore: true) final String? downloadImageURL}) =
       _$_VolunteeringModel;
@@ -448,12 +475,14 @@ abstract class _VolunteeringModel extends VolunteeringModel {
   @override
   List<Availability> get availability;
   @override
-  int get vacancies;
+  int get maxVacancies;
   @override
   @TimestampConverter()
   DateTime get createdAt;
   @override
   List<String> get volunteersIds;
+  @override
+  List<String> get participantsIds;
   @override
   @GeoPointConverter()
   GeoPoint get location;

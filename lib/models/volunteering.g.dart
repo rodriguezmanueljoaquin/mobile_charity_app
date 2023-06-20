@@ -19,10 +19,13 @@ _$_VolunteeringModel _$$_VolunteeringModelFromJson(Map<String, dynamic> json) =>
       availability: (json['availability'] as List<dynamic>)
           .map((e) => Availability.fromJson(e as Map<String, dynamic>))
           .toList(),
-      vacancies: json['vacancies'] as int,
+      maxVacancies: json['maxVacancies'] as int,
       createdAt:
           const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
       volunteersIds: (json['volunteersIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      participantsIds: (json['participantsIds'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
       location:
@@ -41,8 +44,9 @@ Map<String, dynamic> _$$_VolunteeringModelToJson(
       'address': instance.address,
       'requirements': instance.requirements,
       'availability': instance.availability,
-      'vacancies': instance.vacancies,
+      'maxVacancies': instance.maxVacancies,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'volunteersIds': instance.volunteersIds,
+      'participantsIds': instance.participantsIds,
       'location': const GeoPointConverter().toJson(instance.location),
     };

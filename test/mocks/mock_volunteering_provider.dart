@@ -72,7 +72,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         availability: [
           const Availability(dayOfWeek: 1, startHour: 12, endHour: 13)
         ],
-        vacancies: 5,
+        maxVacancies: 5,
         createdAt: DateTime.now(),
         volunteersIds: ["1"],
         location: const GeoPoint(1, 1)),
@@ -91,7 +91,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         availability: [
           const Availability(dayOfWeek: 1, startHour: 12, endHour: 13)
         ],
-        vacancies: 5,
+        maxVacancies: 5,
         createdAt: DateTime.now(),
         volunteersIds: ["2"],
         location: const GeoPoint(1, 1)),
@@ -110,7 +110,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         availability: [
           const Availability(dayOfWeek: 1, startHour: 12, endHour: 13)
         ],
-        vacancies: 5,
+        maxVacancies: 5,
         createdAt: DateTime.now(),
         volunteersIds: [],
         location: const GeoPoint(1, 1)),
@@ -129,7 +129,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         availability: [
           const Availability(dayOfWeek: 1, startHour: 12, endHour: 13)
         ],
-        vacancies: 5,
+        maxVacancies: 5,
         createdAt: DateTime.now(),
         volunteersIds: [],
         location: const GeoPoint(1, 1))

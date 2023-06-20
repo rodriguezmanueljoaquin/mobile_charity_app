@@ -20,9 +20,10 @@ class VolunteeringModel with _$VolunteeringModel {
     required String address,
     required String requirements,
     required List<Availability> availability,
-    required int vacancies,
+    required int maxVacancies,
     @TimestampConverter() required DateTime createdAt,
     required List<String> volunteersIds,
+    required List<String> participantsIds,
     @GeoPointConverter() required GeoPoint location,
     @JsonKey(ignore: true) String? downloadImageURL,
   }) = _VolunteeringModel;
@@ -36,4 +37,8 @@ class VolunteeringModel with _$VolunteeringModel {
     final String imageURL = await getDownloadURL(key: imageKey);
     return copyWith(downloadImageURL: imageURL);
   }
+
+  bool userIsParticipant(String userId) => participantsIds.contains(userId);
+
+  int get vacancies => maxVacancies - volunteersIds.length;
 }
