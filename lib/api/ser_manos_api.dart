@@ -110,7 +110,7 @@ class SerManosApi {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('volunteerings')
-          .orderBy('createdAt', descending: false)
+          .orderBy('createdAt', descending: true)
           .get();
 
       List<Future<VolunteeringModel>> volunteeringFutures = querySnapshot.docs
@@ -127,8 +127,10 @@ class SerManosApi {
 
   Future<List<NewsModel>> getNews() async {
     try {
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('news').get();
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('news')
+          .orderBy('createdAt', descending: true)
+          .get();
 
       List<Future<NewsModel>> newsFutures = querySnapshot.docs
           .map((e) =>
