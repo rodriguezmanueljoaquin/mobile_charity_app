@@ -8,7 +8,7 @@ import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/components.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
-import 'package:mobile_charity_app/design_system/organisms/cards/ubication_card.dart';
+import 'package:mobile_charity_app/design_system/organisms/cards/location_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/modals/volunteering_modal.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/indicators.dart';
@@ -95,7 +95,8 @@ class VolunteeringDetailsPage extends StatelessWidget {
 
   void _completeProfileDialog(
       {required BuildContext context,
-      required VolunteeringModel volunteering, required UserProvider userProvider}) async {
+      required VolunteeringModel volunteering,
+      required UserProvider userProvider}) async {
     String answer = await showDialog(
       context: context,
       builder: (BuildContext context) => SerManosVolunteeringModal(
@@ -132,7 +133,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
 
         VolunteeringModel? volunteering =
             volunteeringProvider.getVolunteeringById(id);
-        
+
         if (volunteering == null) {
           return const ErrorPage();
         }
@@ -161,7 +162,8 @@ class VolunteeringDetailsPage extends StatelessWidget {
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                    image: NetworkImage(volunteering.downloadImageURL!),
+                                    image: NetworkImage(
+                                        volunteering.downloadImageURL!),
                                     fit: BoxFit.cover),
                               ),
                               foregroundDecoration: const BoxDecoration(
@@ -205,8 +207,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
                               const SerManosSizedBox.sm(),
                               SerManosText.body1(volunteering.about),
                               const SerManosSizedBox.md(),
-                              SerManosUbicationCard(
-                                  address: volunteering.address),
+                              SerManosLocationCard(volunteering: volunteering),
                               const SerManosSizedBox.md(),
                               SerManosText.headline2(
                                   "Participar del voluntariado"),

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
@@ -10,10 +9,10 @@ import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
-import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
+import 'package:mobile_charity_app/utils/map.dart';
 import 'package:provider/provider.dart';
 
 class SerManosVolunteeringCard extends StatefulWidget {
@@ -81,10 +80,7 @@ class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
             ),
             const SerManosSizedBox.sl(useWidth: true, useHeight: false),
             SerManosIconButton(
-              onPressed: () {
-                // open gmaps
-                // GeoPoint location = widget.volunteering.location;
-              },
+              onPressed: () => showVolunteeringMap(widget.volunteering),
               icon: const SerManosIcon.location(isPrimaryAction: true),
             )
           ],
