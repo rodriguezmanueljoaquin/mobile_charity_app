@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile_charity_app/providers/news_provider.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
@@ -12,6 +13,8 @@ import 'package:mobile_charity_app/routes/router.dart';
 import 'package:flutter/foundation.dart' show PlatformDispatcher, kIsWeb;
 
 Future<void> main() async {
+  await dotenv.load(fileName: ".env");
+  
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
