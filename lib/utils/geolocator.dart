@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:geolocator/geolocator.dart';
 
 // @ref: https://pub.dev/packages/geolocator
@@ -21,7 +22,22 @@ Future<void> requestLocationPermission() async {
     Future.error('Location permissions are denied');
   }
 
-  await Geolocator.requestPermission();
+  LocationPermission newPermission = await Geolocator.requestPermission();
+
+  switch (newPermission) {
+    case LocationPermission.denied:
+    case LocationPermission.deniedForever:
+      FirebaseAnalytics.instance.logEvent(name: "location_permission_denied");
+      Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+      break;
+    case LocationPermission.whileInUse:
+    case LocationPermission.always:
+      FirebaseAnalytics.instance.logEvent(name: "location_permission_granted");
+      break;
+    default:
+      break;
+  }
 }
 
 Future<Position?> getCurrentPosition() async {
