@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
@@ -9,7 +12,11 @@ import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/news.dart';
 import 'package:mobile_charity_app/providers/news_provider.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:http/http.dart' as http;
 
 class NewsDetailsPage extends StatelessWidget {
   final String id;
@@ -18,6 +25,37 @@ class NewsDetailsPage extends StatelessWidget {
     super.key,
     required this.id,
   });
+
+  Future<void> _onShare(BuildContext context, NewsModel news) async {
+    final box = context.findRenderObject() as RenderBox?;
+    final url = Uri.parse(news.imageURL);
+
+    final imageRes = await http.get(url);
+    final bytes = imageRes.bodyBytes;
+    final temp = await getTemporaryDirectory();
+    final path = '${temp.path}/share_img.png';
+
+    final file = File(path);
+    file.writeAsBytesSync(bytes);
+
+    XFile xfile = XFile(path);
+
+    ShareResult result = await Share.shareXFiles([xfile],
+        text: news.summary,
+        subject: news.title,
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+
+    file.delete();
+
+    if (result.status == ShareResultStatus.success) {
+      logger.d('Share success!');
+      FirebaseAnalytics.instance.logShare(
+        contentType: 'news',
+        itemId: news.id,
+        method: 'share',
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +133,7 @@ class NewsDetailsPage extends StatelessWidget {
                       const SerManosSizedBox.sl(),
                       SerManosTextButton.longTextButton(
                         text: 'Compartir',
-                        onPressed: () {}, // TODO: deeplink
+                        onPressed: () => _onShare(context, news),
                       ),
                       const SerManosSizedBox.lg(),
                     ],
