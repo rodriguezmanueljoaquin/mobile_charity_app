@@ -33,11 +33,6 @@ class MockVolunteeringProvider extends ChangeNotifier
   }
 
   @override
-  List<VolunteeringModel> searchVolunteeringsByTitle(String query) {
-    return _volunteerings;
-  }
-
-  @override
   VolunteeringProvider update(UserProvider userProvider) {
     return this;
   }
@@ -49,12 +44,13 @@ class MockVolunteeringProvider extends ChangeNotifier
   Future<void> fetchVolunteeringById(String volunteeringId) {
     return Future.value();
   }
-  
+
   @override
-  List<VolunteeringModel> searchVolunteeringsByTitleAndDescription(String query) {
+  List<VolunteeringModel> searchVolunteeringsByTitleAndDescription(
+      String query) {
     return _volunteerings;
   }
-  
+
   final List<VolunteeringModel> _volunteerings = [
     VolunteeringModel(
         id: '1',
@@ -75,6 +71,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         maxVacancies: 5,
         createdAt: DateTime.now(),
         volunteersIds: ["1"],
+        participantsIds: [],
         location: const GeoPoint(1, 1)),
     VolunteeringModel(
         id: "2",
@@ -94,6 +91,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         maxVacancies: 5,
         createdAt: DateTime.now(),
         volunteersIds: ["2"],
+        participantsIds: [],
         location: const GeoPoint(1, 1)),
     VolunteeringModel(
         id: "3",
@@ -113,6 +111,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         maxVacancies: 5,
         createdAt: DateTime.now(),
         volunteersIds: [],
+        participantsIds: [],
         location: const GeoPoint(1, 1)),
     VolunteeringModel(
         id: "4",
@@ -132,7 +131,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         maxVacancies: 5,
         createdAt: DateTime.now(),
         volunteersIds: [],
+        participantsIds: [],
         location: const GeoPoint(1, 1))
   ];
-
 }
