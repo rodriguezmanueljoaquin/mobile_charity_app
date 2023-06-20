@@ -11,6 +11,7 @@ import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/news.dart';
+import 'package:mobile_charity_app/pages/error.dart';
 import 'package:mobile_charity_app/providers/news_provider.dart';
 import 'package:mobile_charity_app/utils/logger.dart';
 import 'package:path_provider/path_provider.dart';
@@ -70,7 +71,11 @@ class NewsDetailsPage extends StatelessWidget {
         );
       }
 
-      NewsModel news = newsProvider.getNewsById(id)!;
+      NewsModel? news = newsProvider.getNewsById(id);
+
+      if (news == null) {
+        return const ErrorPage();
+      }
 
       return SerManosScaffold(
         applyPadding: false,

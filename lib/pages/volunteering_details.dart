@@ -15,6 +15,7 @@ import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
+import 'package:mobile_charity_app/pages/error.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
@@ -126,8 +127,12 @@ class VolunteeringDetailsPage extends StatelessWidget {
           );
         }
 
-        VolunteeringModel volunteering =
-            volunteeringProvider.getVolunteeringById(id)!;
+        VolunteeringModel? volunteering =
+            volunteeringProvider.getVolunteeringById(id);
+        
+        if (volunteering == null) {
+          return const ErrorPage();
+        }
 
         UserModel user = userProvider.user!;
         bool userIsAlreadyVolunteer =
