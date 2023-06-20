@@ -29,9 +29,10 @@ class MockNewsProvider extends ChangeNotifier implements NewsProvider {
         summary:
             'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
         imageKey:
-            'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg',
+            'asd1',
         source: 'Reporte 2820',
-        createdAt: DateTime.now()),
+        createdAt: DateTime.now(),
+        downloadImageURL: 'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg'),
     NewsModel(
         id: "2",
         title: 'Ser donante voluntario ',
@@ -40,9 +41,10 @@ class MockNewsProvider extends ChangeNotifier implements NewsProvider {
         summary:
             'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
         imageKey:
-            'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg',
+            'asd2',
         source: 'Reporte 2820',
-        createdAt: DateTime.now()),
+        createdAt: DateTime.now(),
+        downloadImageURL: 'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg'),
     NewsModel(
         id: "3",
         title: 'Ser donante voluntario ',
@@ -51,9 +53,10 @@ class MockNewsProvider extends ChangeNotifier implements NewsProvider {
         summary:
             'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
         imageKey:
-            'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg',
+            'asd3',
         source: 'Reporte 2820',
-        createdAt: DateTime.now()),
+        createdAt: DateTime.now(),
+        downloadImageURL: 'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg'),
     NewsModel(
         id: "4",
         title: 'Ser donante voluntario ',
@@ -62,9 +65,10 @@ class MockNewsProvider extends ChangeNotifier implements NewsProvider {
         summary:
             'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
         imageKey:
-            'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg',
+            'asd4',
         source: 'Reporte 2820',
-        createdAt: DateTime.now()),
+        createdAt: DateTime.now(),
+        downloadImageURL: 'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg'),
     NewsModel(
         id: "5",
         title: 'Ser donante voluntario ',
@@ -73,9 +77,10 @@ class MockNewsProvider extends ChangeNotifier implements NewsProvider {
         summary:
             'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
         imageKey:
-            'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg',
+            'asd5',
         source: 'Reporte 2820',
-        createdAt: DateTime.now()),
+        createdAt: DateTime.now(),
+        downloadImageURL: 'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg'),
     NewsModel(
         id: "6",
         title: 'Ser donante voluntario ',
@@ -84,9 +89,10 @@ class MockNewsProvider extends ChangeNotifier implements NewsProvider {
         summary:
             'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
         imageKey:
-            'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg',
+            'asd6',
         source: 'Reporte 2820',
-        createdAt: DateTime.now()),
+        createdAt: DateTime.now(),
+        downloadImageURL: 'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg'),
     NewsModel(
         id: "7",
         title: 'Ser donante voluntario ',
@@ -95,8 +101,9 @@ class MockNewsProvider extends ChangeNotifier implements NewsProvider {
         summary:
             'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
         imageKey:
-            'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg',
+            'asd7',
         source: 'Reporte 2820',
-        createdAt: DateTime.now())
+        createdAt: DateTime.now(),
+        downloadImageURL: 'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg')
   ];
 }

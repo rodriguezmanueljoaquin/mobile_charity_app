@@ -28,7 +28,9 @@ import 'mocks/mock_volunteering_provider.dart';
 // TO RENOVATE GOLDEN: flutter test --update-goldens
 
 Future<void> goldenTest(WidgetTester tester, Widget widget, String name) async {
-  await tester.pumpWidget(MaterialApp(home: widget));
+  await mockNetworkImagesFor(() => tester.pumpWidgetBuilder(MaterialApp(
+      home: ChangeNotifierProvider<UserProvider>.value(
+          value: MockUserProvider(), child: MaterialApp(home: widget)))));
   await multiScreenGolden(tester, name);
 }
 
@@ -101,7 +103,6 @@ void main() {
 
   testGoldens('Golden test home page initial tab', (WidgetTester tester) async {
     // to check that initial default tab didnt change
-
 
     await mockNetworkImagesFor(() =>
         tester.pumpWidgetBuilder(MultiProvider(providers: [

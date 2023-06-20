@@ -45,13 +45,24 @@ class MockVolunteeringProvider extends ChangeNotifier
   @override
   List<VolunteeringModel>? get volunteerings => _volunteerings;
 
+  @override
+  Future<void> fetchVolunteeringById(String volunteeringId) {
+    return Future.value();
+  }
+  
+  @override
+  List<VolunteeringModel> searchVolunteeringsByTitleAndDescription(String query) {
+    return _volunteerings;
+  }
+  
   final List<VolunteeringModel> _volunteerings = [
     VolunteeringModel(
         id: '1',
         title: 'Un Techo para mi País',
         description:
             'A dos horas al sur de Vicente López en la ciudad de Buenos Aires.',
-        imageKey: 'https://via.placeholder.com/150',
+        imageKey: "asd1",
+        downloadImageURL: "https://via.placeholder.com/150",
         category: "Acción Social",
         about:
             'Un Techo para mi País es una organización latinoamericana que busca superar la situación de pobreza que viven miles de personas en los asentamientos precarios, a través de la acción conjunta de sus habitantes y jóvenes voluntarios y voluntarias. Para esto, trabajamos en la construcción de viviendas de emergencia, la ejecución de programas de educación y trabajo, y la incidencia en políticas públicas.',
@@ -70,7 +81,8 @@ class MockVolunteeringProvider extends ChangeNotifier
         title: "Cruz Roja Argentina",
         description:
             "A dos horas al sur de Vicente López en la ciudad de Buenos Aires.",
-        imageKey: "https://via.placeholder.com/150",
+        imageKey: "asd2",
+        downloadImageURL: "https://via.placeholder.com/150",
         category: "Acción Social",
         about: "ASDASDASDA",
         address: "Cabildo 600",
@@ -88,7 +100,8 @@ class MockVolunteeringProvider extends ChangeNotifier
         title: "Cruz Roja Argentina",
         description:
             "A dos horas al sur de Vicente López en la ciudad de Buenos Aires.",
-        imageKey: "https://via.placeholder.com/150",
+        imageKey: "asd5",
+        downloadImageURL: "https://via.placeholder.com/150",
         category: "Acción Social",
         about: "ASDASDASDA",
         address: "Cabildo 600",
@@ -106,7 +119,8 @@ class MockVolunteeringProvider extends ChangeNotifier
         title: "Cruz Roja Argentina",
         description:
             "A dos horas al sur de Vicente López en la ciudad de Buenos Aires.",
-        imageKey: "https://via.placeholder.com/150",
+        imageKey: "asd4",
+        downloadImageURL: "https://via.placeholder.com/150",
         category: "Acción Social",
         about: "ASDASDASDA",
         address: "Cabildo 600",
@@ -121,13 +135,4 @@ class MockVolunteeringProvider extends ChangeNotifier
         location: const GeoPoint(1, 1))
   ];
 
-  @override
-  Future<void> fetchVolunteeringById(String volunteeringId) {
-    return Future.value();
-  }
-  
-  @override
-  List<VolunteeringModel> searchVolunteeringsByTitleAndDescription(String query) {
-    return _volunteerings;
-  }
 }
