@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mobile_charity_app/api/ser_manos_api.dart';
 import 'package:mobile_charity_app/models/user.dart';
+import 'package:mobile_charity_app/utils/analytics.dart';
 import 'package:mobile_charity_app/utils/geolocator.dart';
 import 'package:mobile_charity_app/utils/logger.dart';
 
@@ -23,6 +24,8 @@ class UserProvider extends ChangeNotifier {
     this.user = user;
 
     await FirebaseAnalytics.instance.logLogin(loginMethod: 'email');
+    await setAnalyticsUserId(user);
+
     return user;
   }
 
@@ -40,6 +43,8 @@ class UserProvider extends ChangeNotifier {
     this.user = user;
 
     await FirebaseAnalytics.instance.logSignUp(signUpMethod: 'email');
+
+    await setAnalyticsUserId(user);
 
     return user;
   }
@@ -100,6 +105,8 @@ class UserProvider extends ChangeNotifier {
       user = UserModel(id: firebaseUser.uid);
       await fetchUser();
       await FirebaseAnalytics.instance.logLogin(loginMethod: 'cache');
+
+      await setAnalyticsUserId(user);
     }
   }
 
@@ -107,7 +114,10 @@ class UserProvider extends ChangeNotifier {
     await FirebaseAnalytics.instance.logEvent(name: 'logout');
 
     await FirebaseAuth.instance.signOut();
+
     user = null;
+
+    setAnalyticsUserId(null);
   }
 
   // update only properties that are not null
