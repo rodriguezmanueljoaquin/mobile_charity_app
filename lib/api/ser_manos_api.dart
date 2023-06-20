@@ -114,7 +114,8 @@ class SerManosApi {
           .get();
 
       List<Future<VolunteeringModel>> volunteeringFutures = querySnapshot.docs
-          .map((e) => VolunteeringModel.fromJson(buildProperties(e)).fetchDownloadImageURL())
+          .map((e) => VolunteeringModel.fromJson(buildProperties(e))
+              .fetchDownloadImageURL())
           .toList();
 
       return await Future.wait(volunteeringFutures);
@@ -129,9 +130,12 @@ class SerManosApi {
       QuerySnapshot querySnapshot =
           await FirebaseFirestore.instance.collection('news').get();
 
-      return querySnapshot.docs
-          .map((e) => NewsModel.fromJson(buildProperties(e)))
+      List<Future<NewsModel>> newsFutures = querySnapshot.docs
+          .map((e) =>
+              NewsModel.fromJson(buildProperties(e)).fetchDownloadImageURL())
           .toList();
+
+      return await Future.wait(newsFutures);
     } catch (e) {
       logger.d(e);
       return [];
@@ -147,7 +151,8 @@ class SerManosApi {
           .doc(volunteeringId)
           .get();
 
-      return await VolunteeringModel.fromJson(buildProperties(documentSnapshot)).fetchDownloadImageURL();
+      return await VolunteeringModel.fromJson(buildProperties(documentSnapshot))
+          .fetchDownloadImageURL();
     } catch (e) {
       logger.e(e);
       return null;

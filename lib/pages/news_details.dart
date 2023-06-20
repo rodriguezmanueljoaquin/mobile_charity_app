@@ -28,7 +28,7 @@ class NewsDetailsPage extends StatelessWidget {
 
   Future<void> _onShare(BuildContext context, NewsModel news) async {
     final box = context.findRenderObject() as RenderBox?;
-    final url = Uri.parse(news.imageURL);
+    final url = Uri.parse(news.downloadImageURL!);
 
     final imageRes = await http.get(url);
     final bytes = imageRes.bodyBytes;
@@ -112,7 +112,7 @@ class NewsDetailsPage extends StatelessWidget {
                           textAlign: TextAlign.left),
                       const SerManosSizedBox.sl(),
                       Image.network(
-                        news.imageURL,
+                        news.downloadImageURL!,
                         height: 200,
                         width: double.infinity,
                         fit: BoxFit.cover,

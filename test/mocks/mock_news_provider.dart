@@ -28,7 +28,7 @@ class MockNewsProvider extends ChangeNotifier implements NewsProvider {
             'En un esfuerzo por concienciar sobco de posibles problemas de salud.',
         summary:
             'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
-        imageURL:
+        imageKey:
             'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg',
         source: 'Reporte 2820',
         createdAt: DateTime.now()),
@@ -39,7 +39,7 @@ class MockNewsProvider extends ChangeNotifier implements NewsProvider {
             'En un esfuerzo por concienciar sobco de posibles problemas de salud.',
         summary:
             'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
-        imageURL:
+        imageKey:
             'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg',
         source: 'Reporte 2820',
         createdAt: DateTime.now()),
@@ -50,7 +50,7 @@ class MockNewsProvider extends ChangeNotifier implements NewsProvider {
             'En un esfuerzo por concienciar sobco de posibles problemas de salud.',
         summary:
             'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
-        imageURL:
+        imageKey:
             'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg',
         source: 'Reporte 2820',
         createdAt: DateTime.now()),
@@ -61,7 +61,7 @@ class MockNewsProvider extends ChangeNotifier implements NewsProvider {
             'En un esfuerzo por concienciar sobco de posibles problemas de salud.',
         summary:
             'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
-        imageURL:
+        imageKey:
             'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg',
         source: 'Reporte 2820',
         createdAt: DateTime.now()),
@@ -72,7 +72,7 @@ class MockNewsProvider extends ChangeNotifier implements NewsProvider {
             'En un esfuerzo por concienciar sobco de posibles problemas de salud.',
         summary:
             'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
-        imageURL:
+        imageKey:
             'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg',
         source: 'Reporte 2820',
         createdAt: DateTime.now()),
@@ -83,7 +83,7 @@ class MockNewsProvider extends ChangeNotifier implements NewsProvider {
             'En un esfuerzo por concienciar sobco de posibles problemas de salud.',
         summary:
             'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
-        imageURL:
+        imageKey:
             'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg',
         source: 'Reporte 2820',
         createdAt: DateTime.now()),
@@ -94,7 +94,7 @@ class MockNewsProvider extends ChangeNotifier implements NewsProvider {
             'En un esfuerzo por concienciar sobco de posibles problemas de salud.',
         summary:
             'Desde el Hospital Centenario recalcan la importancia de la donación voluntaria de Sangre',
-        imageURL:
+        imageKey:
             'https://www.hospitalcentenario.gob.ar/wp-content/uploads/2021/06/Donacion-de-sangre-1.jpg',
         source: 'Reporte 2820',
         createdAt: DateTime.now())

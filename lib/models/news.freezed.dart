@@ -24,10 +24,12 @@ mixin _$NewsModel {
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get summary => throw _privateConstructorUsedError;
-  String get imageURL => throw _privateConstructorUsedError;
+  String get imageKey => throw _privateConstructorUsedError;
   String get source => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  String? get downloadImageURL => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,9 +47,10 @@ abstract class $NewsModelCopyWith<$Res> {
       String title,
       String description,
       String summary,
-      String imageURL,
+      String imageKey,
       String source,
-      @TimestampConverter() DateTime createdAt});
+      @TimestampConverter() DateTime createdAt,
+      @JsonKey(ignore: true) String? downloadImageURL});
 }
 
 /// @nodoc
@@ -67,9 +70,10 @@ class _$NewsModelCopyWithImpl<$Res, $Val extends NewsModel>
     Object? title = null,
     Object? description = null,
     Object? summary = null,
-    Object? imageURL = null,
+    Object? imageKey = null,
     Object? source = null,
     Object? createdAt = null,
+    Object? downloadImageURL = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -88,9 +92,9 @@ class _$NewsModelCopyWithImpl<$Res, $Val extends NewsModel>
           ? _value.summary
           : summary // ignore: cast_nullable_to_non_nullable
               as String,
-      imageURL: null == imageURL
-          ? _value.imageURL
-          : imageURL // ignore: cast_nullable_to_non_nullable
+      imageKey: null == imageKey
+          ? _value.imageKey
+          : imageKey // ignore: cast_nullable_to_non_nullable
               as String,
       source: null == source
           ? _value.source
@@ -100,6 +104,10 @@ class _$NewsModelCopyWithImpl<$Res, $Val extends NewsModel>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      downloadImageURL: freezed == downloadImageURL
+          ? _value.downloadImageURL
+          : downloadImageURL // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -116,9 +124,10 @@ abstract class _$$_NewsModelCopyWith<$Res> implements $NewsModelCopyWith<$Res> {
       String title,
       String description,
       String summary,
-      String imageURL,
+      String imageKey,
       String source,
-      @TimestampConverter() DateTime createdAt});
+      @TimestampConverter() DateTime createdAt,
+      @JsonKey(ignore: true) String? downloadImageURL});
 }
 
 /// @nodoc
@@ -136,9 +145,10 @@ class __$$_NewsModelCopyWithImpl<$Res>
     Object? title = null,
     Object? description = null,
     Object? summary = null,
-    Object? imageURL = null,
+    Object? imageKey = null,
     Object? source = null,
     Object? createdAt = null,
+    Object? downloadImageURL = freezed,
   }) {
     return _then(_$_NewsModel(
       id: null == id
@@ -157,9 +167,9 @@ class __$$_NewsModelCopyWithImpl<$Res>
           ? _value.summary
           : summary // ignore: cast_nullable_to_non_nullable
               as String,
-      imageURL: null == imageURL
-          ? _value.imageURL
-          : imageURL // ignore: cast_nullable_to_non_nullable
+      imageKey: null == imageKey
+          ? _value.imageKey
+          : imageKey // ignore: cast_nullable_to_non_nullable
               as String,
       source: null == source
           ? _value.source
@@ -169,21 +179,27 @@ class __$$_NewsModelCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      downloadImageURL: freezed == downloadImageURL
+          ? _value.downloadImageURL
+          : downloadImageURL // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_NewsModel implements _NewsModel {
+class _$_NewsModel extends _NewsModel {
   const _$_NewsModel(
       {required this.id,
       required this.title,
       required this.description,
       required this.summary,
-      required this.imageURL,
+      required this.imageKey,
       required this.source,
-      @TimestampConverter() required this.createdAt});
+      @TimestampConverter() required this.createdAt,
+      @JsonKey(ignore: true) this.downloadImageURL})
+      : super._();
 
   factory _$_NewsModel.fromJson(Map<String, dynamic> json) =>
       _$$_NewsModelFromJson(json);
@@ -197,16 +213,19 @@ class _$_NewsModel implements _NewsModel {
   @override
   final String summary;
   @override
-  final String imageURL;
+  final String imageKey;
   @override
   final String source;
   @override
   @TimestampConverter()
   final DateTime createdAt;
+  @override
+  @JsonKey(ignore: true)
+  final String? downloadImageURL;
 
   @override
   String toString() {
-    return 'NewsModel(id: $id, title: $title, description: $description, summary: $summary, imageURL: $imageURL, source: $source, createdAt: $createdAt)';
+    return 'NewsModel(id: $id, title: $title, description: $description, summary: $summary, imageKey: $imageKey, source: $source, createdAt: $createdAt, downloadImageURL: $downloadImageURL)';
   }
 
   @override
@@ -219,17 +238,19 @@ class _$_NewsModel implements _NewsModel {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.summary, summary) || other.summary == summary) &&
-            (identical(other.imageURL, imageURL) ||
-                other.imageURL == imageURL) &&
+            (identical(other.imageKey, imageKey) ||
+                other.imageKey == imageKey) &&
             (identical(other.source, source) || other.source == source) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.downloadImageURL, downloadImageURL) ||
+                other.downloadImageURL == downloadImageURL));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, title, description, summary,
-      imageURL, source, createdAt);
+      imageKey, source, createdAt, downloadImageURL);
 
   @JsonKey(ignore: true)
   @override
@@ -245,15 +266,17 @@ class _$_NewsModel implements _NewsModel {
   }
 }
 
-abstract class _NewsModel implements NewsModel {
+abstract class _NewsModel extends NewsModel {
   const factory _NewsModel(
       {required final String id,
       required final String title,
       required final String description,
       required final String summary,
-      required final String imageURL,
+      required final String imageKey,
       required final String source,
-      @TimestampConverter() required final DateTime createdAt}) = _$_NewsModel;
+      @TimestampConverter() required final DateTime createdAt,
+      @JsonKey(ignore: true) final String? downloadImageURL}) = _$_NewsModel;
+  const _NewsModel._() : super._();
 
   factory _NewsModel.fromJson(Map<String, dynamic> json) =
       _$_NewsModel.fromJson;
@@ -267,12 +290,15 @@ abstract class _NewsModel implements NewsModel {
   @override
   String get summary;
   @override
-  String get imageURL;
+  String get imageKey;
   @override
   String get source;
   @override
   @TimestampConverter()
   DateTime get createdAt;
+  @override
+  @JsonKey(ignore: true)
+  String? get downloadImageURL;
   @override
   @JsonKey(ignore: true)
   _$$_NewsModelCopyWith<_$_NewsModel> get copyWith =>
