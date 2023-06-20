@@ -13,6 +13,7 @@ import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
+import 'package:mobile_charity_app/utils/handle_exception.dart';
 import 'package:provider/provider.dart';
 
 class VolunteeringsTab extends StatefulWidget {
@@ -40,7 +41,8 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
     VolunteeringProvider volunteeringProvider =
         Provider.of<VolunteeringProvider>(context, listen: false);
     if (volunteeringProvider.volunteerings == null) {
-      volunteeringProvider.fetchVolunteerings();
+      volunteeringProvider.fetchVolunteerings().catchError(
+          (error) => handleException(context: context, error: error));
     }
   }
 
@@ -65,7 +67,9 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
             .then((_) =>
                 Provider.of<VolunteeringProvider>(context, listen: false)
                     .fetchVolunteerings())
-            .then((_) => userProvider.fetchUser());
+            .then((_) => userProvider.fetchUser())
+            .catchError(
+                (error) => handleException(context: context, error: error));
       },
       child: LayoutBuilder(
         builder: (context, constraints) => SingleChildScrollView(

@@ -15,6 +15,8 @@ class NewsProvider extends ChangeNotifier {
     try {
       _news = await SerManosApi().getNews();
       _newsIndexById = listToIndexMapByKey(_news!, (e) => e.id);
+    } catch (e) {
+      rethrow;
     } finally {
       isLoading = false;
       notifyListeners();

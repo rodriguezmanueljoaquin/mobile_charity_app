@@ -12,6 +12,7 @@ import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
+import 'package:mobile_charity_app/utils/handle_exception.dart';
 import 'package:mobile_charity_app/utils/map.dart';
 import 'package:provider/provider.dart';
 
@@ -63,10 +64,13 @@ class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
             Consumer<UserProvider>(
               builder: (context, userProvider, child) => SerManosIconButton(
                 onPressed: () {
-                  userProvider.setVolunteeringAsFavorite(
-                    volunteeringId: widget.volunteering.id,
-                    isFavorite: !_isFavorite,
-                  );
+                  userProvider
+                      .setVolunteeringAsFavorite(
+                        volunteeringId: widget.volunteering.id,
+                        isFavorite: !_isFavorite,
+                      )
+                      .catchError((error) =>
+                          handleException(context: context, error: error));
 
                   setState(() {
                     _isFavorite = !_isFavorite;

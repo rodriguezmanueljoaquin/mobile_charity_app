@@ -6,6 +6,7 @@ import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffolds.dart';
 import 'package:mobile_charity_app/design_system/organisms/forms/register_form.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
+import 'package:mobile_charity_app/utils/handle_exception.dart';
 import 'package:provider/provider.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
@@ -49,7 +50,16 @@ class _RegisterPageState extends State<RegisterPage> {
           email: _emailController.text,
           password: _passwordController.text,
         )
-        .then((value) => context.replaceNamed(SerManosPagesName.welcome));
+        .then((value) => context.replaceNamed(SerManosPagesName.welcome))
+        .catchError(
+          (error) => handleException(
+            context: context,
+            error: error,
+            onFormException: (message) => setState(() {
+              _registerError = message;
+            }),
+          ),
+        );
     setState(() {
       _disabled = false;
       _loading = false;

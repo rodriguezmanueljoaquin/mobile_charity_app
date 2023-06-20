@@ -8,6 +8,7 @@ import 'package:mobile_charity_app/design_system/organisms/forms/login_form.dart
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
+import 'package:mobile_charity_app/utils/handle_exception.dart';
 import 'package:provider/provider.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 
@@ -37,10 +38,16 @@ class _LoginPageState extends State<LoginPage> {
             email: _emailController.text,
             password: _passwordController.text,
           )
-          .then((response) => {context.replaceNamed(SerManosPagesName.welcome)})
-          .catchError((error) => setState(() {
-                _loginError = error.toString();
-              }));
+          .then((response) => context.replaceNamed(SerManosPagesName.welcome))
+          .catchError(
+            (error) => handleException(
+              context: context,
+              error: error,
+              onFormException: (message) => setState(() {
+                _loginError = message;
+              }),
+            ),
+          );
       setState(() {
         _disabled = false;
         _loading = false;

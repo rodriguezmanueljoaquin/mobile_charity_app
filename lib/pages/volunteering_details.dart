@@ -20,6 +20,7 @@ import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 import 'package:mobile_charity_app/utils/availability_converter.dart';
+import 'package:mobile_charity_app/utils/handle_exception.dart';
 import 'package:mobile_charity_app/utils/logger.dart';
 import 'package:provider/provider.dart';
 
@@ -61,13 +62,14 @@ class VolunteeringDetailsPage extends StatelessWidget {
           {required BuildContext context,
           required VolunteeringModel volunteering}) =>
       _getDialogFunc(
-        context: context,
-        dialogTitle: enlistTitle,
-        volunteering: volunteering,
-        onConfirm: () =>
-            Provider.of<VolunteeringProvider>(context, listen: false)
-                .applyToVolunteering(id),
-      );
+          context: context,
+          dialogTitle: enlistTitle,
+          volunteering: volunteering,
+          onConfirm: () => Provider.of<VolunteeringProvider>(context,
+                  listen: false)
+              .applyToVolunteering(id)
+              .catchError(
+                  (error) => handleException(context: context, error: error)));
 
   Function _getAbandonDialogFunc(
           {required BuildContext context,
@@ -76,8 +78,11 @@ class VolunteeringDetailsPage extends StatelessWidget {
         context: context,
         dialogTitle: abandonTitle,
         volunteering: volunteering,
-        onConfirm: Provider.of<VolunteeringProvider>(context, listen: false)
-            .abandonCurrentVolunteering,
+        onConfirm: () =>
+            Provider.of<VolunteeringProvider>(context, listen: false)
+                .abandonCurrentVolunteering()
+                .catchError(
+                    (error) => handleException(context: context, error: error)),
       );
 
   Function _getCancelDialogFunc(
@@ -87,8 +92,11 @@ class VolunteeringDetailsPage extends StatelessWidget {
         context: context,
         dialogTitle: cancelTitle,
         volunteering: volunteering,
-        onConfirm: Provider.of<VolunteeringProvider>(context, listen: false)
-            .abandonCurrentVolunteering,
+        onConfirm: () =>
+            Provider.of<VolunteeringProvider>(context, listen: false)
+                .abandonCurrentVolunteering()
+                .catchError(
+                    (error) => handleException(context: context, error: error)),
       );
 
   void _completeProfileDialog(
@@ -149,7 +157,9 @@ class VolunteeringDetailsPage extends StatelessWidget {
                 child: SerManosRefreshIndicator(
                   onRefresh: () => volunteeringProvider
                       .fetchVolunteeringById(id)
-                      .then((_) => userProvider.fetchUser()),
+                      .then((_) => userProvider.fetchUser())
+                      .catchError((error) =>
+                          handleException(context: context, error: error)),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [

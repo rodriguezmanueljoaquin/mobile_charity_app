@@ -11,6 +11,7 @@ import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 import 'package:mobile_charity_app/routes/home_tabs.dart';
 import 'package:mobile_charity_app/utils/geolocator.dart';
+import 'package:mobile_charity_app/utils/handle_exception.dart';
 import 'package:mobile_charity_app/utils/logger.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +38,9 @@ class _HomePageState extends State<HomePage> {
                 (location) {
                   if (location != null) {
                     Provider.of<VolunteeringProvider>(context, listen: false)
-                        .fetchVolunteerings();
+                        .fetchVolunteerings()
+                        .catchError((error) =>
+                            handleException(context: context, error: error));
                   }
                 },
               ),
@@ -63,33 +66,33 @@ class _HomePageState extends State<HomePage> {
             ? SerManosColors.neutral0
             : SerManosColors.secondary10,
         bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(50.0),
-            child: ColoredBox(
-              color: SerManosColors.secondary100,
-              child: TabBar(
-                unselectedLabelColor: SerManosColors.neutral0,
-                onTap: _onTap,
-                indicator: const BoxDecoration(
-                  color: SerManosColors.secondary200,
-                  border: Border(
-                    bottom: BorderSide(
-                      color: SerManosColors
-                          .neutral0, // Color for the indicator line
-                      width: 3.0, // Thickness of the indicator line
-                    ),
+          preferredSize: const Size.fromHeight(50.0),
+          child: ColoredBox(
+            color: SerManosColors.secondary100,
+            child: TabBar(
+              unselectedLabelColor: SerManosColors.neutral0,
+              onTap: _onTap,
+              indicator: const BoxDecoration(
+                color: SerManosColors.secondary200,
+                border: Border(
+                  bottom: BorderSide(
+                    color:
+                        SerManosColors.neutral0, // Color for the indicator line
+                    width: 3.0, // Thickness of the indicator line
                   ),
                 ),
-                tabs: HomeTabs.values
-                    .map(
-                      (tab) => Tab(
-                        text: tab.tabText,
-                      ),
-                    )
-                    .toList(),
               ),
+              tabs: HomeTabs.values
+                  .map(
+                    (tab) => Tab(
+                      text: tab.tabText,
+                    ),
+                  )
+                  .toList(),
             ),
           ),
-          body: TabBarView(
+        ),
+        body: TabBarView(
           children: [
             VolunteeringsTab(
               searchController: searchController,

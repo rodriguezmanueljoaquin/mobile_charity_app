@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:logger/logger.dart';
+import 'package:mobile_charity_app/models/exceptions.dart';
 import 'package:mobile_charity_app/models/news.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
@@ -49,19 +50,20 @@ class SerManosApi {
 
       return newUser.copyWith(id: userCredential.user!.uid);
     } on FirebaseAuthException catch (e) {
+      String message = e.message ?? 'Error registrando usuario';
       if (e.code == 'weak-password') {
         logger.d('The password provided is too weak.');
-        return null;
+        message = 'La contraseña es muy débil';
       } else if (e.code == 'email-already-in-use') {
         logger.d('The account already exists for that email.');
-        return null;
+        message = 'Ya existe una cuenta con ese correo';
       }
+
+      throw FormException(message);
     } catch (e) {
       logger.e(e);
-      return null;
+      rethrow;
     }
-
-    return null;
   }
 
   Future<UserModel?> getUserById({
@@ -75,7 +77,7 @@ class SerManosApi {
           .fetchDownloadAvatarURL();
     } catch (e) {
       logger.e(e);
-      return null;
+      rethrow;
     }
   }
 
@@ -91,19 +93,21 @@ class SerManosApi {
 
       return user;
     } on FirebaseAuthException catch (e) {
+      String message = e.message ?? 'Error iniciando sesión';
+
       if (e.code == 'user-not-found') {
         logger.w('No user found for that email.');
-        return null;
+        message = 'No se encontró un usuario con ese correo';
       } else if (e.code == 'wrong-password') {
         logger.w('Wrong password provided for that user.');
-        return null;
+        message = 'Contraseña incorrecta';
       }
+
+      throw FormException(message);
     } catch (e) {
       logger.e(e);
-      return null;
+      rethrow;
     }
-
-    return null;
   }
 
   Future<List<VolunteeringModel>> getVolunteerings() async {
@@ -121,7 +125,7 @@ class SerManosApi {
       return await Future.wait(volunteeringFutures);
     } catch (e) {
       logger.e(e);
-      return [];
+      rethrow;
     }
   }
 
@@ -140,7 +144,7 @@ class SerManosApi {
       return await Future.wait(newsFutures);
     } catch (e) {
       logger.d(e);
-      return [];
+      rethrow;
     }
   }
 
@@ -157,11 +161,11 @@ class SerManosApi {
           .fetchDownloadImageURL();
     } catch (e) {
       logger.e(e);
-      return null;
+      rethrow;
     }
   }
 
-  Future<bool> setVolunteeringAsFavorite({
+  Future<void> setVolunteeringAsFavorite({
     required String userId,
     required String volunteeringId,
     required bool isFavorite,
@@ -175,10 +179,9 @@ class SerManosApi {
         'favoriteVolunteeringsIds': fieldValue,
       });
 
-      return true;
     } catch (e) {
       logger.e(e);
-      return false;
+      rethrow;
     }
   }
 
@@ -231,7 +234,7 @@ class SerManosApi {
     });
   }
 
-  Future<bool> updateProfileInfo({
+  Future<void> updateProfileInfo({
     required UserModel updatedUser,
     required bool changedEmail,
     File? avatar,
@@ -254,14 +257,12 @@ class SerManosApi {
           .collection('users')
           .doc(updatedUser.id)
           .update(updatedUser.toJson());
-
-      return true;
     } on FirebaseException catch (e) {
       logger.e('Error updating user: ${e.message}');
-      return false;
+      throw FormException(e.message ?? 'Error actualizando el perfil');
     } catch (e) {
       logger.e(e);
-      return false;
+      rethrow;
     }
   }
 }

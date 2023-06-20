@@ -14,6 +14,7 @@ import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 import 'package:mobile_charity_app/routes/home_tabs.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
+import 'package:mobile_charity_app/utils/handle_exception.dart';
 import 'package:provider/provider.dart';
 import 'package:mobile_charity_app/utils/logger.dart';
 
@@ -60,7 +61,8 @@ class SerManosRouter {
 
           if (volunteeringProvider.volunteerings == null &&
               state.location != "/volunteering") {
-            volunteeringProvider.fetchVolunteerings();
+            volunteeringProvider.fetchVolunteerings().catchError(
+                (error) => handleException(context: context, error: error));
           }
 
           return HomePage(
@@ -113,7 +115,8 @@ class SerManosRouter {
           final newsProvider = Provider.of<NewsProvider>(context);
 
           if (newsProvider.news == null && state.location != "/news") {
-            newsProvider.fetchNews();
+            newsProvider.fetchNews().catchError(
+                (error) => handleException(context: context, error: error));
           }
 
           return HomePage(

@@ -16,6 +16,7 @@ import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
+import 'package:mobile_charity_app/utils/handle_exception.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -64,25 +65,39 @@ class _EditProfilePageState extends State<EditProfilePage> {
       setState(() {
         _disabled = true;
         _loading = true;
+        _error = '';
       });
       UserProvider userProvider =
           Provider.of<UserProvider>(context, listen: false);
 
-      await userProvider.updateProfile(
+      bool hasErrors = false;
+
+      await userProvider
+          .updateProfile(
         phoneNumber: _phoneController.text,
         email: _emailController.text,
         birthDate: DateFormat('dd/MM/yyyy').parse(_dateController.text),
         gender: genderStrById[_genderIdSelected],
         avatar: _image,
+      )
+          .catchError(
+        (error) {
+          handleException(
+            context: context,
+            error: error,
+            onFormException: (message) => setState(() => _error = message),
+          );
+          hasErrors = true;
+        },
       );
 
       setState(() {
-        _error = ""; // TODO: Assign api response
         _disabled = false;
         _loading = false;
       });
-      if (_error.isEmpty) {
-        Navigator.pop(context);
+
+      if (hasErrors) {
+        context.pop();
       }
     }
   }

@@ -48,6 +48,8 @@ class VolunteeringProvider extends ChangeNotifier {
 
       _volunteeringsIndexById = listToIndexMapByKey(volunteerings, (e) => e.id);
       _volunteerings = volunteerings;
+    } catch (e) {
+      rethrow;
     } finally {
       isFetchingVolunteerings = false;
       notifyListeners();
@@ -148,8 +150,8 @@ class VolunteeringProvider extends ChangeNotifier {
       await fetchVolunteerings();
       await _userProvider!.fetchUser();
     } catch (e) {
-      // TODO: handle error
       logger.e(e);
+      rethrow;
     } finally {
       isApplyingToVolunteering = false;
     }

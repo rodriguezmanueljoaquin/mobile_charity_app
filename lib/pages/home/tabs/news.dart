@@ -6,6 +6,7 @@ import 'package:mobile_charity_app/design_system/tokens/indicators.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/models/news.dart';
 import 'package:mobile_charity_app/providers/news_provider.dart';
+import 'package:mobile_charity_app/utils/handle_exception.dart';
 import 'package:provider/provider.dart';
 
 class NewsTab extends StatefulWidget {
@@ -23,7 +24,12 @@ class _NewsTabState extends State<NewsTab>
   void initState() {
     super.initState();
 
-    Provider.of<NewsProvider>(context, listen: false).fetchNews();
+    NewsProvider newsProvider =
+        Provider.of<NewsProvider>(context, listen: false);
+    if (newsProvider.news == null) {
+      newsProvider.fetchNews().catchError(
+          (error) => handleException(context: context, error: error));
+    }
   }
 
   @override
@@ -32,7 +38,10 @@ class _NewsTabState extends State<NewsTab>
   @override
   Widget build(BuildContext context) {
     return SerManosRefreshIndicator(
-      onRefresh: Provider.of<NewsProvider>(context, listen: false).fetchNews,
+      onRefresh: () => Provider.of<NewsProvider>(context, listen: false)
+          .fetchNews()
+          .catchError(
+              (error) => handleException(context: context, error: error)),
       child: Consumer<NewsProvider>(builder: (context, newsProvider, child) {
         if (newsProvider.isLoading) {
           return const Center(child: CircularProgressIndicator());
