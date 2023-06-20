@@ -78,7 +78,7 @@ class _SerManosVolunteeringModalState extends State<SerManosVolunteeringModal> {
               setState(() {
                 _loading = false;
               });
-              Navigator.pop(context);
+              Navigator.pop(context, "Confirm");
             },
           ),
         ],

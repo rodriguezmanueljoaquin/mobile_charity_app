@@ -91,11 +91,11 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                         volunteeringProvider.isFetchingVolunteerings) {
                       return const SizedBox();
                     }
-                    
+
                     String? currentVolunteeringTitle = volunteeringProvider
                         .getVolunteeringById(currentVolunteeringId)
                         ?.title;
-                    
+
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -103,6 +103,7 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                         const SerManosSizedBox.sl(),
                         SerManosCurrentVolunteringCard(
                           title: currentVolunteeringTitle,
+                          volunteeringId: currentVolunteeringId,
                         ),
                         const SerManosSizedBox.md(),
                       ],
@@ -123,16 +124,16 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                       child: CircularProgressIndicator(),
                     );
                   }
-                        
+
                   List<VolunteeringModel>? volunteerings =
                       volunteeringProvider.volunteerings;
-                        
+
                   if (widget.searchController.text.isNotEmpty) {
                     volunteerings = volunteeringProvider
                         .searchVolunteeringsByTitleAndDescription(
                             widget.searchController.text);
                   }
-                        
+
                   if (volunteerings == null || volunteerings.isEmpty) {
                     return const Center(
                       child: Padding(
@@ -146,7 +147,7 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                       ),
                     );
                   }
-                        
+
                   return ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),

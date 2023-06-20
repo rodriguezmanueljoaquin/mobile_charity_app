@@ -6,10 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
-import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
-import 'package:mobile_charity_app/design_system/organisms/cards/edit_profile_photo_card.dart';
-import 'package:mobile_charity_app/design_system/organisms/cards/gender_input_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/genders_constants.dart';
 import 'package:mobile_charity_app/design_system/organisms/forms/contact_data_form.dart';
 import 'package:mobile_charity_app/design_system/organisms/forms/profile_data_form.dart';
@@ -19,9 +16,6 @@ import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
-import 'package:mobile_charity_app/routes/paths.dart';
-import 'package:mobile_charity_app/utils/firestore.dart';
-import 'package:mobile_charity_app/utils/logger.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatefulWidget {

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:go_router/go_router.dart';
@@ -93,7 +95,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
 
   void _completeProfileDialog(
       {required BuildContext context,
-      required VolunteeringModel volunteering}) async {
+      required VolunteeringModel volunteering, required UserProvider userProvider}) async {
     String answer = await showDialog(
       context: context,
       builder: (BuildContext context) => SerManosVolunteeringModal(
@@ -104,7 +106,8 @@ class VolunteeringDetailsPage extends StatelessWidget {
         },
       ),
     );
-    if (answer == "Cancel") {
+    UserModel user = userProvider.user!;
+    if (answer == "Cancel" || !user.hasCompleteProfile) {
       return;
     }
 
@@ -290,7 +293,8 @@ class VolunteeringDetailsPage extends StatelessWidget {
                                 } else {
                                   _completeProfileDialog(
                                       context: context,
-                                      volunteering: volunteering);
+                                      volunteering: volunteering,
+                                      userProvider: userProvider);
                                 }
                               }),
                         ],
