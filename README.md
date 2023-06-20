@@ -22,6 +22,8 @@
 ## Descripción
 Este repositorio contiene el código fuente de la aplicación de flutter desarrollada para el trabajo práctico de la materia 73.21 - Desarrollo de Aplicaciones Móviles Multiplataforma del ITBA, que consiste en una aplicación desarrollada en Flutter para que personas puedan, principalmente, averiguar sobre voluntariados cercanos e inscribirse a ellos.
 
+En nuestro caso se desarrolló la funcionalidad extra de refresh de voluntariados, un voluntariado en particular y noticias.
+
 <br/>
 
 ## Especificaciones técnicas
@@ -67,6 +69,22 @@ Por último, se cuenta con un middleware que se encarga de cargar al usuario (si
 Lorem ipsum
 
 <br/>
+
+## Requerimientos no funcionales
+
+### Monitoreo y eventos
+Lorem ipsum
+
+### Seguridad
+Lorem ipsum
+
+### Privacidad
+Lorem ipsum
+
+### Usabilidad
+Adicionalmente a lo expuesto en Figma, añadimos:
+- Pantalla de error para cuando se ingresa una ruta inválida o no se encuentra un voluntariado o noticia en particular.
+- Snackbar para mostrar mensajes de error. Para el caso de errores en formularios los mismos se muestran por pantalla y aquellos ajenos a los formularios se muestran en una snackbar.
 
 ## Autores
 
