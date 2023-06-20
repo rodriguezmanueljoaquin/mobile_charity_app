@@ -125,11 +125,11 @@ app.*.symbols
 
 # credentials
 **/.env
-**/android/app/google-services.json
-**/ios/firebase_app_id_file.json
-**/ios/Runner/GoogleService-Info.plist
-**/macos/firebase_app_id_file.json
-**/macos/Runner/GoogleService-Info.plist
+# **/android/app/google-services.json
+# **/ios/firebase_app_id_file.json
+# **/ios/Runner/GoogleService-Info.plist
+# **/macos/firebase_app_id_file.json
+#**/macos/Runner/GoogleService-Info.plist
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3

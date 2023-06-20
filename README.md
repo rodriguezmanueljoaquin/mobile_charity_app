@@ -71,7 +71,10 @@ Además, se cuenta con una página de error para cuando se ingresa una ruta inv�
 Por último, se cuenta con un middleware que se encarga de cargar al usuario (si es que posee un token válido) antes de mostrar la pantalla correspondiente y redirigir a donde corresponda de acuerdo a los casos de uso.
 
 ### Testing
-Lorem ipsum
+Para la ejecución de los tests es suficiente con, desde el directorio origen del repositorio, ejecutar `flutter test`.
+
+Se ejecutaran golden tests para asegurar que nada haya cambiado en la UI respecto del punto de origen que fue establecido, en caso de querer recrear el punto de origen debe ejecutarse `flutter test --update-goldens`. Y también se ejecutaran tests sobre distintos widgets, particularmente aquellos que tienen interacciones como la aparición de modals. 
+
 
 <br/>
 
