@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
-import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';

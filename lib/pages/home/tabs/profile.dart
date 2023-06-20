@@ -48,6 +48,7 @@ class ProfileTab extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  const SerManosSizedBox.lg(),
                   Center(
                     child: SerManosProfilePhoto(url: user.downloadAvatarURL),
                   ),
@@ -65,7 +66,9 @@ class ProfileTab extends StatelessWidget {
                     ProfileData(user: user),
                   ] else
                     SerManosText.body1(
-                        "¡Completá tu perfil para tener acceso a mejores oportunidades!")
+                      "¡Completá tu perfil para tener acceso a mejores oportunidades!",
+                      textAlign: TextAlign.center,
+                    )
                 ],
               ),
             ),
