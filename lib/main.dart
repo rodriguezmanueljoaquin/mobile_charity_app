@@ -1,3 +1,5 @@
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +16,27 @@ import 'package:flutter/foundation.dart' show PlatformDispatcher, kIsWeb;
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
-  
+
   WidgetsFlutterBinding.ensureInitialized();
+
+  // If the system can show an authorization request dialog
+  if (await AppTrackingTransparency.trackingAuthorizationStatus ==
+      TrackingStatus.notDetermined) {
+    // Request system's tracking authorization dialog
+    await AppTrackingTransparency.requestTrackingAuthorization();
+  }
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  if (await AppTrackingTransparency.trackingAuthorizationStatus ==
+      TrackingStatus.denied) {
+    // The user has denied access to the system's tracking authorization dialog
+    FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(false);
+    FirebaseAnalytics.instance.setConsent(
+        adStorageConsentGranted: false, analyticsStorageConsentGranted: false);
+  }
 
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);

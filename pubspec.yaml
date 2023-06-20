@@ -40,6 +40,7 @@ dependencies:
   map_launcher: ^2.5.0+1
   flutter_dotenv: ^5.1.0
   flutter_native_splash: ^2.2.19
+  app_tracking_transparency: ^2.0.4
 
 dev_dependencies:
   flutter_test:
