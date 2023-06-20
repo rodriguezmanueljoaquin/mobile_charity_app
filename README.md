@@ -91,6 +91,8 @@ Adicionalmente a lo expuesto en Figma, añadimos:
 - Pantalla de error para cuando se ingresa una ruta inválida o no se encuentra un voluntariado o noticia en particular.
 - Snackbar para mostrar mensajes de error. Para el caso de errores en formularios los mismos se muestran por pantalla y aquellos ajenos a los formularios se muestran en una snackbar.
 
+<br/>
+
 ## Autores
 
 - [Serpe, Octavio Javier](https://github.com/OctavioSerpe) - Legajo 60076
