@@ -10,6 +10,7 @@ class SerManosRegisterForm extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final Function onFieldSubmitted;
+  final Function onFieldUpdated;
 
   const SerManosRegisterForm(
       {super.key,
@@ -19,7 +20,8 @@ class SerManosRegisterForm extends StatefulWidget {
       required this.lastNameController,
       required this.emailController,
       required this.passwordController,
-      required this.onFieldSubmitted});
+      required this.onFieldSubmitted,
+      required this.onFieldUpdated});
 
   @override
   State<SerManosRegisterForm> createState() => _SerManosRegisterFormState();
@@ -52,6 +54,7 @@ class _SerManosRegisterFormState extends State<SerManosRegisterForm> {
   }
 
   void _inputListener() {
+    widget.onFieldUpdated();
     if (_emailController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty &&
         _firstNameController.text.isNotEmpty &&

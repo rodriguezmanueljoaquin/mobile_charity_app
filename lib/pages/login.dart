@@ -78,6 +78,13 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       emailController: _emailController,
                       passwordController: _passwordController,
+                      onFieldUpdated: () {
+                        if (_loginError.isNotEmpty) {
+                          setState(() {
+                            _loginError = '';
+                          });
+                        }
+                      },
                     ),
                   ],
                 ),

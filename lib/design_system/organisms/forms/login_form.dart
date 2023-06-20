@@ -8,6 +8,7 @@ class SerManosLoginForm extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final Function onFieldSubmitted;
+  final Function onFieldUpdated;
 
   const SerManosLoginForm(
       {super.key,
@@ -15,7 +16,8 @@ class SerManosLoginForm extends StatefulWidget {
       required this.changeDisabledStateTo,
       required this.emailController,
       required this.passwordController,
-      required this.onFieldSubmitted});
+      required this.onFieldSubmitted,
+      required this.onFieldUpdated});
 
   @override
   State<SerManosLoginForm> createState() => _SerManosLoginFormState();
@@ -42,6 +44,7 @@ class _SerManosLoginFormState extends State<SerManosLoginForm> {
   }
 
   void _inputListener() {
+    widget.onFieldUpdated();
     if (_emailController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty) {
       bool isValid = widget.formKey.currentState!.validate();
