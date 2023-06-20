@@ -6,9 +6,9 @@ import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
-class EmptyListPlaceholderCard extends StatelessWidget {
+class SerManosEmptyListPlaceholderCard extends StatelessWidget {
   final String text;
-  const EmptyListPlaceholderCard({super.key, required this.text});
+  const SerManosEmptyListPlaceholderCard({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {

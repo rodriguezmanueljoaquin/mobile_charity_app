@@ -6,6 +6,7 @@ import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/components.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/information_card.dart';
+import 'package:mobile_charity_app/design_system/organisms/modals/volunteering_modal.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/user.dart';
@@ -14,10 +15,26 @@ import 'package:mobile_charity_app/routes/paths.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTab extends StatelessWidget {
-
   const ProfileTab({
     super.key,
   });
+
+  Function _onLogout({required BuildContext context}) {
+    return () => showDialog(
+          context: context,
+          builder: (BuildContext context) => SerManosVolunteeringModal(
+              title: "¿Estás seguro que quieres cerrar sesión?",
+              acceptText: "Cerrar sesión",
+              onConfirm: () async {
+                return await Provider.of<UserProvider>(
+                  context,
+                  listen: false,
+                ).logout().then(
+                      (_) => context.replaceNamed(SerManosPagesName.signin),
+                    );
+              }),
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +59,7 @@ class ProfileTab extends StatelessWidget {
                   if (completed) ...[
                     SerManosText.body1(
                       user.email!,
-                      color: SerManosColors
-                          .secondary200,
+                      color: SerManosColors.secondary200,
                     ),
                     const SerManosSizedBox.lg(),
                     ProfileData(user: user),
@@ -67,15 +83,7 @@ class ProfileTab extends StatelessWidget {
                   const SerManosSizedBox.sm(),
                   SerManosTextButton.longTextButton(
                     text: "Cerrar sesión",
-                    onPressed: () async {
-                      return await Provider.of<UserProvider>(
-                        context,
-                        listen: false,
-                      ).logout().then(
-                            (_) =>
-                                context.replaceNamed(SerManosPagesName.signin),
-                          );
-                    },
+                    onPressed: _onLogout(context: context),
                     filled: false,
                     textColor: SerManosColors.error100,
                   ),
@@ -114,7 +122,8 @@ class ProfileData extends StatelessWidget {
         SerManosInformationCard(
           title: "Información personal",
           contentsByLabel: Map.from({
-            "Fecha de nacimiento": DateFormat("dd/MM/yyyy").format(user.birthDate!),
+            "Fecha de nacimiento":
+                DateFormat("dd/MM/yyyy").format(user.birthDate!),
             "Género": user.gender!,
           }),
         ),

@@ -140,7 +140,7 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                           horizontal: SerManosSpacing.spaceSL,
                           vertical: SerManosSpacing.spaceMD,
                         ),
-                        child: EmptyListPlaceholderCard(
+                        child: SerManosEmptyListPlaceholderCard(
                             text:
                                 "Actualmente no hay voluntariados vigentes. Pronto se irán ircorporando nuevos."),
                       ),

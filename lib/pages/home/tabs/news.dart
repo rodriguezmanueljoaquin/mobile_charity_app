@@ -48,7 +48,7 @@ class _NewsTabState extends State<NewsTab>
                 horizontal: SerManosSpacing.spaceSL,
                 vertical: SerManosSpacing.spaceMD,
               ),
-              child: EmptyListPlaceholderCard(
+              child: SerManosEmptyListPlaceholderCard(
                 text:
                     "Actualmente no hay noticias vigentes. Pronto se irán ircorporando nuevas.",
               ),
