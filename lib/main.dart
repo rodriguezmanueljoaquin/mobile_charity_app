@@ -61,6 +61,7 @@ class _MyAppState extends State<MyApp> {
         title: 'SER MANOS',
         routerDelegate: _router.routerDelegate,
         routeInformationParser: _router.routeInformationParser,
+        debugShowCheckedModeBanner: false,
       ),
     );
   }
