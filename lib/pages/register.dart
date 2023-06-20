@@ -91,6 +91,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       lastNameController: _lastNameController,
                       emailController: _emailController,
                       passwordController: _passwordController,
+                      onFieldUpdated: () {
+                        if (_registerError.isNotEmpty) {
+                          setState(() {
+                            _registerError = '';
+                          });
+                        }
+                      },
                     ),
                   ],
                 ),
