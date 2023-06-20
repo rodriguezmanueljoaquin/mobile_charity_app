@@ -119,7 +119,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
     }
 
     logger.i(
-        'User completed profile, applying to volunteering ${volunteering.id}');
+        'User completed profile, showing modal for applying to volunteering ${volunteering.id}');
     await _getApplyDialogFunc(context: context, volunteering: volunteering)();
   }
 

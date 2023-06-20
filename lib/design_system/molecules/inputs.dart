@@ -42,11 +42,15 @@ class SerManosTextFormField extends StatefulWidget {
 }
 
 class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
+  FocusNode focusNode = FocusNode();
   bool _hasError = false;
   bool _visible = false;
 
   @override
   void initState() {
+    focusNode.addListener(() {
+      setState(() {});
+    });
     _visible = !widget.isPassword;
     super.initState();
   }
@@ -86,6 +90,7 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
       height: 70,
       width: 328,
       child: TextFormField(
+        focusNode: focusNode,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         onFieldSubmitted: (_) => widget.onFieldSubmitted(),
         controller: widget.controller,
@@ -128,13 +133,14 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
                 ? SerManosColors.neutral50
                 : _hasError
                     ? SerManosColors.error100
-                    : SerManosColors.neutral75,
+                    : focusNode.hasFocus
+                        ? SerManosColors.secondary200
+                        : SerManosColors.neutral75,
           ),
           hintStyle: SerManosTextStyle.subtitle1(
             color: widget.disabled
                 ? SerManosColors.neutral50
-                : SerManosColors
-                    .neutral75, // TODO: should be secondary200 when focus?
+                : SerManosColors.neutral75,
           ),
           errorStyle: const SerManosTextStyle.body2(
             color: SerManosColors.error100,
