@@ -20,11 +20,17 @@ class SerManosScaffold extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: whiteStatusBar
-              ? SerManosColors.neutral0
-              : SerManosColors.neutral100,
-        ),
+        systemOverlayStyle: whiteStatusBar
+            ? SystemUiOverlayStyle.dark
+                .copyWith(statusBarColor: SerManosColors.neutral0)
+            : SystemUiOverlayStyle.light.copyWith(
+                statusBarColor: SerManosColors.neutral100,
+              ),
+        shadowColor: null,
+        elevation: 0,
+        backgroundColor: whiteStatusBar
+            ? SerManosColors.neutral0
+            : SerManosColors.neutral100,
       ),
       backgroundColor: SerManosColors.neutral0,
       body: SizedBox(

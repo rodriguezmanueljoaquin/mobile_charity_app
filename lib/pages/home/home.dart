@@ -66,6 +66,8 @@ class _HomePageState extends State<HomePage> {
           systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarColor: SerManosColors.secondary90,
           ),
+          shadowColor: null,
+          elevation: 0,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [SerManosImages.appBar, const Spacer()],
