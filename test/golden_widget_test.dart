@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mobile_charity_app/main.dart';
 import 'package:mobile_charity_app/pages/edit_profile.dart';
@@ -16,6 +17,7 @@ import 'package:mobile_charity_app/providers/news_provider.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 import 'package:mobile_charity_app/routes/home_tabs.dart';
+import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:provider/provider.dart';
 
@@ -52,8 +54,10 @@ void main() {
   });
 
   testGoldens('Golden test edit profile page', (WidgetTester tester) async {
-    await mockNetworkImagesFor(() =>
-        tester.pumpWidgetBuilder(const MaterialApp(home: EditProfilePage())));
+    await mockNetworkImagesFor(() => tester.pumpWidgetBuilder(MaterialApp(
+        home: ChangeNotifierProvider<UserProvider>.value(
+            value: MockUserProvider(),
+            child: const MaterialApp(home: EditProfilePage())))));
     await multiScreenGolden(tester, 'edit_profile_page');
   });
 
@@ -97,6 +101,8 @@ void main() {
 
   testGoldens('Golden test home page initial tab', (WidgetTester tester) async {
     // to check that initial default tab didnt change
+
+
     await mockNetworkImagesFor(() =>
         tester.pumpWidgetBuilder(MultiProvider(providers: [
           ChangeNotifierProvider<UserProvider>.value(value: MockUserProvider()),

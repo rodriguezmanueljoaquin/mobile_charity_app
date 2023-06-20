@@ -17,6 +17,7 @@ import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
+import 'package:mobile_charity_app/routes/paths.dart';
 import 'package:mobile_charity_app/utils/availability_converter.dart';
 import 'package:mobile_charity_app/utils/logger.dart';
 import 'package:provider/provider.dart';
@@ -36,11 +37,14 @@ class VolunteeringDetailsPage extends StatelessWidget {
   final String abandonTitle =
       '¿Estás seguro que querés abandonar tu voluntariado?';
 
-  Function _showDialog({
+  final String completeProfileTitle =
+      'Para postularte debes primero completar tus datos.';
+
+  Function _getDialogFunc({
     required BuildContext context,
     required String dialogTitle,
-    required VolunteeringModel volunteering,
     required Function onConfirm,
+    VolunteeringModel? volunteering,
   }) {
     return () => showDialog(
           context: context,
@@ -52,10 +56,10 @@ class VolunteeringDetailsPage extends StatelessWidget {
         );
   }
 
-  Function _showApplyDialog(
+  Function _getApplyDialogFunc(
           {required BuildContext context,
           required VolunteeringModel volunteering}) =>
-      _showDialog(
+      _getDialogFunc(
         context: context,
         dialogTitle: enlistTitle,
         volunteering: volunteering,
@@ -64,10 +68,10 @@ class VolunteeringDetailsPage extends StatelessWidget {
                 .applyToVolunteering(id),
       );
 
-  Function _showAbandonDialog(
+  Function _getAbandonDialogFunc(
           {required BuildContext context,
           required VolunteeringModel volunteering}) =>
-      _showDialog(
+      _getDialogFunc(
         context: context,
         dialogTitle: abandonTitle,
         volunteering: volunteering,
@@ -75,16 +79,38 @@ class VolunteeringDetailsPage extends StatelessWidget {
             .abandonCurrentVolunteering,
       );
 
-  Function _showCancelDialog(
+  Function _getCancelDialogFunc(
           {required BuildContext context,
           required VolunteeringModel volunteering}) =>
-      _showDialog(
+      _getDialogFunc(
         context: context,
         dialogTitle: cancelTitle,
         volunteering: volunteering,
         onConfirm: Provider.of<VolunteeringProvider>(context, listen: false)
             .abandonCurrentVolunteering,
       );
+
+  void _completeProfileDialog(
+      {required BuildContext context,
+      required VolunteeringModel volunteering}) async {
+    String answer = await showDialog(
+      context: context,
+      builder: (BuildContext context) => SerManosVolunteeringModal(
+        title: completeProfileTitle,
+        acceptText: 'Completar datos',
+        onConfirm: () async {
+          await context.pushNamed(SerManosPagesName.profileEdit);
+        },
+      ),
+    );
+    if (answer == "Cancel") {
+      return;
+    }
+
+    logger.i(
+        'User completed profile, applying to volunteering ${volunteering.id}');
+    await _getApplyDialogFunc(context: context, volunteering: volunteering)();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,7 +208,8 @@ class VolunteeringDetailsPage extends StatelessWidget {
                               SerManosText.subtitle1("Requisitos"),
                               const SerManosSizedBox.sm(),
                               MarkdownBody(
-                                data: volunteering.requirements.replaceAll(r'\n', '\n'),
+                                data: volunteering.requirements
+                                    .replaceAll(r'\n', '\n'),
                                 styleSheet: MarkdownStyleSheet(
                                   a: const SerManosTextStyle.body1(),
                                   h1: const SerManosTextStyle.headline1(),
@@ -193,7 +220,8 @@ class VolunteeringDetailsPage extends StatelessWidget {
                               SerManosText.subtitle1("Disponibilidad"),
                               const SerManosSizedBox.sm(),
                               MarkdownBody(
-                                data: availabilitiesToMarkdown(volunteering.availability),
+                                data: availabilitiesToMarkdown(
+                                    volunteering.availability),
                               ),
                               const SerManosSizedBox.sm(),
                               SerManosVacancies(
@@ -222,7 +250,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
                           SerManosTextButton.longTextButton(
                             text: 'Retirar postulación',
                             filled: false,
-                            onPressed: _showCancelDialog(
+                            onPressed: _getCancelDialogFunc(
                                 context: context, volunteering: volunteering),
                           ),
                           const SerManosSizedBox.md(),
@@ -241,7 +269,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
                                 SerManosTextButton.longTextButton(
                                   text: 'Abandonar voluntariado actual',
                                   filled: false,
-                                  onPressed: _showAbandonDialog(
+                                  onPressed: _getAbandonDialogFunc(
                                       context: context,
                                       volunteering: volunteering),
                                 ),
@@ -249,11 +277,19 @@ class VolunteeringDetailsPage extends StatelessWidget {
                               ],
                             ),
                           SerManosTextButton.longTextButton(
-                            text: 'Postularme',
-                            disabled: volunteering.vacancies == 0,
-                            onPressed: _showApplyDialog(
-                                context: context, volunteering: volunteering),
-                          ),
+                              text: 'Postularme',
+                              disabled: volunteering.vacancies == 0,
+                              onPressed: () {
+                                if (user.hasCompleteProfile) {
+                                  _getApplyDialogFunc(
+                                      context: context,
+                                      volunteering: volunteering)();
+                                } else {
+                                  _completeProfileDialog(
+                                      context: context,
+                                      volunteering: volunteering);
+                                }
+                              }),
                         ],
                       ),
               ),

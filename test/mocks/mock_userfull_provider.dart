@@ -7,11 +7,17 @@ import 'package:mobile_charity_app/providers/user_provider.dart';
 
 class MockUserFullProvider extends ChangeNotifier implements UserProvider {
   @override
-  UserModel? user = const UserModel(
+  UserModel? user = UserModel(
       id: "1",
       firstName: "John",
       lastName: "Doe",
       email: "asdaaa@asdasd.aaa",
+      avatarImageKey: "asdasd",
+      birthDate: DateTime.now(),
+      downloadAvatarURL: "asdasd",
+      favoriteVolunteeringsIds: ["1","2"],
+      gender: "Hombre",
+      phoneNumber: "123123123",
       currentVolunteeringId: "1");
 
   @override
@@ -60,5 +66,10 @@ class MockUserFullProvider extends ChangeNotifier implements UserProvider {
       String? phoneNumber,
       File? avatar}) {
     return Future.value();
+  }
+  
+  @override
+  Future<GeoPoint?> loadLocation() {
+    return Future.value(const GeoPoint(1, 1));
   }
 }

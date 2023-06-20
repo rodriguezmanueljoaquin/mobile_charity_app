@@ -9,13 +9,15 @@ import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 
 class SerManosVolunteeringModal extends StatefulWidget {
-  final VolunteeringModel volunteering;
+  final VolunteeringModel? volunteering;
   final String title;
+  final String acceptText;
   final Function onConfirm;
 
   const SerManosVolunteeringModal(
       {super.key,
-      required this.volunteering,
+      this.volunteering,
+      this.acceptText = 'Confirmar',
       required this.title,
       required this.onConfirm});
 
@@ -50,7 +52,8 @@ class _SerManosVolunteeringModalState extends State<SerManosVolunteeringModal> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SerManosText.subtitle1(widget.title),
-              SerManosText.headline2(widget.volunteering.title),
+              if (widget.volunteering != null)
+                SerManosText.headline2(widget.volunteering!.title),
             ],
           ),
         ),
@@ -59,13 +62,13 @@ class _SerManosVolunteeringModalState extends State<SerManosVolunteeringModal> {
             text: 'Cancelar',
             filled: false,
             disabled: _loading,
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(context, "Cancel"),
           ),
           const SerManosSizedBox.sm(
             useWidth: true,
           ),
           SerManosTextButton.shortTextButton(
-            text: 'Confirmar',
+            text: widget.acceptText,
             filled: false,
             disabled: _loading,
             loading: _loading,
