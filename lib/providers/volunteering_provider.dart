@@ -48,6 +48,14 @@ class VolunteeringProvider extends ChangeNotifier {
     }
   }
 
+  void sortVolunteeringsByDistance() {
+    if (_userProvider?.userLocation != null) {
+      _volunteerings = sortVolunteeringsByDistanceToUser(
+          _volunteerings!, _userProvider!.userLocation!);
+      notifyListeners();
+    }
+  }
+
   VolunteeringModel? getVolunteeringById(String id) =>
       _volunteeringsIndexById?[id] != null
           ? _volunteerings![_volunteeringsIndexById![id]!]

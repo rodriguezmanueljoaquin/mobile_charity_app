@@ -29,8 +29,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => requestLocationPermission()
+    WidgetsBinding.instance.addPostFrameCallback((_) =>
+        requestLocationPermission()
             .then(
               (value) => Provider.of<UserProvider>(context, listen: false)
                   .loadLocation()
@@ -38,14 +38,13 @@ class _HomePageState extends State<HomePage> {
                 (location) {
                   if (location != null) {
                     Provider.of<VolunteeringProvider>(context, listen: false)
-                        .fetchVolunteerings()
-                        .catchError((error) =>
-                            handleException(context: context, error: error));
+                        .sortVolunteeringsByDistance();
                   }
                 },
               ),
             )
-            .catchError((e) => logger.d(e)));
+            .catchError(
+                (error) => handleException(context: context, error: error)));
   }
 
   void _onTap(int tabIndex) {
