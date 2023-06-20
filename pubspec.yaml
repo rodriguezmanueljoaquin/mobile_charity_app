@@ -39,6 +39,7 @@ dependencies:
   path_provider: ^2.0.15
   map_launcher: ^2.5.0+1
   flutter_dotenv: ^5.1.0
+  flutter_native_splash: ^2.2.19
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +49,7 @@ dev_dependencies:
   build_runner: ^2.3.3
   freezed: ^2.3.5
   json_serializable: ^6.6.2
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
@@ -56,6 +58,9 @@ flutter:
     - assets/images/rectangular.png
     - assets/images/full.png
     - assets/images/profile_default_photo.svg
+    - assets/images/logo4x.png
+    - assets/images/rectangular4x.png
+    - assets/images/ios_logo.png
     - .env
 
   fonts:

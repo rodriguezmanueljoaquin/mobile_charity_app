@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SerManosImages.full,
+                    SizedBox(width: 150, child: SerManosImages.full),
                     const SerManosSizedBox.lg(),
                     SerManosLoginForm(
                       formKey: _formKey,

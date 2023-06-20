@@ -71,7 +71,16 @@ class SerManosLightBlueScaffold extends StatelessWidget {
         elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: [SerManosImages.appBar, const Spacer()],
+          children: [
+            SizedBox(
+              width: 147,
+              child: FittedBox(
+                fit: BoxFit.cover,
+                child: SerManosImages.appBar,
+              ),
+            ),
+            const Spacer()
+          ],
         ),
         bottom: bottom,
       ),

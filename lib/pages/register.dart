@@ -73,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Column(
                   children: [
                     const SerManosSizedBox.lg(),
-                    SerManosImages.full,
+                    SizedBox(width: 150, child: SerManosImages.full),
                     const SerManosSizedBox.lg(),
                     SerManosRegisterForm(
                       formKey: _formKey,

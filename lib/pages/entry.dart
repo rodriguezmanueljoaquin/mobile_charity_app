@@ -19,7 +19,7 @@ class EntryPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SerManosImages.full,
+                SizedBox(width: 150, child: SerManosImages.full),
                 const SerManosSizedBox.lg(),
                 SerManosText.subtitle1(
                   '"El esfuerzo desinteresado para llevar alegría a los demás será el comienzo de una vida más feliz para nosotros"',
