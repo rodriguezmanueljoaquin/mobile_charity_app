@@ -82,7 +82,10 @@ class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
           const SerManosSizedBox.md(),
           SerManosEditPhotoCard(
             currentPhotoUrl: widget.currentPhotoUrl,
-            onChange: widget.onImageChange,
+            onChange: (value) {
+              widget.onImageChange(value);
+              _inputListener(); // force check to enable form submission
+            },
           )
         ],
       ),
