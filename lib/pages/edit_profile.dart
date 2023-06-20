@@ -7,7 +7,7 @@ import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
-import 'package:mobile_charity_app/design_system/organisms/cards/genders_constants.dart';
+import 'package:mobile_charity_app/utils/genders_constants.dart';
 import 'package:mobile_charity_app/design_system/organisms/forms/contact_data_form.dart';
 import 'package:mobile_charity_app/design_system/organisms/forms/profile_data_form.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';

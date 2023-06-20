@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/molecules/radio_list_tile.dart';
-import 'package:mobile_charity_app/design_system/organisms/cards/genders_constants.dart';
+import 'package:mobile_charity_app/utils/genders_constants.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
