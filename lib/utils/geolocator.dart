@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 
 // @ref: https://pub.dev/packages/geolocator
@@ -9,15 +10,15 @@ Future<void> requestLocationPermission() async {
   serviceEnabled = await Geolocator.isLocationServiceEnabled();
   if (!serviceEnabled) {
     // Location services are not enabled don't continue
-    // accessing the position and request users of the 
+    // accessing the position and request users of the
     // App to enable the location services.
     return Future.error('Location services are disabled.');
   }
 
   permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied || 
+  if (permission == LocationPermission.denied ||
       permission == LocationPermission.deniedForever) {
-        Future.error('Location permissions are denied');
+    Future.error('Location permissions are denied');
   }
 
   await Geolocator.requestPermission();
@@ -26,13 +27,18 @@ Future<void> requestLocationPermission() async {
 Future<Position?> getCurrentPosition() async {
   // Check permissions before doing anything
   LocationPermission permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied || 
+  if (permission == LocationPermission.denied ||
       permission == LocationPermission.deniedForever) {
     return null;
   }
-  
+
   // When we reach here, permissions are granted and we can
   // continue accessing the position of the device.
   return await Geolocator.getCurrentPosition(
-    desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high);
+}
+
+double distanceBetweenGeoPoints(GeoPoint p1, GeoPoint p2) {
+  return Geolocator.distanceBetween(
+      p1.latitude, p1.longitude, p2.latitude, p2.longitude);
 }

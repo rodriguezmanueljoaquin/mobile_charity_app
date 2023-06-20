@@ -8,6 +8,7 @@ import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/utils/collections.dart';
 import 'package:mobile_charity_app/utils/logger.dart';
+import 'package:mobile_charity_app/utils/volunteerings.dart';
 
 class VolunteeringProvider extends ChangeNotifier {
   UserProvider? _userProvider;
@@ -29,25 +30,16 @@ class VolunteeringProvider extends ChangeNotifier {
     isFetchingVolunteerings = true;
 
     try {
-      List<VolunteeringModel> volunteerings =
+      List<VolunteeringModel> newVolunteerings =
           await SerManosApi().getVolunteerings();
-      if (_userProvider!.userLocation != null) {
-        // calculate distance to user location
-        final List<VolunteeringModelWithDistance> volunteeringsWithDistance =
-            volunteerings
-                .map((volunteering) => VolunteeringModelWithDistance(
-                      volunteering: volunteering,
-                      target: _userProvider!.userLocation!,
-                    ))
-                .toList();
-
-        volunteeringsWithDistance.sort();
-        volunteerings =
-            volunteeringsWithDistance.map((e) => e.volunteering).toList();
+      if (_userProvider?.userLocation != null) {
+        newVolunteerings = sortVolunteeringsByDistanceToUser(
+            newVolunteerings, _userProvider!.userLocation!);
       }
 
-      _volunteeringsIndexById = listToIndexMapByKey(volunteerings, (e) => e.id);
-      _volunteerings = volunteerings;
+      _volunteeringsIndexById =
+          listToIndexMapByKey(newVolunteerings, (e) => e.id);
+      _volunteerings = newVolunteerings;
     } catch (e) {
       rethrow;
     } finally {
@@ -112,14 +104,18 @@ class VolunteeringProvider extends ChangeNotifier {
       throw Exception('Volunteering not found');
     }
 
-    // add or update volunteering
-    if (_volunteeringsIndexById?[volunteeringId] == null) {
-      // TODO: sort by distance
-      _volunteerings!.add(volunteering);
-      _volunteeringsIndexById?[volunteeringId] = _volunteerings!.length - 1;
-    } else {
-      _volunteerings![_volunteeringsIndexById![volunteeringId]!] = volunteering;
+    // set volunteering in list
+    final int volunteeringIndex = _volunteeringsIndexById![volunteeringId]!;
+    _volunteerings![volunteeringIndex] = volunteering;
+
+    // sort volunteerings by distance to user in case the location changed
+    if (_userProvider?.userLocation != null) {
+      _volunteerings = sortVolunteeringsByDistanceToUser(
+          _volunteerings!, _userProvider!.userLocation!);
     }
+
+    // recompute index map
+    _volunteeringsIndexById = listToIndexMapByKey(_volunteerings!, (e) => e.id);
 
     notifyListeners();
   }
@@ -155,22 +151,5 @@ class VolunteeringProvider extends ChangeNotifier {
     } finally {
       isApplyingToVolunteering = false;
     }
-  }
-}
-
-class VolunteeringModelWithDistance
-    implements Comparable<VolunteeringModelWithDistance> {
-  final VolunteeringModel volunteering;
-  late final double distance;
-
-  VolunteeringModelWithDistance(
-      {required this.volunteering, required GeoPoint target}) {
-    distance = Geolocator.distanceBetween(target.latitude, target.longitude,
-        volunteering.location.latitude, volunteering.location.longitude);
-  }
-
-  @override
-  int compareTo(VolunteeringModelWithDistance other) {
-    return distance.compareTo(other.distance);
   }
 }
