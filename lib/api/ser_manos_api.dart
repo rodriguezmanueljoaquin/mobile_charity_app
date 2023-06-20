@@ -113,9 +113,11 @@ class SerManosApi {
           .orderBy('createdAt', descending: false)
           .get();
 
-      return querySnapshot.docs
-          .map((e) => VolunteeringModel.fromJson(buildProperties(e)))
+      List<Future<VolunteeringModel>> volunteeringFutures = querySnapshot.docs
+          .map((e) => VolunteeringModel.fromJson(buildProperties(e)).fetchDownloadImageURL())
           .toList();
+
+      return await Future.wait(volunteeringFutures);
     } catch (e) {
       logger.e(e);
       return [];
@@ -145,7 +147,7 @@ class SerManosApi {
           .doc(volunteeringId)
           .get();
 
-      return VolunteeringModel.fromJson(buildProperties(documentSnapshot));
+      return await VolunteeringModel.fromJson(buildProperties(documentSnapshot)).fetchDownloadImageURL();
     } catch (e) {
       logger.e(e);
       return null;

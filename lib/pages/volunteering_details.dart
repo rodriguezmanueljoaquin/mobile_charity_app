@@ -153,9 +153,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                    image: NetworkImage(volunteering.imageURL),
-                                    // image: NetworkImage(
-                                    //     'https://p6.storage.canalblog.com/69/50/922142/85510911_o.png'),
+                                    image: NetworkImage(volunteering.downloadImageURL!),
                                     fit: BoxFit.cover),
                               ),
                               foregroundDecoration: const BoxDecoration(

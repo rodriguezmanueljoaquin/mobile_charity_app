@@ -23,7 +23,7 @@ mixin _$VolunteeringModel {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String get imageURL => throw _privateConstructorUsedError;
+  String get imageKey => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get about => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
@@ -35,6 +35,8 @@ mixin _$VolunteeringModel {
   List<String> get volunteersIds => throw _privateConstructorUsedError;
   @GeoPointConverter()
   GeoPoint get location => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  String? get downloadImageURL => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,7 +54,7 @@ abstract class $VolunteeringModelCopyWith<$Res> {
       {String id,
       String title,
       String description,
-      String imageURL,
+      String imageKey,
       String category,
       String about,
       String address,
@@ -61,7 +63,8 @@ abstract class $VolunteeringModelCopyWith<$Res> {
       int vacancies,
       @TimestampConverter() DateTime createdAt,
       List<String> volunteersIds,
-      @GeoPointConverter() GeoPoint location});
+      @GeoPointConverter() GeoPoint location,
+      @JsonKey(ignore: true) String? downloadImageURL});
 }
 
 /// @nodoc
@@ -80,7 +83,7 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
     Object? id = null,
     Object? title = null,
     Object? description = null,
-    Object? imageURL = null,
+    Object? imageKey = null,
     Object? category = null,
     Object? about = null,
     Object? address = null,
@@ -90,6 +93,7 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
     Object? createdAt = null,
     Object? volunteersIds = null,
     Object? location = null,
+    Object? downloadImageURL = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -104,9 +108,9 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      imageURL: null == imageURL
-          ? _value.imageURL
-          : imageURL // ignore: cast_nullable_to_non_nullable
+      imageKey: null == imageKey
+          ? _value.imageKey
+          : imageKey // ignore: cast_nullable_to_non_nullable
               as String,
       category: null == category
           ? _value.category
@@ -144,6 +148,10 @@ class _$VolunteeringModelCopyWithImpl<$Res, $Val extends VolunteeringModel>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as GeoPoint,
+      downloadImageURL: freezed == downloadImageURL
+          ? _value.downloadImageURL
+          : downloadImageURL // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -160,7 +168,7 @@ abstract class _$$_VolunteeringModelCopyWith<$Res>
       {String id,
       String title,
       String description,
-      String imageURL,
+      String imageKey,
       String category,
       String about,
       String address,
@@ -169,7 +177,8 @@ abstract class _$$_VolunteeringModelCopyWith<$Res>
       int vacancies,
       @TimestampConverter() DateTime createdAt,
       List<String> volunteersIds,
-      @GeoPointConverter() GeoPoint location});
+      @GeoPointConverter() GeoPoint location,
+      @JsonKey(ignore: true) String? downloadImageURL});
 }
 
 /// @nodoc
@@ -186,7 +195,7 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
     Object? id = null,
     Object? title = null,
     Object? description = null,
-    Object? imageURL = null,
+    Object? imageKey = null,
     Object? category = null,
     Object? about = null,
     Object? address = null,
@@ -196,6 +205,7 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? volunteersIds = null,
     Object? location = null,
+    Object? downloadImageURL = freezed,
   }) {
     return _then(_$_VolunteeringModel(
       id: null == id
@@ -210,9 +220,9 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      imageURL: null == imageURL
-          ? _value.imageURL
-          : imageURL // ignore: cast_nullable_to_non_nullable
+      imageKey: null == imageKey
+          ? _value.imageKey
+          : imageKey // ignore: cast_nullable_to_non_nullable
               as String,
       category: null == category
           ? _value.category
@@ -250,18 +260,22 @@ class __$$_VolunteeringModelCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as GeoPoint,
+      downloadImageURL: freezed == downloadImageURL
+          ? _value.downloadImageURL
+          : downloadImageURL // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_VolunteeringModel implements _VolunteeringModel {
+class _$_VolunteeringModel extends _VolunteeringModel {
   const _$_VolunteeringModel(
       {required this.id,
       required this.title,
       required this.description,
-      required this.imageURL,
+      required this.imageKey,
       required this.category,
       required this.about,
       required this.address,
@@ -270,9 +284,11 @@ class _$_VolunteeringModel implements _VolunteeringModel {
       required this.vacancies,
       @TimestampConverter() required this.createdAt,
       required final List<String> volunteersIds,
-      @GeoPointConverter() required this.location})
+      @GeoPointConverter() required this.location,
+      @JsonKey(ignore: true) this.downloadImageURL})
       : _availability = availability,
-        _volunteersIds = volunteersIds;
+        _volunteersIds = volunteersIds,
+        super._();
 
   factory _$_VolunteeringModel.fromJson(Map<String, dynamic> json) =>
       _$$_VolunteeringModelFromJson(json);
@@ -284,7 +300,7 @@ class _$_VolunteeringModel implements _VolunteeringModel {
   @override
   final String description;
   @override
-  final String imageURL;
+  final String imageKey;
   @override
   final String category;
   @override
@@ -317,10 +333,13 @@ class _$_VolunteeringModel implements _VolunteeringModel {
   @override
   @GeoPointConverter()
   final GeoPoint location;
+  @override
+  @JsonKey(ignore: true)
+  final String? downloadImageURL;
 
   @override
   String toString() {
-    return 'VolunteeringModel(id: $id, title: $title, description: $description, imageURL: $imageURL, category: $category, about: $about, address: $address, requirements: $requirements, availability: $availability, vacancies: $vacancies, createdAt: $createdAt, volunteersIds: $volunteersIds, location: $location)';
+    return 'VolunteeringModel(id: $id, title: $title, description: $description, imageKey: $imageKey, category: $category, about: $about, address: $address, requirements: $requirements, availability: $availability, vacancies: $vacancies, createdAt: $createdAt, volunteersIds: $volunteersIds, location: $location, downloadImageURL: $downloadImageURL)';
   }
 
   @override
@@ -332,8 +351,8 @@ class _$_VolunteeringModel implements _VolunteeringModel {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.imageURL, imageURL) ||
-                other.imageURL == imageURL) &&
+            (identical(other.imageKey, imageKey) ||
+                other.imageKey == imageKey) &&
             (identical(other.category, category) ||
                 other.category == category) &&
             (identical(other.about, about) || other.about == about) &&
@@ -349,7 +368,9 @@ class _$_VolunteeringModel implements _VolunteeringModel {
             const DeepCollectionEquality()
                 .equals(other._volunteersIds, _volunteersIds) &&
             (identical(other.location, location) ||
-                other.location == location));
+                other.location == location) &&
+            (identical(other.downloadImageURL, downloadImageURL) ||
+                other.downloadImageURL == downloadImageURL));
   }
 
   @JsonKey(ignore: true)
@@ -359,7 +380,7 @@ class _$_VolunteeringModel implements _VolunteeringModel {
       id,
       title,
       description,
-      imageURL,
+      imageKey,
       category,
       about,
       address,
@@ -368,7 +389,8 @@ class _$_VolunteeringModel implements _VolunteeringModel {
       vacancies,
       createdAt,
       const DeepCollectionEquality().hash(_volunteersIds),
-      location);
+      location,
+      downloadImageURL);
 
   @JsonKey(ignore: true)
   @override
@@ -385,12 +407,12 @@ class _$_VolunteeringModel implements _VolunteeringModel {
   }
 }
 
-abstract class _VolunteeringModel implements VolunteeringModel {
+abstract class _VolunteeringModel extends VolunteeringModel {
   const factory _VolunteeringModel(
           {required final String id,
           required final String title,
           required final String description,
-          required final String imageURL,
+          required final String imageKey,
           required final String category,
           required final String about,
           required final String address,
@@ -399,8 +421,10 @@ abstract class _VolunteeringModel implements VolunteeringModel {
           required final int vacancies,
           @TimestampConverter() required final DateTime createdAt,
           required final List<String> volunteersIds,
-          @GeoPointConverter() required final GeoPoint location}) =
+          @GeoPointConverter() required final GeoPoint location,
+          @JsonKey(ignore: true) final String? downloadImageURL}) =
       _$_VolunteeringModel;
+  const _VolunteeringModel._() : super._();
 
   factory _VolunteeringModel.fromJson(Map<String, dynamic> json) =
       _$_VolunteeringModel.fromJson;
@@ -412,7 +436,7 @@ abstract class _VolunteeringModel implements VolunteeringModel {
   @override
   String get description;
   @override
-  String get imageURL;
+  String get imageKey;
   @override
   String get category;
   @override
@@ -433,6 +457,9 @@ abstract class _VolunteeringModel implements VolunteeringModel {
   @override
   @GeoPointConverter()
   GeoPoint get location;
+  @override
+  @JsonKey(ignore: true)
+  String? get downloadImageURL;
   @override
   @JsonKey(ignore: true)
   _$$_VolunteeringModelCopyWith<_$_VolunteeringModel> get copyWith =>

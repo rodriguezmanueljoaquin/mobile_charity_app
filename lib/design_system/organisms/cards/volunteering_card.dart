@@ -114,7 +114,7 @@ class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
               height: 138,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(widget.volunteering.imageURL),
+                  image: NetworkImage(widget.volunteering.downloadImageURL!),
                   fit: BoxFit.cover,
                 ),
               ),
