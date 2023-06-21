@@ -67,19 +67,12 @@ class _SerManosContactDataFormState extends State<SerManosContactDataForm> {
       key: widget.formKey,
       onChanged: _inputListener,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: SerManosSizes.sizeLG,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SerManosText.headline1("Datos de contacto"),
-                const SerManosSizedBox.md(),
-                SerManosText.subtitle1(
-                    "Estos datos serán compartidos con la organización para ponerse en contacto contigo"),
-              ],
-            ),
-          ),
+          SerManosText.headline1("Datos de contacto"),
+          const SerManosSizedBox.md(),
+          SerManosText.subtitle1(
+              "Estos datos serán compartidos con la organización para ponerse en contacto contigo"),
           const SerManosSizedBox.sl(),
           SerManosPhoneFormField(controller: _phoneController,
             onFieldSubmitted: widget.onFieldSubmitted),

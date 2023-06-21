@@ -25,7 +25,7 @@ class SerManosCurrentVolunteringCard extends StatelessWidget {
         "id": volunteeringId,
       }),
       child: Container(
-        width: 328,
+        // width: 328,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
           color: SerManosColors.primary5,

@@ -21,7 +21,7 @@ class _SerManosLocationCardState extends State<SerManosLocationCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 328,
+        // width: 328,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           color: SerManosColors.neutral10,

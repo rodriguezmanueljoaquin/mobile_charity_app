@@ -73,7 +73,7 @@ class _SerManosEditPhotoCardState extends State<SerManosEditPhotoCard> {
     }
 
     return Container(
-        width: 328,
+        // width: 328,
         padding: const EdgeInsets.fromLTRB(16, 8, 19, 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),

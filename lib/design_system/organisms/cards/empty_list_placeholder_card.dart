@@ -17,7 +17,7 @@ class SerManosEmptyListPlaceholderCard extends StatelessWidget {
         color: SerManosColors.neutral0,
         borderRadius: BorderRadius.circular(4),
       ),
-      width: SerManosSizes.sizeLG,
+      // width: SerManosSizes.sizeLG,
       child: Padding(
         padding: const EdgeInsets.symmetric(
             vertical: 18, horizontal: SerManosSpacing.spaceMD),
