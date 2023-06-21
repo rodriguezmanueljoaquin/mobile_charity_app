@@ -94,8 +94,7 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                         (context, userProvider, volunteeringProvider, child) {
                       String? currentVolunteeringId =
                           userProvider.user?.currentVolunteeringId;
-                      if (currentVolunteeringId == null ||
-                          volunteeringProvider.isFetchingVolunteerings) {
+                      if (currentVolunteeringId == null) {
                         return const SizedBox();
                       }
 
