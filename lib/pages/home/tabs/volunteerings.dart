@@ -125,8 +125,11 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                 Consumer<VolunteeringProvider>(
                     builder: (context, volunteeringProvider, child) {
                   if (volunteeringProvider.isFetchingVolunteerings) {
-                    return const Center(
-                      child: SerManosProgressIndicator(),
+                    return const Padding(
+                      padding: EdgeInsets.only(top: SerManosSpacing.spaceMD),
+                      child: Center(
+                        child: SerManosProgressIndicator(),
+                      ),
                     );
                   }
 
