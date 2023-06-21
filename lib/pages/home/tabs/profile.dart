@@ -72,43 +72,47 @@ class ProfileTab extends StatelessWidget {
                     SerManosText.body1(
                       "¡Completá tu perfil para tener acceso a mejores oportunidades!",
                       textAlign: TextAlign.center,
-                    )
+                    ),
+                  Visibility(
+                      visible: completed,
+                      child: Column(
+                        children: [
+                          SerManosTextButton.longTextButton(
+                            text: "Editar perfil",
+                            onPressed: () {
+                              context.pushNamed(SerManosPagesName.profileEdit);
+                            },
+                          ),
+                          const SerManosSizedBox.sm(),
+                          SerManosTextButton.longTextButton(
+                            text: "Cerrar sesión",
+                            onPressed: _onLogout(context: context),
+                            filled: false,
+                            textColor: SerManosColors.error100,
+                          ),
+                          const SerManosSizedBox.xl(),
+                        ],
+                      )),
                 ],
               ),
             ),
           ),
         ),
-        completed
-            ? Column(
-                children: [
-                  SerManosTextButton.longTextButton(
-                    text: "Editar perfil",
-                    onPressed: () {
-                      context.pushNamed(SerManosPagesName.profileEdit);
-                    },
-                  ),
-                  const SerManosSizedBox.sm(),
-                  SerManosTextButton.longTextButton(
-                    text: "Cerrar sesión",
-                    onPressed: _onLogout(context: context),
-                    filled: false,
-                    textColor: SerManosColors.error100,
-                  ),
-                  const SerManosSizedBox.xl(),
-                ],
-              )
-            : Column(
-                children: [
-                  SerManosTextButton.shortTextButton(
-                    text: "Completar",
-                    icon: const SerManosIcon.add(),
-                    onPressed: () {
-                      context.pushNamed(SerManosPagesName.profileEdit);
-                    },
-                  ),
-                  const SerManosSizedBox.xl(),
-                ],
+        Visibility(
+          visible: !completed,
+          child: Column(
+            children: [
+              SerManosTextButton.shortTextButton(
+                text: "Completar",
+                icon: const SerManosIcon.add(),
+                onPressed: () {
+                  context.pushNamed(SerManosPagesName.profileEdit);
+                },
               ),
+              const SerManosSizedBox.xl(),
+            ],
+          ),
+        ),
       ],
     );
   }
