@@ -52,6 +52,10 @@ class VolunteeringProvider extends ChangeNotifier {
     if (_userProvider?.userLocation != null) {
       _volunteerings = sortVolunteeringsByDistanceToUser(
           _volunteerings!, _userProvider!.userLocation!);
+      
+      _volunteeringsIndexById =
+          listToIndexMapByKey(_volunteerings!, (e) => e.id);
+
       notifyListeners();
     }
   }

@@ -131,7 +131,7 @@ class NewsDetailsPage extends StatelessWidget {
                       SerManosText.body1(news.description),
                       const SerManosSizedBox.sl(),
                       Center(
-                        child: SerManosText.headline1(
+                        child: SerManosText.headline2(
                           "Comparte esta nota",
                         ),
                       ),
