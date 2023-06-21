@@ -282,41 +282,41 @@ class VolunteeringDetailsPage extends StatelessWidget {
                                   )
                             : Column(
                                 children: [
-                                  (user.currentVolunteeringId != null)
-                                      ? Column(
-                                          children: [
-                                            const SerManosSizedBox.md(),
-                                            SerManosText.body1(
-                                                textAlign: TextAlign.center,
-                                                "Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este."),
-                                            const SerManosSizedBox.sm(),
-                                            SerManosTextButton.longTextButton(
-                                              text:
-                                                  'Abandonar voluntariado actual',
-                                              filled: false,
-                                              onPressed: _getAbandonDialogFunc(
-                                                  context: context,
-                                                  volunteering: volunteering),
-                                            ),
-                                            const SerManosSizedBox.md(),
-                                          ],
-                                        )
-                                      : SerManosTextButton.longTextButton(
-                                          text: 'Postularme',
-                                          disabled: volunteering.vacancies == 0,
-                                          onPressed: () {
-                                            if (user.hasCompleteProfile) {
-                                              _getApplyDialogFunc(
-                                                  context: context,
-                                                  volunteering: volunteering)();
-                                            } else {
-                                              _completeProfileDialog(
-                                                  context: context,
-                                                  volunteering: volunteering,
-                                                  userProvider: userProvider);
-                                            }
-                                          },
+                                  if (user.currentVolunteeringId != null)
+                                    Column(
+                                      children: [
+                                        const SerManosSizedBox.md(),
+                                        SerManosText.body1(
+                                            textAlign: TextAlign.center,
+                                            "Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este."),
+                                        const SerManosSizedBox.sm(),
+                                        SerManosTextButton.longTextButton(
+                                          text: 'Abandonar voluntariado actual',
+                                          filled: false,
+                                          onPressed: _getAbandonDialogFunc(
+                                              context: context,
+                                              volunteering: volunteering),
                                         ),
+                                        const SerManosSizedBox.md(),
+                                      ],
+                                    ),
+                                  SerManosTextButton.longTextButton(
+                                    text: 'Postularme',
+                                    disabled: volunteering.vacancies == 0 ||
+                                        user.currentVolunteeringId != null,
+                                    onPressed: () {
+                                      if (user.hasCompleteProfile) {
+                                        _getApplyDialogFunc(
+                                            context: context,
+                                            volunteering: volunteering)();
+                                      } else {
+                                        _completeProfileDialog(
+                                            context: context,
+                                            volunteering: volunteering,
+                                            userProvider: userProvider);
+                                      }
+                                    },
+                                  ),
                                 ],
                               ),
                         const SerManosSizedBox.lg(),
