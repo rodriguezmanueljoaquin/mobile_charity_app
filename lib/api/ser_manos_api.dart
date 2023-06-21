@@ -257,9 +257,18 @@ class SerManosApi {
           .doc(updatedUser.id)
           .update(updatedUser.toJson());
     } on FirebaseException catch (e) {
-      logger.e('Error updating user: ${e.message}');
-      throw FormException(e.message ?? 'Error actualizando el perfil');
+      String message = 'Error actualizando el perfil';
+      if (e.plugin == 'firebase_storage') {
+        message = 'La imagen debe ocupar menos de 5MB';
+      }
+      logger.e(message);
+      throw FormException(message);
     } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
+    
+    catch (e) {
       logger.e(e);
       rethrow;
     }
