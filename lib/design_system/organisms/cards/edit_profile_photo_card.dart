@@ -8,6 +8,7 @@ import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/components.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
+import 'package:mobile_charity_app/utils/logger.dart';
 
 class SerManosEditPhotoCard extends StatefulWidget {
   final String? currentPhotoUrl;
@@ -36,7 +37,7 @@ class _SerManosEditPhotoCardState extends State<SerManosEditPhotoCard> {
       widget.onChange(imageTemp);
       setState(() => _image = imageTemp);
     } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+      logger.e('Failed to pick image: $e');
     }
   }
 

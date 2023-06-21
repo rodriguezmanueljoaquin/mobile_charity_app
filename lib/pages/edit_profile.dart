@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -17,7 +18,6 @@ import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/utils/handle_exception.dart';
-import 'package:mobile_charity_app/utils/logger.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -80,12 +80,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
       await userProvider
           .updateProfile(
-        phoneNumber: _phoneController.text,
-        email: _emailController.text,
-        birthDate: DateFormat('dd/MM/yyyy').parse(_dateController.text),
-        gender: genderStrById[_genderIdSelected],
-        avatar: _image,
-      )
+            phoneNumber: _phoneController.text,
+            email: _emailController.text,
+            birthDate: DateFormat('dd/MM/yyyy').parse(_dateController.text),
+            gender: genderStrById[_genderIdSelected],
+            avatar: _image,
+          )
+          .then((value) =>
+              FirebaseAnalytics.instance.logEvent(name: 'edit_profile'))
           .catchError(
         (error) {
           handleException(
