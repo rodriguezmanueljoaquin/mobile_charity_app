@@ -58,6 +58,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _currentPhotoUrl = user.downloadAvatarURL;
     _profileFormCompleted = user.birthDate != null && user.gender != null;
     _contactFormCompleted = user.phoneNumber != null && user.email != null;
+    _disabled = !(_profileFormCompleted && _contactFormCompleted);
   }
 
   void onImageChange(File? image) {
