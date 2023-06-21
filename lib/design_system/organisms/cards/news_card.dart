@@ -59,6 +59,7 @@ class SerManosNewsCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: SerManosColors.neutral0,
         boxShadow: SerManosShadows.shadow2,
+        borderRadius: BorderRadius.circular(2),
       ),
       child: IntrinsicHeight(
         child: Row(

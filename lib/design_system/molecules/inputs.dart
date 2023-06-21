@@ -101,6 +101,7 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
         validator: _validator(),
         obscureText: !_visible,
         decoration: InputDecoration(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
           labelText: widget.label,
           hintText: widget.placeholder,
           enabled: !widget.disabled,
@@ -331,6 +332,7 @@ class _SerManosSearchFieldState extends State<SerManosSearchField> {
       // width: SerManosSizes.sizeLG,
       decoration: BoxDecoration(
         color: SerManosColors.neutral0,
+        borderRadius: BorderRadius.circular(2),
         boxShadow: SerManosShadows.shadow1,
       ),
       // add white background
