@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
-import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 
 class SerManosCurrentVolunteringCard extends StatelessWidget {
+  final String? category;
   final String? title;
   final String volunteeringId;
 
   const SerManosCurrentVolunteringCard({
     super.key,
     this.title,
+    this.category,
     required this.volunteeringId,
   });
 
@@ -37,12 +38,18 @@ class SerManosCurrentVolunteringCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SerManosText.overline("ACCIÓN SOCIAL"),
-                SerManosText.subtitle1(title ?? ""),
-              ],
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SerManosText.overline(
+                    category ?? "",
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SerManosText.subtitle1(title ?? "",
+                      overflow: TextOverflow.ellipsis),
+                ],
+              ),
             ),
             Column(
               children: const [

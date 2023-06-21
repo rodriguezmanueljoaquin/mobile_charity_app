@@ -27,7 +27,11 @@ class SerManosNewsCard extends StatelessWidget {
           children: [
             SerManosText.overline(news.source),
             SerManosText.subtitle1(news.title),
-            SerManosText.body2(news.summary),
+            SerManosText.body2(
+              news.summary,
+              maxLines: 5,
+              overflow: TextOverflow.ellipsis,
+            ),
           ],
         ),
         const SerManosSizedBox.sm(),

@@ -55,12 +55,16 @@ class ProfileTab extends StatelessWidget {
                   const SerManosSizedBox.sl(),
                   SerManosText.overline("VOLUNTARIO"),
                   const SerManosSizedBox.sm(),
-                  SerManosText.subtitle1(user.fullName),
+                  SerManosText.subtitle1(
+                    user.fullName,
+                    textAlign: TextAlign.center,
+                  ),
                   const SerManosSizedBox.sm(),
                   if (completed) ...[
                     SerManosText.body1(
                       user.email!,
                       color: SerManosColors.secondary200,
+                      textAlign: TextAlign.center,
                     ),
                     const SerManosSizedBox.lg(),
                     ProfileData(user: user),
