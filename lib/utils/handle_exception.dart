@@ -11,6 +11,7 @@ void handleException({
   if (error is FormException) {
     onFormException?.call(message);
   } else {
-    SerManosSnackBar(message).show(context);
+    SerManosSnackBar("Algo ha fallado, por favor intentalo de nuevo")
+        .show(context);
   }
 }

@@ -12,7 +12,6 @@ import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 import 'package:mobile_charity_app/routes/home_tabs.dart';
 import 'package:mobile_charity_app/utils/geolocator.dart';
 import 'package:mobile_charity_app/utils/handle_exception.dart';
-import 'package:mobile_charity_app/utils/logger.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
