@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
+import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/utils/map.dart';
@@ -22,20 +23,23 @@ class _SerManosLocationCardState extends State<SerManosLocationCard> {
   Widget build(BuildContext context) {
     return Container(
         // width: 328,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(4)),
           color: SerManosColors.neutral10,
         ),
         child: Column(
           children: [
             Container(
               alignment: Alignment.centerLeft,
-              color: SerManosColors.secondary25,
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
+                color: SerManosColors.secondary25,
+              ),
+              padding: const EdgeInsets.symmetric(vertical: SerManosSpacing.spaceSM, horizontal: 16),
               child: SerManosText.subtitle1("Ubicación"),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              padding: const EdgeInsets.symmetric(vertical: SerManosSpacing.spaceSM, horizontal: 16),
               child: InkWell(
                 onTap: () => showVolunteeringMap(widget.volunteering),
                 child: Row(

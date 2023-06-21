@@ -176,7 +176,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ],
             ),
             Container(
-              margin: const EdgeInsets.only(bottom: 8),
+              margin: const EdgeInsets.only(bottom: SerManosSpacing.spaceSM),
               child: SerManosText.caption(
                 _error,
                 color: SerManosColors.error100,

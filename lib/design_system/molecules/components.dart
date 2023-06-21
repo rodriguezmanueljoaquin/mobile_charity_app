@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
+import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 
 class SerManosProfilePhoto extends StatelessWidget {
@@ -61,7 +62,7 @@ class SerManosVacancies extends StatelessWidget {
                 ? SerManosColors.secondary25
                 : SerManosColors.neutral25,
           ),
-          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: SerManosSpacing.spaceSM),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

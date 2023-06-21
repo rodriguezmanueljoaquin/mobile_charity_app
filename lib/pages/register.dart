@@ -5,6 +5,7 @@ import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffolds.dart';
 import 'package:mobile_charity_app/design_system/organisms/forms/register_form.dart';
+import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/utils/handle_exception.dart';
 import 'package:provider/provider.dart';
@@ -103,7 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 8),
+              margin: const EdgeInsets.only(top: SerManosSpacing.spaceSM),
               child: SerManosText.caption(
                 _registerError,
                 color: SerManosColors.error100,
