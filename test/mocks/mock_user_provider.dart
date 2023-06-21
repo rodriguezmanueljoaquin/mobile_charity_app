@@ -57,9 +57,9 @@ class MockUserProvider extends ChangeNotifier implements UserProvider {
       File? avatar}) {
     return Future.value();
   }
-  
+
   @override
   Future<GeoPoint?> loadLocation() {
-    return Future.value(const GeoPoint(1, 1));
+    return Future.value(userLocation);
   }
 }

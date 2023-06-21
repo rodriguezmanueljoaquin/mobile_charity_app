@@ -21,7 +21,10 @@ class ErrorPage extends StatelessWidget {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SerManosText.headline2('Oops! No encontramos la página que buscas.'),
+          SerManosText.headline2(
+            'Oops! No encontramos la página que buscas.',
+            textAlign: TextAlign.center,
+          ),
           const SerManosSizedBox.md(),
           SerManosTextButton.longTextButton(
               text: isLoggedIn ? 'Ir al inicio' : 'Iniciar sesión',

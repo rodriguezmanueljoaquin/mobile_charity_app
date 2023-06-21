@@ -15,7 +15,7 @@ class MockUserFullProvider extends ChangeNotifier implements UserProvider {
       avatarImageKey: "asdasd",
       birthDate: DateTime.now(),
       downloadAvatarURL: "asdasd",
-      favoriteVolunteeringsIds: ["1","2"],
+      favoriteVolunteeringsIds: ["1", "2"],
       gender: "Hombre",
       phoneNumber: "123123123",
       currentVolunteeringId: "1");
@@ -67,9 +67,9 @@ class MockUserFullProvider extends ChangeNotifier implements UserProvider {
       File? avatar}) {
     return Future.value();
   }
-  
+
   @override
   Future<GeoPoint?> loadLocation() {
-    return Future.value(const GeoPoint(1, 1));
+    return Future.value(userLocation);
   }
 }

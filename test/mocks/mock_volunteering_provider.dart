@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_charity_app/models/availability.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
@@ -51,6 +50,11 @@ class MockVolunteeringProvider extends ChangeNotifier
     return _volunteerings;
   }
 
+  @override
+  void sortVolunteeringsByDistance() {
+    return;
+  }
+
   final List<VolunteeringModel> _volunteerings = [
     VolunteeringModel(
         id: '1',
@@ -65,9 +69,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         address: "Cabildo 600",
         requirements:
             "Ser mayor de 18 años Tener disponibilidad para participar de la actividad Tener ganas de ayudar",
-        availability: [
-          const Availability(dayOfWeek: 1, startHour: 12, endHour: 13)
-        ],
+        availability: [],
         maxVacancies: 5,
         createdAt: DateTime.now(),
         volunteersIds: ["1"],
@@ -85,9 +87,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         address: "Cabildo 600",
         requirements:
             "Ser mayor de 18 años Tener disponibilidad para participar de la actividad Tener ganas de ayudar",
-        availability: [
-          const Availability(dayOfWeek: 1, startHour: 12, endHour: 13)
-        ],
+        availability: [],
         maxVacancies: 5,
         createdAt: DateTime.now(),
         volunteersIds: ["2"],
@@ -105,9 +105,7 @@ class MockVolunteeringProvider extends ChangeNotifier
         address: "Cabildo 600",
         requirements:
             "Ser mayor de 18 años Tener disponibilidad para participar de la actividad Tener ganas de ayudar",
-        availability: [
-          const Availability(dayOfWeek: 1, startHour: 12, endHour: 13)
-        ],
+        availability: [],
         maxVacancies: 5,
         createdAt: DateTime.now(),
         volunteersIds: [],
@@ -125,13 +123,12 @@ class MockVolunteeringProvider extends ChangeNotifier
         address: "Cabildo 600",
         requirements:
             "Ser mayor de 18 años Tener disponibilidad para participar de la actividad Tener ganas de ayudar",
-        availability: [
-          const Availability(dayOfWeek: 1, startHour: 12, endHour: 13)
-        ],
+        availability: [],
         maxVacancies: 5,
         createdAt: DateTime.now(),
         volunteersIds: [],
         participantsIds: [],
         location: const GeoPoint(1, 1))
   ];
+
 }
