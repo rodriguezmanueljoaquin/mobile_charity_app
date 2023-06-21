@@ -155,8 +155,8 @@ class VolunteeringDetailsPage extends StatelessWidget {
             onRefresh: () => volunteeringProvider
                 .fetchVolunteeringById(id)
                 .then((_) => userProvider.fetchUser())
-                .catchError((error) =>
-                    handleException(context: context, error: error)),
+                .catchError(
+                    (error) => handleException(context: context, error: error)),
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -167,8 +167,8 @@ class VolunteeringDetailsPage extends StatelessWidget {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: NetworkImage(
-                                  volunteering.downloadImageURL!),
+                              image:
+                                  NetworkImage(volunteering.downloadImageURL!),
                               fit: BoxFit.cover),
                         ),
                         foregroundDecoration: const BoxDecoration(
@@ -220,8 +220,8 @@ class VolunteeringDetailsPage extends StatelessWidget {
                         SerManosText.subtitle1("Requisitos"),
                         const SerManosSizedBox.sm(),
                         MarkdownBody(
-                          data: volunteering.requirements
-                              .replaceAll(r'\n', '\n'),
+                          data:
+                              volunteering.requirements.replaceAll(r'\n', '\n'),
                           styleSheet: MarkdownStyleSheet(
                             a: const SerManosTextStyle.body1(),
                             h1: const SerManosTextStyle.headline1(),
@@ -239,87 +239,90 @@ class VolunteeringDetailsPage extends StatelessWidget {
                         SerManosVacancies(
                           vacancies: volunteering.vacancies,
                         ),
+                        const SerManosSizedBox.md(),
+                        userIsAlreadyVolunteer
+                            ? volunteering.userIsParticipant(user.id)
+                                ? Column(
+                                    children: [
+                                      SerManosText.headline2(
+                                          "Estas participando"),
+                                      const SerManosSizedBox.sm(),
+                                      SerManosText.body1(
+                                          textAlign: TextAlign.center,
+                                          "La organización confirmó que ya estas participando de este voluntariado."),
+                                      const SerManosSizedBox.sm(),
+                                      SerManosTextButton.longTextButton(
+                                        text: 'Abandonar voluntariado',
+                                        filled: false,
+                                        onPressed: _getAbandonDialogFunc(
+                                            context: context,
+                                            volunteering: volunteering),
+                                      ),
+                                      const SerManosSizedBox.md(),
+                                    ],
+                                  )
+                                : Column(
+                                    children: [
+                                      SerManosText.headline2(
+                                          "Te has postulado"),
+                                      const SerManosSizedBox.sm(),
+                                      SerManosText.body1(
+                                          textAlign: TextAlign.center,
+                                          "Pronto la organización se pondrá en contacto contigo y te inscribirá como participante."),
+                                      const SerManosSizedBox.sm(),
+                                      SerManosTextButton.longTextButton(
+                                        text: 'Retirar postulación',
+                                        filled: false,
+                                        onPressed: _getCancelDialogFunc(
+                                            context: context,
+                                            volunteering: volunteering),
+                                      ),
+                                      const SerManosSizedBox.md(),
+                                    ],
+                                  )
+                            : Column(
+                                children: [
+                                  (user.currentVolunteeringId != null)
+                                      ? Column(
+                                          children: [
+                                            const SerManosSizedBox.md(),
+                                            SerManosText.body1(
+                                                textAlign: TextAlign.center,
+                                                "Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este."),
+                                            const SerManosSizedBox.sm(),
+                                            SerManosTextButton.longTextButton(
+                                              text:
+                                                  'Abandonar voluntariado actual',
+                                              filled: false,
+                                              onPressed: _getAbandonDialogFunc(
+                                                  context: context,
+                                                  volunteering: volunteering),
+                                            ),
+                                            const SerManosSizedBox.md(),
+                                          ],
+                                        )
+                                      : SerManosTextButton.longTextButton(
+                                          text: 'Postularme',
+                                          disabled: volunteering.vacancies == 0,
+                                          onPressed: () {
+                                            if (user.hasCompleteProfile) {
+                                              _getApplyDialogFunc(
+                                                  context: context,
+                                                  volunteering: volunteering)();
+                                            } else {
+                                              _completeProfileDialog(
+                                                  context: context,
+                                                  volunteering: volunteering,
+                                                  userProvider: userProvider);
+                                            }
+                                          },
+                                        ),
+                                ],
+                              ),
+                        const SerManosSizedBox.lg(),
                       ],
                     ),
                   ),
-                  const SerManosSizedBox.md(),
-                  userIsAlreadyVolunteer
-                      ? volunteering.userIsParticipant(user.id)
-                          ? Column(
-                              children: [
-                                SerManosText.headline2(
-                                    "Estas participando"),
-                                const SerManosSizedBox.sm(),
-                                SerManosText.body1(
-                                    textAlign: TextAlign.center,
-                                    "La organización confirmó que ya estas participando de este voluntariado."),
-                                const SerManosSizedBox.sm(),
-                                SerManosTextButton.longTextButton(
-                                  text: 'Abandonar voluntariado',
-                                  filled: false,
-                                  onPressed: _getAbandonDialogFunc(
-                                      context: context,
-                                      volunteering: volunteering),
-                                ),
-                                const SerManosSizedBox.md(),
-                              ],
-                            )
-                          : Column(
-                              children: [
-                                SerManosText.headline2("Te has postulado"),
-                                const SerManosSizedBox.sm(),
-                                SerManosText.body1(
-                                    textAlign: TextAlign.center,
-                                    "Pronto la organización se pondrá en contacto contigo y te inscribirá como participante."),
-                                const SerManosSizedBox.sm(),
-                                SerManosTextButton.longTextButton(
-                                  text: 'Retirar postulación',
-                                  filled: false,
-                                  onPressed: _getCancelDialogFunc(
-                                      context: context,
-                                      volunteering: volunteering),
-                                ),
-                                const SerManosSizedBox.md(),
-                              ],
-                            )
-                      : Column(
-                          children: [
-                            if (user.currentVolunteeringId != null)
-                              Column(
-                                children: [
-                                  const SerManosSizedBox.md(),
-                                  SerManosText.body1(
-                                      textAlign: TextAlign.center,
-                                      "Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este."),
-                                  const SerManosSizedBox.sm(),
-                                  SerManosTextButton.longTextButton(
-                                    text: 'Abandonar voluntariado actual',
-                                    filled: false,
-                                    onPressed: _getAbandonDialogFunc(
-                                        context: context,
-                                        volunteering: volunteering),
-                                  ),
-                                  const SerManosSizedBox.md(),
-                                ],
-                              ),
-                            SerManosTextButton.longTextButton(
-                                text: 'Postularme',
-                                disabled: volunteering.vacancies == 0,
-                                onPressed: () {
-                                  if (user.hasCompleteProfile) {
-                                    _getApplyDialogFunc(
-                                        context: context,
-                                        volunteering: volunteering)();
-                                  } else {
-                                    _completeProfileDialog(
-                                        context: context,
-                                        volunteering: volunteering,
-                                        userProvider: userProvider);
-                                  }
-                                }),
-                          ],
-                        ),
-                  const SerManosSizedBox.lg(),
                 ],
               ),
             ),
