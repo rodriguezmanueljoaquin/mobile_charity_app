@@ -40,5 +40,5 @@ class VolunteeringModel with _$VolunteeringModel {
 
   bool userIsParticipant(String userId) => participantsIds.contains(userId);
 
-  int get vacancies => maxVacancies - volunteersIds.length;
+  int get vacancies => maxVacancies - participantsIds.length;
 }
