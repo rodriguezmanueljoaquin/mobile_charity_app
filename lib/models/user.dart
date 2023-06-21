@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mobile_charity_app/utils/firestore.dart';
+import 'package:mobile_charity_app/api/ser_manos_storage.dart';
 import 'package:mobile_charity_app/utils/timestamp_converter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -43,7 +43,7 @@ class UserModel with _$UserModel {
   Future<UserModel> fetchDownloadAvatarURL() async {
     if (avatarImageKey == null) return this;
 
-    final String avatarURL = await getDownloadURL(key: avatarImageKey!);
+    final String avatarURL = await SerManosStorage().getDownloadURL(key: avatarImageKey!);
     return copyWith(downloadAvatarURL: avatarURL);
   }
 }

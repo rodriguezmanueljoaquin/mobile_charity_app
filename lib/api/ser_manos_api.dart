@@ -2,21 +2,31 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:logger/logger.dart';
+import 'package:mobile_charity_app/api/ser_manos_storage.dart';
 import 'package:mobile_charity_app/models/exceptions.dart';
 import 'package:mobile_charity_app/models/news.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
-import 'package:mobile_charity_app/utils/firestore.dart';
 import 'package:mobile_charity_app/utils/logger.dart';
+
+Map<String, dynamic> buildProperties(DocumentSnapshot<Object?> doc) {
+  Map<String, dynamic> properties = doc.data() as Map<String, dynamic>;
+  properties['id'] = doc.id;
+  return properties;
+}
 
 class SerManosApi {
   // singleton
   static final SerManosApi _serManosApi = SerManosApi._internal();
+  static FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   factory SerManosApi() {
     return _serManosApi;
+  }
+
+  void setFirestore(FirebaseFirestore firestore) {
+    // method for testing purposes
+    _firestore = firestore;
   }
 
   SerManosApi._internal();
@@ -43,7 +53,7 @@ class SerManosApi {
         favoriteVolunteeringsIds: [],
       );
 
-      await FirebaseFirestore.instance
+      await _firestore
           .collection('users')
           .doc(userCredential.user!.uid)
           .set(newUser.toJson());
@@ -71,7 +81,7 @@ class SerManosApi {
   }) async {
     try {
       DocumentSnapshot documentSnapshot =
-          await FirebaseFirestore.instance.collection('users').doc(id).get();
+          await _firestore.collection('users').doc(id).get();
 
       return await UserModel.fromJson(buildProperties(documentSnapshot))
           .fetchDownloadAvatarURL();
@@ -112,7 +122,7 @@ class SerManosApi {
 
   Future<List<VolunteeringModel>> getVolunteerings() async {
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      QuerySnapshot querySnapshot = await _firestore
           .collection('volunteerings')
           .orderBy('createdAt', descending: true)
           .get();
@@ -131,7 +141,7 @@ class SerManosApi {
 
   Future<List<NewsModel>> getNews() async {
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      QuerySnapshot querySnapshot = await _firestore
           .collection('news')
           .orderBy('createdAt', descending: true)
           .get();
@@ -152,7 +162,7 @@ class SerManosApi {
     required String volunteeringId,
   }) async {
     try {
-      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+      DocumentSnapshot documentSnapshot = await _firestore
           .collection('volunteerings')
           .doc(volunteeringId)
           .get();
@@ -175,7 +185,7 @@ class SerManosApi {
           ? FieldValue.arrayUnion([volunteeringId])
           : FieldValue.arrayRemove([volunteeringId]);
 
-      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+      await _firestore.collection('users').doc(userId).update({
         'favoriteVolunteeringsIds': fieldValue,
       });
     } catch (e) {
@@ -188,10 +198,8 @@ class SerManosApi {
     required String userId,
     required String volunteeringId,
   }) async {
-    DocumentSnapshot volunteeringSnapshot = await FirebaseFirestore.instance
-        .collection('volunteerings')
-        .doc(volunteeringId)
-        .get();
+    DocumentSnapshot volunteeringSnapshot =
+        await _firestore.collection('volunteerings').doc(volunteeringId).get();
 
     VolunteeringModel volunteering =
         VolunteeringModel.fromJson(buildProperties(volunteeringSnapshot));
@@ -201,14 +209,11 @@ class SerManosApi {
       throw Exception('No vacancies available');
     }
 
-    await FirebaseFirestore.instance
-        .collection('volunteerings')
-        .doc(volunteeringId)
-        .update({
+    await _firestore.collection('volunteerings').doc(volunteeringId).update({
       'volunteersIds': FieldValue.arrayUnion([userId]),
     });
 
-    await FirebaseFirestore.instance.collection('users').doc(userId).update({
+    await _firestore.collection('users').doc(userId).update({
       'currentVolunteeringId': volunteeringId,
     });
   }
@@ -217,16 +222,13 @@ class SerManosApi {
     required String userId,
     required String volunteeringId,
   }) async {
-    await FirebaseFirestore.instance
-        .collection('volunteerings')
-        .doc(volunteeringId)
-        .update({
+    await _firestore.collection('volunteerings').doc(volunteeringId).update({
       'volunteersIds': FieldValue.arrayRemove([userId]),
       'participantsIds':
           FieldValue.arrayRemove([userId]), // maybe user is participant
     });
 
-    await FirebaseFirestore.instance.collection('users').doc(userId).update({
+    await _firestore.collection('users').doc(userId).update({
       'currentVolunteeringId': null,
     });
   }
@@ -245,12 +247,12 @@ class SerManosApi {
       if (avatar != null) {
         final String key =
             'users/${updatedUser.id}'; // should not change but just in case
-        await uploadFile(key: key, file: avatar);
+        await SerManosStorage().uploadFile(key: key, file: avatar);
 
         updatedUser = updatedUser.copyWith(avatarImageKey: key);
       }
 
-      await FirebaseFirestore.instance
+      await _firestore
           .collection('users')
           .doc(updatedUser.id)
           .update(updatedUser.toJson());

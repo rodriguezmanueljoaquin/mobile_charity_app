@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mobile_charity_app/utils/firestore.dart';
+import 'package:mobile_charity_app/api/ser_manos_storage.dart';
 import 'package:mobile_charity_app/utils/timestamp_converter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 part 'news.freezed.dart';
@@ -24,7 +24,8 @@ class NewsModel with _$NewsModel {
   const NewsModel._();
 
   Future<NewsModel> fetchDownloadImageURL() async {
-    final String imageURL = await getDownloadURL(key: imageKey);
+    final String imageURL =
+        await SerManosStorage().getDownloadURL(key: imageKey);
     return copyWith(downloadImageURL: imageURL);
   }
 }
