@@ -23,7 +23,6 @@ class _SerManosInformationCardState extends State<SerManosInformationCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        // width: 328,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(4)),
           color: SerManosColors.neutral10,

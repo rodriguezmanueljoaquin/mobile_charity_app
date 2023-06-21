@@ -24,7 +24,6 @@ class _SerManosGenderInputCardState extends State<SerManosGenderInputCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        // width: 328,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(4)),
           color: SerManosColors.neutral10,
@@ -38,12 +37,12 @@ class _SerManosGenderInputCardState extends State<SerManosGenderInputCard> {
                 color: SerManosColors.secondary25,
               ),
               padding: const EdgeInsets.symmetric(
-                  vertical: SerManosSpacing.spaceSM, horizontal: 16),
+                  vertical: SerManosSpacing.spaceSM, horizontal: SerManosSpacing.spaceSL),
               child: SerManosText.subtitle1("Información de perfil"),
             ),
             Container(
               padding: const EdgeInsets.symmetric(
-                  vertical: SerManosSpacing.spaceSM, horizontal: 16),
+                  vertical: SerManosSpacing.spaceSM, horizontal: SerManosSpacing.spaceSL),
               child: SerManosRadioListTile(
                   options: genderStrById,
                   onGenderChange: widget.onGenderChange,

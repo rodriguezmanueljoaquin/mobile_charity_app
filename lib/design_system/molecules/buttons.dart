@@ -23,7 +23,6 @@ class SerManosTextButton extends TextButton {
             margin: EdgeInsets.symmetric(
               vertical: filled ? 12 : 6,
             ),
-            // width: SerManosSizes.sizeLG,
             child: Center(
               child: Stack(children: [
                 Text(

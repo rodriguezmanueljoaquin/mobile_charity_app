@@ -142,7 +142,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  // width: SerManosSizes.sizeLG,
                   alignment: Alignment.centerLeft,
                   child: SerManosText.headline1("Datos de perfil"),
                 ),

@@ -87,7 +87,7 @@ class NewsDetailsPage extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
+                  horizontal: SerManosSpacing.spaceSL,
                   vertical: 20,
                 ),
                 color: SerManosColors.secondary90,

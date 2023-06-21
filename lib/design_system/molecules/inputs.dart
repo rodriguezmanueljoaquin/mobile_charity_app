@@ -91,7 +91,6 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 70,
-      // width: 328,
       child: TextFormField(
         focusNode: focusNode,
         keyboardType: widget.phoneKeyboard ? TextInputType.phone : null,
@@ -106,7 +105,7 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
           hintText: widget.placeholder,
           enabled: !widget.disabled,
           contentPadding: const EdgeInsets.only(
-            left: 16,
+            left: SerManosSpacing.spaceSL,
           ),
           suffixIcon: widget.isPassword
               ? IconButton(
@@ -329,7 +328,6 @@ class _SerManosSearchFieldState extends State<SerManosSearchField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: SerManosSizes.sizeLG,
       decoration: BoxDecoration(
         color: SerManosColors.neutral0,
         borderRadius: BorderRadius.circular(2),
