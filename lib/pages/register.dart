@@ -65,11 +65,14 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return SerManosDefaultScaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: Center(
-              child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height - 140,
+              ),
+              child: Center(
                 child: Column(
                   children: [
                     const SerManosSizedBox.lg(),
@@ -99,30 +102,30 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 8),
-            child: SerManosText.caption(
-              _registerError,
-              color: SerManosColors.error100,
+            Container(
+              margin: const EdgeInsets.only(top: 8),
+              child: SerManosText.caption(
+                _registerError,
+                color: SerManosColors.error100,
+              ),
             ),
-          ),
-          SerManosTextButton.longTextButton(
-              text: 'Registrarse',
-              disabled: _disabled,
-              loading: _loading,
-              onPressed: _submit),
-          const SerManosSizedBox.sl(),
-          SerManosTextButton.longTextButton(
-            text: 'Ya tengo cuenta',
-            filled: false,
-            disabled: _loading,
-            onPressed: () {
-              context.replaceNamed(SerManosPagesName.signin);
-            },
-          ),
-          const SerManosSizedBox.lg(),
-        ],
+            SerManosTextButton.longTextButton(
+                text: 'Registrarse',
+                disabled: _disabled,
+                loading: _loading,
+                onPressed: _submit),
+            const SerManosSizedBox.sl(),
+            SerManosTextButton.longTextButton(
+              text: 'Ya tengo cuenta',
+              filled: false,
+              disabled: _loading,
+              onPressed: () {
+                context.replaceNamed(SerManosPagesName.signin);
+              },
+            ),
+            const SerManosSizedBox.lg(),
+          ],
+        ),
       ),
     );
   }
