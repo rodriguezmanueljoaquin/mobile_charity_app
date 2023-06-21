@@ -4,8 +4,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile_charity_app/api/ser_manos_api.dart';
 import 'package:mobile_charity_app/api/ser_manos_storage.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
+import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/providers/volunteering_provider.dart';
 
+import 'mocks/mock_firebase_analytics.dart';
 import 'mocks/mock_user_provider.dart';
 import 'mocks/mock_volunteering_provider.dart';
 
@@ -73,5 +75,47 @@ void main() {
         MockVolunteeringProvider().volunteerings![0].description);
     expect(volunteering?.imageKey,
         MockVolunteeringProvider().volunteerings![0].imageKey);
+  });
+
+  test("apply to volunteering", () async {
+    // Populate the fake database.
+    final fakeFirestore = FakeFirebaseFirestore();
+    await fakeFirestore
+        .collection('volunteerings')
+        .add(MockVolunteeringProvider().volunteerings![1].toJson());
+    String volunteeringId = await fakeFirestore
+        .collection('volunteerings')
+        .add(MockVolunteeringProvider().volunteerings![0].toJson())
+        .then((value) => value.id);
+    await fakeFirestore
+        .collection('volunteerings')
+        .add(MockVolunteeringProvider().volunteerings![2].toJson());
+
+    String userId = await fakeFirestore
+        .collection('users')
+        .add(MockUserProvider().user!.toJson())
+        .then((value) => value.id);
+    SerManosApi().setFirestore(fakeFirestore);
+
+    final fakeStorage = MockFirebaseStorage();
+    SerManosStorage().setStorage(fakeStorage);
+
+    UserProvider userProvider = UserProvider();
+    userProvider.user = MockUserProvider().user!.copyWith(id: userId);
+    userProvider.setFirebaseAnalytics(MockFirebaseAnalytics());
+
+    VolunteeringProvider volunteeringProvider =
+        VolunteeringProvider(userProvider);
+
+    await volunteeringProvider.fetchVolunteerings();
+    await volunteeringProvider.applyToVolunteering(volunteeringId);
+
+    VolunteeringModel? volunteering =
+        volunteeringProvider.getVolunteeringById(volunteeringId);
+
+    assert(volunteering != null);
+    expect(volunteering!.volunteersIds.length,
+        1 + MockVolunteeringProvider().volunteerings![0].volunteersIds.length);
+    assert(volunteering.volunteersIds.contains(userId));
   });
 }

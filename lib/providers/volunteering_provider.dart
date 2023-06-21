@@ -86,12 +86,12 @@ class VolunteeringProvider extends ChangeNotifier {
         volunteeringId: volunteeringId,
       );
 
-      FirebaseAnalytics.instance.logEvent(
-        name: 'apply_to_volunteering',
-        parameters: {
-          'volunteering_id': volunteeringId,
-        },
-      );
+      // FirebaseAnalytics.instance.logEvent(
+      //   name: 'apply_to_volunteering',
+      //   parameters: {
+      //     'volunteering_id': volunteeringId,
+      //   },
+      // );
 
       // refetch user and volunteerings
       await fetchVolunteerings();
