@@ -10,6 +10,7 @@ import 'package:mobile_charity_app/design_system/molecules/scaffolds.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
 import 'package:mobile_charity_app/design_system/tokens/indicators.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
+import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/news.dart';
 import 'package:mobile_charity_app/pages/error.dart';
@@ -93,8 +94,8 @@ class NewsDetailsPage extends StatelessWidget {
                 child: Stack(
                   children: [
                     SerManosIconButton(
-                      icon:
-                          const SerManosIcon.back(color: SerManosColors.neutral0),
+                      icon: const SerManosIcon.back(
+                          color: SerManosColors.neutral0),
                       onPressed: () => context.pop(),
                     ),
                     Align(
@@ -107,8 +108,9 @@ class NewsDetailsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                width: SerManosSizes.sizeLG,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: SerManosSpacing.spaceSL),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
