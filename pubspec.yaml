@@ -42,6 +42,7 @@ dependencies:
   app_tracking_transparency: ^2.0.4
   fake_cloud_firestore: ^2.4.1+1
   firebase_storage_mocks: ^0.6.1
+  mockito: ^5.4.0
 
 dev_dependencies:
   flutter_test:

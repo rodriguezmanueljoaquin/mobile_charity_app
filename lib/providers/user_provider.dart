@@ -12,8 +12,14 @@ import 'package:mobile_charity_app/utils/geolocator.dart';
 import 'package:mobile_charity_app/utils/logger.dart';
 
 class UserProvider extends ChangeNotifier {
+  static FirebaseAnalytics _firebaseAnalytics = FirebaseAnalytics.instance;
   UserModel? user;
   GeoPoint? userLocation;
+
+  void setFirebaseAnalytics(FirebaseAnalytics firebaseAnalytics) {
+    // method for testing purposes
+    _firebaseAnalytics = firebaseAnalytics;
+  }
 
   Future<UserModel?> login({
     required String email,
@@ -23,7 +29,7 @@ class UserProvider extends ChangeNotifier {
         await SerManosApi().loginUser(email: email, password: password);
     this.user = user;
 
-    await FirebaseAnalytics.instance.logLogin(loginMethod: 'email');
+    await _firebaseAnalytics.logLogin(loginMethod: 'email');
     await setAnalyticsUserId(user);
 
     return user;
@@ -42,7 +48,7 @@ class UserProvider extends ChangeNotifier {
         lastName: lastName);
     this.user = user;
 
-    await FirebaseAnalytics.instance.logSignUp(signUpMethod: 'email');
+    await _firebaseAnalytics.logSignUp(signUpMethod: 'email');
 
     await setAnalyticsUserId(user);
 
@@ -77,7 +83,7 @@ class UserProvider extends ChangeNotifier {
       }
 
       // log event
-      await FirebaseAnalytics.instance.logEvent(
+      await _firebaseAnalytics.logEvent(
         name: 'favorite_volunteering',
         parameters: {
           'volunteering_id': volunteeringId,
@@ -104,7 +110,7 @@ class UserProvider extends ChangeNotifier {
     if (firebaseUser != null) {
       user = UserModel(id: firebaseUser.uid);
       await fetchUser();
-      await FirebaseAnalytics.instance.logLogin(loginMethod: 'cache');
+      await _firebaseAnalytics.logLogin(loginMethod: 'cache');
 
       await setAnalyticsUserId(user);
     }

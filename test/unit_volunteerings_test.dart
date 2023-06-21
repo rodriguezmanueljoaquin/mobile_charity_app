@@ -10,7 +10,7 @@ import 'mocks/mock_user_provider.dart';
 import 'mocks/mock_volunteering_provider.dart';
 
 void main() {
-  testWidgets("get volunteering", (WidgetTester tester) async {
+  test("get volunteering", () async {
     // Populate the fake database.
     final fakeFirestore = FakeFirebaseFirestore();
     await fakeFirestore
@@ -35,6 +35,43 @@ void main() {
     expect(volunteerings[0].description,
         MockVolunteeringProvider().volunteerings![0].description);
     expect(volunteerings[0].imageKey,
+        MockVolunteeringProvider().volunteerings![0].imageKey);
+  });
+
+  test("get volunteering by id", () async {
+    // Populate the fake database.
+    final fakeFirestore = FakeFirebaseFirestore();
+    await fakeFirestore
+        .collection('volunteerings')
+        .add(MockVolunteeringProvider().volunteerings![1].toJson());
+    String id = await fakeFirestore
+        .collection('volunteerings')
+        .add(MockVolunteeringProvider().volunteerings![0].toJson())
+        .then((value) => value.id);
+    await fakeFirestore
+        .collection('volunteerings')
+        .add(MockVolunteeringProvider().volunteerings![2].toJson());
+    await fakeFirestore
+        .collection('volunteerings')
+        .add(MockVolunteeringProvider().volunteerings![3].toJson());
+
+    SerManosApi().setFirestore(fakeFirestore);
+
+    final fakeStorage = MockFirebaseStorage();
+    SerManosStorage().setStorage(fakeStorage);
+
+    VolunteeringProvider volunteeringProvider =
+        VolunteeringProvider(MockUserProvider());
+    await volunteeringProvider.fetchVolunteerings();
+    VolunteeringModel? volunteering =
+        volunteeringProvider.getVolunteeringById(id);
+
+    assert(volunteering != null);
+    expect(volunteering?.title,
+        MockVolunteeringProvider().volunteerings![0].title);
+    expect(volunteering?.description,
+        MockVolunteeringProvider().volunteerings![0].description);
+    expect(volunteering?.imageKey,
         MockVolunteeringProvider().volunteerings![0].imageKey);
   });
 }

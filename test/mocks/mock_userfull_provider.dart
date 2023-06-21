@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
@@ -71,5 +72,9 @@ class MockUserFullProvider extends ChangeNotifier implements UserProvider {
   @override
   Future<GeoPoint?> loadLocation() {
     return Future.value(userLocation);
+  }
+
+  @override
+  void setFirebaseAnalytics(FirebaseAnalytics firebaseAnalytics) {
   }
 }
