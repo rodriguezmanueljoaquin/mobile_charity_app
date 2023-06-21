@@ -70,10 +70,8 @@ class _NewsTabState extends State<NewsTab>
             horizontal: SerManosSpacing.spaceSL,
             vertical: SerManosSpacing.spaceLG,
           ),
-          itemBuilder: (context, index) => UnconstrainedBox(
-            child: SerManosNewsCard(
-              news: news[index],
-            ),
+          itemBuilder: (context, index) => SerManosNewsCard(
+            news: news[index],
           ),
           separatorBuilder: (context, index) => const SerManosSizedBox.md(),
           itemCount: news.length,
