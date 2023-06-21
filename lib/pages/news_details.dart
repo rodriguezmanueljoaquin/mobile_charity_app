@@ -89,17 +89,19 @@ class NewsDetailsPage extends StatelessWidget {
                 vertical: 20,
               ),
               color: SerManosColors.secondary90,
-              child: Row(
+              child: Stack(
                 children: [
                   SerManosIconButton(
                     icon:
                         const SerManosIcon.back(color: SerManosColors.neutral0),
                     onPressed: () => context.pop(),
                   ),
-                  Expanded(
-                    child: SerManosText.subtitle1("Novedades",
-                        textAlign: TextAlign.center,
-                        color: SerManosColors.neutral0),
+                  Align(
+                    alignment: Alignment.center,
+                    child: SerManosText.subtitle1(
+                      "Novedades",
+                      color: SerManosColors.neutral0,
+                    ),
                   ),
                 ],
               ),
