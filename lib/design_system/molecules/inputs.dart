@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
@@ -22,6 +23,7 @@ class SerManosTextFormField extends StatefulWidget {
   final SerManosIcon? icon;
   final VoidCallback? iconOnPressed;
   final Function onFieldSubmitted;
+  final bool phoneKeyboard;
 
   const SerManosTextFormField(
       {super.key,
@@ -35,7 +37,8 @@ class SerManosTextFormField extends StatefulWidget {
       this.isPassword = false,
       this.icon,
       this.iconOnPressed,
-      required this.onFieldSubmitted});
+      required this.onFieldSubmitted,
+      this.phoneKeyboard = false});
 
   @override
   State<SerManosTextFormField> createState() => _SerManosTextFormFieldState();
@@ -91,6 +94,7 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
       width: 328,
       child: TextFormField(
         focusNode: focusNode,
+        keyboardType: widget.phoneKeyboard ? TextInputType.phone : null,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         onFieldSubmitted: (_) => widget.onFieldSubmitted(),
         controller: widget.controller,
@@ -194,6 +198,7 @@ class SerManosPhoneFormField extends StatelessWidget {
       label: 'Teléfono',
       placeholder: placeholder,
       onFieldSubmitted: onFieldSubmitted ?? () {},
+      phoneKeyboard: true,
       validator: phoneValidator,
     );
   }
