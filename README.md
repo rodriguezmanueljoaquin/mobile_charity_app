@@ -78,7 +78,22 @@ Por último, se cuenta con un middleware que se encarga de cargar al usuario (si
 ### Testing
 Para la ejecución de los tests es suficiente con, desde el directorio origen del repositorio, ejecutar `flutter test`.
 
-Se ejecutaran golden tests para asegurar que nada haya cambiado en la UI respecto del punto de origen que fue establecido, en caso de querer recrear el punto de origen debe ejecutarse `flutter test --update-goldens`. Y también se ejecutaran tests sobre distintos widgets, particularmente aquellos que tienen interacciones como la aparición de modals. 
+Existen 4 tipos de tests:
++ Golden tests
+  
+    Son para asegurar que nada haya cambiado en la UI respecto del punto de origen que fue establecido, Se ejecutan sobre todas las pantallas de forma individual para en caso de falla detectar rapidamente en cual sucedio, asi como tambien en varios tamaños de pantalla (celular promedio y iphone11, y tablets vertical y horizontal). En caso de querer recrear el punto de origen debe ejecutarse `flutter test --update-goldens`.
+
++ Unit tests
+
+    Son para asegurar que las funciones de los servicios a través de los cuales se obtienen datos para poblar la aplicación funcionan de forma correcta.
+
++ Validator tests
+  
+  Aseguran que los validadores de los formularios funcionan de la forma esperada, tanto en los casos de éxito como en los de error.
+  
++ Widget tests
+  
+    Tests sobre distintos widgets, particularmente aquellos que tienen interacciones como la aparición de modals, para asegurar su correcto funcionamiento. 
 
 
 <br/>
