@@ -17,9 +17,4 @@ Future<void> showVolunteeringMap(VolunteeringModel volunteering) async {
       mapType: hasGoogleMaps ? MapType.google : availableMaps.first.mapType,
       coords: coords,
       title: volunteering.address);
-
-  FirebaseAnalytics.instance.logEvent(name: "map_opened", parameters: {
-    "type": "volunteering",
-    "volunteering_id": volunteering.id,
-  });
 }

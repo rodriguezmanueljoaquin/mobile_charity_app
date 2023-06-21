@@ -111,8 +111,6 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<void> logout() async {
-    await FirebaseAnalytics.instance.logEvent(name: 'logout');
-
     await FirebaseAuth.instance.signOut();
 
     user = null;
@@ -157,7 +155,6 @@ class UserProvider extends ChangeNotifier {
     if (position != null) {
       userLocation = GeoPoint(position.latitude, position.longitude);
 
-      await FirebaseAnalytics.instance.logEvent(name: 'userLocation');
       logger.d(
           'latitude: ${userLocation!.latitude}, longitude: ${userLocation!.longitude}');
 
