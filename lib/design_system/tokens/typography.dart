@@ -80,28 +80,68 @@ class SerManosTextStyle extends TextStyle {
 }
 
 class SerManosText extends Text {
-  SerManosText.headline1(super.text, {super.key, Color? color, super.textAlign})
+  SerManosText.headline1(super.text,
+      {super.key,
+      Color? color,
+      super.textAlign,
+      super.overflow,
+      super.maxLines})
       : super(style: SerManosTextStyle.headline1(color: color));
 
-  SerManosText.headline2(super.text, {super.key, Color? color, super.textAlign})
+  SerManosText.headline2(super.text,
+      {super.key,
+      Color? color,
+      super.textAlign,
+      super.overflow,
+      super.maxLines})
       : super(style: SerManosTextStyle.headline2(color: color));
 
-  SerManosText.subtitle1(super.text, {super.key, Color? color, super.textAlign})
+  SerManosText.subtitle1(super.text,
+      {super.key,
+      Color? color,
+      super.textAlign,
+      super.overflow,
+      super.maxLines})
       : super(style: SerManosTextStyle.subtitle1(color: color));
 
-  SerManosText.body1(super.text, {super.key, Color? color, super.textAlign})
+  SerManosText.body1(super.text,
+      {super.key,
+      Color? color,
+      super.textAlign,
+      super.overflow,
+      super.maxLines})
       : super(style: SerManosTextStyle.body1(color: color));
 
-  SerManosText.body2(super.text, {super.key, Color? color, super.textAlign})
+  SerManosText.body2(super.text,
+      {super.key,
+      Color? color,
+      super.textAlign,
+      super.overflow,
+      super.maxLines})
       : super(style: SerManosTextStyle.body2(color: color));
 
-  SerManosText.button(super.text, {super.key, Color? color, super.textAlign})
+  SerManosText.button(super.text,
+      {super.key,
+      Color? color,
+      super.textAlign,
+      super.overflow,
+      super.maxLines})
       : super(style: SerManosTextStyle.button(color: color));
 
-  SerManosText.caption(super.text, {super.key, Color? color, super.textAlign})
+  SerManosText.caption(super.text,
+      {super.key,
+      Color? color,
+      super.textAlign,
+      super.overflow,
+      super.maxLines})
       : super(style: SerManosTextStyle.caption(color: color));
 
-  SerManosText.overline(String text, {super.key, Color? color, super.textAlign})
+  SerManosText.overline(String text,
+      {super.key,
+      Color? color,
+      super.textAlign,
+      super.overflow,
+      super.maxLines})
       : super(text.toUpperCase(),
             style: SerManosTextStyle.overline(color: color));
 }

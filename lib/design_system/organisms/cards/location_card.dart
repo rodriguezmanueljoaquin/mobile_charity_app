@@ -41,12 +41,17 @@ class _SerManosLocationCardState extends State<SerManosLocationCard> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SerManosText.overline("DIRECCIÓN"),
-                        SerManosText.body1(widget.volunteering.address),
-                      ],
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SerManosText.overline("DIRECCIÓN"),
+                          SerManosText.body1(
+                            widget.volunteering.address,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
                     ),
                     const Center(
                       child: SerManosIcon.location(

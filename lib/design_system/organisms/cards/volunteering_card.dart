@@ -50,7 +50,9 @@ class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SerManosText.overline(widget.volunteering.category.toUpperCase()),
+              SerManosText.overline(
+                widget.volunteering.category.toUpperCase(),
+              ),
               SerManosText.subtitle1(widget.volunteering.title),
               const SerManosSizedBox.xs(),
               SerManosVacancies(

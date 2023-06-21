@@ -96,9 +96,9 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                       return const SizedBox();
                     }
 
-                    String? currentVolunteeringTitle = volunteeringProvider
-                        .getVolunteeringById(currentVolunteeringId)
-                        ?.title;
+                    VolunteeringModel? currentVolunteering =
+                        volunteeringProvider
+                            .getVolunteeringById(currentVolunteeringId);
 
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +106,8 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                         SerManosText.headline1("Tu actividad"),
                         const SerManosSizedBox.sl(),
                         SerManosCurrentVolunteringCard(
-                          title: currentVolunteeringTitle,
+                          category: currentVolunteering?.category,
+                          title: currentVolunteering?.title,
                           volunteeringId: currentVolunteeringId,
                         ),
                         const SerManosSizedBox.md(),
