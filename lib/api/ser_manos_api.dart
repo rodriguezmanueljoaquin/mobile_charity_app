@@ -103,17 +103,13 @@ class SerManosApi {
 
       return user;
     } on FirebaseAuthException catch (e) {
-      String message = e.message ?? 'Error iniciando sesión';
-
       if (e.code == 'user-not-found') {
         logger.w('No user found for that email.');
-        message = 'No se encontró un usuario con ese correo';
       } else if (e.code == 'wrong-password') {
         logger.w('Wrong password provided for that user.');
-        message = 'Contraseña incorrecta';
       }
 
-      throw FormException(message);
+      throw FormException('Email o contraseña incorrectos');
     } catch (e) {
       logger.e(e);
       rethrow;
