@@ -59,11 +59,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return SerManosDefaultScaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: Center(
-              child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height - 140,
+              ),
+              child: Center(
                 child: Column(
                   children: [
                     SizedBox(width: 150, child: SerManosImages.full),
@@ -90,33 +93,33 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 8),
-            child: SerManosText.caption(
-              _loginError,
-              color: SerManosColors.error100,
+            Container(
+              margin: const EdgeInsets.only(bottom: 8),
+              child: SerManosText.caption(
+                _loginError,
+                color: SerManosColors.error100,
+              ),
             ),
-          ),
-          SerManosTextButton.longTextButton(
-            text: 'Iniciar Sesión',
-            disabled: _disabled,
-            loading: _loading,
-            onPressed: () async {
-              _submit();
-            },
-          ),
-          const SerManosSizedBox.sl(),
-          SerManosTextButton.longTextButton(
-            text: 'No tengo cuenta',
-            filled: false,
-            disabled: _loading,
-            onPressed: () {
-              context.replaceNamed(SerManosPagesName.signup);
-            },
-          ),
-          const SerManosSizedBox.lg()
-        ],
+            SerManosTextButton.longTextButton(
+              text: 'Iniciar Sesión',
+              disabled: _disabled,
+              loading: _loading,
+              onPressed: () async {
+                _submit();
+              },
+            ),
+            const SerManosSizedBox.sl(),
+            SerManosTextButton.longTextButton(
+              text: 'No tengo cuenta',
+              filled: false,
+              disabled: _loading,
+              onPressed: () {
+                context.replaceNamed(SerManosPagesName.signup);
+              },
+            ),
+            const SerManosSizedBox.lg()
+          ],
+        ),
       ),
     );
   }
