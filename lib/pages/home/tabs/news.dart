@@ -44,7 +44,7 @@ class _NewsTabState extends State<NewsTab>
               (error) => handleException(context: context, error: error)),
       child: Consumer<NewsProvider>(builder: (context, newsProvider, child) {
         if (newsProvider.isLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: SerManosProgressIndicator());
         }
 
         List<NewsModel>? news = newsProvider.news;

@@ -8,6 +8,7 @@ import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/scaffolds.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
+import 'package:mobile_charity_app/design_system/tokens/indicators.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/news.dart';
@@ -66,7 +67,7 @@ class NewsDetailsPage extends StatelessWidget {
           applyPadding: false,
           whiteStatusBar: false,
           body: Center(
-            child: CircularProgressIndicator(),
+            child: SerManosProgressIndicator(),
           ),
         );
       }

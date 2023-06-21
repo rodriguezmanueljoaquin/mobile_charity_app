@@ -125,7 +125,7 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                     builder: (context, volunteeringProvider, child) {
                   if (volunteeringProvider.isFetchingVolunteerings) {
                     return const Center(
-                      child: CircularProgressIndicator(),
+                      child: SerManosProgressIndicator(),
                     );
                   }
 

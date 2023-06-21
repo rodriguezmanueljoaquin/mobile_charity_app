@@ -132,7 +132,7 @@ class VolunteeringDetailsPage extends StatelessWidget {
             applyPadding: false,
             whiteStatusBar: false,
             body: Center(
-              child: CircularProgressIndicator(),
+              child: SerManosProgressIndicator(),
             ),
           );
         }
