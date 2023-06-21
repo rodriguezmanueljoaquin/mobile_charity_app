@@ -35,7 +35,7 @@
 
 ## Descripción
 
-Este repositorio contiene el código fuente de la aplicación de flutter desarrollada para el trabajo práctico de la materia 73.21 - Desarrollo de Aplicaciones Móviles Multiplataforma del ITBA, que consiste en una aplicación desarrollada en Flutter para que personas puedan, principalmente, averiguar sobre voluntariados cercanos e inscribirse a ellos.
+Este repositorio contiene el código fuente de la aplicación de flutter desarrollada para el trabajo práctico de la materia 73.21 - Desarrollo de Aplicaciones Móviles Multiplataforma del ITBA, que consiste en una aplicación desarrollada en Flutter para que personas puedan, principalmente, averiguar sobre voluntariados cercanos e inscribirse a ellos. Además, se permite la búsqueda de los mismos por título así como por descripción.
 
 En nuestro caso se desarrolló la funcionalidad extra de pull to refresh de voluntariados, un voluntariado en particular y noticias.
 
