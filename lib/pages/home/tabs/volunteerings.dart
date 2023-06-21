@@ -72,7 +72,8 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                 (error) => handleException(context: context, error: error));
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: SerManosSpacing.spaceSL),
+        padding:
+            const EdgeInsets.symmetric(horizontal: SerManosSpacing.spaceSL),
         child: LayoutBuilder(
           builder: (context, constraints) => SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
@@ -97,11 +98,11 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                           volunteeringProvider.isFetchingVolunteerings) {
                         return const SizedBox();
                       }
-      
+
                       VolunteeringModel? currentVolunteering =
                           volunteeringProvider
                               .getVolunteeringById(currentVolunteeringId);
-      
+
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -131,21 +132,20 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                         ),
                       );
                     }
-      
+
                     List<VolunteeringModel>? volunteerings =
                         volunteeringProvider.volunteerings;
-      
+
                     if (widget.searchController.text.isNotEmpty) {
                       volunteerings = volunteeringProvider
                           .searchVolunteeringsByTitleAndDescription(
                               widget.searchController.text);
                     }
-      
+
                     if (volunteerings == null || volunteerings.isEmpty) {
                       return const Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: SerManosSpacing.spaceSL,
                             vertical: SerManosSpacing.spaceMD,
                           ),
                           child: SerManosEmptyListPlaceholderCard(
@@ -154,19 +154,16 @@ class _VolunteeringsTabState extends State<VolunteeringsTab>
                         ),
                       );
                     }
-      
+
                     return ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       padding: const EdgeInsets.symmetric(
-                        horizontal: SerManosSpacing.spaceSL,
                         vertical: SerManosSpacing.spaceMD,
                       ),
                       itemBuilder: (context, index) {
-                        return UnconstrainedBox(
-                          child: SerManosVolunteeringCard(
-                            volunteering: volunteerings![index],
-                          ),
+                        return SerManosVolunteeringCard(
+                          volunteering: volunteerings![index],
                         );
                       },
                       separatorBuilder: (context, index) =>

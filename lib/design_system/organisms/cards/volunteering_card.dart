@@ -105,7 +105,7 @@ class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
         },
       ),
       child: Container(
-        width: SerManosSizes.sizeLG,
+        // width: SerManosSizes.sizeLG,
         decoration: BoxDecoration(
           color: SerManosColors.neutral0,
           boxShadow: SerManosShadows.shadow2,
