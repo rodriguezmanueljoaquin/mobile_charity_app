@@ -7,20 +7,25 @@
 <br/>
 
 ## Contenido
-1. [Descripción](#descripción)
-2. [Especificaciones técnicas](#especificaciones-técnicas)
-    1. [Frontend](#frontend)
-    2. [Backend](#backend)
-    3. [Design System](#design-system)
-    4. [State Management](#state-management)
-    5. [Deep Links](#deep-links)
-    6. [Testing](#testing)
-3. [Requerimientos no funcionales](#requerimientos-no-funcionales)
-    1. [Monitoreo y eventos](#monitoreo-y-eventos)
-    2. [Seguridad](#seguridad)
-    3. [Privacidad](#privacidad)
-    4. [Usabilidad](#usabilidad)
-4. [Autores](#autores)
+- [SerManos - Aplicación de Flutter](#sermanos---aplicación-de-flutter)
+  - [73.21 - Desarrollo de Aplicaciones Móviles Multiplataforma - Trabajo práctico](#7321---desarrollo-de-aplicaciones-móviles-multiplataforma---trabajo-práctico)
+    - [Instituto Tecnológico de Buenos Aires](#instituto-tecnológico-de-buenos-aires)
+  - [Contenido](#contenido)
+  - [Descripción](#descripción)
+  - [Especificaciones técnicas](#especificaciones-técnicas)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+    - [Design System](#design-system)
+    - [State Management](#state-management)
+    - [Deep Links](#deep-links)
+      - [Rutas](#rutas)
+    - [Testing](#testing)
+  - [Requerimientos no funcionales](#requerimientos-no-funcionales)
+    - [Monitoreo y eventos](#monitoreo-y-eventos)
+    - [Seguridad](#seguridad)
+    - [Privacidad](#privacidad)
+    - [Usabilidad](#usabilidad)
+  - [Autores](#autores)
 
 <br/>
 
@@ -81,7 +86,60 @@ Se ejecutaran golden tests para asegurar que nada haya cambiado en la UI respect
 ## Requerimientos no funcionales
 
 ### Monitoreo y eventos
-Lorem ipsum
+Para monitoreo se utilizó Crashlytics, que viene integrado con Firebase, y permite monitorear excepciones y crashes de la aplicación. Además, se utilizó Firebase Analytics para monitorear eventos de la aplicación. Los eventos que se emiten desde la aplicación son:
+
+- `login`: Se emite cuando el usuario inicia sesión. 
+  - Parámetro: `method`: `email` o `cache`, dependiendo de si se logueó con email o con cache
+  - Resulta útil para tener una idea de número de usuarios activos.
+- `signup`: Se emite cuando el usuario se registra.
+  - Parámetro: `method`: `email` (único método de registro disponible)
+  - Necesario para llevar rastro de nuevos usuarios en la plataforma.
+- `edit_profile`:
+  - Considerando que sólo los usuarios con perfiles completos pueden aplicar a voluntariados, es crítico para tener una idea de cuántos usuarios están en condiciones de aplicar a voluntariados. 
+- `search_volunteerings`: 
+  - Parámetros: 
+    - `query`: query de búsqueda
+  - Sirve para tener una idea de qué tipo de voluntariados están buscando los usuarios.
+- `apply_to_volunteering`:
+  - Parámetros: 
+    - `volunteering_id`: id del voluntariado
+  - Puede ayudar a dar una idea de qué tipo de voluntariados son los más populares. 
+  
+- `abandon_volunteering`:
+  - Parámetro: `volunteering_id`: id del voluntariado
+  - Ayuda a rastrear falta de interés o mala reputación de un voluntariado.
+
+- `select_content`:
+  - Parámetros: 
+    - `content_type`: `volunteering` o `news`,
+    -  `id`: id del voluntariado o noticia
+  - Ayuda a encontrar las noticias más destacadas y los voluntariados más populares.
+  
+- `unauthorized_access`:
+  - Parámetros: 
+    - `screen_name`: vista a la que se intentó acceder sin estar autenticado
+  - Provee información sobre qué vistas son las más visitadas por usuarios no autenticados, lo cual puede ayudar a decidir cambiar reglas de negocio a futuro (como permitir el acceso a usuarios no autenticados a ciertas pantallas, etc.). También sirve para aproximar la cantidad de usuarios potenciales sin cuenta en la plataforma.
+  
+- `location_permission_denied`:
+  - Métrica relevante para saber cuántos usuarios no pueden acceder a la funcionalidad de búsqueda de voluntariados cercanos. 
+
+- `location_permission_granted`:
+  - Lo opuesto a la métrica anterior, sirve para saber cuántos usuarios pueden acceder a la funcionalidad de búsqueda de voluntariados cercanos, y entonces rastrear comportamientos distintos entre usuarios que pueden y no pueden acceder a la funcionalidad.
+  
+- `favorite_volunteering`:
+  - Parámetros: 
+    - `volunteering_id`: id del voluntariado
+    - `is_favorite`: `true` o `false`
+  - Dato valioso para saber qué voluntariados son los más populares.
+  
+- `share`:
+  - Parámetros: 
+    - `content_type`: `news`,
+    -  `item_id`: id de la novedad
+    -  `method`: `share` (hardcodeado)
+   -  Otorga información sobre la popularidad de las novedades.
+
+Vale la pena mencionar que ningún evento de FirebaseAnalytics se emite en caso de que el usuario no dé consentimiento para compartir datos de uso de la aplicación. (Exclusivo en iOS con AppTrackingTransparency)
 
 ### Seguridad
 La comunicación con el backend es vía HTTPS, por lo que la información viaja encriptada.
