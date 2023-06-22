@@ -42,81 +42,84 @@ class ProfileTab extends StatelessWidget {
     final UserModel user = Provider.of<UserProvider>(context).user!;
     final bool completed = user.hasCompleteProfile;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: SerManosSpacing.spaceSL),
-      child: Column(
-        children: [
-          Expanded(
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SerManosSizedBox.lg(),
-                    Center(
-                      child: SerManosProfilePhoto(url: user.downloadAvatarURL),
-                    ),
-                    const SerManosSizedBox.sl(),
-                    SerManosText.overline("VOLUNTARIO"),
-                    const SerManosSizedBox.sm(),
-                    SerManosText.subtitle1(
-                      user.fullName,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SerManosSizedBox.sm(),
-                    if (completed) ...[
-                      SerManosText.body1(
-                        user.email!,
-                        color: SerManosColors.secondary200,
-                        textAlign: TextAlign.center,
-                      ),
+    return Container(
+      color: SerManosColors.neutral0,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: SerManosSpacing.spaceSL),
+        child: Column(
+          children: [
+            Expanded(
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
                       const SerManosSizedBox.lg(),
-                      ProfileData(user: user),
-                    ] else
-                      SerManosText.body1(
-                        "¡Completá tu perfil para tener acceso a mejores oportunidades!",
+                      Center(
+                        child: SerManosProfilePhoto(url: user.downloadAvatarURL),
+                      ),
+                      const SerManosSizedBox.sl(),
+                      SerManosText.overline("VOLUNTARIO"),
+                      const SerManosSizedBox.sm(),
+                      SerManosText.subtitle1(
+                        user.fullName,
                         textAlign: TextAlign.center,
                       ),
-                    Visibility(
-                        visible: completed,
-                        child: Column(
-                          children: [
-                            SerManosTextButton.longTextButton(
-                              text: "Editar perfil",
-                              onPressed: () {
-                                context.pushNamed(SerManosPagesName.profileEdit);
-                              },
-                            ),
-                            const SerManosSizedBox.sm(),
-                            SerManosTextButton.longTextButton(
-                              text: "Cerrar sesión",
-                              onPressed: _onLogout(context: context),
-                              filled: false,
-                              textColor: SerManosColors.error100,
-                            ),
-                            const SerManosSizedBox.xl(),
-                          ],
-                        )),
-                  ],
+                      const SerManosSizedBox.sm(),
+                      if (completed) ...[
+                        SerManosText.body1(
+                          user.email!,
+                          color: SerManosColors.secondary200,
+                          textAlign: TextAlign.center,
+                        ),
+                        const SerManosSizedBox.lg(),
+                        ProfileData(user: user),
+                      ] else
+                        SerManosText.body1(
+                          "¡Completá tu perfil para tener acceso a mejores oportunidades!",
+                          textAlign: TextAlign.center,
+                        ),
+                      Visibility(
+                          visible: completed,
+                          child: Column(
+                            children: [
+                              SerManosTextButton.longTextButton(
+                                text: "Editar perfil",
+                                onPressed: () {
+                                  context.pushNamed(SerManosPagesName.profileEdit);
+                                },
+                              ),
+                              const SerManosSizedBox.sm(),
+                              SerManosTextButton.longTextButton(
+                                text: "Cerrar sesión",
+                                onPressed: _onLogout(context: context),
+                                filled: false,
+                                textColor: SerManosColors.error100,
+                              ),
+                              const SerManosSizedBox.xl(),
+                            ],
+                          )),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Visibility(
-            visible: !completed,
-            child: Column(
-              children: [
-                SerManosTextButton.shortTextButton(
-                  text: "Completar",
-                  icon: const SerManosIcon.add(),
-                  onPressed: () {
-                    context.pushNamed(SerManosPagesName.profileEdit);
-                  },
-                ),
-                const SerManosSizedBox.xl(),
-              ],
+            Visibility(
+              visible: !completed,
+              child: Column(
+                children: [
+                  SerManosTextButton.shortTextButton(
+                    text: "Completar",
+                    icon: const SerManosIcon.add(),
+                    onPressed: () {
+                      context.pushNamed(SerManosPagesName.profileEdit);
+                    },
+                  ),
+                  const SerManosSizedBox.xl(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

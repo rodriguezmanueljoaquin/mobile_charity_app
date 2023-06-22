@@ -60,9 +60,6 @@ class _HomePageState extends State<HomePage> {
       length: HomeTabs.values.length,
       initialIndex: widget.activeTabIndex,
       child: SerManosLightBlueScaffold(
-        backgroundColor: widget.activeTabIndex == HomeTabs.profile.index
-            ? SerManosColors.neutral0
-            : SerManosColors.secondary10,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: ColoredBox(
