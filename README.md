@@ -7,29 +7,25 @@
 <br/>
 
 ## Contenido
-
-- [SerManos - Aplicación de Flutter](#sermanos---aplicación-de-flutter)
-  - [73.21 - Desarrollo de Aplicaciones Móviles Multiplataforma - Trabajo práctico](#7321---desarrollo-de-aplicaciones-móviles-multiplataforma---trabajo-práctico)
-    - [Instituto Tecnológico de Buenos Aires](#instituto-tecnológico-de-buenos-aires)
-  - [Contenido](#contenido)
-  - [Descripción](#descripción)
-  - [Especificaciones técnicas](#especificaciones-técnicas)
-    - [Frontend](#frontend)
-    - [Backend](#backend)
-      - [Autenticación](#autenticación)
-      - [Colecciones](#colecciones)
-      - [Storage](#storage)
-    - [Design System](#design-system)
-    - [State Management](#state-management)
-    - [Deep Links](#deep-links)
-      - [Rutas](#rutas)
-    - [Testing](#testing)
-  - [Requerimientos no funcionales](#requerimientos-no-funcionales)
-    - [Monitoreo y eventos](#monitoreo-y-eventos)
-    - [Seguridad](#seguridad)
-      - [Reglas de Firebase](#reglas-de-firebase)
-    - [Usabilidad](#usabilidad)
-  - [Autores](#autores)
+- [Contenido](#contenido)
+- [Descripción](#descripción)
+- [Especificaciones técnicas](#especificaciones-técnicas)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
+    - [Autenticación](#autenticación)
+    - [Colecciones](#colecciones)
+    - [Storage](#storage)
+  - [Design System](#design-system)
+  - [State Management](#state-management)
+  - [Deep Links](#deep-links)
+    - [Rutas](#rutas)
+  - [Testing](#testing)
+- [Requerimientos no funcionales](#requerimientos-no-funcionales)
+  - [Monitoreo y eventos](#monitoreo-y-eventos)
+  - [Seguridad](#seguridad)
+    - [Reglas de Firebase](#reglas-de-firebase)
+  - [Usabilidad](#usabilidad)
+- [Autores](#autores)
 
 <br/>
 
@@ -146,7 +142,10 @@ Existen 4 tipos de tests:
 
 - Golden tests
 
-  Son para asegurar que nada haya cambiado en la UI respecto del punto de origen que fue establecido, Se ejecutan sobre todas las pantallas de forma individual para en caso de falla detectar rapidamente en cual sucedio, asi como tambien en varios tamaños de pantalla (celular promedio y iphone11, y tablets vertical y horizontal). En caso de querer recrear el punto de origen debe ejecutarse `flutter test --update-goldens`.
+  Son para asegurar que nada haya cambiado en la UI respecto del punto de origen que fue establecido, Se ejecutan sobre todas las pantallas de forma individual para en caso de falla detectar rapidamente en cual sucedio, asi como tambien en varios tamaños de pantalla (celular promedio y iphone11, y tablets vertical y horizontal). 
+  Se configuró de forma que se visualicen los goldens los textos para facilitar su debuggeo en caso de ser necesario.
+  En caso de querer recrear el punto de origen debe ejecutarse `flutter test --update-goldens`.
+  A la hora de correr estos tests en diferentes computadores encontramos leves diferencias, buscando en internet encontramos que esto es debido al cambio del sistema operativo donde se ejecuta, que concuerda con lo que nos sucedió dado que cada miembro posee un SO diferente (Windows, Ubuntu Linux y MacOS). Los golden test que figuran fueron generados en Ubuntu Linux.
 
 - Unit tests
 
