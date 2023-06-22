@@ -65,6 +65,7 @@ flutter:
     - assets/images/rectangular4x.png
     - assets/images/ios_logo.png
     - assets/images/android12splash.png
+    - assets/images/android_adaptive_icon.png
     - .env
 
   fonts:
