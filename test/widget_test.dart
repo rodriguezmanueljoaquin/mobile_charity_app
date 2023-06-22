@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/molecules/components.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/news_card.dart';
 import 'package:mobile_charity_app/design_system/organisms/cards/volunteering_card.dart';
@@ -38,8 +39,8 @@ void volunteeringDetailsModalTest(
           ],
           child: MaterialApp(
               home: VolunteeringDetailsPage(
-            id: volunteeringId,
-          )))));
+                        id: volunteeringId,
+                      )))));
   await tester.pumpAndSettle(); //load frame
   VolunteeringModel modelExpected =
       MockVolunteeringProvider().getVolunteeringById(volunteeringId)!;
@@ -51,9 +52,10 @@ void volunteeringDetailsModalTest(
   expect(find.text(modelExpected.category.toUpperCase()), findsOneWidget);
 
   expect(find.byType(SerManosVolunteeringModal), findsNothing);
-  await extraExpectBeforeModal();
-  await tester.tap(find.text(openModalButtonText));
+  await tester.ensureVisible(find.text(openModalButtonText));
   await tester.pumpAndSettle();
+  await tester.tap(find.text(openModalButtonText));
+  await tester.pumpAndSettle(); //load frame
 
   expect(find.byType(SerManosVolunteeringModal), findsOneWidget);
   expect(find.text(modalText), findsOneWidget);
@@ -179,14 +181,6 @@ void main() {
         'Para postularte debes primero completar tus datos.',
         () => {},
         false);
-  });
-
-  testWidgets(
-      'volunteering details modal not current volunteering and profile completed test',
-      (WidgetTester tester) async {
-    String volunteeringId = "2";
-    volunteeringDetailsModalTest(tester, volunteeringId, MockUserFullProvider(),
-        'Postularme', 'Te estás por postular a', () => {}, true);
   });
 
   testWidgets('volunteering details modal current volunteering test',

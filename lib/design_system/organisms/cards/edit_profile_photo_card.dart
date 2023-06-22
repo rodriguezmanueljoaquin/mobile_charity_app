@@ -46,7 +46,7 @@ class _SerManosEditPhotoCardState extends State<SerManosEditPhotoCard> {
   Widget build(BuildContext context) {
     Widget? leftWidget, rightWidget;
 
-    if (widget.currentPhotoUrl == null) {
+    if (widget.currentPhotoUrl == null && _image == null) {
       leftWidget = title;
       rightWidget = SerManosTextButton.shortTextButton(
           text: "Subir foto", onPressed: _pickImage);
@@ -67,7 +67,7 @@ class _SerManosEditPhotoCardState extends State<SerManosEditPhotoCard> {
         ),
       );
       rightWidget = SerManosProfilePhoto(
-        url: widget.currentPhotoUrl,
+        url: _image == null? widget.currentPhotoUrl : null,
         image: _image,
         smallSize: true,
       );
