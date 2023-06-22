@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ar.edu.itba.mobile.mobile_charity_app">
    <application
-        android:label="mobile_charity_app"
+        android:label="SerManos"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
