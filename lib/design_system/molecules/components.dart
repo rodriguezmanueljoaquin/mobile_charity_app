@@ -38,7 +38,7 @@ class SerManosProfilePhoto extends StatelessWidget {
         radius: size / 2,
         backgroundColor: SerManosColors.neutral0,
         backgroundImage: _getImage(),
-        child: url != null ? null : SerManosImages.profileDefaultPhoto,
+        child: url != null || image != null ? null : SerManosImages.profileDefaultPhoto,
       ),
     );
   }
