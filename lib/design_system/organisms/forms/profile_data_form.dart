@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/inputs.dart';
@@ -9,13 +11,20 @@ class SerManosProfileDataForm extends StatefulWidget {
   final Function(bool) changeDisabledStateTo;
   final String? currentPhotoUrl;
   final TextEditingController dateController;
+  final Function(int) onGenderChange;
+  final int? genderValue;
+  final Function(File?) onImageChange;
 
-  const SerManosProfileDataForm(
-      {super.key,
-      required this.formKey,
-      required this.changeDisabledStateTo,
-      required this.dateController,
-      this.currentPhotoUrl});
+  const SerManosProfileDataForm({
+    super.key,
+    required this.formKey,
+    required this.changeDisabledStateTo,
+    required this.dateController,
+    required this.onGenderChange,
+    required this.onImageChange,
+    this.currentPhotoUrl,
+    this.genderValue,
+  });
 
   @override
   State<SerManosProfileDataForm> createState() =>
@@ -25,10 +34,12 @@ class SerManosProfileDataForm extends StatefulWidget {
 class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
   late final TextEditingController _dateController;
   bool _allowSubmission = false;
+  bool _genderSelected = false;
 
   @override
   void initState() {
     super.initState();
+    _genderSelected = widget.genderValue != null;
     _dateController = widget.dateController;
   }
 
@@ -39,7 +50,7 @@ class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
   }
 
   void _inputListener() {
-    if (_dateController.text.isNotEmpty) {
+    if (_dateController.text.isNotEmpty && _genderSelected) {
       bool isValid = widget.formKey.currentState!.validate();
       widget.changeDisabledStateTo(!isValid);
       setState(() {
@@ -64,10 +75,20 @@ class _SerManosProfileDataFormState extends State<SerManosProfileDataForm> {
             controller: _dateController,
           ),
           const SerManosSizedBox.md(),
-          const SerManosGenderInputCard(),
+          SerManosGenderInputCard(
+              onGenderChange: (value) {
+                _genderSelected = true;
+                widget.onGenderChange(value);
+                _inputListener(); // force check to enable form submission
+              },
+              value: widget.genderValue),
           const SerManosSizedBox.md(),
           SerManosEditPhotoCard(
             currentPhotoUrl: widget.currentPhotoUrl,
+            onChange: (value) {
+              widget.onImageChange(value);
+              _inputListener(); // force check to enable form submission
+            },
           )
         ],
       ),

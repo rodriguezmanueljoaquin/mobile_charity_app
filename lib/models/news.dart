@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mobile_charity_app/api/ser_manos_storage.dart';
 import 'package:mobile_charity_app/utils/timestamp_converter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 part 'news.freezed.dart';
@@ -11,11 +12,20 @@ class NewsModel with _$NewsModel {
     required String title,
     required String description,
     required String summary,
-    required String imageURL,
+    required String imageKey,
     required String source,
     @TimestampConverter() required DateTime createdAt,
+    @JsonKey(ignore: true) String? downloadImageURL,
   }) = _NewsModel;
 
   factory NewsModel.fromJson(Map<String, dynamic> json) =>
       _$NewsModelFromJson(json);
+
+  const NewsModel._();
+
+  Future<NewsModel> fetchDownloadImageURL() async {
+    final String imageURL =
+        await SerManosStorage().getDownloadURL(key: imageKey);
+    return copyWith(downloadImageURL: imageURL);
+  }
 }

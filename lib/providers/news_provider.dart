@@ -4,7 +4,7 @@ import 'package:mobile_charity_app/models/news.dart';
 import 'package:mobile_charity_app/utils/collections.dart';
 
 class NewsProvider extends ChangeNotifier {
-  List<NewsModel> _news = [];
+  List<NewsModel>? _news;
   Map<String, int> _newsIndexById = {};
 
   bool isLoading = false;
@@ -14,15 +14,19 @@ class NewsProvider extends ChangeNotifier {
 
     try {
       _news = await SerManosApi().getNews();
-      _newsIndexById = listToIndexMapByKey(_news, (e) => e.id);
+      _newsIndexById = listToIndexMapByKey(_news!, (e) => e.id);
+    } catch (e) {
+      rethrow;
     } finally {
       isLoading = false;
       notifyListeners();
     }
   }
 
-  List<NewsModel> get news => _news;
+  List<NewsModel>? get news => _news;
 
   NewsModel? getNewsById(String id) =>
-      _newsIndexById[id] != null ? _news[_newsIndexById[id]!] : null;
+      (_news != null && _newsIndexById[id] != null)
+          ? _news![_newsIndexById[id]!]
+          : null;
 }

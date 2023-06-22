@@ -11,7 +11,7 @@ _$_NewsModel _$$_NewsModelFromJson(Map<String, dynamic> json) => _$_NewsModel(
       title: json['title'] as String,
       description: json['description'] as String,
       summary: json['summary'] as String,
-      imageURL: json['imageURL'] as String,
+      imageKey: json['imageKey'] as String,
       source: json['source'] as String,
       createdAt:
           const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
@@ -23,7 +23,7 @@ Map<String, dynamic> _$$_NewsModelToJson(_$_NewsModel instance) =>
       'title': instance.title,
       'description': instance.description,
       'summary': instance.summary,
-      'imageURL': instance.imageURL,
+      'imageKey': instance.imageKey,
       'source': instance.source,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
     };

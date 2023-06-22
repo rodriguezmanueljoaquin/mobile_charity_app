@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
-import 'package:mobile_charity_app/design_system/molecules/scaffold.dart';
+import 'package:mobile_charity_app/design_system/molecules/scaffolds.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
 
@@ -12,14 +12,14 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SerManosScaffold(
+    return SerManosDefaultScaffold(
       body: Column(
         children: [
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SerManosImages.full,
+                SizedBox(width: 150, child: SerManosImages.full),
                 const SerManosSizedBox.lg(),
                 SerManosText.headline1('¡Bienvenido!'),
                 const SerManosSizedBox.xl(),

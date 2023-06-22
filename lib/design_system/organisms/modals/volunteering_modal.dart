@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 
-class SerManosVolunteeringModal extends StatelessWidget {
-  final VolunteeringModel volunteering;
+class SerManosVolunteeringModal extends StatefulWidget {
+  final VolunteeringModel? volunteering;
   final String title;
+  final String acceptText;
   final Function onConfirm;
 
   const SerManosVolunteeringModal(
       {super.key,
-      required this.volunteering,
+      this.volunteering,
+      this.acceptText = 'Confirmar',
       required this.title,
       required this.onConfirm});
+
+  @override
+  State<SerManosVolunteeringModal> createState() =>
+      _SerManosVolunteeringModalState();
+}
+
+class _SerManosVolunteeringModalState extends State<SerManosVolunteeringModal> {
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +49,10 @@ class SerManosVolunteeringModal extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SerManosText.subtitle1(title),
-              SerManosText.headline2(volunteering.title),
+              SerManosText.subtitle1(widget.title),
+              if (widget.volunteering != null)
+                SerManosText.headline2(widget.volunteering!.title),
+              const SerManosSizedBox.sm()
             ],
           ),
         ),
@@ -47,14 +60,26 @@ class SerManosVolunteeringModal extends StatelessWidget {
           SerManosTextButton.shortTextButton(
             text: 'Cancelar',
             filled: false,
-            onPressed: () => Navigator.pop(context),
+            disabled: _loading,
+            onPressed: () => Navigator.pop(context, "Cancel"),
+          ),
+          const SerManosSizedBox.sm(
+            useWidth: true,
           ),
           SerManosTextButton.shortTextButton(
-            text: 'Confirmar',
+            text: widget.acceptText,
             filled: false,
+            disabled: _loading,
+            loading: _loading,
             onPressed: () async {
-              await onConfirm();
-              Navigator.pop(context);
+              setState(() {
+                _loading = true;
+              });
+              await widget.onConfirm();
+              setState(() {
+                _loading = false;
+              });
+              Navigator.pop(context, "Confirm");
             },
           ),
         ],

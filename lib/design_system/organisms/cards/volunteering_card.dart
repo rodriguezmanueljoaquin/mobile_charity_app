@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
@@ -10,10 +9,11 @@ import 'package:mobile_charity_app/design_system/tokens/shadows.dart';
 import 'package:mobile_charity_app/design_system/tokens/sizes.dart';
 import 'package:mobile_charity_app/design_system/tokens/spacing.dart';
 import 'package:mobile_charity_app/design_system/tokens/typography.dart';
-import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/routes/paths.dart';
+import 'package:mobile_charity_app/utils/handle_exception.dart';
+import 'package:mobile_charity_app/utils/map.dart';
 import 'package:provider/provider.dart';
 
 class SerManosVolunteeringCard extends StatefulWidget {
@@ -50,7 +50,9 @@ class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SerManosText.overline(widget.volunteering.category.toUpperCase()),
+              SerManosText.overline(
+                widget.volunteering.category.toUpperCase(),
+              ),
               SerManosText.subtitle1(widget.volunteering.title),
               const SerManosSizedBox.xs(),
               SerManosVacancies(
@@ -64,10 +66,13 @@ class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
             Consumer<UserProvider>(
               builder: (context, userProvider, child) => SerManosIconButton(
                 onPressed: () {
-                  userProvider.setVolunteeringAsFavorite(
-                    volunteeringId: widget.volunteering.id,
-                    isFavorite: !_isFavorite,
-                  );
+                  userProvider
+                      .setVolunteeringAsFavorite(
+                        volunteeringId: widget.volunteering.id,
+                        isFavorite: !_isFavorite,
+                      )
+                      .catchError((error) =>
+                          handleException(context: context, error: error));
 
                   setState(() {
                     _isFavorite = !_isFavorite;
@@ -81,10 +86,7 @@ class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
             ),
             const SerManosSizedBox.sl(useWidth: true, useHeight: false),
             SerManosIconButton(
-              onPressed: () {
-                // open gmaps
-                // GeoPoint location = widget.volunteering.location;
-              },
+              onPressed: () => showVolunteeringMap(widget.volunteering),
               icon: const SerManosIcon.location(isPrimaryAction: true),
             )
           ],
@@ -103,10 +105,10 @@ class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
         },
       ),
       child: Container(
-        width: SerManosSizes.sizeLG,
         decoration: BoxDecoration(
           color: SerManosColors.neutral0,
           boxShadow: SerManosShadows.shadow2,
+          borderRadius: BorderRadius.circular(2),
         ),
         child: Column(
           children: [
@@ -114,7 +116,7 @@ class _SerManosVolunteeringCardState extends State<SerManosVolunteeringCard> {
               height: 138,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(widget.volunteering.imageURL),
+                  image: NetworkImage(widget.volunteering.downloadImageURL!),
                   fit: BoxFit.cover,
                 ),
               ),

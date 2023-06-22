@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile_charity_app/design_system/atoms/images.dart';
 import 'package:mobile_charity_app/design_system/atoms/sized_box.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
 import 'package:mobile_charity_app/design_system/tokens/colors.dart';
@@ -28,7 +27,11 @@ class SerManosNewsCard extends StatelessWidget {
           children: [
             SerManosText.overline(news.source),
             SerManosText.subtitle1(news.title),
-            SerManosText.body2(news.summary),
+            SerManosText.body2(
+              news.summary,
+              maxLines: 5,
+              overflow: TextOverflow.ellipsis,
+            ),
           ],
         ),
         const SerManosSizedBox.sm(),
@@ -52,10 +55,10 @@ class SerManosNewsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: SerManosSizes.sizeLG,
       decoration: BoxDecoration(
         color: SerManosColors.neutral0,
         boxShadow: SerManosShadows.shadow2,
+        borderRadius: BorderRadius.circular(2),
       ),
       child: IntrinsicHeight(
         child: Row(
@@ -64,7 +67,7 @@ class SerManosNewsCard extends StatelessWidget {
               width: 118,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: Image.network(news.imageURL).image,
+                  image: Image.network(news.downloadImageURL!).image,
                   fit: BoxFit.cover,
                 ),
               ),

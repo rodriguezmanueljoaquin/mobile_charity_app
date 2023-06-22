@@ -1,18 +1,32 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:logger/logger.dart';
+import 'package:mobile_charity_app/api/ser_manos_storage.dart';
+import 'package:mobile_charity_app/models/exceptions.dart';
 import 'package:mobile_charity_app/models/news.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
-import 'package:mobile_charity_app/utils/firestore.dart';
 import 'package:mobile_charity_app/utils/logger.dart';
+
+Map<String, dynamic> buildProperties(DocumentSnapshot<Object?> doc) {
+  Map<String, dynamic> properties = doc.data() as Map<String, dynamic>;
+  properties['id'] = doc.id;
+  return properties;
+}
 
 class SerManosApi {
   // singleton
   static final SerManosApi _serManosApi = SerManosApi._internal();
+  static FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   factory SerManosApi() {
     return _serManosApi;
+  }
+
+  void setFirestore(FirebaseFirestore firestore) {
+    // method for testing purposes
+    _firestore = firestore;
   }
 
   SerManosApi._internal();
@@ -39,26 +53,27 @@ class SerManosApi {
         favoriteVolunteeringsIds: [],
       );
 
-      await FirebaseFirestore.instance
+      await _firestore
           .collection('users')
           .doc(userCredential.user!.uid)
           .set(newUser.toJson());
 
       return newUser.copyWith(id: userCredential.user!.uid);
     } on FirebaseAuthException catch (e) {
+      String message = e.message ?? 'Error registrando usuario';
       if (e.code == 'weak-password') {
         logger.d('The password provided is too weak.');
-        return null;
+        message = 'La contraseña es muy débil';
       } else if (e.code == 'email-already-in-use') {
         logger.d('The account already exists for that email.');
-        return null;
+        message = 'Ya existe una cuenta con ese correo';
       }
+
+      throw FormException(message);
     } catch (e) {
       logger.e(e);
-      return null;
+      rethrow;
     }
-
-    return null;
   }
 
   Future<UserModel?> getUserById({
@@ -66,12 +81,13 @@ class SerManosApi {
   }) async {
     try {
       DocumentSnapshot documentSnapshot =
-          await FirebaseFirestore.instance.collection('users').doc(id).get();
+          await _firestore.collection('users').doc(id).get();
 
-      return UserModel.fromJson(buildProperties(documentSnapshot));
+      return await UserModel.fromJson(buildProperties(documentSnapshot))
+          .fetchDownloadAvatarURL();
     } catch (e) {
       logger.e(e);
-      return null;
+      rethrow;
     }
   }
 
@@ -89,44 +105,52 @@ class SerManosApi {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         logger.w('No user found for that email.');
-        return null;
       } else if (e.code == 'wrong-password') {
         logger.w('Wrong password provided for that user.');
-        return null;
       }
+
+      throw FormException('Email o contraseña incorrectos');
     } catch (e) {
       logger.e(e);
-      return null;
+      rethrow;
     }
-
-    return null;
   }
 
   Future<List<VolunteeringModel>> getVolunteerings() async {
     try {
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('volunteerings').get();
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('volunteerings')
+          .orderBy('createdAt', descending: true)
+          .get();
 
-      return querySnapshot.docs
-          .map((e) => VolunteeringModel.fromJson(buildProperties(e)))
+      List<Future<VolunteeringModel>> volunteeringFutures = querySnapshot.docs
+          .map((e) => VolunteeringModel.fromJson(buildProperties(e))
+              .fetchDownloadImageURL())
           .toList();
+
+      return await Future.wait(volunteeringFutures);
     } catch (e) {
       logger.e(e);
-      return [];
+      rethrow;
     }
   }
 
   Future<List<NewsModel>> getNews() async {
     try {
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('news').get();
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('news')
+          .orderBy('createdAt', descending: true)
+          .get();
 
-      return querySnapshot.docs
-          .map((e) => NewsModel.fromJson(buildProperties(e)))
+      List<Future<NewsModel>> newsFutures = querySnapshot.docs
+          .map((e) =>
+              NewsModel.fromJson(buildProperties(e)).fetchDownloadImageURL())
           .toList();
+
+      return await Future.wait(newsFutures);
     } catch (e) {
       logger.d(e);
-      return [];
+      rethrow;
     }
   }
 
@@ -134,19 +158,20 @@ class SerManosApi {
     required String volunteeringId,
   }) async {
     try {
-      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+      DocumentSnapshot documentSnapshot = await _firestore
           .collection('volunteerings')
           .doc(volunteeringId)
           .get();
 
-      return VolunteeringModel.fromJson(buildProperties(documentSnapshot));
+      return await VolunteeringModel.fromJson(buildProperties(documentSnapshot))
+          .fetchDownloadImageURL();
     } catch (e) {
       logger.e(e);
-      return null;
+      rethrow;
     }
   }
 
-  Future<bool> setVolunteeringAsFavorite({
+  Future<void> setVolunteeringAsFavorite({
     required String userId,
     required String volunteeringId,
     required bool isFavorite,
@@ -156,14 +181,12 @@ class SerManosApi {
           ? FieldValue.arrayUnion([volunteeringId])
           : FieldValue.arrayRemove([volunteeringId]);
 
-      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+      await _firestore.collection('users').doc(userId).update({
         'favoriteVolunteeringsIds': fieldValue,
       });
-
-      return true;
     } catch (e) {
       logger.e(e);
-      return false;
+      rethrow;
     }
   }
 
@@ -171,29 +194,22 @@ class SerManosApi {
     required String userId,
     required String volunteeringId,
   }) async {
-    // Decrease vacancies by 1 and set current volunteering id
-    // Check that vacancies > 0
-    DocumentSnapshot volunteeringSnapshot = await FirebaseFirestore.instance
-        .collection('volunteerings')
-        .doc(volunteeringId)
-        .get();
+    DocumentSnapshot volunteeringSnapshot =
+        await _firestore.collection('volunteerings').doc(volunteeringId).get();
 
     VolunteeringModel volunteering =
         VolunteeringModel.fromJson(buildProperties(volunteeringSnapshot));
 
+    // Check that vacancies > 0
     if (volunteering.vacancies <= 0) {
       throw Exception('No vacancies available');
     }
 
-    await FirebaseFirestore.instance
-        .collection('volunteerings')
-        .doc(volunteeringId)
-        .update({
-      'vacancies': volunteering.vacancies - 1,
+    await _firestore.collection('volunteerings').doc(volunteeringId).update({
       'volunteersIds': FieldValue.arrayUnion([userId]),
     });
 
-    await FirebaseFirestore.instance.collection('users').doc(userId).update({
+    await _firestore.collection('users').doc(userId).update({
       'currentVolunteeringId': volunteeringId,
     });
   }
@@ -202,31 +218,55 @@ class SerManosApi {
     required String userId,
     required String volunteeringId,
   }) async {
-    // Increase vacancies by 1 and set current volunteering id to null
-    await FirebaseFirestore.instance
-        .collection('volunteerings')
-        .doc(volunteeringId)
-        .update({
-      'vacancies': FieldValue.increment(1),
+    await _firestore.collection('volunteerings').doc(volunteeringId).update({
       'volunteersIds': FieldValue.arrayRemove([userId]),
+      'participantsIds':
+          FieldValue.arrayRemove([userId]), // maybe user is participant
     });
 
-    await FirebaseFirestore.instance.collection('users').doc(userId).update({
+    await _firestore.collection('users').doc(userId).update({
       'currentVolunteeringId': null,
     });
   }
 
-  Future<bool> updateProfileInfo(UserModel user) async {
+  Future<void> updateProfileInfo({
+    required UserModel updatedUser,
+    required bool changedEmail,
+    File? avatar,
+  }) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.id)
-          .update(user.toJson());
+      if (changedEmail) {
+        await FirebaseAuth.instance.currentUser!
+            .updateEmail(updatedUser.email!);
+      }
 
-      return true;
+      if (avatar != null) {
+        final String key =
+            'users/${updatedUser.id}'; // should not change but just in case
+        await SerManosStorage().uploadFile(key: key, file: avatar);
+
+        updatedUser = updatedUser.copyWith(avatarImageKey: key);
+      }
+
+      await _firestore
+          .collection('users')
+          .doc(updatedUser.id)
+          .update(updatedUser.toJson());
+    } on FirebaseException catch (e) {
+      String message = 'Error actualizando el perfil';
+      if (e.plugin == 'firebase_storage') {
+        message = 'La imagen debe ocupar menos de 5MB';
+      }
+      logger.e(message);
+      throw FormException(message);
     } catch (e) {
       logger.e(e);
-      return false;
+      rethrow;
+    }
+    
+    catch (e) {
+      logger.e(e);
+      rethrow;
     }
   }
 }

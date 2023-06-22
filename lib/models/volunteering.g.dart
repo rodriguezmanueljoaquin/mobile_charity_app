@@ -11,20 +11,21 @@ _$_VolunteeringModel _$$_VolunteeringModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
-      imageURL: json['imageURL'] as String,
+      imageKey: json['imageKey'] as String,
       category: json['category'] as String,
       about: json['about'] as String,
       address: json['address'] as String,
-      requirements: (json['requirements'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
+      requirements: json['requirements'] as String,
       availability: (json['availability'] as List<dynamic>)
           .map((e) => Availability.fromJson(e as Map<String, dynamic>))
           .toList(),
-      vacancies: json['vacancies'] as int,
+      maxVacancies: json['maxVacancies'] as int,
       createdAt:
           const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
       volunteersIds: (json['volunteersIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      participantsIds: (json['participantsIds'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
       location:
@@ -37,14 +38,15 @@ Map<String, dynamic> _$$_VolunteeringModelToJson(
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
-      'imageURL': instance.imageURL,
+      'imageKey': instance.imageKey,
       'category': instance.category,
       'about': instance.about,
       'address': instance.address,
       'requirements': instance.requirements,
       'availability': instance.availability,
-      'vacancies': instance.vacancies,
+      'maxVacancies': instance.maxVacancies,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'volunteersIds': instance.volunteersIds,
+      'participantsIds': instance.participantsIds,
       'location': const GeoPointConverter().toJson(instance.location),
     };

@@ -14,3 +14,9 @@ const Map<int, String> dayOfWeekToStr = {
 String availabilityToStr(Availability availability) {
   return '${dayOfWeekToStr[availability.dayOfWeek]} de ${availability.startHour}h a ${availability.endHour}h';
 }
+
+String availabilitiesToMarkdown(List<Availability> availabilities) {
+  return availabilities
+      .map((availability) => '+ ${availabilityToStr(availability)}')
+      .join('\n');
+}

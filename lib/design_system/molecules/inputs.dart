@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_charity_app/design_system/atoms/icons.dart';
 import 'package:mobile_charity_app/design_system/molecules/buttons.dart';
@@ -21,6 +22,8 @@ class SerManosTextFormField extends StatefulWidget {
   final bool isPassword;
   final SerManosIcon? icon;
   final VoidCallback? iconOnPressed;
+  final Function onFieldSubmitted;
+  final bool phoneKeyboard;
 
   const SerManosTextFormField(
       {super.key,
@@ -33,18 +36,24 @@ class SerManosTextFormField extends StatefulWidget {
       this.disabled = false,
       this.isPassword = false,
       this.icon,
-      this.iconOnPressed});
+      this.iconOnPressed,
+      required this.onFieldSubmitted,
+      this.phoneKeyboard = false});
 
   @override
   State<SerManosTextFormField> createState() => _SerManosTextFormFieldState();
 }
 
 class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
+  FocusNode focusNode = FocusNode();
   bool _hasError = false;
   bool _visible = false;
 
   @override
   void initState() {
+    focusNode.addListener(() {
+      setState(() {});
+    });
     _visible = !widget.isPassword;
     super.initState();
   }
@@ -82,18 +91,21 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 70,
-      width: 328,
       child: TextFormField(
+        focusNode: focusNode,
+        keyboardType: widget.phoneKeyboard ? TextInputType.phone : null,
         autovalidateMode: AutovalidateMode.onUserInteraction,
+        onFieldSubmitted: (_) => widget.onFieldSubmitted(),
         controller: widget.controller,
         validator: _validator(),
         obscureText: !_visible,
         decoration: InputDecoration(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
           labelText: widget.label,
           hintText: widget.placeholder,
           enabled: !widget.disabled,
           contentPadding: const EdgeInsets.only(
-            left: 16,
+            left: SerManosSpacing.spaceSL,
           ),
           suffixIcon: widget.isPassword
               ? IconButton(
@@ -125,13 +137,14 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
                 ? SerManosColors.neutral50
                 : _hasError
                     ? SerManosColors.error100
-                    : SerManosColors.neutral75,
+                    : focusNode.hasFocus
+                        ? SerManosColors.secondary200
+                        : SerManosColors.neutral75,
           ),
           hintStyle: SerManosTextStyle.subtitle1(
             color: widget.disabled
                 ? SerManosColors.neutral50
-                : SerManosColors
-                    .neutral75, // TODO: should be secondary200 when focus?
+                : SerManosColors.neutral75,
           ),
           errorStyle: const SerManosTextStyle.body2(
             color: SerManosColors.error100,
@@ -170,9 +183,13 @@ class _SerManosTextFormFieldState extends State<SerManosTextFormField> {
 class SerManosPhoneFormField extends StatelessWidget {
   final TextEditingController controller;
   final String? placeholder;
+  final Function? onFieldSubmitted;
 
   const SerManosPhoneFormField(
-      {super.key, required this.controller, this.placeholder});
+      {super.key,
+      required this.controller,
+      this.placeholder,
+      this.onFieldSubmitted});
 
   @override
   Widget build(BuildContext context) {
@@ -180,6 +197,8 @@ class SerManosPhoneFormField extends StatelessWidget {
       controller: controller,
       label: 'Teléfono',
       placeholder: placeholder,
+      onFieldSubmitted: onFieldSubmitted ?? () {},
+      phoneKeyboard: true,
       validator: phoneValidator,
     );
   }
@@ -188,9 +207,13 @@ class SerManosPhoneFormField extends StatelessWidget {
 class SerManosEmailFormField extends StatelessWidget {
   final TextEditingController controller;
   final String? placeholder;
+  final Function? onFieldSubmitted;
 
   const SerManosEmailFormField(
-      {super.key, required this.controller, this.placeholder});
+      {super.key,
+      required this.controller,
+      this.placeholder,
+      this.onFieldSubmitted});
 
   @override
   Widget build(BuildContext context) {
@@ -198,6 +221,7 @@ class SerManosEmailFormField extends StatelessWidget {
       controller: controller,
       label: 'Email',
       placeholder: placeholder,
+      onFieldSubmitted: onFieldSubmitted ?? () {},
       validator: emailValidator,
     );
   }
@@ -206,9 +230,13 @@ class SerManosEmailFormField extends StatelessWidget {
 class SerManosPasswordFormField extends StatelessWidget {
   final TextEditingController controller;
   final String? placeholder;
+  final Function? onFieldSubmitted;
 
   const SerManosPasswordFormField(
-      {super.key, required this.controller, this.placeholder});
+      {super.key,
+      required this.controller,
+      this.placeholder,
+      this.onFieldSubmitted});
 
   @override
   Widget build(BuildContext context) {
@@ -217,6 +245,7 @@ class SerManosPasswordFormField extends StatelessWidget {
       label: 'Contraseña',
       placeholder: placeholder,
       validator: passwordValidator,
+      onFieldSubmitted: onFieldSubmitted ?? () {},
       isPassword: true,
     );
   }
@@ -237,6 +266,7 @@ class SerManosDateFormField extends StatelessWidget {
       placeholder: 'DD/MM/YYYY',
       validator: dateValidator,
       isPassword: false,
+      onFieldSubmitted: (_) {},
       icon: const SerManosIcon.calendar(
         isPrimaryAction: true,
       ),
@@ -276,27 +306,36 @@ class SerManosDateFormField extends StatelessWidget {
 
 class SerManosSearchField extends StatefulWidget {
   final TextEditingController controller;
+  final Function onFieldSubmitted;
 
-  const SerManosSearchField({super.key, required this.controller});
+  const SerManosSearchField(
+      {super.key, required this.controller, required this.onFieldSubmitted});
 
   @override
   State<SerManosSearchField> createState() => _SerManosSearchFieldState();
 }
 
 class _SerManosSearchFieldState extends State<SerManosSearchField> {
+  late final TextEditingController _controller;
   bool _hasText = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = widget.controller;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: SerManosSizes.sizeLG,
       decoration: BoxDecoration(
         color: SerManosColors.neutral0,
+        borderRadius: BorderRadius.circular(2),
         boxShadow: SerManosShadows.shadow1,
       ),
       // add white background
       child: TextField(
-        controller: widget.controller,
+        controller: _controller,
         textAlignVertical: TextAlignVertical.center,
         style: const SerManosTextStyle.subtitle1(),
         onChanged: (String value) {
@@ -311,7 +350,7 @@ class _SerManosSearchFieldState extends State<SerManosSearchField> {
             });
           }
         },
-        onSubmitted: (String value) => logger.i('Searching $value...'),
+        onSubmitted: (_) => widget.onFieldSubmitted,
         decoration: InputDecoration(
           hintText: 'Buscar',
           isCollapsed: true,

@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:mobile_charity_app/api/ser_manos_api.dart';
 import 'package:mobile_charity_app/models/user.dart';
 import 'package:mobile_charity_app/models/volunteering.dart';
 import 'package:mobile_charity_app/providers/user_provider.dart';
 import 'package:mobile_charity_app/utils/collections.dart';
 import 'package:mobile_charity_app/utils/logger.dart';
+import 'package:mobile_charity_app/utils/volunteerings.dart';
 
 class VolunteeringProvider extends ChangeNotifier {
   UserProvider? _userProvider;
@@ -26,16 +30,32 @@ class VolunteeringProvider extends ChangeNotifier {
     isFetchingVolunteerings = true;
 
     try {
-      List<VolunteeringModel> volunteerings =
+      List<VolunteeringModel> newVolunteerings =
           await SerManosApi().getVolunteerings();
-      if (_userProvider!.userLocation != null) {
-        // volunteerings.sort((a, b) => a.distance!.compareTo(b.distance!));
-        logger.d('volunteerings: ${volunteerings.length}');
+      if (_userProvider?.userLocation != null) {
+        newVolunteerings = sortVolunteeringsByDistanceToUser(
+            newVolunteerings, _userProvider!.userLocation!);
       }
-      _volunteeringsIndexById = listToIndexMapByKey(volunteerings, (e) => e.id);
-      _volunteerings = volunteerings;
+
+      _volunteeringsIndexById =
+          listToIndexMapByKey(newVolunteerings, (e) => e.id);
+      _volunteerings = newVolunteerings;
+    } catch (e) {
+      rethrow;
     } finally {
       isFetchingVolunteerings = false;
+      notifyListeners();
+    }
+  }
+
+  void sortVolunteeringsByDistance() {
+    if (_userProvider?.userLocation != null) {
+      _volunteerings = sortVolunteeringsByDistanceToUser(
+          _volunteerings!, _userProvider!.userLocation!);
+      
+      _volunteeringsIndexById =
+          listToIndexMapByKey(_volunteerings!, (e) => e.id);
+
       notifyListeners();
     }
   }
@@ -45,10 +65,19 @@ class VolunteeringProvider extends ChangeNotifier {
           ? _volunteerings![_volunteeringsIndexById![id]!]
           : null;
 
-  List<VolunteeringModel> searchVolunteeringsByTitle(String query) {
+  List<VolunteeringModel> searchVolunteeringsByTitleAndDescription(
+      String query) {
+    FirebaseAnalytics.instance.logEvent(
+      name: 'search_volunteerings',
+      parameters: {
+        'query': query,
+      },
+    );
+
     return _volunteerings!
         .where((element) =>
-            element.title.toLowerCase().contains(query.toLowerCase()))
+            element.title.toLowerCase().contains(query.toLowerCase()) ||
+            element.description.toLowerCase().contains(query.toLowerCase()))
         .toList();
   }
 
@@ -61,12 +90,19 @@ class VolunteeringProvider extends ChangeNotifier {
         volunteeringId: volunteeringId,
       );
 
+      // FirebaseAnalytics.instance.logEvent(
+      //   name: 'apply_to_volunteering',
+      //   parameters: {
+      //     'volunteering_id': volunteeringId,
+      //   },
+      // );
+
       // refetch user and volunteerings
       await fetchVolunteerings();
       await _userProvider!.fetchUser();
     } catch (e) {
-      // TODO: handle error
       logger.e(e);
+      rethrow;
     } finally {
       isApplyingToVolunteering = false;
     }
@@ -80,14 +116,18 @@ class VolunteeringProvider extends ChangeNotifier {
       throw Exception('Volunteering not found');
     }
 
-    // add or update volunteering
-    if (_volunteeringsIndexById?[volunteeringId] == null) {
-      // TODO: sort by distance
-      _volunteerings!.add(volunteering);
-      _volunteeringsIndexById?[volunteeringId] = _volunteerings!.length - 1;
-    } else {
-      _volunteerings![_volunteeringsIndexById![volunteeringId]!] = volunteering;
+    // set volunteering in list
+    final int volunteeringIndex = _volunteeringsIndexById![volunteeringId]!;
+    _volunteerings![volunteeringIndex] = volunteering;
+
+    // sort volunteerings by distance to user in case the location changed
+    if (_userProvider?.userLocation != null) {
+      _volunteerings = sortVolunteeringsByDistanceToUser(
+          _volunteerings!, _userProvider!.userLocation!);
     }
+
+    // recompute index map
+    _volunteeringsIndexById = listToIndexMapByKey(_volunteerings!, (e) => e.id);
 
     notifyListeners();
   }
@@ -107,12 +147,19 @@ class VolunteeringProvider extends ChangeNotifier {
         volunteeringId: user.currentVolunteeringId!,
       );
 
+      FirebaseAnalytics.instance.logEvent(
+        name: 'abandon_volunteering',
+        parameters: {
+          'volunteering_id': user.currentVolunteeringId!,
+        },
+      );
+
       // refetch user and volunteerings
       await fetchVolunteerings();
       await _userProvider!.fetchUser();
     } catch (e) {
-      // TODO: handle error
       logger.e(e);
+      rethrow;
     } finally {
       isApplyingToVolunteering = false;
     }
